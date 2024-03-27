@@ -65,12 +65,18 @@ const Input = React.forwardRef<
             <input ref={ref} {...props} className={classes} />
           )}
           <div
-            className={`absolute top-[calc(0.375rem+1px)] text-icon-400 transition-all peer-hover:text-icon-500 peer-focus:text-icon-900 sm:top-[calc(0.5rem+1px)] ${
-              size === "md" ? "sm:p-[2px]" : ""
+            className={`absolute text-icon-400 transition-all peer-hover:text-icon-500 peer-focus:text-icon-900 ${
+              size === "md"
+                ? "top-[calc(0.5rem+1px)] sm:p-[2px]"
+                : "top-[calc(0.375rem+1px)] sm:top-[calc(0.5rem+1px)]"
             } ${
               iconSide === "right"
-                ? "right-[calc(0.375rem+1px)] sm:right-[calc(0.5rem+1px)]"
-                : "left-[calc(0.375rem+1px)] sm:left-[calc(0.5rem+1px)]"
+                ? size === "md"
+                  ? "right-[calc(0.5rem+1px)]"
+                  : "right-[calc(0.375rem+1px)] sm:right-[calc(0.5rem+1px)]"
+                : size === "md"
+                  ? "left-[calc(0.5rem+1px)]"
+                  : "left-[calc(0.375rem+1px)] sm:left-[calc(0.5rem+1px)]"
             }`}
           >
             {icon}

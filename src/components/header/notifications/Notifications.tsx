@@ -66,7 +66,7 @@ export default function Notifications() {
         refetch();
       }}
     >
-      <DropdownMenu.Trigger className="relative h-fit rounded-[10px] border border-transparent p-2.5 text-icon-500 transition-all hover:bg-bg-100 hover:text-text-900 active:bg-white active:shadow-[0_0_0_2px_#FFFFFF,0_0_0_4px_#E4E5E7] disabled:text-text-300 disabled:shadow-none">
+      <DropdownMenu.Trigger className="relative h-fit rounded-[10px] border border-transparent p-2 text-icon-500 transition-all hover:bg-bg-100 hover:text-text-900 active:bg-white active:shadow-[0_0_0_2px_#FFFFFF,0_0_0_4px_#E4E5E7] disabled:text-text-300 disabled:shadow-none sm:p-2.5">
         <RiNotification3Line size={20} />
         {unreadCount ? (
           <div className="absolute right-2 top-1.5 size-3 rounded-full border-2 border-white bg-[#FC3747]" />

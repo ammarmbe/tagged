@@ -23,7 +23,7 @@ export default function Search() {
 
   return (
     <Dialog.Root open={searchOpen} onOpenChange={setSearchOpen}>
-      <Dialog.Trigger className="h-fit rounded-[10px] border border-transparent p-2.5 text-icon-500 transition-all hover:bg-bg-100 hover:text-text-900 active:bg-white active:shadow-[0_0_0_2px_#FFFFFF,0_0_0_4px_#E4E5E7] disabled:text-text-300 disabled:shadow-none">
+      <Dialog.Trigger className="h-fit rounded-[10px] border border-transparent p-2 text-icon-500 transition-all hover:bg-bg-100 hover:text-text-900 active:bg-white active:shadow-[0_0_0_2px_#FFFFFF,0_0_0_4px_#E4E5E7] disabled:text-text-300 disabled:shadow-none sm:p-2.5">
         <RiSearch2Line size={20} />
       </Dialog.Trigger>
       <Dialog.Overlay className="fixed inset-0 z-50 bg-black/60 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />

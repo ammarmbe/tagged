@@ -48,7 +48,7 @@ export default function Page({ params }: { params: { nano_id: string } }) {
         title={data?.name}
         icon={<RiTShirt2Line size={24} className="text-icon-500" />}
         description={
-          <>
+          <span className="flex items-center gap-2">
             <TooltipComponent
               trigger={
                 <span className="underline-offset-2 hover:underline">
@@ -88,7 +88,7 @@ export default function Page({ params }: { params: { nano_id: string } }) {
                 data?.quantities?.map((q) => <p key={q}>{q}</p>) || "0 in stock"
               }
             />
-          </>
+          </span>
         }
         buttonNode={
           <UpdateStock
