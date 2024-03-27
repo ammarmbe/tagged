@@ -6,7 +6,6 @@ import RevenueByCategory from "@/components/home/RevenueByCategory";
 import ViewsOverview from "@/components/home/ViewsOverview/ViewsOverview";
 import ViewsByCategory from "@/components/home/ViewsByCategory";
 import getUser from "@/utils/getUser";
-import { RiArrowRightLine } from "react-icons/ri";
 
 export default async function Home() {
   const { user } = await getUser();
@@ -17,11 +16,6 @@ export default async function Home() {
         icon={<div className="row-span-2 size-5 rounded-full bg-bg-100" />}
         title={user?.name}
         description={user?.email}
-        button={{
-          text: "Move Money",
-          iconRight: <RiArrowRightLine size={20} />,
-          color: "main",
-        }}
       />
       <div className="grid grid-cols-1 gap-6 px-8 pb-6 pt-1 2xl:grid-cols-[auto,1fr]">
         <div className="grid grid-cols-1 gap-6">

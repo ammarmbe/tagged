@@ -7,6 +7,8 @@ import StatusHistory from "@/components/order/StatusHistory";
 import { RiInboxUnarchiveLine, RiMindMap } from "react-icons/ri";
 import { LuDot } from "react-icons/lu";
 import Status from "@/components/Status";
+import UpdateStatus from "@/components/order/UpdateStatus";
+import Button from "@/components/primitives/Button";
 
 export default function Page({ params }: { params: { nano_id: string } }) {
   const { data, isFetching } = useQuery({
@@ -47,11 +49,19 @@ export default function Page({ params }: { params: { nano_id: string } }) {
             {data?.governorate}
           </>
         }
-        button={{
-          text: "Update Status",
-          iconLeft: <RiMindMap size={20} />,
-          color: "main",
-        }}
+        buttonNode={
+          <UpdateStatus
+            trigger={
+              <Button
+                text="Update Status"
+                iconLeft={<RiMindMap size={20} />}
+                color="main"
+              />
+            }
+            current_status={data?.status}
+            data={data}
+          />
+        }
       />
       <div className="flex flex-wrap gap-6 px-8 pb-6 pt-1">
         <Address
