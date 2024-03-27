@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { LuDot } from "react-icons/lu";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { formatCurrency } from "@/utils";
 dayjs.extend(relativeTime);
 
 export default function Notifications() {
@@ -193,10 +194,10 @@ export default function Notifications() {
                         {n.type === "new-order" ? (
                           <>
                             <LuDot size={8} />
-                            <span>worth ${n.order_total}</span>
+                            <span>worth {formatCurrency(n.order_total)}</span>
                           </>
                         ) : null}
-                        {!n.read ? (
+                        {unreadCount && !n.read ? (
                           <>
                             <LuDot size={8} />
                             <span
