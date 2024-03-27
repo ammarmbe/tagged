@@ -33,10 +33,8 @@ export default function Sidebar({ collapsed }: { collapsed: boolean }) {
   if (pathname === "/login" || pathname === "/item/new") return null;
 
   return (
-    <aside
-      className={`sticky top-0 flex h-screen flex-none flex-col gap-3 border-r ${collapsed ? "p-3" : "p-5"}`}
-    >
-      <div className="flex-grow">
+    <aside className="sticky top-0 flex h-screen flex-none flex-col gap-3 border-r">
+      <div className={`flex-grow ${collapsed ? "p-3" : "p-5"}`}>
         {collapsed ? null : (
           <p className="subheading-xsmall mb-1.5 p-1 text-text-400">Menu</p>
         )}
@@ -92,20 +90,27 @@ export default function Sidebar({ collapsed }: { collapsed: boolean }) {
           ))}
         </nav>
       </div>
-      <div className="border-t" />
       {collapsed ? (
-        <div className="p-1">
-          <div className="size-8 rounded-full bg-gray-100" />
-        </div>
+        <Link href="/settings/profile" className="group flex flex-col">
+          <span className="mx-3 block border-t transition-all group-hover:border-transparent" />
+          <span className="block p-4">
+            <span className="block size-8 rounded-full bg-gray-100" />
+          </span>
+        </Link>
       ) : (
-        <div className="flex items-center gap-3 p-1 pt-3">
-          <div className="size-10 rounded-full bg-gray-100" />
-          <div className="flex min-w-32 flex-col gap-1 text-sm">
-            <p className="label-small">{user?.name}</p>
-            <p className="paragraph-xsmall text-text-500">{user?.email}</p>
-          </div>
-          <RiArrowRightSLine size={20} className="text-icon-500" />
-        </div>
+        <Link href="/settings/profile" className="group flex flex-col">
+          <span className="mx-5 block border-t transition-all group-hover:border-transparent" />
+          <span className="flex items-center gap-3 p-6 pt-5 transition-all group-hover:bg-bg-100">
+            <span className="block size-10 rounded-full bg-gray-100" />
+            <span className="flex min-w-32 flex-grow flex-col gap-1 text-sm">
+              <span className="label-small block">{user?.name}</span>
+              <span className="paragraph-xsmall block text-text-500">
+                {user?.email}
+              </span>
+            </span>
+            <RiArrowRightSLine size={20} className="text-icon-500" />
+          </span>
+        </Link>
       )}
     </aside>
   );

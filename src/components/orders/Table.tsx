@@ -279,42 +279,31 @@ export default function Table() {
               </div>
             ) : null}
           </div>
-          <table className="w-full min-w-[1000px] table-fixed">
-            <thead>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <tr key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => (
-                    <th
-                      key={header.id}
-                      className="paragraph-small bg-bg-100 px-6 py-2 font-normal text-text-500 first:rounded-l-lg last:rounded-r-lg"
-                      style={{
-                        width: header.column.columnDef.size + "%",
-                      }}
-                    >
-                      <button
-                        className="flex items-center gap-1"
-                        onClick={() => {
-                          if (
-                            orderBy?.column === header.column.columnDef.id &&
-                            orderBy?.direction === "desc"
-                          )
-                            setOrderBy(undefined);
-                          else if (
-                            orderBy?.column === header.column.columnDef.id &&
-                            orderBy?.direction === "asc"
-                          )
-                            setOrderBy({
-                              column: header.column.columnDef.id as
-                                | "status"
-                                | "total_price"
-                                | "total_items"
-                                | "total_discount"
-                                | "governorate"
-                                | "created_at",
-                              direction: "desc",
-                            });
-                          else
-                            header.column.columnDef.id &&
+          <div className="flex-grow overflow-auto">
+            <table className="w-full min-w-[1400px] table-fixed">
+              <thead>
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <tr key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => (
+                      <th
+                        key={header.id}
+                        className="paragraph-small bg-bg-100 px-6 py-2 font-normal text-text-500 first:rounded-l-lg last:rounded-r-lg"
+                        style={{
+                          width: header.column.columnDef.size + "%",
+                        }}
+                      >
+                        <button
+                          className="flex items-center gap-1"
+                          onClick={() => {
+                            if (
+                              orderBy?.column === header.column.columnDef.id &&
+                              orderBy?.direction === "desc"
+                            )
+                              setOrderBy(undefined);
+                            else if (
+                              orderBy?.column === header.column.columnDef.id &&
+                              orderBy?.direction === "asc"
+                            )
                               setOrderBy({
                                 column: header.column.columnDef.id as
                                   | "status"
@@ -323,80 +312,94 @@ export default function Table() {
                                   | "total_discount"
                                   | "governorate"
                                   | "created_at",
-                                direction: "asc",
+                                direction: "desc",
                               });
-                        }}
-                      >
-                        {header.isPlaceholder ? null : (
-                          <>
-                            {flexRender(
-                              header.column.columnDef.header,
-                              header.getContext(),
-                            )}
-                            {header.column.columnDef.id !== "id" ? (
-                              header.column.columnDef.id === orderBy?.column ? (
-                                orderBy?.direction === "asc" ? (
-                                  <RiArrowUpSLine size={16} />
-                                ) : orderBy?.direction === "desc" ? (
-                                  <RiArrowDownSLine size={16} />
+                            else
+                              header.column.columnDef.id &&
+                                setOrderBy({
+                                  column: header.column.columnDef.id as
+                                    | "status"
+                                    | "total_price"
+                                    | "total_items"
+                                    | "total_discount"
+                                    | "governorate"
+                                    | "created_at",
+                                  direction: "asc",
+                                });
+                          }}
+                        >
+                          {header.isPlaceholder ? null : (
+                            <>
+                              {flexRender(
+                                header.column.columnDef.header,
+                                header.getContext(),
+                              )}
+                              {header.column.columnDef.id !== "id" ? (
+                                header.column.columnDef.id ===
+                                orderBy?.column ? (
+                                  orderBy?.direction === "asc" ? (
+                                    <RiArrowUpSLine size={16} />
+                                  ) : orderBy?.direction === "desc" ? (
+                                    <RiArrowDownSLine size={16} />
+                                  ) : (
+                                    <RiExpandUpDownLine
+                                      size={16}
+                                      className="inline"
+                                    />
+                                  )
                                 ) : (
                                   <RiExpandUpDownLine
                                     size={16}
                                     className="inline"
                                   />
                                 )
-                              ) : (
-                                <RiExpandUpDownLine
-                                  size={16}
-                                  className="inline"
-                                />
-                              )
-                            ) : null}
-                          </>
-                        )}
-                      </button>
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody>
-              {table.getRowModel().rows.map((row) => (
-                <tr
-                  key={row.id}
-                  className="peer cursor-pointer border-t first:border-t-0 hover:border-transparent hover:bg-bg-100 [&+tr]:hover:border-transparent"
-                  role="button"
-                  onClick={() => {
-                    router.push("/order/" + row.original.nano_id);
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter")
+                              ) : null}
+                            </>
+                          )}
+                        </button>
+                      </th>
+                    ))}
+                  </tr>
+                ))}
+              </thead>
+              <tbody>
+                {table.getRowModel().rows.map((row) => (
+                  <tr
+                    key={row.id}
+                    className="peer cursor-pointer border-t first:border-t-0 hover:border-transparent hover:bg-bg-100 [&+tr]:hover:border-transparent"
+                    role="button"
+                    onClick={() => {
                       router.push("/order/" + row.original.nano_id);
-                  }}
-                  tabIndex={0}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <td
-                      key={cell.id}
-                      className={`paragraph-medium truncate px-6 py-4 first:rounded-l-xl last:rounded-r-xl ${
-                        cell.column.columnDef.id !== "total_price"
-                          ? "text-text-500"
-                          : ""
-                      }`}
-                      style={{
-                        width: cell.column.columnDef.size + "%",
-                      }}
-                    >
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter")
+                        router.push("/order/" + row.original.nano_id);
+                    }}
+                    tabIndex={0}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <td
+                        key={cell.id}
+                        className={`paragraph-medium truncate px-6 py-4 first:rounded-l-xl last:rounded-r-xl ${
+                          cell.column.columnDef.id !== "total_price"
+                            ? "text-text-500"
+                            : ""
+                        }`}
+                        style={{
+                          width: cell.column.columnDef.size + "%",
+                        }}
+                      >
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
         <footer className="pb-7">
           <div className="grid grid-cols-3">

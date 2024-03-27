@@ -1,4 +1,11 @@
-import { RiHistoryLine } from "react-icons/ri";
+import {
+  RiAddLine,
+  RiCheckDoubleLine,
+  RiCheckLine,
+  RiForbidLine,
+  RiHistoryLine,
+  RiShip2Line,
+} from "react-icons/ri";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../primitives/Loading";
 import { Fragment } from "react";
@@ -12,7 +19,12 @@ export default function StatusHistory({ nano_id }: { nano_id: string }) {
         {
           created_at: string;
           date: string;
-          status: string;
+          status:
+            | "confirmed"
+            | "shipped"
+            | "completed"
+            | "store_cancelled"
+            | "customer_cancelled";
         }[]
       >;
     },
@@ -29,16 +41,19 @@ export default function StatusHistory({ nano_id }: { nano_id: string }) {
       <div className="mx-4 border-t" />
       <div className="relative flex-grow">
         <Loading isFetching={isFetching} />
-        <div className="grid grid-cols-[1fr,auto] items-baseline gap-2 gap-x-16 p-4">
+        <div className="grid grid-cols-[1fr,auto] items-center gap-2 gap-x-16 p-4">
           {data?.[0]?.created_at ? (
             <>
-              <p className="paragraph-small text-text-500">
+              <p className="label-small flex items-center gap-1.5 capitalize">
+                <RiAddLine size={16} className="inline text-icon-500" />
+                Order created
+              </p>
+              <p className="paragraph-small text-end text-text-500">
                 {new Intl.DateTimeFormat("en-US", {
                   dateStyle: "medium",
                   timeStyle: "short",
                 }).format(new Date(data?.[0].created_at))}
               </p>
-              <p className="label-small text-end capitalize">Order created</p>
             </>
           ) : null}
           {data
@@ -48,14 +63,30 @@ export default function StatusHistory({ nano_id }: { nano_id: string }) {
             )
             .map((status) => (
               <Fragment key={status.date}>
-                <p className="paragraph-small text-text-500">
+                <p className="label-small flex items-center gap-1.5 capitalize">
+                  {status.status.endsWith("cancelled") ? (
+                    <RiForbidLine size={16} className="inline text-icon-500" />
+                  ) : status.status === "shipped" ? (
+                    <RiShip2Line size={16} className="inline text-icon-500" />
+                  ) : status.status === "confirmed" ? (
+                    <RiCheckLine size={16} className="inline text-icon-500" />
+                  ) : status.status === "completed" ? (
+                    <RiCheckDoubleLine
+                      size={16}
+                      className="inline text-icon-500"
+                    />
+                  ) : null}
+                  {status.status === "store_cancelled"
+                    ? "Cancelled by store"
+                    : status.status === "customer_cancelled"
+                      ? "Cancelled by customer"
+                      : status.status}
+                </p>
+                <p className="paragraph-small text-end text-text-500">
                   {new Intl.DateTimeFormat("en-US", {
                     dateStyle: "medium",
                     timeStyle: "short",
                   }).format(new Date(status.date))}
-                </p>
-                <p className="label-small text-end capitalize">
-                  {status.status}
                 </p>
               </Fragment>
             ))}

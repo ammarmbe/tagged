@@ -42,7 +42,7 @@ export default function Notifications() {
   }, [selected, refetch]);
 
   useEffect(() => {
-    setUnreadCount(notifications?.length || 0);
+    setUnreadCount(notifications?.filter((n) => !n.read).length || 0);
   }, [notifications]);
 
   const readMutation = useMutation({
