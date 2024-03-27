@@ -22,7 +22,7 @@ export default function ItemOverview({ nano_id }: { nano_id: string }) {
         </div>
         <ReactSelect
           instanceId={"item-overview"}
-          styles={selectStyles({ size: "xs", width: "150px" })}
+          styles={selectStyles({ size: "xs", width: "130px" })}
           options={[
             {
               value: "day",

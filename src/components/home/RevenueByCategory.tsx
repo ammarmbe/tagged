@@ -75,7 +75,7 @@ export default function RevenueByCategory() {
         </div>
         <ReactSelect
           instanceId={"revenue-by-category"}
-          styles={selectStyles({ size: "xs", width: "150px" })}
+          styles={selectStyles({ size: "xs", width: "130px" })}
           options={[
             {
               value: "day",

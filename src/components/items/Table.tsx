@@ -355,7 +355,7 @@ export default function Table() {
   return (
     <>
       <div className="flex flex-wrap justify-between gap-3 pb-4 pt-6">
-        <div className="grid min-w-[300px] grid-cols-3 gap-4 rounded-[10px] bg-bg-100 p-1">
+        <div className="hidden min-w-[300px] grid-cols-3 gap-4 rounded-[10px] bg-bg-100 p-1 sm:grid">
           <button
             className={`label-small rounded-[10px] px-4 py-1 transition-all ${
               !itemFilters.availability
@@ -387,7 +387,7 @@ export default function Table() {
             Out of stock
           </button>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex max-w-full items-center gap-3">
           {selected.length > 0 || allSelected ? (
             <>
               <p className="label-small text-text-400">
@@ -694,12 +694,12 @@ export default function Table() {
           </div>
         </div>
         <footer className="pb-7">
-          <div className="grid grid-cols-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3">
             <p className="paragraph-small self-center text-text-500">
               Page {table.getState().pagination.pageIndex + 1} of{" "}
               {Math.ceil((data[0]?.total_count || limit) / limit)}
             </p>
-            <div className="flex items-center gap-3 self-center justify-self-center">
+            <div className="flex items-center gap-3 self-center justify-self-end sm:justify-self-center">
               <button
                 className="rounded-[10px] border border-transparent p-2 text-text-500 transition-all hover:bg-bg-100 hover:text-text-900 active:bg-white active:shadow-[0_0_0_2px_#FFFFFF,0_0_0_4px_#E4E5E7] disabled:text-text-300 disabled:shadow-none"
                 disabled={table.getState().pagination.pageIndex === 0}
@@ -709,95 +709,108 @@ export default function Table() {
               >
                 <RiArrowLeftSLine size={18} />
               </button>
-              {Array.from({
-                length: Math.ceil(data[0]?.total_count / limit) || 1,
-              }).map((_, i) => {
-                const total = Math.ceil(data[0]?.total_count / limit);
-                const current = table.getState().pagination.pageIndex + 1;
-                const number = i + 1;
+              <div className="flex items-center justify-center gap-3">
+                {Array.from({
+                  length: Math.ceil(data[0]?.total_count / limit) || 1,
+                }).map((_, i) => {
+                  const total = Math.ceil(data[0]?.total_count / limit);
+                  const current = table.getState().pagination.pageIndex + 1;
+                  const number = i + 1;
 
-                if (total > 7) {
-                  if (number < 6 || number === total)
+                  if (total > 7) {
+                    if (number < 6 || number === total)
+                      return (
+                        <span
+                          key={i}
+                          className={`${
+                            i === table.getState().pagination.pageIndex
+                              ? "label-small text-text-900"
+                              : "label-small hidden text-text-400 sm:inline"
+                          }`}
+                        >
+                          {i + 1}
+                        </span>
+                      );
+                    if (number === 6 && number === current)
+                      return (
+                        <Fragment key={i}>
+                          <span
+                            className={`${
+                              i === table.getState().pagination.pageIndex
+                                ? "label-small text-text-900"
+                                : "label-small hidden text-text-400 sm:inline"
+                            }`}
+                          >
+                            {i + 1}
+                          </span>
+                          <span className="label-small hidden text-text-400 sm:inline">
+                            ...
+                          </span>
+                        </Fragment>
+                      );
+                    if (number < total - 1 && number === current)
+                      return (
+                        <Fragment key={i}>
+                          <span className="label-small hidden text-text-400 sm:inline">
+                            ...
+                          </span>
+                          <span
+                            className={`${
+                              i === table.getState().pagination.pageIndex
+                                ? "label-small text-text-900"
+                                : "label-small hidden text-text-400 sm:inline"
+                            }`}
+                          >
+                            {i + 1}
+                          </span>
+                          <span className="label-small hidden text-text-400 sm:inline">
+                            ...
+                          </span>
+                        </Fragment>
+                      );
+                    if (number === current)
+                      return (
+                        <Fragment key={i}>
+                          <span className="label-small hidden text-text-400 sm:inline">
+                            ...
+                          </span>
+                          <span
+                            className={`${
+                              i === table.getState().pagination.pageIndex
+                                ? "label-small text-text-900"
+                                : "label-small hidden text-text-400 sm:inline"
+                            }`}
+                          >
+                            {i + 1}
+                          </span>
+                        </Fragment>
+                      );
+
+                    if (number === 7 && (current < 6 || current === total))
+                      return (
+                        <span
+                          key={i}
+                          className="label-small hidden text-text-400 sm:inline"
+                        >
+                          ...
+                        </span>
+                      );
+                  } else {
                     return (
                       <span
                         key={i}
                         className={`${
                           i === table.getState().pagination.pageIndex
                             ? "label-small text-text-900"
-                            : "label-small text-text-400"
+                            : "label-small hidden text-text-400 sm:inline"
                         }`}
                       >
                         {i + 1}
                       </span>
                     );
-                  if (number === 6 && number === current)
-                    return (
-                      <Fragment key={i}>
-                        <span
-                          className={`${
-                            i === table.getState().pagination.pageIndex
-                              ? "label-small text-text-900"
-                              : "label-small text-text-400"
-                          }`}
-                        >
-                          {i + 1}
-                        </span>
-                        <span className="label-small text-text-400">...</span>
-                      </Fragment>
-                    );
-                  if (number < total - 1 && number === current)
-                    return (
-                      <Fragment key={i}>
-                        <span className="label-small text-text-400">...</span>
-                        <span
-                          className={`${
-                            i === table.getState().pagination.pageIndex
-                              ? "label-small text-text-900"
-                              : "label-small text-text-400"
-                          }`}
-                        >
-                          {i + 1}
-                        </span>
-                        <span className="label-small text-text-400">...</span>
-                      </Fragment>
-                    );
-                  if (number === current)
-                    return (
-                      <Fragment key={i}>
-                        <span className="label-small text-text-400">...</span>
-                        <span
-                          className={`${
-                            i === table.getState().pagination.pageIndex
-                              ? "label-small text-text-900"
-                              : "label-small text-text-400"
-                          }`}
-                        >
-                          {i + 1}
-                        </span>
-                      </Fragment>
-                    );
-
-                  if (number === 7 && (current < 6 || current === total))
-                    return (
-                      <span key={i} className="label-small text-text-400">
-                        ...
-                      </span>
-                    );
-                } else {
-                  return (
-                    <span
-                      key={i}
-                      className={`${
-                        i === table.getState().pagination.pageIndex
-                          ? "label-small text-text-900"
-                          : "label-small text-text-400"
-                      }`}
-                    >
-                      {i + 1}
-                    </span>
-                  );
-                }
-              })}
+                  }
+                })}
+              </div>
               <button
                 className="rounded-[10px] border border-transparent p-2 text-text-500 transition-all hover:bg-bg-100 hover:text-text-900 active:bg-white active:shadow-[0_0_0_2px_#FFFFFF,0_0_0_4px_#E4E5E7] disabled:text-text-300 disabled:shadow-none"
                 onClick={async () => {
@@ -812,7 +825,7 @@ export default function Table() {
                 <RiArrowRightSLine size={18} />
               </button>
             </div>
-            <div className="self-center justify-self-end">
+            <div className="hidden self-center justify-self-end sm:block">
               <ReactSelect
                 instanceId={"limit"}
                 styles={selectStyles({ size: "xs", width: "120px" })}

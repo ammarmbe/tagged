@@ -98,7 +98,7 @@ export default function Page({ params }: { params: { nano_id: string } }) {
                 <Button
                   color="main"
                   size="md"
-                  className="justify-center"
+                  className="flex-none justify-center"
                   iconLeft={<RiBox3Line size={20} />}
                   text="Update Stock"
                 />
@@ -107,12 +107,12 @@ export default function Page({ params }: { params: { nano_id: string } }) {
           />
         }
       />
-      <div className="grid grid-cols-1 gap-6 px-8 pb-6 pt-1 2xl:grid-cols-[auto,1fr]">
-        <div className="flex flex-col gap-6">
+      <div className="grid grid-cols-1 gap-4 px-5 pb-6 pt-1 sm:gap-6 sm:px-8 2xl:grid-cols-[auto,1fr]">
+        <div className="flex flex-col gap-4 sm:gap-6">
           <Info data={data} isFetching={isFetching} nano_id={params.nano_id} />
           <Configurations nano_id={params.nano_id} />
         </div>
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4 sm:gap-6">
           <Overview nano_id={params.nano_id} />
           <Sales nano_id={params.nano_id} />
         </div>

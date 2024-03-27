@@ -16,7 +16,7 @@ export default function ItemConfigurations({ nano_id }: { nano_id: string }) {
   });
 
   return (
-    <div className="card min-w-[350px] !gap-0 !p-0">
+    <div className="card !gap-0 !p-0 sm:min-w-[350px]">
       <div className="flex items-center justify-between gap-5 p-4">
         <div className="flex gap-2">
           <RiSettingsLine size={24} className="text-icon-500" />
@@ -24,7 +24,7 @@ export default function ItemConfigurations({ nano_id }: { nano_id: string }) {
         </div>
         <ReactSelect
           instanceId={"item-overview-sizes"}
-          styles={selectStyles({ size: "xs", width: "150px" })}
+          styles={selectStyles({ size: "xs", width: "130px" })}
           options={[
             {
               value: "day",
@@ -55,7 +55,7 @@ export default function ItemConfigurations({ nano_id }: { nano_id: string }) {
           }}
         />
       </div>
-      <div className="mx-4 grid min-w-[300px] grid-cols-2 gap-4 rounded-[10px] bg-bg-100 p-1">
+      <div className="mx-4 grid grid-cols-2 gap-4 rounded-[10px] bg-bg-100 p-1 sm:min-w-[300px]">
         <button
           className={`label-small rounded-[10px] px-4 py-1 transition-all ${
             sizesOpen

@@ -13,7 +13,7 @@ export default function Page() {
         title="Orders"
         description="View and track your orders"
       />
-      <div className="relative flex flex-grow flex-col px-8">
+      <div className="relative flex flex-grow flex-col px-5 sm:px-8">
         <Suspense fallback={<Loading />}>
           <div className="flex justify-between gap-8 py-4">
             <div className="space-y-1">
@@ -25,6 +25,7 @@ export default function Page() {
             <Button
               text="Export As"
               color="gray"
+              className="flex-none"
               iconLeft={<RiUploadLine size={20} />}
               size="md"
             />

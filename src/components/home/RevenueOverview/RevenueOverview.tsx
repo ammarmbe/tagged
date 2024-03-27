@@ -43,7 +43,7 @@ export default function RevenueOverview() {
         </div>
         <ReactSelect
           instanceId={"revenue-overview"}
-          styles={selectStyles({ size: "xs", width: "150px" })}
+          styles={selectStyles({ size: "xs", width: "130px" })}
           options={[
             {
               value: "day",

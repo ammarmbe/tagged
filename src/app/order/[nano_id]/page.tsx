@@ -54,6 +54,7 @@ export default function Page({ params }: { params: { nano_id: string } }) {
             trigger={
               <Button
                 text="Update Status"
+                className="flex-none"
                 iconLeft={<RiMindMap size={20} />}
                 color="main"
               />
@@ -63,7 +64,7 @@ export default function Page({ params }: { params: { nano_id: string } }) {
           />
         }
       />
-      <div className="flex flex-wrap gap-6 px-8 pb-6 pt-1">
+      <div className="grid flex-wrap gap-4 px-5 pb-6 pt-1 sm:flex sm:gap-6 sm:px-8">
         <Address
           address={{
             address_hidden: data?.address_hidden,

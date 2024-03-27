@@ -22,7 +22,7 @@ export default function ViewsOverview() {
         </div>
         <ReactSelect
           instanceId={"views-overview"}
-          styles={selectStyles({ size: "xs", width: "150px" })}
+          styles={selectStyles({ size: "xs", width: "130px" })}
           options={[
             {
               value: "day",

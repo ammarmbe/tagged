@@ -33,15 +33,15 @@ export default function BestCategories() {
   }, [range, refetch]);
 
   return (
-    <div className="card min-w-[350px] !p-0">
-      <div className="flex items-center justify-between gap-10 p-4 pb-0">
+    <div className="card !p-0 sm:min-w-[350px]">
+      <div className="flex items-center justify-between gap-4 p-4 pb-0 sm:gap-10">
         <div className="flex gap-2">
           <RiBox3Line size={24} className="text-icon-500" />
           <p className="label-medium">Best Categories</p>
         </div>
         <ReactSelect
           instanceId={"best-categories"}
-          styles={selectStyles({ size: "xs", width: "150px" })}
+          styles={selectStyles({ size: "xs", width: "130px" })}
           options={[
             {
               value: "day",

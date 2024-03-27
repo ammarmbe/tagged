@@ -24,13 +24,15 @@ export default function Header({
   buttonNode?: ReactNode;
 }) {
   return (
-    <header className="flex w-full items-center gap-3 px-8 py-5">
-      <div className="grid flex-grow grid-cols-[auto,1fr] gap-x-3.5 gap-y-1">
-        <div className="row-span-2 rounded-full border bg-white p-3 shadow-xs">
+    <header className="flex w-full items-center gap-3 px-5 py-3 sm:px-8 sm:py-5">
+      <div className="grid flex-grow gap-x-3.5 gap-y-1 sm:grid-cols-[auto,1fr]">
+        <div className="row-span-2 hidden rounded-full border bg-white p-3 shadow-xs sm:block">
           {icon}
         </div>
-        <p className="label-large">{title}</p>
-        <p className="paragraph-small text-text-500">{description}</p>
+        <p className="label-large truncate">{title}</p>
+        <p className="paragraph-small hidden text-text-500 sm:block">
+          {description}
+        </p>
       </div>
       <Search />
       <Notifications />
@@ -39,6 +41,7 @@ export default function Header({
       ) : button ? (
         <Button
           size="md"
+          className="flex-none"
           color={button.color}
           text={button.text}
           href={button.href}

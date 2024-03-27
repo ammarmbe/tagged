@@ -17,14 +17,14 @@ export default async function Home() {
         title={user?.name}
         description={user?.email}
       />
-      <div className="grid grid-cols-1 gap-6 px-8 pb-6 pt-1 2xl:grid-cols-[auto,1fr]">
-        <div className="grid grid-cols-1 gap-6">
+      <div className="grid grid-cols-1 gap-4 px-5 pb-6 pt-1 sm:gap-6 sm:px-8 2xl:grid-cols-[auto,1fr]">
+        <div className="grid max-w-full grid-cols-1 gap-4 sm:gap-6">
           <BestSellers />
           <BestCategories />
         </div>
         <RevenueOverview />
       </div>
-      <div className="grid grid-cols-1 gap-6 px-8 pb-6 2xl:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 px-5 pb-6 sm:gap-6 sm:px-8 2xl:grid-cols-2">
         <RevenueByCategory />
         <ViewsByCategory />
         <ViewsOverview />

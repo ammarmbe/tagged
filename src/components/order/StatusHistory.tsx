@@ -41,7 +41,7 @@ export default function StatusHistory({ nano_id }: { nano_id: string }) {
       <div className="mx-4 border-t" />
       <div className="relative flex-grow">
         <Loading isFetching={isFetching} />
-        <div className="grid grid-cols-[1fr,auto] items-center gap-2 gap-x-16 p-4">
+        <div className="grid grid-cols-[1fr,auto] items-center gap-2 p-4 sm:gap-x-16">
           {data?.[0]?.created_at ? (
             <>
               <p className="label-small flex items-center gap-1.5 capitalize">

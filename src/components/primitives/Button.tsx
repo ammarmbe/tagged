@@ -14,8 +14,8 @@ type ButtonProps = {
 const styles = {
   size: {
     xs: "p-1.5",
-    sm: "p-2",
-    md: "p-2.5",
+    sm: "sm:p-2 p-1.5",
+    md: "sm:p-2.5 p-2",
   },
   color: {
     main: "text-white border-main-base hover:border-main-dark active:border-main-base bg-main-base hover:bg-main-dark active:bg-main-base active:shadow-[0_0_0_2px_#FFFFFF,0_0_0_4px_#CAC2FF]",

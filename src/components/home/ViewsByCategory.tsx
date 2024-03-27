@@ -75,7 +75,7 @@ export default function ViewsByCategory() {
         </div>
         <ReactSelect
           instanceId={"views-by-category"}
-          styles={selectStyles({ size: "xs", width: "150px" })}
+          styles={selectStyles({ size: "xs", width: "130px" })}
           options={[
             {
               value: "day",

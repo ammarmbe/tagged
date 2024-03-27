@@ -54,7 +54,7 @@ export default function Resize({
         defaultSize={defaultSize}
         onCollapse={() => setCollapsed(true)}
         onExpand={() => setCollapsed(false)}
-        className="sticky top-0 h-screen"
+        className="sticky top-0 hidden h-screen sm:block"
       >
         <Sidebar collapsed={collapsed} />
       </Panel>
