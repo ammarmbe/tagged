@@ -42,7 +42,7 @@ export default function Page({ params }: { params: { nano_id: string } }) {
         title={`Order ${params.nano_id}`}
         description={
           <>
-            <Status status={data?.status} />
+            <Status status={data?.status} inline />
             <LuDot size={16} />
             {data?.governorate}
           </>

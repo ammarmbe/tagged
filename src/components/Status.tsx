@@ -1,6 +1,7 @@
 export default function Status({
   status,
   size = "sm",
+  inline,
 }: {
   status?:
     | "pending"
@@ -11,6 +12,7 @@ export default function Status({
     | "customer_cancelled"
     | null;
   size?: "sm" | "md";
+  inline?: boolean;
 }) {
   let colors: {
     text: string;
@@ -65,7 +67,9 @@ export default function Status({
   if (!status) return null;
 
   return (
-    <div className="flex items-center justify-center">
+    <span
+      className={`flex items-center justify-center ${inline ? "inline" : "block"}`}
+    >
       <span
         className={`rounded-full px-2 py-0.5 ${size === "sm" ? "label-xsmall" : "label-small"}`}
         style={{
@@ -79,6 +83,6 @@ export default function Status({
           <span className="capitalize">{status}</span>
         )}
       </span>
-    </div>
+    </span>
   );
 }
