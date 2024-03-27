@@ -3,7 +3,7 @@ import getUser from "@/utils/getUser";
 
 export async function PATCH(req: Request) {
   const { searchParams } = new URL(req.url);
-  const id = searchParams.get("id") as string | undefined;
+  let id = searchParams.get("id") ? searchParams.get("id") : null;
 
   const { user } = await getUser();
 
