@@ -6,7 +6,6 @@ import { notFound } from "next/navigation";
 import { Fragment } from "react";
 import Configuration from "./Configuration";
 import { Item } from "./page";
-import { getBaseUrl } from "@/utils";
 import { useQuery } from "@tanstack/react-query";
 import Spinner from "@/components/Spinner";
 
@@ -14,7 +13,9 @@ export default function Page({ id, user }: { id: string; user: User | null }) {
   const { data: item, isLoading } = useQuery({
     queryKey: ["item", id],
     queryFn: async () => {
-      const res = await fetch(`${getBaseUrl()}/api/item?id=${id}`);
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_URL}/api/item?id=${id}`,
+      );
       return (await res.json()) as Item;
     },
   });

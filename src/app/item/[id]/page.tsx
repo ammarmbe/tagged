@@ -1,6 +1,5 @@
 import Item from "./Item";
 import getUser from "@/utils/getUser";
-import { getBaseUrl } from "@/utils";
 import { QueryClient } from "@tanstack/react-query";
 
 export type Item = {
@@ -30,7 +29,9 @@ export default async function Page({ params }: { params: { id: string } }) {
   await queryClient.prefetchQuery({
     queryKey: ["item", params.id],
     queryFn: async () => {
-      const res = await fetch(`${getBaseUrl()}/api/item?id=${params.id}`);
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_URL}/api/item?id=${params.id}`,
+      );
       return (await res.json()) as Item;
     },
   });

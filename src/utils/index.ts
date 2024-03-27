@@ -5,15 +5,6 @@ export const generalSans = localFont({
   src: "../../public/GeneralSans-Variable.woff2",
 });
 
-export const getBaseUrl = () => {
-  if (process.env.NODE_ENV === "development") {
-    // get local server url
-    return `http://localhost:3000`;
-  }
-
-  return `https://store-rust-iota.vercel.app`;
-};
-
 export const selectStyles: StylesConfig<
   {
     value: string;

@@ -3,7 +3,6 @@ import { verifyRequestOrigin } from "lucia";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { lucia } from "./utils/auth";
-import { getBaseUrl } from "./utils";
 
 export async function middleware(request: NextRequest): Promise<NextResponse> {
   if (request.method === "GET") {
@@ -16,7 +15,8 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
       const sessionId =
         request.cookies.get(lucia.sessionCookieName)?.value ?? null;
 
-      if (!sessionId) return NextResponse.redirect(getBaseUrl() + "/");
+      if (!sessionId)
+        return NextResponse.redirect(process.env.NEXT_PUBLIC_URL + "/");
 
       const { session } = await lucia.validateSession(sessionId);
 
@@ -34,13 +34,14 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
         // Next.js throws error when attempting to set cookies when rendering page
       }
 
-      if (!session) return NextResponse.redirect(getBaseUrl() + "/");
+      if (!session)
+        return NextResponse.redirect(process.env.NEXT_PUBLIC_URL + "/");
 
       return NextResponse.next();
     }
 
     if (request.nextUrl.pathname.startsWith("/item/")) {
-      fetch(`${getBaseUrl()}/api/views`, {
+      fetch(`${process.env.NEXT_PUBLIC_URL}/api/views`, {
         method: "POST",
         body: JSON.stringify({
           item_id: request.nextUrl.pathname.split("/item/")[1],
@@ -50,7 +51,7 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
     }
 
     if (request.nextUrl.pathname.startsWith("/shop/store/")) {
-      fetch(`${getBaseUrl()}/api/views`, {
+      fetch(`${process.env.NEXT_PUBLIC_URL}/api/views`, {
         method: "POST",
         body: JSON.stringify({
           store_id: request.nextUrl.pathname

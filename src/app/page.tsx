@@ -1,11 +1,10 @@
 import Item from "@/components/Item";
-import { getBaseUrl } from "@/utils";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Strip from "@/components/home/Strip";
 
 export default async function Home() {
   const res = await fetch(
-    `${getBaseUrl()}/api/home?categories=${["sweatpants", "hoodies", "jeans"].join(",")}&limit=10`,
+    `${process.env.NEXT_PUBLIC_URL}/api/home?categories=${["sweatpants", "hoodies", "jeans"].join(",")}&limit=10`,
     {
       cache: "reload",
     },
