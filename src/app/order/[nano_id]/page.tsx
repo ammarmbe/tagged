@@ -43,11 +43,11 @@ export default function Page({ params }: { params: { nano_id: string } }) {
         icon={<RiInboxUnarchiveLine size={24} className="text-icon-500" />}
         title={`Order ${params.nano_id}`}
         description={
-          <>
+          <span className="flex items-center gap-1.5">
             <Status status={data?.status} inline />
             <LuDot size={16} />
             {data?.governorate}
-          </>
+          </span>
         }
         buttonNode={
           <UpdateStatus
