@@ -8,26 +8,29 @@ export default function Resize({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const [minSize, setMinSize] = useState(20);
-  const [maxSize, setMaxSize] = useState(30);
-  const [defaultSize, setDefaultSize] = useState(20);
   const [collapsedSize, setCollapsedSize] = useState(10);
   const [collapsed, setCollapsed] = useState(false);
   const pathname = usePathname();
+  const [direction, setDirection] = useState<"horizontal" | "vertical">(
+    "horizontal",
+  );
 
   useLayoutEffect(() => {
     function setSize() {
-      if (pathname.startsWith("/settings")) {
-        setMinSize((61 / window.innerWidth) * 100);
-        setDefaultSize((61 / window.innerWidth) * 100);
-        setMaxSize((61 / window.innerWidth) * 100);
-        setCollapsedSize((61 / window.innerWidth) * 100);
-        return;
+      if (window.innerWidth < 640) {
+        setDirection("vertical");
+        setMinSize((64 / window.innerHeight) * 100);
+        setCollapsedSize((64 / window.innerHeight) * 100);
+      } else {
+        setDirection("horizontal");
+        if (pathname.startsWith("/settings")) {
+          setMinSize((61 / window.innerWidth) * 100);
+          setCollapsedSize((61 / window.innerWidth) * 100);
+        } else {
+          setMinSize((270 / window.innerWidth) * 100);
+          setCollapsedSize((61 / window.innerWidth) * 100);
+        }
       }
-
-      setMinSize((270 / window.innerWidth) * 100);
-      setDefaultSize((270 / window.innerWidth) * 100);
-      setMaxSize((400 / window.innerWidth) * 100);
-      setCollapsedSize((61 / window.innerWidth) * 100);
     }
 
     setSize();
@@ -41,22 +44,22 @@ export default function Resize({
 
   return (
     <PanelGroup
-      direction="horizontal"
+      direction={direction}
       id="main"
       autoSaveId="main"
-      className="fixed top-0 flex h-screen"
+      className="fixed top-0 flex h-screen !flex-col-reverse sm:flex-row"
     >
       <Panel
-        collapsible
+        collapsible={direction === "horizontal"}
         collapsedSize={collapsedSize}
         minSize={minSize}
-        maxSize={Math.min(maxSize, 40)}
-        defaultSize={defaultSize}
+        maxSize={minSize}
+        defaultSize={minSize}
         onCollapse={() => setCollapsed(true)}
         onExpand={() => setCollapsed(false)}
-        className="sticky top-0 hidden h-screen sm:block"
+        className="sticky top-0 h-screen"
       >
-        <Sidebar collapsed={collapsed} />
+        <Sidebar collapsed={collapsed} direction={direction} />
       </Panel>
       <PanelResizeHandle />
       <Panel defaultSize={80} className="!overflow-y-auto !overflow-x-hidden">

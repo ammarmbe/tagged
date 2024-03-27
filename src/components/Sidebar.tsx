@@ -11,26 +11,101 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-export default function Sidebar({ collapsed }: { collapsed: boolean }) {
+export default function Sidebar({
+  collapsed,
+  direction,
+}: {
+  collapsed: boolean;
+  direction: "horizontal" | "vertical";
+}) {
   const pathname = usePathname();
   const user = useUser();
 
   const [options] = useState([
-    { label: "Home", icon: <RiHomeLine size={20} />, link: "/" },
-    { label: "Items", icon: <RiTShirt2Line size={20} />, link: "/items" },
+    {
+      label: "Home",
+      icon: <RiHomeLine size={20} className="size-6 sm:size-5" />,
+      link: "/",
+    },
+    {
+      label: "Items",
+      icon: <RiTShirt2Line size={20} className="size-6 sm:size-5" />,
+      link: "/items",
+    },
     {
       label: "Orders",
-      icon: <RiShoppingBag2Line size={20} />,
+      icon: <RiShoppingBag2Line size={20} className="size-6 sm:size-5" />,
       link: "/orders",
     },
     {
       label: "Settings",
-      icon: <RiSettingsLine size={20} />,
+      icon: <RiSettingsLine size={20} className="size-6 sm:size-5" />,
       link: "/settings",
     },
   ]);
 
   if (pathname === "/login" || pathname === "/item/new") return null;
+
+  if (direction === "vertical") {
+    return (
+      <aside
+        className={`sticky top-0 flex flex-none flex-col gap-3 border-t ${pathname === "/settings" ? "" : "shadow-sm"}`}
+      >
+        <div className="flex-grow p-3">
+          <nav className="grid grid-cols-4 gap-1">
+            {options.map((option) => (
+              <Link
+                href={option.link}
+                key={option.label}
+                className={`relative flex items-center justify-center rounded-lg p-2 font-medium transition-all hover:bg-bg-100 ${
+                  (option.link === "/settings" &&
+                    pathname.startsWith(option.link)) ||
+                  pathname === option.link
+                    ? "bg-bg-100 text-text-900"
+                    : "text-text-500"
+                }`}
+              >
+                <span
+                  className={
+                    "transition-all " +
+                    ((option.link === "/settings" &&
+                      pathname.startsWith(option.link)) ||
+                    pathname === option.link
+                      ? "text-main-base"
+                      : "text-icon-500")
+                  }
+                >
+                  {option.icon}
+                </span>
+              </Link>
+            ))}
+          </nav>
+        </div>
+        {collapsed ? (
+          <Link href="/settings/profile" className="group flex flex-col">
+            <span className="mx-3 block border-t transition-all group-hover:border-transparent" />
+            <span className="block p-4">
+              <span className="block size-8 rounded-full bg-gray-100" />
+            </span>
+          </Link>
+        ) : (
+          <Link href="/settings/profile" className="group flex flex-col">
+            <span className="mx-5 block border-t transition-all group-hover:border-transparent" />
+            <span className="flex items-center gap-3 p-6 pt-5 transition-all group-hover:bg-bg-100">
+              <span className="block size-10 rounded-full bg-gray-100" />
+              <span className="flex min-w-32 flex-grow flex-col gap-1 text-sm">
+                <span className="label-small block">{user?.name}</span>
+                <span className="paragraph-xsmall block text-text-500">
+                  {user?.email}
+                </span>
+              </span>
+              <RiArrowRightSLine size={20} className="text-icon-500" />
+            </span>
+          </Link>
+        )}
+      </aside>
+    );
+  }
 
   return (
     <aside className="sticky top-0 flex h-screen flex-none flex-col gap-3 border-r">

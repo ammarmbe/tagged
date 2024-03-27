@@ -182,7 +182,7 @@ export default function Page() {
         description="Set shipping price and return policy"
       />
       <div className="mx-8 border-t" />
-      <div className="relative grid grid-cols-2 gap-x-20 gap-y-5 px-8 py-5">
+      <div className="relative grid grid-cols-2 gap-x-10 gap-y-5 px-8 py-5 sm:gap-x-20">
         <Loading isFetching={isFetching} />
         {editingPrice ? (
           <>

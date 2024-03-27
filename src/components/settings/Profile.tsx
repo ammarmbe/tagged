@@ -112,7 +112,7 @@ export default function Page() {
         description="Manage your store profile settings"
       />
       <div className="mx-8 border-t" />
-      <div className="grid grid-cols-2 gap-x-20 gap-y-5 px-8 py-5">
+      <div className="grid grid-cols-2 gap-x-10 gap-y-5 px-8 py-5 sm:gap-x-20">
         <div>
           <p className="label-small">Store ID</p>
           <div className="paragraph-small mt-1 text-text-500">{user?.id}</div>

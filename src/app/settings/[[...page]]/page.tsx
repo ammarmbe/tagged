@@ -5,7 +5,7 @@ import Shipping from "@/components/settings/Shipping";
 
 export default function Page({ params }: { params: { page: string[] } }) {
   return (
-    <main className="flex flex-grow">
+    <main className="flex h-full flex-grow flex-col-reverse sm:flex-row">
       <Sidebar page={params.page?.[0] || "profile"} />
       {params.page?.[0] === "shipping" ? (
         <Shipping />
