@@ -5,6 +5,7 @@ import { useState } from "react";
 import { RiCloseLine, RiMindMap } from "react-icons/ri";
 import Input from "../primitives/Input";
 import { toast } from "../primitives/toast/use-toast";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 const statuses = [
   {
@@ -37,25 +38,11 @@ const statuses = [
 ];
 
 export default function UpdateStatus({
-  data,
+  nano_id,
   trigger,
   current_status,
 }: {
-  data:
-    | {
-        nano_id: string;
-        status?:
-          | "pending"
-          | "confirmed"
-          | "shipped"
-          | "completed"
-          | "store_cancelled"
-          | "customer_cancelled"
-          | null
-          | undefined;
-        governorate?: string | undefined;
-      }
-    | undefined;
+  nano_id: string;
   trigger: React.ReactNode;
   current_status:
     | "pending"
@@ -83,7 +70,7 @@ export default function UpdateStatus({
   const [cancelReasonOpen, setCancelReasonOpen] = useState(false);
 
   const updateStatusMutation = useMutation({
-    mutationKey: ["updateStatus", data?.nano_id],
+    mutationKey: ["updateStatus", nano_id],
     mutationFn: async ({
       status,
       cancel_reason,
@@ -101,7 +88,7 @@ export default function UpdateStatus({
       await fetch(`/api/order/update-status`, {
         method: "POST",
         body: JSON.stringify({
-          nano_id: data?.nano_id,
+          nano_id: nano_id,
           status,
           cancel_reason,
         }),
@@ -123,19 +110,52 @@ export default function UpdateStatus({
       // Update header and info card query
       await queryClient.invalidateQueries({
         predicate: (query) => {
-          return query.queryKey[1] == data?.nano_id;
+          return query.queryKey[1] == nano_id;
         },
       });
     },
   });
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<{
+    status:
+      | "pending"
+      | "confirmed"
+      | "shipped"
+      | "completed"
+      | "store_cancelled"
+      | "customer_cancelled"
+      | null;
+    cancel_reason: string | null;
+  }>();
+
+  const onSubmit: SubmitHandler<{
+    status:
+      | "pending"
+      | "confirmed"
+      | "shipped"
+      | "completed"
+      | "store_cancelled"
+      | "customer_cancelled"
+      | null;
+    cancel_reason: string | null;
+  }> = (data) => {
+    updateStatusMutation.mutate(data);
+  };
+
   return (
     <Dialog.Root open={updateStatusOpen} onOpenChange={setUpdateStatusOpen}>
-      {trigger}
+      <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
         <Dialog.Content className="!pointer-events-none fixed inset-0 z-50 flex items-center justify-center rounded-2xl shadow-[0px_16px_32px_-12px_#585C5F1A] transition duration-200 ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-top-[2%] data-[state=open]:slide-in-from-top-[2%]">
-          <div className="pointer-events-auto h-fit max-w-2xl rounded-2xl bg-white sm:max-w-md">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="pointer-events-auto h-fit max-w-2xl rounded-2xl bg-white sm:max-w-md"
+          >
             <div className="flex gap-4 p-4">
               <div className="h-fit rounded-full border p-2.5 text-icon-500">
                 <RiMindMap size={24} />
@@ -164,7 +184,7 @@ export default function UpdateStatus({
               <div
                 className={`relative grid w-fit grid-cols-[42rem,42rem] transition-all sm:grid-cols-[28rem,28rem] ${
                   cancelReasonOpen
-                    ? "-ml-[42rem] max-h-[calc(9rem+2px)] sm:-ml-[28rem]"
+                    ? "-ml-[42rem] max-h-[calc(9rem+2px+1.375rem)] sm:-ml-[28rem]"
                     : "max-h-[calc(((5.75rem+2px)*5)+2rem+4rem)]"
                 }`}
               >
@@ -204,8 +224,12 @@ export default function UpdateStatus({
                       <div className="p-1">
                         <input
                           type="radio"
+                          {...register("status", {
+                            required: "Please select a status",
+                          })}
                           className="radio"
                           name="status"
+                          value={s.name}
                           checked={status === s.name}
                           onChange={(e) => {
                             if (
@@ -245,6 +269,14 @@ export default function UpdateStatus({
                   <Input
                     id="cancelReason"
                     value={cancelReason}
+                    {...register("cancel_reason", {
+                      required: {
+                        value: status === "store_cancelled",
+                        message: "Please provide a reason for canceling",
+                      },
+                    })}
+                    error={Boolean(errors.cancel_reason?.message)}
+                    errorMessage={errors.cancel_reason?.message}
                     className="w-full"
                     // @ts-ignore
                     rows={3}
@@ -262,6 +294,7 @@ export default function UpdateStatus({
                     : "Cancel"
                 }
                 size="md"
+                type="button"
                 onClick={() => {
                   if (status === "store_cancelled" && cancelReasonOpen)
                     setCancelReasonOpen(false);
@@ -278,20 +311,21 @@ export default function UpdateStatus({
                 }
                 size="md"
                 color="main"
+                type={
+                  status === "store_cancelled" && !cancelReasonOpen
+                    ? "button"
+                    : "submit"
+                }
                 className="justify-center"
                 disabled={updateStatusMutation.isPending || !status}
                 onClick={() => {
                   if (status === "store_cancelled" && !cancelReasonOpen) {
                     setCancelReasonOpen(true);
-                  } else
-                    updateStatusMutation.mutate({
-                      status,
-                      cancel_reason: cancelReason,
-                    });
+                  }
                 }}
               />
             </div>
-          </div>
+          </form>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

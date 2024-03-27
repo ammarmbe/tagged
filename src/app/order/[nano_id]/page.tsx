@@ -59,7 +59,7 @@ export default function Page({ params }: { params: { nano_id: string } }) {
               />
             }
             current_status={data?.status}
-            data={data}
+            nano_id={params.nano_id}
           />
         }
       />

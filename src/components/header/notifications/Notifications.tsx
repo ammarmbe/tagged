@@ -7,6 +7,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { LuDot } from "react-icons/lu";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { formatCurrency } from "@/utils";
+import { useRouter } from "next/navigation";
 dayjs.extend(relativeTime);
 
 export default function Notifications() {
@@ -14,6 +15,7 @@ export default function Notifications() {
     "all",
   );
   const [unreadCount, setUnreadCount] = useState(0);
+  const router = useRouter();
 
   const { data: notifications, refetch } = useQuery({
     queryKey: ["notifications", selected],
@@ -168,12 +170,12 @@ export default function Notifications() {
                       role={n.type === "new-order" ? "button" : undefined}
                       onClick={() => {
                         if (n.type === "new-order") {
-                          console.log("Navigate to order", n.order_nano_id);
+                          router.push(`/order/${n.order_nano_id}`);
                         }
                       }}
                       onKeyDown={(e) => {
                         if (e.key === "Enter" && n.type === "new-order") {
-                          console.log("Navigate to order", n.order_nano_id);
+                          router.push(`/order/${n.order_nano_id}`);
                         }
                       }}
                     >

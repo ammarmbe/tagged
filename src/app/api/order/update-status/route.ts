@@ -26,7 +26,7 @@ export async function POST(req: Request) {
   if (
     (status === "store_cancelled" && !cancel_reason) ||
     !statuses.includes(status) ||
-    statuses.findIndex((s) => s === current_status[0].status) >=
+    statuses.findIndex((s) => s === current_status[0]?.status) >=
       statuses.findIndex((s) => s === status)
   ) {
     return new Response(JSON.stringify(null), { status: 400 });
