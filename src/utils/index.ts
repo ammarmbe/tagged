@@ -21,15 +21,6 @@ function leapYear(year: number) {
   return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
 }
 
-export const getBaseUrl = () => {
-  if (process.env.NODE_ENV === "development") {
-    // get local server url
-    return `http://localhost:3000`;
-  }
-
-  return `https://store-rust-iota.vercel.app`;
-};
-
 export const months = (count: number = 12, short: boolean = false) => {
   const months = [
     "January",

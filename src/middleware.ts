@@ -3,7 +3,6 @@ import { verifyRequestOrigin } from "lucia";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { lucia } from "./utils/auth";
-import { getBaseUrl } from "./utils";
 
 export async function middleware(request: NextRequest): Promise<NextResponse> {
   if (request.method === "GET") {
@@ -16,11 +15,12 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
     const sessionId =
       request.cookies.get(lucia.sessionCookieName)?.value ?? null;
 
-    if (!sessionId) return NextResponse.redirect(getBaseUrl() + "/login");
+    if (!sessionId)
+      return NextResponse.redirect(process.env.NEXT_PUBLIC_URL + "/login");
     const { session, user } = await lucia.validateSession(sessionId);
 
     if (!session || !user.store)
-      return NextResponse.redirect(getBaseUrl() + "/login");
+      return NextResponse.redirect(process.env.NEXT_PUBLIC_URL + "/login");
 
     return NextResponse.next();
   }
