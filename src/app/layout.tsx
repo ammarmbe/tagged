@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import QueryClientProvider from "@/utils/QueryClientProvider";
+import { Toaster } from "@/components/primitives/toast/Toaster";
+import Resize from "@/utils/Resize";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +19,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <QueryClientProvider>
+        <body className={inter.className + " flex min-h-screen text-text-900"}>
+          <Toaster />
+          <Resize>{children}</Resize>
+        </body>
+      </QueryClientProvider>
     </html>
   );
 }
