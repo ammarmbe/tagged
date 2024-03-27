@@ -14,6 +14,7 @@ export default function OrderItems({ orderId }: { orderId: number }) {
         description: string;
         discount: number;
         id: number;
+        nano_id?: string;
         item_id: string;
         name: string;
         price: number;
@@ -37,10 +38,11 @@ export default function OrderItems({ orderId }: { orderId: number }) {
             className="bg-primary border-primary grid min-w-[250px] cursor-pointer grid-cols-[auto,1fr] items-center gap-4 rounded-lg border p-3 hover:bg-gray-50"
             onClick={(e) => {
               e.stopPropagation();
-              router.push(`/item/${item.item_id}`);
+              item.nano_id && router.push(`/item/${item.nano_id}`);
             }}
             onKeyDown={(e) => {
-              if (e.key === "Enter") router.push(`/item/${item.item_id}`);
+              if (e.key === "Enter" && item.nano_id)
+                router.push(`/item/${item.nano_id}`);
             }}
             tabIndex={0}
           >

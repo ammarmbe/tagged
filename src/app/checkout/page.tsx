@@ -11,6 +11,7 @@ export default function Page() {
       return (await cartRes.json()) as {
         id: string;
         store_id: string;
+        nano_id: string;
         item_id: string;
         item_name: string;
         store_name: string;

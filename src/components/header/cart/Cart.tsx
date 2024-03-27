@@ -13,6 +13,7 @@ export default function Cart() {
       id: string;
       store_id: string;
       item_id: string;
+      nano_id: string;
       discount: number;
       item_name: string;
       store_name: string;
@@ -42,6 +43,7 @@ export default function Cart() {
         id: string;
         store_id: string;
         item_id: string;
+        nano_id: string;
         item_name: string;
         store_name: string;
         discount: number;

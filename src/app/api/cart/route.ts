@@ -11,7 +11,7 @@ export async function GET() {
   }
 
   const data = await sql(
-    "SELECT items.name item_name, cart_items.id as id, users.name as store_name, users.id as store_id, items.id as item_id, items.price, COALESCE(items.discount, 0) as discount, cart_items.quantity as quantity, item_details.size as size, item_details.color as color FROM cart_items JOIN items ON items.id = cart_items.item_id JOIN users ON users.id = items.store_id JOIN item_details ON item_details.id = cart_items.item_detail_id WHERE user_id = $1",
+    "SELECT items.name as item_name, items.nano_id, cart_items.id as id, users.name as store_name, users.id as store_id, items.id as item_id, items.price, COALESCE(items.discount, 0) as discount, cart_items.quantity as quantity, item_details.size as size, item_details.color as color FROM cart_items JOIN items ON items.id = cart_items.item_id JOIN users ON users.id = items.store_id JOIN item_details ON item_details.id = cart_items.item_detail_id WHERE user_id = $1",
     [user.id],
   );
 

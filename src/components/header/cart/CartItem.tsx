@@ -11,6 +11,7 @@ export default function CartItem({
 }: {
   item: {
     id: string;
+    nano_id: string;
     discount: number;
     item_id: string;
     quantity: number;
@@ -27,6 +28,7 @@ export default function CartItem({
     SetStateAction<
       {
         id: string;
+        nano_id: string;
         item_id: string;
         discount: number;
         quantity: number;
@@ -102,7 +104,7 @@ export default function CartItem({
       <div>
         <div className="flex items-baseline justify-between gap-3">
           <Link
-            href={`/item/${item.item_id}`}
+            href={`/item/${item.nano_id}`}
             className="text-secondary truncate font-semibold"
           >
             {item.item_name}
@@ -118,7 +120,7 @@ export default function CartItem({
           </button>
         </div>
         <Link
-          href={`/shop/store/${item.store_name.toLocaleLowerCase() + "-" + item.store_id}`}
+          href={`/shop/store/${item.store_id}`}
           className="font-medium text-main-500"
         >
           {item.store_name}

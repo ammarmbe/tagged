@@ -14,7 +14,6 @@ import {
   Grid2X2,
   Filter,
 } from "lucide-react";
-import Link from "@/utils/Link";
 import { useState, useEffect, useMemo } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -81,6 +80,7 @@ export default function ShopStore({
         item_id: string;
         store_name: string;
         store_id: string;
+        nano_id: string;
         description: string;
         price: number;
         discount: number;
@@ -128,8 +128,8 @@ export default function ShopStore({
       <div className="mx-auto w-full max-w-[min(100%,80rem)] px-4">
         <div className="flex-grow overflow-hidden rounded-xl border">
           <div className="m-1.5 h-24 rounded-lg bg-gray-100"></div>
-          <div className="m-6 flex items-start justify-between gap-10">
-            <div className="flex gap-6">
+          <div className="m-6 flex flex-col items-center justify-between gap-x-10 gap-y-5 sm:flex-row sm:items-start">
+            <div className="flex flex-col items-center gap-x-6 gap-y-3 text-center sm:flex-row sm:items-start sm:text-start">
               <div className="bg-primary -mt-[4.5rem] flex size-24 rounded-full p-1.5">
                 <div className="flex-grow rounded-full bg-gray-100"></div>
               </div>

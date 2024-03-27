@@ -9,12 +9,18 @@ import { Item } from "./page";
 import { useQuery } from "@tanstack/react-query";
 import Spinner from "@/components/Spinner";
 
-export default function Page({ id, user }: { id: string; user: User | null }) {
+export default function Page({
+  nano_id,
+  user,
+}: {
+  nano_id: string;
+  user: User | null;
+}) {
   const { data: item, isLoading } = useQuery({
-    queryKey: ["item", id],
+    queryKey: ["item", nano_id],
     queryFn: async () => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}/api/item?id=${id}`,
+        `${process.env.NEXT_PUBLIC_URL}/api/item?nano_id=${nano_id}`,
       );
       return (await res.json()) as Item;
     },
@@ -77,7 +83,7 @@ export default function Page({ id, user }: { id: string; user: User | null }) {
                       From{" "}
                       <Link
                         className="font-semibold text-main-500"
-                        href={`/shop/store/${item.store_name.toLocaleLowerCase() + "-" + item.store_id}`}
+                        href={`/shop/store/${item.store_id}`}
                       >
                         {item.store_name}
                       </Link>

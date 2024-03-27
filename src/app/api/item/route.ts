@@ -2,15 +2,15 @@ import sql from "@/utils/db";
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
-  const id = searchParams.get("id");
+  const nano_id = searchParams.get("nano_id");
 
-  if (!id) {
-    return new Response("Missing id", { status: 400 });
+  if (!nano_id) {
+    return new Response("Missing nano_id", { status: 400 });
   }
 
   const data = await sql(
-    "SELECT categories, color, color_value, size, quantity, items.name as item_name, items.description as description, price, discount, users.name as store_name, users.id as store_id, items.id as item_id FROM item_details JOIN items ON items.id = item_details.item_id JOIN users ON users.id = items.store_id WHERE items.id = $1 AND items.deleted != true",
-    [id],
+    "SELECT categories, color, color_value, size, quantity, items.name as item_name, items.description as description, price, discount, users.name as store_name, users.id as store_id, items.id as item_id FROM item_details JOIN items ON items.id = item_details.item_id JOIN users ON users.id = items.store_id WHERE items.nano_id = $1 AND items.deleted != true",
+    [nano_id],
   );
 
   if (!data[0]) {

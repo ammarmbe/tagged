@@ -12,6 +12,7 @@ export default function Item({
     item_id: string;
     store_name: string;
     store_id: string;
+    nano_id: string;
     description: string;
     price: number;
     discount: number;
@@ -24,7 +25,7 @@ export default function Item({
 
   return (
     <div
-      className="border-primary relative flex cursor-pointer flex-col rounded-[10px] border p-2 shadow-sm transition-all hover:bg-gray-50 hover:!shadow-none sm:p-3"
+      className="border-primary relative flex cursor-pointer flex-col rounded-[10px] border p-3 shadow-sm transition-all hover:bg-gray-50 hover:!shadow-none"
       onMouseEnter={async () => {
         await queryClient.prefetchQuery({
           queryKey: ["item", item.item_id],
@@ -37,11 +38,11 @@ export default function Item({
       tabIndex={0}
       role="button"
       onClick={() => {
-        router.push(`/item/${item.item_id}`);
+        router.push(`/item/${item.nano_id}`);
       }}
       onKeyDown={(e) => {
         if (e.key === "Enter") {
-          router.push(`/item/${item.item_id}`);
+          router.push(`/item/${item.nano_id}`);
         }
       }}
     >
@@ -76,7 +77,7 @@ export default function Item({
       <p className="text-tertiary text-sm font-medium sm:text-base">
         From{" "}
         <Link
-          href={`/shop/store/${item.store_name.toLocaleLowerCase() + "-" + item.store_id}`}
+          href={`/shop/store/${item.store_id}`}
           className="font-semibold text-main-500 transition-colors hover:text-main-600"
         >
           {item.store_name}

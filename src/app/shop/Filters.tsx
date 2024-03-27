@@ -95,13 +95,15 @@ export default function Filters({
 
   return (
     <Dialog.Portal>
-      <Dialog.Overlay className="fixed inset-0 z-50 bg-black/30 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
-      <Dialog.Content className="bg-background bg-primary fixed inset-y-0 right-0 z-50 flex h-full w-3/4 flex-col justify-between gap-4 overflow-auto border-l shadow-lg transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm">
-        <Dialog.Close className="hover:text-quaternary text-quaternary active:bg-primary absolute right-6 top-6 rounded-lg p-1 transition-all hover:bg-gray-50 active:shadow-[0_0_0_4px_#98A2B324]">
-          <X size={20} />
-        </Dialog.Close>
-        <div className="p-6">
-          <h2 className="text-xl font-semibold">Filters</h2>
+      <Dialog.Overlay className="fixed inset-0 z-50 hidden bg-black/30 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 sm:block" />
+      <Dialog.Content className="fixed inset-y-0 right-0 z-50 flex h-full w-full flex-col justify-between gap-4 bg-white shadow-lg transition duration-100 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 sm:w-3/4 sm:max-w-md sm:border-l sm:ease-in-out sm:data-[state=closed]:duration-300 sm:data-[state=open]:duration-500 sm:data-[state=closed]:fade-out-100 sm:data-[state=open]:fade-in-100 sm:data-[state=closed]:slide-out-to-right sm:data-[state=open]:slide-in-from-right">
+        <div className="min-h-0 flex-grow overflow-auto p-6">
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-semibold">Filters</h2>
+            <Dialog.Close className="hover:text-quaternary text-quaternary active:bg-primary rounded-lg p-1 transition-all hover:bg-gray-50 active:shadow-[0_0_0_4px_#98A2B324]">
+              <X size={20} />
+            </Dialog.Close>
+          </div>
           <p className="text-tertiary text-sm">Apply filters to table data.</p>
           <div className="mt-6 space-y-5">
             {!noStore ? (
@@ -392,7 +394,7 @@ export default function Filters({
             </div>
           </div>
         </div>
-        <div className="flex justify-end gap-3 border-t px-6 py-4">
+        <div className="flex flex-none justify-end gap-3 border-t px-6 py-4">
           <DialogClose className="button gray">Cancel</DialogClose>
           <DialogClose
             className="button main"

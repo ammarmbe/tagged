@@ -70,6 +70,7 @@ export default function ShopAll({
         item_name: string;
         item_id: string;
         store_name: string;
+        nano_id: string;
         store_id: string;
         description: string;
         price: number;

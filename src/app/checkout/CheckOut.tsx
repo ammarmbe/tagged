@@ -24,6 +24,7 @@ export default function CheckOut({
     id: string;
     store_id: string;
     item_id: string;
+    nano_id: string;
     item_name: string;
     store_name: string;
     price: number;

@@ -11,9 +11,10 @@ export async function GET(req: Request) {
     return new Response("Not signed in.", { status: 401 });
   }
 
-  const data = await sql("SELECT * FROM order_items WHERE order_id = $1", [
-    orderId,
-  ]);
+  const data = await sql(
+    "SELECT order_items.*, items.nano_id FROM order_items LEFT JOIN items ON items.id = order_items.item_id WHERE order_id = $1",
+    [orderId],
+  );
 
   return new Response(JSON.stringify(data), {
     headers: { "content-type": "application/json" },
