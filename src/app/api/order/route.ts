@@ -82,7 +82,7 @@ export async function POST(req: Request) {
 
     await sql(
       "INSERT INTO notifications (order_id, store_id, type) VALUES ($1, $2, 'new-order')",
-      [order_id[0].id, user.id],
+      [order_id[0].id, store_id],
     );
   }
 
