@@ -43,7 +43,7 @@ export default function Page({ params }: { params: { nano_id: string } }) {
   }
 
   return (
-    <main className="flex flex-grow flex-col">
+    <main className="flex min-h-0 min-w-0 flex-grow flex-col overflow-auto">
       <Header
         title={data?.name}
         icon={<RiTShirt2Line size={24} className="text-icon-500" />}

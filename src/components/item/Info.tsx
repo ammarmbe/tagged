@@ -27,7 +27,7 @@ export default function Info({
 }) {
   return (
     <div className="card !gap-0 !p-0">
-      <div className="flex items-center justify-between gap-5 p-4">
+      <div className="flex flex-wrap items-center justify-between gap-x-5 gap-y-3 p-4">
         <div className="flex gap-2">
           <RiInformationLine size={24} className="text-icon-500" />
           <p className="label-medium">Information</p>

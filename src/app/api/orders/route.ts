@@ -120,7 +120,11 @@ export async function POST(req: Request) {
             ? "SUM(order_items.discount)"
             : orderBy.column === "created_at"
               ? "created_at"
-              : orderBy.column === "governorate" && "governorate"
+              : orderBy.column === "governorate"
+                ? "governorate"
+                : orderBy.column === "status"
+                  ? "status"
+                  : "orders.id"
     } ${orderBy.direction === "asc" ? "ASC NULLS FIRST" : "DESC NULLS LAST"}`;
   }
 

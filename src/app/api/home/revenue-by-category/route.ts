@@ -17,7 +17,7 @@ export async function GET(req: Request) {
   }
 
   const data = await sql(
-    `SELECT categories, SUM((COALESCE(order_items.price, 0) - COALESCE(order_items.discount, 0)) * COALESCE(order_items.quantity, 1)) AS revenue FROM orders JOIN order_items ON order_items.order_id = orders.id LEFT JOIN items ON items.id = order_items.item_id WHERE orders.store_id = $1 AND orders.status = 'completed' AND ${timeConstraint(
+    `SELECT categories, COALESCE(SUM((order_items.price - order_items.discount) * order_items.quantity), 0) AS revenue FROM orders JOIN order_items ON order_items.order_id = orders.id LEFT JOIN items ON items.id = order_items.item_id WHERE orders.store_id = $1 AND orders.status = 'completed' AND ${timeConstraint(
       range,
       undefined,
       "completed_on",

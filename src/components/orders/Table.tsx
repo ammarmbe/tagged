@@ -401,7 +401,7 @@ export default function Table() {
             </table>
           </div>
         </div>
-        <footer className="pb-7">
+        <footer className="pb-4 sm:pb-7">
           <div className="grid grid-cols-2 sm:grid-cols-3">
             <p className="paragraph-small self-center text-text-500">
               Page {table.getState().pagination.pageIndex + 1} of{" "}

@@ -4,18 +4,26 @@ import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  BarElement,
   Tooltip,
   Legend,
+  LineElement,
+  PointElement,
 } from "chart.js";
-import { Bar } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 import "@/components/chart.css";
 import { useQuery } from "@tanstack/react-query";
 import { TRange } from "@/components/home/RevenueOverview/RevenueOverview";
-import { days, daysInMonth, formatCurrency, months } from "@/utils";
+import { formatCurrency } from "@/utils";
 import Loading from "@/components/primitives/Loading";
 
-ChartJS.register(BarElement, Tooltip, Legend, CategoryScale, LinearScale);
+ChartJS.register(
+  LineElement,
+  PointElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+);
 
 export default function Graph({
   range,
@@ -32,13 +40,12 @@ export default function Graph({
     queryKey: ["item-overview", "graphs", nano_id],
     queryFn: async () => {
       const res = await fetch(
-        `/api/item/item-overview/graph?range=${range.value}&nano_id=${nano_id}`
+        `/api/item/item-overview/graph?range=${range.value}&nano_id=${nano_id}`,
       );
       return res.json() as Promise<
         {
           revenue: number;
           date: string;
-          type: "revenue" | "potential";
         }[]
       >;
     },
@@ -49,57 +56,38 @@ export default function Graph({
   }, [range, refetch]);
 
   const data = {
-    labels:
-      range.value === "week"
-        ? days()
-        : range.value === "year"
-        ? months(undefined, true)
-        : range.value === "month"
-        ? daysInMonth()
-        : raw?.filter((d) => d.type === "revenue").map((d) => d.date) || [],
+    labels: raw?.map((d) => d.date) || [],
     datasets: [
       {
         label: "Revenue",
         data:
-          raw
-            ?.filter((d) => d.type === "revenue")
-            .map((d) => ({
-              x:
-                range.value === "month"
-                  ? d.date.trim().split("/").map(Number).join("/")
-                  : d.date.trim(),
-              y: d.revenue,
-            })) || [],
-        backgroundColor: "rgba(255, 99, 132, 0.2)",
-        borderColor: "rgb(255, 99, 132)",
-        borderWidth: 1,
-      },
-      {
-        label: "Potential Revenue",
-        data:
-          raw
-            ?.filter((d) => d.type === "potential")
-            .map((d) => ({
-              x:
-                range.value === "month"
-                  ? d.date.trim().split("/").map(Number).join("/")
-                  : d.date.trim(),
-              y: d.revenue,
-            })) || [],
-        backgroundColor: "rgba(255, 159, 64, 0.2)",
-        borderColor: "rgb(255, 159, 64)",
-        borderWidth: 1,
+          raw?.map((d) => ({
+            x: d.date,
+            y: d.revenue,
+          })) || [],
+        fill: "origin",
+        backgroundColor: "#6E3FF3" + "33", // 33 is 20% opacity
+        pointHoverRadius: 4,
+        pointRadius: 2,
+        pointBackgroundColor: "#6E3FF3",
+        borderColor: "#6E3FF3",
+        borderWidth: 2,
+        tension: 0.3,
       },
     ],
   };
 
   return (
-    <div className="p-4 pt-1 relative">
+    <div className="relative p-4 pt-1">
       <Loading size={40} isFetching={isFetching} />
-      <div className="w-full h-96 flex">
-        <Bar
+      <div className="flex h-96 w-full">
+        <Line
           data={data}
           options={{
+            interaction: {
+              intersect: false,
+              mode: "index",
+            },
             maintainAspectRatio: false,
             plugins: {
               tooltip: {
@@ -116,7 +104,12 @@ export default function Graph({
             },
             scales: {
               y: {
-                stacked: true,
+                stacked: true, // show at most 5 ticks
+                ticks: {
+                  autoSkip: true,
+                  maxTicksLimit: 6,
+                },
+                beginAtZero: true,
               },
               x: {
                 stacked: true,

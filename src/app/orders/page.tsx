@@ -7,7 +7,7 @@ import { RiInboxUnarchiveLine, RiUploadLine } from "react-icons/ri";
 
 export default function Page() {
   return (
-    <main className="flex flex-grow flex-col">
+    <main className="flex min-h-0 min-w-0 flex-grow flex-col overflow-auto">
       <Header
         icon={<RiInboxUnarchiveLine size={24} className="text-icon-500" />}
         title="Orders"
@@ -15,10 +15,10 @@ export default function Page() {
       />
       <div className="relative flex flex-grow flex-col px-5 sm:px-8">
         <Suspense fallback={<Loading />}>
-          <div className="flex justify-between gap-8 py-4">
+          <div className="flex items-center justify-between gap-8 py-4">
             <div className="space-y-1">
               <p className="label-large">All Orders</p>
-              <p className="paragraph-small text-text-500">
+              <p className="paragraph-small hidden text-text-500 sm:block">
                 Monitor and manager your orders
               </p>
             </div>

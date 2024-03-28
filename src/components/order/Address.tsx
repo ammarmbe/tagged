@@ -35,40 +35,40 @@ export default function Address({
       <div className="mx-4 border-t" />
       <div className="relative flex-grow">
         <Loading isFetching={isFetching} />
-        <div className="grid grid-cols-[1fr,auto] gap-2 gap-x-8 p-4">
+        <div className="grid gap-2 gap-x-8 p-4 sm:grid-cols-[1fr,auto]">
           <p className="paragraph-small text-text-500">Name</p>
-          <p className="label-small flex justify-end gap-1.5 text-end">
+          <p className="label-small flex gap-1.5 text-end sm:justify-end">
             {address.first_name}{" "}
             {address.last_name ?? (
               <span className="pointer-events-none inline-block h-full w-20 select-none rounded-md bg-bg-200/50 text-transparent" />
             )}
           </p>
           <p className="paragraph-small text-text-500">Phone number</p>
-          <p className="label-small text-end">
+          <p className="label-small sm:text-end">
             {address.phone_number ?? (
               <span className="pointer-events-none inline-block h-full w-36 select-none rounded-md bg-bg-200/50 text-transparent" />
             )}
           </p>
           <p className="paragraph-small text-text-500">Street</p>
-          <p className="label-small text-end">
+          <p className="label-small sm:text-end">
             {address.street ?? (
               <span className="pointer-events-none inline-block h-full w-40 select-none rounded-md bg-bg-200/50 text-transparent" />
             )}
           </p>
           <p className="paragraph-small text-text-500">Apartment</p>
-          <p className="label-small text-end">
+          <p className="label-small sm:text-end">
             {address.apartment ?? (
               <span className="pointer-events-none inline-block h-full w-28 select-none rounded-md bg-bg-200/50 text-transparent" />
             )}
           </p>
           <p className="paragraph-small text-text-500">City</p>
-          <p className="label-small text-end">
+          <p className="label-small sm:text-end">
             {address.city ?? (
               <span className="pointer-events-none inline-block h-full w-36 select-none rounded-md bg-bg-200/50 text-transparent" />
             )}
           </p>
           <p className="paragraph-small text-text-500">Governorate</p>
-          <p className="label-small text-end">{address.governorate}</p>
+          <p className="label-small sm:text-end">{address.governorate}</p>
         </div>
       </div>
     </div>

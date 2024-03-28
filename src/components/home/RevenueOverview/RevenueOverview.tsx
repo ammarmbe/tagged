@@ -36,7 +36,7 @@ export default function RevenueOverview() {
 
   return (
     <div className="card h-fit">
-      <div className="flex items-center justify-between gap-5">
+      <div className="flex flex-wrap items-center justify-between gap-x-5 gap-y-3">
         <div className="flex gap-2">
           <RiMoneyDollarCircleLine size={24} className="text-icon-500" />
           <p className="label-medium">Revenue Overview</p>

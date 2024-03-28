@@ -9,11 +9,11 @@ import { Bar } from "react-chartjs-2";
 import Loading from "../primitives/Loading";
 import {
   Chart as ChartJS,
-  BarElement,
   CategoryScale,
   Legend,
   LinearScale,
   Tooltip,
+  BarElement,
 } from "chart.js";
 
 ChartJS.register(BarElement, Tooltip, Legend, CategoryScale, LinearScale);
@@ -57,16 +57,15 @@ export default function RevenueByCategory() {
             x: d.categories.at(-1),
             y: d.revenue,
           })) || [],
-        backgroundColor: "rgba(255, 99, 132, 0.2)",
-        borderColor: "rgb(255, 99, 132)",
-        borderWidth: 1,
+        backgroundColor: "#6E3FF3",
+        borderWidth: 0,
       },
     ],
   };
 
   return (
     <div className="card h-fit">
-      <div className="flex items-center justify-between gap-5">
+      <div className="flex flex-wrap items-center justify-between gap-x-5 gap-y-3">
         <div className="flex gap-2">
           <RiMoneyDollarCircleLine size={24} className="text-icon-500" />
           <p className="label-medium">
@@ -109,10 +108,14 @@ export default function RevenueByCategory() {
       <div className="border-t" />
       <div className="relative p-4 pt-1">
         <Loading size={40} isFetching={isFetching} />
-        <div className="flex h-96 w-full">
+        <div className="flex h-72 w-full">
           <Bar
             data={data}
             options={{
+              interaction: {
+                intersect: false,
+                mode: "index",
+              },
               maintainAspectRatio: false,
               plugins: {
                 tooltip: {
@@ -129,7 +132,12 @@ export default function RevenueByCategory() {
               },
               scales: {
                 y: {
-                  stacked: true,
+                  stacked: true, // show at most 5 ticks
+                  ticks: {
+                    autoSkip: true,
+                    maxTicksLimit: 6,
+                  },
+                  beginAtZero: true,
                 },
                 x: {
                   stacked: true,

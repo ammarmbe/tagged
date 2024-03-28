@@ -41,14 +41,14 @@ export default function StatusHistory({ nano_id }: { nano_id: string }) {
       <div className="mx-4 border-t" />
       <div className="relative flex-grow">
         <Loading isFetching={isFetching} />
-        <div className="grid grid-cols-[1fr,auto] items-center gap-2 p-4 sm:gap-x-16">
+        <div className="grid items-center gap-2 p-4 sm:grid-cols-[1fr,auto] sm:gap-x-16">
           {data?.[0]?.created_at ? (
             <>
               <p className="label-small flex items-center gap-1.5 capitalize">
                 <RiAddLine size={16} className="inline text-icon-500" />
                 Order created
               </p>
-              <p className="paragraph-small text-end text-text-500">
+              <p className="paragraph-small text-text-500 sm:text-end">
                 {new Intl.DateTimeFormat("en-US", {
                   dateStyle: "medium",
                   timeStyle: "short",
@@ -82,7 +82,7 @@ export default function StatusHistory({ nano_id }: { nano_id: string }) {
                       ? "Cancelled by customer"
                       : status.status}
                 </p>
-                <p className="paragraph-small text-end text-text-500">
+                <p className="paragraph-small text-text-500 sm:text-end">
                   {new Intl.DateTimeFormat("en-US", {
                     dateStyle: "medium",
                     timeStyle: "short",

@@ -4,7 +4,7 @@ import ReactSelect from "react-select";
 import { useState } from "react";
 import Cards from "./Cards";
 import Graph from "./Graph";
-import { RiMoneyDollarCircleLine } from "react-icons/ri";
+import { RiEye2Line } from "react-icons/ri";
 import { TRange } from "../RevenueOverview/RevenueOverview";
 
 export default function ViewsOverview() {
@@ -15,9 +15,9 @@ export default function ViewsOverview() {
 
   return (
     <div className="card h-fit">
-      <div className="flex items-center justify-between gap-5">
+      <div className="flex flex-wrap items-center justify-between gap-x-5 gap-y-3">
         <div className="flex gap-2">
-          <RiMoneyDollarCircleLine size={24} className="text-icon-500" />
+          <RiEye2Line size={24} className="text-icon-500" />
           <p className="label-medium">Views Overview</p>
         </div>
         <ReactSelect

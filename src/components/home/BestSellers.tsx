@@ -36,7 +36,7 @@ export default function BestSellers() {
   }, [range, refetch]);
 
   return (
-    <div className="card !p-0 sm:min-w-[350px]">
+    <div className="card flex-grow !p-0 sm:min-w-[350px]">
       <div className="flex items-center justify-between gap-4 p-4 pb-0 sm:gap-10">
         <div className="flex gap-2">
           <RiSparklingLine size={24} className="text-icon-500" />

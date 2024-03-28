@@ -182,7 +182,7 @@ export default function Page() {
         description="Set shipping price and return policy"
       />
       <div className="mx-8 border-t" />
-      <div className="relative grid grid-cols-2 gap-x-10 gap-y-5 px-8 py-5 sm:gap-x-20">
+      <div className="relative grid gap-x-10 gap-y-5 px-8 py-5 sm:grid-cols-2 sm:gap-x-20">
         <Loading isFetching={isFetching} />
         {editingPrice ? (
           <>
@@ -235,7 +235,7 @@ export default function Page() {
             </div>
           </>
         )}
-        <div className="col-span-2 border-t" />
+        <div className="border-t sm:col-span-2" />
         {editingReturnPolicy ? (
           <>
             <form onSubmit={handleReturnPolicySubmit(onReturnPolicySubmit)}>
@@ -283,7 +283,7 @@ export default function Page() {
             </div>
           </>
         )}
-        <div className="col-span-2 border-t" />
+        <div className="border-t sm:col-span-2" />
         {editingExchangePolicy ? (
           <>
             <form onSubmit={handleExchangePolicySubmit(onExchangePolicySubmit)}>

@@ -1,11 +1,22 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import QueryClientProvider from "@/utils/QueryClientProvider";
 import { Toaster } from "@/components/primitives/toast/Toaster";
-import Resize from "@/utils/Resize";
+import Sidebar from "@/components/Sidebar";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = localFont({
+  src: [
+    {
+      path: "/../../public/InterVariable.ttf",
+      style: "normal",
+    },
+    {
+      path: "/../../public/InterVariable-Italic.ttf",
+      style: "italic",
+    },
+  ],
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,9 +31,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <QueryClientProvider>
-        <body className={inter.className + " flex min-h-screen text-text-900"}>
+        <body
+          className={`${inter.className} flex h-screen flex-col-reverse text-text-900 sm:flex-row`}
+        >
           <Toaster />
-          <Resize>{children}</Resize>
+          <Sidebar />
+          {children}
         </body>
       </QueryClientProvider>
     </html>

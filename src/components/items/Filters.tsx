@@ -81,7 +81,7 @@ export default function Filters() {
       sheet
     >
       <div className="flex items-center gap-5 p-4 pl-6 sm:px-6 sm:py-5">
-        <p className="label-large flex-grow">Filters</p>
+        <p className="label-large flex-none">Filters</p>
         <Dialog.Close asChild>
           <Button
             iconLeft={<RiCloseLine size={20} />}
@@ -91,7 +91,7 @@ export default function Filters() {
         </Dialog.Close>
       </div>
       <div className="border-t" />
-      <div className="flex flex-grow flex-col gap-6 px-6 py-5">
+      <div className="flex flex-grow flex-col gap-6 overflow-auto px-6 py-5">
         <div className="space-y-1">
           <label htmlFor="nameFilters" className="label-small">
             Name

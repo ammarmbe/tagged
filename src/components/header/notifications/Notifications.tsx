@@ -5,17 +5,19 @@ import { RiNotification3Line } from "react-icons/ri";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { LuDot } from "react-icons/lu";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { formatCurrency } from "@/utils";
 import { useRouter } from "next/navigation";
 dayjs.extend(relativeTime);
 
 export default function Notifications() {
+  const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState<"all" | "unread" | "new-orders">(
     "all",
   );
   const [unreadCount, setUnreadCount] = useState(0);
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const { data: notifications, refetch } = useQuery({
     queryKey: ["notifications", selected],
@@ -39,7 +41,19 @@ export default function Notifications() {
 
   useEffect(() => {
     refetch();
-  }, [selected, refetch]);
+  }, [selected, refetch, open]);
+
+  useEffect(() => {
+    document.addEventListener("show-notifications", () => {
+      setOpen(true);
+    });
+
+    return () => {
+      document.removeEventListener("show-notifications", () => {
+        setOpen(true);
+      });
+    };
+  });
 
   useEffect(() => {
     setUnreadCount(notifications?.filter((n) => !n.read).length || 0);
@@ -57,22 +71,43 @@ export default function Notifications() {
       } else {
         setUnreadCount(0);
       }
+
+      queryClient.setQueryData(["current-status"], {
+        notifications: (oldData: {
+          orders_pending: number;
+          return_requests: number;
+          new_notifications: number;
+        }) => {
+          return {
+            ...oldData,
+            new_notifications: id ? oldData.new_notifications - 1 : 0,
+          };
+        },
+      });
     },
   });
 
   return (
     <DropdownMenu.Root
-      onOpenChange={() => {
-        refetch();
+      modal={false}
+      open={open}
+      onOpenChange={(open) => {
+        setOpen(open);
       }}
     >
-      <DropdownMenu.Trigger className="relative h-fit rounded-[10px] border border-transparent p-2 text-icon-500 transition-all hover:bg-bg-100 hover:text-text-900 active:bg-white active:shadow-[0_0_0_2px_#FFFFFF,0_0_0_4px_#E4E5E7] disabled:text-text-300 disabled:shadow-none sm:p-2.5">
+      <DropdownMenu.Trigger
+        id="notifications-trigger"
+        className="relative h-fit rounded-[10px] border border-transparent p-2 text-icon-500 transition-all hover:bg-bg-100 hover:text-text-900 active:bg-white active:shadow-[0_0_0_2px_#FFFFFF,0_0_0_4px_#E4E5E7] disabled:text-text-300 disabled:shadow-none sm:p-2.5"
+      >
         <RiNotification3Line size={20} />
         {unreadCount ? (
           <div className="absolute right-2 top-1.5 size-3 rounded-full border-2 border-white bg-[#FC3747]" />
         ) : null}
       </DropdownMenu.Trigger>
-      <DropdownMenu.Content className="z-30 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2">
+      <DropdownMenu.Content
+        align="end"
+        className="z-30 mt-1 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
+      >
         <div className="card min-w-72 !gap-0 !p-0 !shadow-md sm:min-w-96">
           <div className="flex items-center justify-between p-4">
             <p className="label-medium">Notifications</p>

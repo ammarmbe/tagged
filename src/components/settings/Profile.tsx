@@ -112,7 +112,7 @@ export default function Page() {
         description="Manage your store profile settings"
       />
       <div className="mx-8 border-t" />
-      <div className="grid grid-cols-2 gap-x-10 gap-y-5 px-8 py-5 sm:gap-x-20">
+      <div className="grid gap-x-10 gap-y-5 px-8 py-5 sm:grid-cols-2 sm:gap-x-20">
         <div>
           <p className="label-small">Store ID</p>
           <div className="paragraph-small mt-1 text-text-500">{user?.id}</div>
@@ -135,7 +135,7 @@ export default function Page() {
           }}
           iconLeft={<RiFileCopyLine size={20} />}
         />
-        <div className="col-span-2 border-t" />
+        <div className="border-t sm:col-span-2" />
         <div>
           <p className="label-small">Profile Photo</p>
           <div className="paragraph-small mt-1 text-text-500">
@@ -151,7 +151,7 @@ export default function Page() {
           />
           <Button size="xs" className="w-fit self-center" text="Upload" />
         </div>
-        <div className="col-span-2 border-t" />
+        <div className="border-t sm:col-span-2" />
         {editingName ? (
           <>
             <form onSubmit={handleNameSubmit(onNameSubmit)}>
@@ -200,7 +200,7 @@ export default function Page() {
             </div>
           </>
         )}
-        <div className="col-span-2 border-t" />
+        <div className="border-t sm:col-span-2" />
         {editingEmail ? (
           <>
             <form onSubmit={handleEmailSubmit(onEmailSubmit)}>

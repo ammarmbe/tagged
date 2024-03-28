@@ -54,7 +54,7 @@ export default function Login() {
   return (
     <main className="flex h-screen w-screen items-center justify-center">
       <form className="card" onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex items-center justify-between gap-5">
+        <div className="flex flex-wrap items-center justify-between gap-x-5 gap-y-3">
           <div className="flex gap-2">
             <RiUserLine size={24} className="text-icon-500" />
             <p className="label-medium">Log In</p>
