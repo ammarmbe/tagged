@@ -29,12 +29,12 @@ export async function GET(req: Request) {
             : "1=1";
 
   const category = await sql(
-    `SELECT category, COUNT(*) AS views, COALESCE((SELECT COUNT(*) FROM views JOIN items ON items.id = views.item_id WHERE items.store_id = $1 AND ${prevTimeConstraint} GROUP BY category ORDER BY COUNT(*) LIMIT 1), 0) AS previous FROM views JOIN items ON items.id = views.item_id WHERE items.store_id = $1 AND ${timeConstraint(range, "views")} GROUP BY category ORDER BY views DESC LIMIT 1`,
+    `SELECT category, COUNT(DISTINCT ip) AS views, COALESCE((SELECT COUNT(DISTINCT ip) FROM views JOIN items ON items.id = views.item_id WHERE items.store_id = $1 AND ${prevTimeConstraint} GROUP BY category ORDER BY COUNT(DISTINCT ip) LIMIT 1), 0) AS previous FROM views JOIN items ON items.id = views.item_id WHERE items.store_id = $1 AND ${timeConstraint(range, "views")} GROUP BY category ORDER BY views DESC LIMIT 1`,
     [user.id],
   );
 
   const item = await sql(
-    `SELECT items.name, items.nano_id, COUNT(*) AS views, COALESCE((SELECT COUNT(*) FROM views JOIN items ON items.id = views.item_id WHERE items.store_id = $1 AND ${prevTimeConstraint} GROUP BY items.id ORDER BY COUNT(*) LIMIT 1), 0) AS previous FROM views JOIN items ON items.id = views.item_id WHERE items.store_id = $1 AND ${timeConstraint(range, "views")} GROUP BY items.id ORDER BY views DESC LIMIT 1`,
+    `SELECT items.name, items.nano_id, COUNT(DISTINCT ip) AS views, COALESCE((SELECT COUNT(DISTINCT ip) FROM views JOIN items ON items.id = views.item_id WHERE items.store_id = $1 AND ${prevTimeConstraint} GROUP BY items.id ORDER BY COUNT(DISTINCT ip) LIMIT 1), 0) AS previous FROM views JOIN items ON items.id = views.item_id WHERE items.store_id = $1 AND ${timeConstraint(range, "views")} GROUP BY items.id ORDER BY views DESC LIMIT 1`,
     [user.id],
   );
 

@@ -6,6 +6,7 @@ import ViewsByCategory from "@/components/home/ViewsByCategory";
 import getUser from "@/utils/getUser";
 import CurrentStatus from "@/components/home/CurrentStatus";
 import BestSellers from "@/components/home/BestSellers";
+import Statistics from "@/components/home/Statistics";
 
 export default async function Home() {
   const { user } = await getUser();
@@ -17,17 +18,18 @@ export default async function Home() {
         title={user?.name}
         description={user?.email}
       />
-      <div className="grid grid-cols-1 gap-4 px-5 pb-6 pt-1 sm:gap-6 sm:px-8 2xl:grid-cols-[auto,1fr]">
+      <div className="grid grid-cols-1 gap-4 px-5 pb-6 pt-1 sm:gap-6 sm:px-8 xl:grid-cols-[1fr,3fr]">
         <div className="flex max-w-full flex-col gap-4 sm:gap-6">
           <CurrentStatus />
           <BestSellers />
         </div>
         <RevenueOverview />
       </div>
-      <div className="grid grid-cols-1 gap-4 px-5 pb-6 sm:gap-6 sm:px-8 2xl:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 px-5 pb-6 sm:gap-6 sm:px-8 xl:grid-cols-2">
         <RevenueByCategory />
-        <ViewsByCategory />
+        <Statistics />
         <ViewsOverview />
+        <ViewsByCategory />
       </div>
     </main>
   );
