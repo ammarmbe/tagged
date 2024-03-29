@@ -14,13 +14,13 @@ export async function POST(req: Request) {
 
   if (selected === true) {
     await sql(
-      "UPDATE item_details SET quantity = 0 FROM items WHERE items.id = item_details.item_id AND items.store_id = $1",
+      "UPDATE item_configs SET quantity = 0 FROM items WHERE items.id = item_configs.item_id AND items.store_id = $1",
       [user.id],
     );
   }
 
   await sql(
-    "UPDATE item_details SET quantity = 0 FROM items WHERE items.id = item_details.item_id AND items.id = ANY($1) AND items.store_id = $2",
+    "UPDATE item_configs SET quantity = 0 FROM items WHERE items.id = item_configs.item_id AND items.id = ANY($1) AND items.store_id = $2",
     [selected, user.id],
   );
 

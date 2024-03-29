@@ -72,7 +72,7 @@ export default function Graph({ range }: { range: TRange }) {
         fill: "origin",
         backgroundColor: "#6E3FF3" + "33", // 33 is 20% opacity
         pointHoverRadius: 4,
-        pointRadius: 2,
+        pointRadius: 0,
         pointBackgroundColor: "#6E3FF3",
         borderColor: "#6E3FF3",
         borderWidth: 2,

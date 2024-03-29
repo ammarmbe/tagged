@@ -25,6 +25,7 @@ const Select = React.forwardRef<
 >(
   (
     {
+      className,
       error,
       icon,
       errorMessage,
@@ -51,7 +52,7 @@ const Select = React.forwardRef<
               dropdownIndicator,
             })}
             formatCreateLabel={(inputValue) => inputValue}
-            className="peer"
+            className={`peer ${className}`}
           />
         ) : (
           <ReactSelect
@@ -64,7 +65,7 @@ const Select = React.forwardRef<
               iconSide,
               dropdownIndicator,
             })}
-            className="peer"
+            className={`peer ${className}`}
           />
         )}
         <div

@@ -22,8 +22,8 @@ export async function POST(req: Request) {
 
   quantities.forEach(async (q) => {
     await sql(
-      "UPDATE item_details SET quantity = $1 FROM items WHERE items.id = item_details.item_id AND item_id = $2 AND color = $3 AND size = $4 AND items.store_id = $5",
-      [q.quantity, id, q.color, q.size, user.id]
+      "UPDATE item_configs SET quantity = $1 FROM items WHERE items.id = item_configs.item_id AND item_id = $2 AND color = $3 AND size = $4 AND items.store_id = $5",
+      [q.quantity, id, q.color, q.size, user.id],
     );
   });
 

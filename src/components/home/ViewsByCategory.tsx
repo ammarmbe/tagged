@@ -37,7 +37,7 @@ export default function ViewsByCategory() {
       return res.json() as Promise<
         {
           views: number;
-          categories: string[];
+          category: string[];
         }[]
       >;
     },
@@ -48,13 +48,13 @@ export default function ViewsByCategory() {
   }, [range, refetch]);
 
   const data = {
-    labels: raw?.map((d) => d.categories.at(-1)) || [],
+    labels: raw?.map((d) => d.category.at(-1)) || [],
     datasets: [
       {
         label: "Views",
         data:
           raw?.map((d) => ({
-            x: d.categories.at(-1),
+            x: d.category.at(-1),
             y: d.views,
           })) || [],
         backgroundColor: "#6E3FF3",

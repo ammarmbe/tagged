@@ -12,9 +12,15 @@ export async function PATCH(req: Request) {
     });
   }
 
+  if (isNaN(parseInt(price))) {
+    return new Response(JSON.stringify(null), {
+      status: 400,
+    });
+  }
+
   await sql(
-    "UPDATE store_settings SET shipping_price = $1 WHERE store_id = $2",
-    [price, user.id],
+    `UPDATE users SET feature_flags = jsonb_set(feature_flags, '{shipping_price}', '${price}') WHERE id = $1`,
+    [user.id],
   );
 
   return new Response("OK");

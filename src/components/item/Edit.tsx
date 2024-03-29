@@ -16,7 +16,7 @@ export default function Edit({
     id: string;
     name: string;
     description: string;
-    categories: string[];
+    category: string[];
     price: number;
     discount: number;
     colors: string[];
@@ -31,7 +31,7 @@ export default function Edit({
   const descriptionRef = useRef<HTMLInputElement>(null);
   const priceRef = useRef<HTMLInputElement>(null);
   const discountRef = useRef<HTMLInputElement>(null);
-  const [category, setCategory] = useState(data?.categories || []);
+  const [category, setCategory] = useState(data?.category || []);
   const [colors, setColors] = useState(data?.colors || []);
   const [sizes, setSizes] = useState(data?.sizes || []);
 
@@ -102,8 +102,8 @@ export default function Edit({
   }, [data?.sizes]);
 
   useEffect(() => {
-    data?.categories && setCategory(data?.categories);
-  }, [data?.categories]);
+    data?.category && setCategory(data?.category);
+  }, [data?.category]);
 
   return (
     <DialogComponent

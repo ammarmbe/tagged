@@ -1,7 +1,7 @@
 import React, { DetailedHTMLProps, InputHTMLAttributes } from "react";
 
 type InputProps = {
-  error?: boolean;
+  error?: any;
   icon?: React.ReactNode;
   iconSide?: "left" | "right";
   errorMessage?: string;
@@ -45,7 +45,7 @@ const Input = React.forwardRef<
             : "sm:pl-9 pl-8"
         : ""
     } ${
-      error
+      Boolean(error)
         ? "!border-error focus:!shadow-[0px_0px_0px_2px_#FFFFFF,0px_0px_0px_4px_#F8C9D2]"
         : "border-border-300"
     } ${className}`;
@@ -82,7 +82,7 @@ const Input = React.forwardRef<
             {icon}
           </div>
         </div>
-        {error && errorMessage && (
+        {Boolean(error) && errorMessage && (
           <p className="paragraph-xsmall mt-1.5 text-error">{errorMessage}</p>
         )}
       </div>

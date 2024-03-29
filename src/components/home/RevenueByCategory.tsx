@@ -37,7 +37,7 @@ export default function RevenueByCategory() {
       return res.json() as Promise<
         {
           revenue: number;
-          categories: string[];
+          category: string[];
         }[]
       >;
     },
@@ -48,13 +48,13 @@ export default function RevenueByCategory() {
   }, [range, refetch]);
 
   const data = {
-    labels: raw?.map((d) => d.categories.at(-1)) || [],
+    labels: raw?.map((d) => d.category.at(-1)) || [],
     datasets: [
       {
         label: "Revenue",
         data:
           raw?.map((d) => ({
-            x: d.categories.at(-1),
+            x: d.category.at(-1),
             y: d.revenue,
           })) || [],
         backgroundColor: "#6E3FF3",

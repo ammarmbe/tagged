@@ -18,7 +18,6 @@ const analytics = [
   },
   { name: "Most viewed category", link: "/#views-overview" },
   { name: "Best selling items", link: "/#best-sellers" },
-  { name: "Best selling categories", link: "/#best-categories" },
 ];
 
 export default function Analytics({ searchTerm }: { searchTerm: string }) {

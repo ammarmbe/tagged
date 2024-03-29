@@ -33,7 +33,7 @@ export async function POST(req: Request) {
   const nano_id = nanoId();
 
   const id = await sql(
-    "INSERT INTO items (name, description, price, discount, categories, store_id, nano_id) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id",
+    "INSERT INTO items (name, description, price, discount, category, store_id, nano_id) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id",
     [
       itemDetails.name,
       itemDetails.description,
@@ -42,13 +42,13 @@ export async function POST(req: Request) {
       itemDetails.category.value,
       user.id,
       nano_id,
-    ]
+    ],
   );
 
   quantities.forEach(async ({ color, size, quantity }) => {
     await sql(
-      "INSERT INTO item_details (item_id, color, size, quantity) VALUES ($1, $2, $3, $4)",
-      [id[0].id, color, size, quantity || 0]
+      "INSERT INTO item_configs (item_id, color, size, quantity) VALUES ($1, $2, $3, $4)",
+      [id[0].id, color, size, quantity || 0],
     );
   });
 

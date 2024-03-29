@@ -14,6 +14,7 @@ export const lucia = new Lucia(adapter, {
       email: user.email,
       name: user.name,
       store: user.store,
+      feature_flags: user.feature_flags,
     };
   },
 });
@@ -30,4 +31,15 @@ interface DatabaseUserAttributes {
   email: string;
   name: string;
   store: boolean;
+  feature_flags: {
+    dark_mode?: boolean;
+    notifications?: boolean;
+    table_size?: "comfortable" | "compact";
+    shipping_price?: number;
+    return_period?: "1d" | "3d" | "7d" | "14d" | "30d" | "";
+    exchange_period?: "1d" | "3d" | "7d" | "14d" | "30d" | "";
+    twitter?: string;
+    facebook?: string;
+    instagram?: string;
+  };
 }

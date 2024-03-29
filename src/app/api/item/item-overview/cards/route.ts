@@ -27,28 +27,28 @@ export async function GET(req: Request) {
 
   const prevTimeConstraint =
     range === "day"
-      ? "DATE(completed_on) = CURRENT_DATE - interval '1 day'"
+      ? "DATE(completed_at) = CURRENT_DATE - interval '1 day'"
       : range === "week"
-        ? "EXTRACT(WEEK FROM completed_on) = EXTRACT(WEEK FROM CURRENT_DATE - interval '1 week') AND (CASE WHEN EXTRACT(WEEK FROM CURRENT_DATE) = 1 THEN EXTRACT(YEAR FROM completed_on) = EXTRACT(YEAR FROM CURRENT_DATE - interval '1 year') ELSE EXTRACT(YEAR FROM completed_on) = EXTRACT(YEAR FROM CURRENT_DATE) END)"
+        ? "EXTRACT(WEEK FROM completed_at) = EXTRACT(WEEK FROM CURRENT_DATE - interval '1 week') AND (CASE WHEN EXTRACT(WEEK FROM CURRENT_DATE) = 1 THEN EXTRACT(YEAR FROM completed_at) = EXTRACT(YEAR FROM CURRENT_DATE - interval '1 year') ELSE EXTRACT(YEAR FROM completed_at) = EXTRACT(YEAR FROM CURRENT_DATE) END)"
         : range === "month"
-          ? "EXTRACT(MONTH FROM completed_on) = EXTRACT(MONTH FROM CURRENT_DATE - interval '1 month') AND (CASE WHEN EXTRACT(MONTH FROM CURRENT_DATE) = 1 THEN EXTRACT(YEAR FROM completed_on) = EXTRACT(YEAR FROM CURRENT_DATE - interval '1 year') ELSE EXTRACT(YEAR FROM completed_on) = EXTRACT(YEAR FROM CURRENT_DATE) END)"
+          ? "EXTRACT(MONTH FROM completed_at) = EXTRACT(MONTH FROM CURRENT_DATE - interval '1 month') AND (CASE WHEN EXTRACT(MONTH FROM CURRENT_DATE) = 1 THEN EXTRACT(YEAR FROM completed_at) = EXTRACT(YEAR FROM CURRENT_DATE - interval '1 year') ELSE EXTRACT(YEAR FROM completed_at) = EXTRACT(YEAR FROM CURRENT_DATE) END)"
           : range === "year"
-            ? "EXTRACT(YEAR FROM completed_on) = EXTRACT(YEAR FROM CURRENT_DATE - interval '1 year')"
+            ? "EXTRACT(YEAR FROM completed_at) = EXTRACT(YEAR FROM CURRENT_DATE - interval '1 year')"
             : "1=1";
 
   const data = await sql(
     `SELECT 'revenue' AS type, SUM((COALESCE(price, 0) - COALESCE(discount, 0)) * COALESCE(quantity, 1)) AS revenue FROM orders JOIN order_items ON order_items.order_id = orders.id WHERE order_items.item_id = $2 AND orders.store_id = $1 AND orders.status = 'completed' AND ${timeConstraint(
       range,
-      undefined,
-      "completed_on",
+      "orders",
+      "completed_at",
     )} UNION SELECT 'potential' AS type, SUM((COALESCE(price, 0) - COALESCE(discount, 0)) * COALESCE(quantity, 1)) AS revenue FROM orders JOIN order_items ON order_items.order_id = orders.id WHERE order_items.item_id = $2 AND orders.store_id = $1 AND (orders.status = 'cancelled' OR orders.status = 'customer_cancelled') AND ${timeConstraint(
       range,
-      undefined,
-      "completed_on",
+      "orders",
+      "completed_at",
     )} UNION SELECT 'units' AS type, SUM(COALESCE(quantity, 0)) AS revenue FROM orders JOIN order_items ON order_items.order_id = orders.id WHERE order_items.item_id = $2 AND orders.store_id = $1 AND orders.status = 'completed' AND ${timeConstraint(
       range,
-      undefined,
-      "completed_on",
+      "orders",
+      "completed_at",
     )} UNION SELECT 'prev_revenue' AS type, SUM((COALESCE(price, 0) - COALESCE(discount, 0)) * COALESCE(quantity, 1)) AS revenue FROM orders JOIN order_items ON order_items.order_id = orders.id WHERE order_items.item_id = $2 AND orders.store_id = $1 AND orders.status = 'completed' AND ${prevTimeConstraint} UNION SELECT 'prev_potential' AS type, SUM((COALESCE(price, 0) - COALESCE(discount, 0)) * COALESCE(quantity, 1)) AS revenue FROM orders JOIN order_items ON order_items.order_id = orders.id WHERE order_items.item_id = $2 AND orders.store_id = $1 AND (orders.status = 'cancelled' OR orders.status = 'customer_cancelled') AND ${prevTimeConstraint} UNION SELECT 'prev_units' AS type, SUM(COALESCE(quantity, 0)) AS revenue FROM orders JOIN order_items ON order_items.order_id = orders.id WHERE order_items.item_id = $2 AND orders.store_id = $1 AND orders.status = 'completed' AND ${prevTimeConstraint}`,
     [user.id, id?.id],
   );

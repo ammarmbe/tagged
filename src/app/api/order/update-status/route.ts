@@ -33,7 +33,7 @@ export async function POST(req: Request) {
   }
 
   await sql(
-    `UPDATE orders SET status = $1, ${status === "completed" ? "completed_on = now() at time zone 'Africa/Cairo', " : ""}reason = $2 WHERE nano_id = $3 AND store_id = $4`,
+    `UPDATE orders SET status = $1, ${status === "completed" ? "completed_at = now() at time zone 'Africa/Cairo', " : ""}reason = $2 WHERE nano_id = $3 AND store_id = $4`,
     [status, cancel_reason, nano_id, user.id],
   );
 

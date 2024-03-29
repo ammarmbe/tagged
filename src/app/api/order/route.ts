@@ -14,8 +14,8 @@ export async function GET(req: Request) {
   }
 
   const data = await sql(
-    "SELECT governorate, status, first_name, status NOT IN ('shipped', 'confirmed') AS address_hidden, (CASE WHEN status NOT IN ('shipped', 'confirmed') THEN null ELSE city END) AS city, (CASE WHEN status NOT IN ('shipped', 'confirmed') THEN null ELSE street END) AS street, (CASE WHEN status NOT IN ('shipped', 'confirmed') THEN null ELSE apartment END) AS apartment, (CASE WHEN status NOT IN ('shipped', 'confirmed') THEN null ELSE last_name END) AS last_name, (CASE WHEN status NOT IN ('shipped', 'confirmed') THEN null ELSE phone_number END) AS phone_number FROM orders WHERE nano_id = $1 AND store_id = $2",
-    [nano_id, user.id]
+    "SELECT governorate, status, orders.first_name, status NOT IN ('shipped', 'confirmed') AS address_hidden, (CASE WHEN status NOT IN ('shipped', 'confirmed') THEN null ELSE city END) AS city, (CASE WHEN status NOT IN ('shipped', 'confirmed') THEN null ELSE street END) AS street, (CASE WHEN status NOT IN ('shipped', 'confirmed') THEN null ELSE apartment END) AS apartment, (CASE WHEN status NOT IN ('shipped', 'confirmed') THEN null ELSE last_name END) AS last_name, (CASE WHEN status NOT IN ('shipped', 'confirmed') THEN null ELSE phone_number END) AS phone_number FROM orders WHERE nano_id = $1 AND store_id = $2",
+    [nano_id, user.id],
   );
 
   return new Response(JSON.stringify(data[0]));

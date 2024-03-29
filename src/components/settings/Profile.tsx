@@ -12,7 +12,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 
 export default function Page() {
   const queryClient = useQueryClient();
-  const user = useUser();
+  const { user } = useUser();
 
   const [editingName, setEditingName] = useState(false);
   const [editingEmail, setEditingEmail] = useState(false);
@@ -193,7 +193,7 @@ export default function Page() {
               <p className="paragraph-small">{user?.name}</p>
               <button
                 onClick={() => setEditingName(true)}
-                className="label-small flex items-center gap-0.5 text-main-base"
+                className="label-small flex w-fit items-center gap-0.5 text-main-base"
               >
                 Edit <RiArrowRightSLine size={20} />
               </button>
@@ -243,7 +243,7 @@ export default function Page() {
               <p className="paragraph-small">{user?.email}</p>
               <button
                 onClick={() => setEditingEmail(true)}
-                className="label-small flex items-center gap-0.5 text-main-base"
+                className="label-small flex w-fit items-center gap-0.5 text-main-base"
               >
                 Edit <RiArrowRightSLine size={20} />
               </button>

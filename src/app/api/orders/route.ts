@@ -119,7 +119,7 @@ export async function POST(req: Request) {
           : orderBy.column === "total_discount"
             ? "SUM(order_items.discount)"
             : orderBy.column === "created_at"
-              ? "created_at"
+              ? "orders.created_at"
               : orderBy.column === "governorate"
                 ? "governorate"
                 : orderBy.column === "status"

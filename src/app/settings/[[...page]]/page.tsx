@@ -1,5 +1,5 @@
 import Sidebar from "@/components/settings/Sidebar";
-import Privacy from "@/components/settings/Privacy";
+import Appearance from "@/components/settings/Appearance";
 import Profile from "@/components/settings/Profile";
 import Shipping from "@/components/settings/Shipping";
 
@@ -10,8 +10,8 @@ export default function Page({ params }: { params: { page: string[] } }) {
       <div className="flex-grow overflow-auto">
         {params.page?.[0] === "shipping" ? (
           <Shipping />
-        ) : params.page?.[0] === "privacy" ? (
-          <Privacy />
+        ) : params.page?.[0] === "appearance" ? (
+          <Appearance />
         ) : (
           <Profile />
         )}

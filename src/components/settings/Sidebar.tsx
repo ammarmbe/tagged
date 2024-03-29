@@ -12,7 +12,7 @@ export default function Sidebar({ page }: { page: string }) {
       <div className="hidden sm:block">
         <p className="label-large">Settings</p>
         <p className="paragraph-small mt-1 text-text-500">
-          Choose between categories.
+          Manage your account settings
         </p>
       </div>
       <div className="hidden border-t sm:block" />
@@ -52,18 +52,18 @@ export default function Sidebar({ page }: { page: string }) {
           </span>
         </Link>
         <Link
-          href="/settings/privacy"
-          className={`label-small flex justify-center gap-1.5 rounded-lg p-2 transition-all hover:text-text-900 sm:justify-start ${page === "privacy" ? "bg-white shadow-sm sm:bg-bg-100 sm:shadow-none" : "bg-bg-100 text-text-500 sm:bg-white"}`}
+          href="/settings/appearance"
+          className={`label-small flex justify-center gap-1.5 rounded-lg p-2 transition-all hover:text-text-900 sm:justify-start ${page === "appearance" ? "bg-white shadow-sm sm:bg-bg-100 sm:shadow-none" : "bg-bg-100 text-text-500 sm:bg-white"}`}
         >
           <RiShieldUserLine
             size={20}
-            className={page === "privacy" ? "text-main-base" : "text-text-500"}
+            className={
+              page === "appearance" ? "text-main-base" : "text-text-500"
+            }
           />
-          <span className="hidden flex-grow pr-5 sm:inline">
-            Privacy & Security
-          </span>
+          <span className="hidden flex-grow pr-5 sm:inline">Appearance</span>
           <span
-            className={`hidden rounded-full bg-white text-text-500 shadow-sm sm:inline ${page === "privacy" ? "" : "opacity-0"}`}
+            className={`hidden rounded-full bg-white text-text-500 shadow-sm sm:inline ${page === "appearance" ? "" : "opacity-0"}`}
           >
             <RiArrowRightSLine size={20} />
           </span>

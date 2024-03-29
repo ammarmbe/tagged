@@ -21,7 +21,7 @@ import {
 import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import ReactSelect from "react-select";
-import { formatCurrency, selectStyles, useFilters } from "@/utils";
+import { formatCurrency, selectStyles, useFilters, useUser } from "@/utils";
 import Spinner from "../primitives/Spinner";
 import { useDebouncedCallback } from "use-debounce";
 import Filters from "./Filters";
@@ -72,6 +72,7 @@ export default function Table() {
   const [selected, setSelected] = useState<number[]>([]);
   const [allSelected, setAllSelected] = useState(false);
   const [deleteText, setDeleteText] = useState("");
+  const { user } = useUser();
 
   const columns = useMemo(
     () => [
@@ -108,7 +109,6 @@ export default function Table() {
             className="checkbox"
           />
         ),
-        size: 3,
       }),
       columnHelper.accessor("nano_id", {
         id: "id",
@@ -121,6 +121,13 @@ export default function Table() {
         header: () => "Name",
         cell: (info) => info.renderValue(),
         size: 20,
+      }),
+      columnHelper.accessor("discount", {
+        id: "discount",
+        header: () => "Price (discounted)",
+        cell: (info) =>
+          formatCurrency(info.row.original.price - (info.renderValue() || 0)),
+        size: 15,
       }),
       columnHelper.accessor("price", {
         id: "price",
@@ -136,16 +143,11 @@ export default function Table() {
       }),
       columnHelper.accessor("quantity", {
         id: "quantity",
-        header: () => "Quantity",
+        header: () => "Inventory",
         cell: (info) => info.renderValue(),
         size: 10,
       }),
-      columnHelper.accessor("discount", {
-        id: "discount",
-        header: () => "Discount",
-        cell: (info) => formatCurrency(info.renderValue()),
-        size: 10,
-      }),
+
       columnHelper.accessor("category", {
         id: "category",
         header: () => "Category",
@@ -567,9 +569,12 @@ export default function Table() {
                     {headerGroup.headers.map((header) => (
                       <th
                         key={header.id}
-                        className="paragraph-small bg-bg-100 px-6 py-2 font-normal text-text-500 first:rounded-l-lg last:rounded-r-lg"
+                        className={`paragraph-small bg-bg-100 px-6 py-2 font-normal text-text-500 first:rounded-l-lg last:rounded-r-lg ${user?.feature_flags.table_size === "compact" ? "px-4" : "px-6"}`}
                         style={{
-                          width: header.column.columnDef.size + "%",
+                          width:
+                            header.column.id === "checkbox"
+                              ? "3rem"
+                              : header.column.columnDef.size + "%",
                         }}
                       >
                         <button
@@ -621,8 +626,7 @@ export default function Table() {
                                 header.column.columnDef.header,
                                 header.getContext(),
                               )}
-                              {header.column.columnDef.id !== "id" &&
-                              header.column.columnDef.id !== "checkbox" ? (
+                              {header.column.columnDef.id !== "checkbox" ? (
                                 header.column.columnDef.id ===
                                 orderBy?.column ? (
                                   orderBy?.direction === "asc" ? (
@@ -668,13 +672,16 @@ export default function Table() {
                     {row.getVisibleCells().map((cell) => (
                       <td
                         key={cell.id}
-                        className={`paragraph-medium truncate px-6 py-4 first:rounded-l-xl last:rounded-r-xl ${
+                        className={`paragraph-medium truncate first:rounded-l-xl last:rounded-r-xl ${
                           cell.column.columnDef.id !== "name"
                             ? "text-text-500"
                             : ""
-                        }`}
+                        } ${user?.feature_flags.table_size === "compact" ? "px-4 py-2" : "px-6 py-4"}`}
                         style={{
-                          width: cell.column.columnDef.size + "%",
+                          width:
+                            cell.column.id === "checkbox"
+                              ? "3rem"
+                              : cell.column.columnDef.size + "%",
                         }}
                         onClick={(e) =>
                           cell.column.columnDef.id === "checkbox" &&

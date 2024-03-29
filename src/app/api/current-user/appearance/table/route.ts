@@ -1,10 +1,9 @@
 import sql from "@/utils/db";
 import getUser from "@/utils/getUser";
 
-export async function PATCH(req: Request) {
-  const { exchange_period } = await req.json();
-
+export async function POST(req: Request) {
   const { user } = await getUser();
+  const { table } = await req.json();
 
   if (!user?.id) {
     return new Response(JSON.stringify(null), {
@@ -12,16 +11,14 @@ export async function PATCH(req: Request) {
     });
   }
 
-  if (
-    ["1d", "3d", "7d", "14d", "30d", ""].includes(exchange_period) === false
-  ) {
+  if (["compact", "comfortable"].includes(table) === false) {
     return new Response(JSON.stringify(null), {
       status: 400,
     });
   }
 
   await sql(
-    `UPDATE users SET feature_flags = jsonb_set(feature_flags, '{exchange_period}', '"${exchange_period}"') WHERE id = $1`,
+    `UPDATE users SET feature_flags = jsonb_set(feature_flags, '{table_size}', '"${table}"') WHERE id = $1`,
     [user.id],
   );
 

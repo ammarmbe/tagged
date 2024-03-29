@@ -13,5 +13,5 @@ export type TItem = {
     size: string;
     quantity: number;
   };
-  categories: string[];
+  category: string[];
 };

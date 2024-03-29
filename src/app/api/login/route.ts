@@ -14,12 +14,12 @@ export async function POST(req: Request) {
 
   const user = await sql(
     "SELECT id, hashed_password FROM users WHERE email = $1",
-    [email]
+    [email],
   );
 
   const validPassword = await new Scrypt().verify(
     user[0]?.hashed_password ?? "",
-    password
+    password,
   );
 
   if (user.length === 0 || !validPassword) {
@@ -33,8 +33,14 @@ export async function POST(req: Request) {
   cookies().set(
     sessionCookie.name,
     sessionCookie.value,
-    sessionCookie.attributes
+    sessionCookie.attributes,
   );
 
-  return new Response("OK");
+  return new Response(null, {
+    status: 302,
+    headers: {
+      Location: "/",
+      "Set-Cookie": sessionCookie.serialize(),
+    },
+  });
 }

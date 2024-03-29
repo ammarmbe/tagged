@@ -54,7 +54,7 @@ export async function POST(req: Request) {
     });
   }
 
-  let query = `SELECT COUNT(*) OVER() AS total_count, items.nano_id AS nano_id, items.id AS id, items.name AS name, items.price AS price, items.discount AS discount, items.categories AS category, coalesce((SELECT SUM(item_details.quantity) FROM item_details WHERE item_details.item_id = items.id), 0) AS quantity, (SELECT SUM((order_items.price - order_items.discount) * order_items.quantity) FROM order_items WHERE order_items.item_id = items.id) AS revenue FROM items WHERE items.store_id = $1 AND items.id > $2 AND items.deleted = false`;
+  let query = `SELECT COUNT(*) OVER() AS total_count, items.nano_id AS nano_id, items.id AS id, items.name AS name, items.price AS price, items.discount AS discount, items.category AS category, coalesce((SELECT SUM(item_configs.quantity) FROM item_configs WHERE item_configs.item_id = items.id), 0) AS quantity, (SELECT SUM((order_items.price - order_items.discount) * order_items.quantity) FROM order_items WHERE order_items.item_id = items.id) AS revenue FROM items WHERE items.store_id = $1 AND items.id > $2 AND items.deleted = false`;
   const params: (string | number)[] = [user.id, pageParam || 0];
 
   if (name) {
@@ -63,19 +63,19 @@ export async function POST(req: Request) {
   }
 
   if (availability === "in_stock" || availability === "out_of_stock") {
-    query += ` AND coalesce((SELECT SUM(item_details.quantity) FROM item_details WHERE item_details.item_id = items.id), 0) ${
+    query += ` AND coalesce((SELECT SUM(item_configs.quantity) FROM item_configs WHERE item_configs.item_id = items.id), 0) ${
       availability === "in_stock" ? ">" : "="
     } 0`;
   }
 
   if (quantity_min) {
     params.push(quantity_min);
-    query += ` AND (SELECT SUM(item_details.quantity) FROM item_details WHERE item_details.item_id = items.id) >= $${params.length}`;
+    query += ` AND (SELECT SUM(item_configs.quantity) FROM item_configs WHERE item_configs.item_id = items.id) >= $${params.length}`;
   }
 
   if (quantity_max) {
     params.push(quantity_max);
-    query += ` AND (SELECT SUM(item_details.quantity) FROM item_details WHERE item_details.item_id = items.id) <= $${params.length}`;
+    query += ` AND (SELECT SUM(item_configs.quantity) FROM item_configs WHERE item_configs.item_id = items.id) <= $${params.length}`;
   }
 
   if (price_min) {
@@ -90,7 +90,7 @@ export async function POST(req: Request) {
 
   if (category) {
     params.push(category);
-    query += ` AND $${params.length} ILIKE ANY(items.categories)`;
+    query += ` AND $${params.length} ILIKE ANY(items.category)`;
   }
 
   if (discount) {
@@ -132,7 +132,7 @@ export async function POST(req: Request) {
               : orderBy.column === "price"
                 ? "price"
                 : orderBy.column === "status"
-                  ? "(SELECT SUM(item_details.quantity) FROM item_details WHERE item_details.item_id = items.id) > 0"
+                  ? "(SELECT SUM(item_configs.quantity) FROM item_configs WHERE item_configs.item_id = items.id) > 0"
                   : orderBy.column === "name"
                     ? "name"
                     : "id"

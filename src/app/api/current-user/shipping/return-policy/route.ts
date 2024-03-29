@@ -2,7 +2,7 @@ import sql from "@/utils/db";
 import getUser from "@/utils/getUser";
 
 export async function PATCH(req: Request) {
-  const { returnPolicy } = await req.json();
+  const { return_period } = await req.json();
 
   const { user } = await getUser();
 
@@ -12,9 +12,15 @@ export async function PATCH(req: Request) {
     });
   }
 
+  if (["1d", "3d", "7d", "14d", "30d", ""].includes(return_period) === false) {
+    return new Response(JSON.stringify(null), {
+      status: 400,
+    });
+  }
+
   await sql(
-    "UPDATE store_settings SET return_policy = $1 WHERE store_id = $2",
-    [returnPolicy, user.id],
+    `UPDATE users SET feature_flags = jsonb_set(feature_flags, '{return_period}', '"${return_period}"') WHERE id = $1`,
+    [user.id],
   );
 
   return new Response("OK");

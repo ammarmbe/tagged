@@ -1,14 +1,81 @@
 "use client";
-import { formatCurrency } from "@/utils";
+import { formatCurrency, useUser } from "@/utils";
 import Header from "@/components/header/Header";
 import Button from "@/components/primitives/Button";
 import { RiArrowRightSLine, RiShip2Line } from "react-icons/ri";
 import { toast } from "@/components/primitives/toast/use-toast";
 import { useEffect, useState } from "react";
 import Input from "@/components/primitives/Input";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import Loading from "../primitives/Loading";
+import Select from "../primitives/Select";
+
+type TDuration = {
+  value: "1d" | "3d" | "7d" | "14d" | "30d" | "";
+  label:
+    | "1 day"
+    | "3 days"
+    | "7 days"
+    | "14 days"
+    | "30 days"
+    | "No exchanges allowed"
+    | "No returns allowed";
+};
+
+const exchange_durations = [
+  {
+    value: "",
+    label: "No exchanges allowed",
+  },
+  {
+    value: "1d",
+    label: "1 day",
+  },
+  {
+    value: "3d",
+    label: "3 days",
+  },
+  {
+    value: "7d",
+    label: "7 days",
+  },
+  {
+    value: "14d",
+    label: "14 days",
+  },
+  {
+    value: "30d",
+    label: "30 days",
+  },
+] as const;
+
+const return_durations = [
+  {
+    value: "",
+    label: "No returns allowed",
+  },
+  {
+    value: "1d",
+    label: "1 day",
+  },
+  {
+    value: "3d",
+    label: "3 days",
+  },
+  {
+    value: "7d",
+    label: "7 days",
+  },
+  {
+    value: "14d",
+    label: "14 days",
+  },
+  {
+    value: "30d",
+    label: "30 days",
+  },
+] as const;
 
 export default function Page() {
   const queryClient = useQueryClient();
@@ -16,23 +83,12 @@ export default function Page() {
   const [editingExchangePolicy, setEditingExchangePolicy] = useState(false);
   const [editingReturnPolicy, setEditingReturnPolicy] = useState(false);
 
-  const { data, isFetching } = useQuery({
-    queryKey: ["current-user", "shipping"],
-    queryFn: async () => {
-      const res = await fetch("/api/current-user/shipping");
-      return res.json() as Promise<{
-        price: string;
-        return_policy: string;
-        exchange_policy: string;
-        allowed_governorates: string[];
-      }>;
-    },
-  });
+  const { user, isFetching } = useUser();
 
   const priceMutation = useMutation({
     mutationKey: ["updatePrice"],
     mutationFn: async (price: number) => {
-      if (price === Number(data?.price)) return;
+      if (price === Number(user?.feature_flags?.shipping_price)) return;
 
       await fetch("/api/current-user/shipping/price", {
         method: "PATCH",
@@ -41,9 +97,7 @@ export default function Page() {
     },
     async onSuccess() {
       await queryClient.invalidateQueries({
-        predicate: (query) =>
-          query.queryKey[0] === "current-user" &&
-          query.queryKey[1] === "shipping",
+        predicate: (query) => query.queryKey[0] === "current-user",
       });
 
       toast({
@@ -60,19 +114,15 @@ export default function Page() {
 
   const exchangePolicyMutation = useMutation({
     mutationKey: ["updateExchangePolicy"],
-    mutationFn: async (exchangePolicy: string) => {
-      if (exchangePolicy === data?.exchange_policy) return;
-
+    mutationFn: async ({ exchange_period }: { exchange_period: TDuration }) => {
       await fetch("/api/current-user/shipping/exchange-policy", {
         method: "PATCH",
-        body: JSON.stringify({ exchangePolicy }),
+        body: JSON.stringify({ exchange_period: exchange_period.value }),
       });
     },
     async onSuccess() {
       await queryClient.invalidateQueries({
-        predicate: (query) =>
-          query.queryKey[0] === "current-user" &&
-          query.queryKey[1] === "shipping",
+        predicate: (query) => query.queryKey[0] === "current-user",
       });
 
       toast({
@@ -89,19 +139,15 @@ export default function Page() {
 
   const returnPolicyMutation = useMutation({
     mutationKey: ["updateReturnPolicy"],
-    mutationFn: async (returnPolicy: string) => {
-      if (returnPolicy === data?.return_policy) return;
-
+    mutationFn: async ({ return_period }: { return_period: TDuration }) => {
       await fetch("/api/current-user/shipping/return-policy", {
         method: "PATCH",
-        body: JSON.stringify({ returnPolicy }),
+        body: JSON.stringify({ return_period: return_period.value }),
       });
     },
     async onSuccess() {
       await queryClient.invalidateQueries({
-        predicate: (query) =>
-          query.queryKey[0] === "current-user" &&
-          query.queryKey[1] === "shipping",
+        predicate: (query) => query.queryKey[0] === "current-user",
       });
 
       toast({
@@ -120,35 +166,49 @@ export default function Page() {
     register: priceRegister,
     handleSubmit: handlePriceSubmit,
     setValue: setPriceValue,
+    formState: { errors: priceErrors },
   } = useForm<{
     price: string;
   }>({
     defaultValues: {
-      price: data?.price || "0",
+      price: user?.feature_flags?.shipping_price?.toString() || "0",
     },
   });
 
   const {
-    register: exchangePolicyRegister,
     handleSubmit: handleExchangePolicySubmit,
     setValue: setExchangePolicyValue,
+    control: exchangePolicyControl,
   } = useForm<{
-    exchangePolicy: string;
+    exchange_period: TDuration;
   }>({
     defaultValues: {
-      exchangePolicy: data?.exchange_policy || "",
+      exchange_period: {
+        value: user?.feature_flags?.exchange_period || "",
+        label:
+          exchange_durations.find(
+            (duration) =>
+              duration.value === user?.feature_flags?.exchange_period,
+          )?.label || "No exchanges allowed",
+      },
     },
   });
 
   const {
-    register: returnPolicyRegister,
     handleSubmit: handleReturnPolicySubmit,
     setValue: setReturnPolicyValue,
+    control: returnPolicyControl,
   } = useForm<{
-    returnPolicy: string;
+    return_period: TDuration;
   }>({
     defaultValues: {
-      returnPolicy: data?.return_policy || "",
+      return_period: {
+        value: user?.feature_flags?.return_period || "",
+        label:
+          return_durations.find(
+            (duration) => duration.value === user?.feature_flags?.return_period,
+          )?.label || "No returns allowed",
+      },
     },
   });
 
@@ -157,22 +217,42 @@ export default function Page() {
   };
 
   const onExchangePolicySubmit: SubmitHandler<{
-    exchangePolicy: string;
-  }> = async ({ exchangePolicy }) => {
-    await exchangePolicyMutation.mutateAsync(exchangePolicy);
+    exchange_period: TDuration;
+  }> = async ({ exchange_period }) => {
+    await exchangePolicyMutation.mutateAsync({ exchange_period });
   };
 
   const onReturnPolicySubmit: SubmitHandler<{
-    returnPolicy: string;
-  }> = async ({ returnPolicy }) => {
-    await returnPolicyMutation.mutateAsync(returnPolicy);
+    return_period: TDuration;
+  }> = async ({ return_period }) => {
+    await returnPolicyMutation.mutateAsync({ return_period });
   };
 
   useEffect(() => {
-    setPriceValue("price", data?.price || "0");
-    setExchangePolicyValue("exchangePolicy", data?.exchange_policy || "");
-    setReturnPolicyValue("returnPolicy", data?.return_policy || "");
-  }, [setPriceValue, setExchangePolicyValue, setReturnPolicyValue, data]);
+    setPriceValue(
+      "price",
+      user?.feature_flags?.shipping_price?.toString() || "0",
+    );
+    setExchangePolicyValue("exchange_period", {
+      value: user?.feature_flags?.exchange_period || "",
+      label:
+        exchange_durations.find(
+          (duration) => duration.value === user?.feature_flags?.exchange_period,
+        )?.label || "No exchanges allowed",
+    });
+    setReturnPolicyValue("return_period", {
+      value: user?.feature_flags?.return_period || "",
+      label:
+        exchange_durations.find(
+          (duration) => duration.value === user?.feature_flags?.return_period,
+        )?.label || "No returns allowed",
+    });
+  }, [
+    setPriceValue,
+    setExchangePolicyValue,
+    setReturnPolicyValue,
+    user?.feature_flags,
+  ]);
 
   return (
     <div className="flex flex-grow flex-col">
@@ -192,15 +272,17 @@ export default function Page() {
                 <Input
                   size="sm"
                   type="number"
+                  error={priceErrors.price?.message}
+                  errorMessage={priceErrors.price?.message}
                   {...priceRegister("price", {
-                    required: "Price is required.",
+                    required: "Shipping price is required.",
                     min: {
                       value: 0,
-                      message: "Price must be at least 0 EGP.",
+                      message: "Shipping price must be at least 0 EGP.",
                     },
                     max: {
                       value: 1000,
-                      message: "Price must be at most 1000 EGP.",
+                      message: "Shipping price must be at most 1000 EGP.",
                     },
                   })}
                 />
@@ -224,11 +306,11 @@ export default function Page() {
             </div>
             <div className="flex flex-col gap-2 self-center">
               <p className="paragraph-small">
-                {formatCurrency(Number(data?.price))}
+                {formatCurrency(Number(user?.feature_flags?.shipping_price))}
               </p>
               <button
                 onClick={() => setEditingPrice(true)}
-                className="label-small flex items-center gap-0.5 text-main-base"
+                className="label-small flex w-fit items-center gap-0.5 text-main-base"
               >
                 Edit <RiArrowRightSLine size={20} />
               </button>
@@ -238,29 +320,42 @@ export default function Page() {
         <div className="border-t sm:col-span-2" />
         {editingReturnPolicy ? (
           <>
-            <form onSubmit={handleReturnPolicySubmit(onReturnPolicySubmit)}>
-              <p className="label-small mb-1">Return Policy</p>
-              <div className="flex gap-3">
-                <Input
-                  size="sm"
-                  className="w-screen max-w-[300px]"
-                  textarea
-                  {...returnPolicyRegister("returnPolicy", {
-                    maxLength: {
-                      value: 2000,
-                      message: "Return policy must be at most 2000 characters.",
-                    },
-                  })}
-                />
-                <Button
-                  size="sm"
-                  text="Save"
-                  disabled={returnPolicyMutation.isPending}
-                  type="submit"
-                />
+            <form
+              onSubmit={handleReturnPolicySubmit(onReturnPolicySubmit)}
+              className="col-span-2"
+            >
+              <div className="w-full">
+                <p className="label-small mb-1">Return Period</p>
+                <div className="flex gap-3">
+                  <Controller
+                    control={returnPolicyControl}
+                    name="return_period"
+                    render={({
+                      field: { onChange, value, name, ref, onBlur, disabled },
+                    }) => (
+                      <Select
+                        size="sm"
+                        className="w-screen !max-w-[200px]"
+                        width="1000px"
+                        value={value}
+                        onChange={onChange}
+                        options={return_durations}
+                        name={name}
+                        ref={ref}
+                        onBlur={onBlur}
+                        isDisabled={disabled}
+                      />
+                    )}
+                  />
+                  <Button
+                    size="sm"
+                    text="Save"
+                    disabled={returnPolicyMutation.isPending}
+                    type="submit"
+                  />
+                </div>
               </div>
             </form>
-            <div />
           </>
         ) : (
           <>
@@ -272,11 +367,14 @@ export default function Page() {
             </div>
             <div className="flex flex-col gap-2 self-center">
               <p className="paragraph-small">
-                {data?.return_policy || "No return policy"}
+                {return_durations.find(
+                  (duration) =>
+                    duration.value === user?.feature_flags?.return_period,
+                )?.label || "No returns allowed"}
               </p>
               <button
                 onClick={() => setEditingReturnPolicy(true)}
-                className="label-small flex items-center gap-0.5 text-main-base"
+                className="label-small flex w-fit items-center gap-0.5 text-main-base"
               >
                 Edit <RiArrowRightSLine size={20} />
               </button>
@@ -286,30 +384,42 @@ export default function Page() {
         <div className="border-t sm:col-span-2" />
         {editingExchangePolicy ? (
           <>
-            <form onSubmit={handleExchangePolicySubmit(onExchangePolicySubmit)}>
-              <p className="label-small mb-1">Exchange Policy</p>
-              <div className="flex gap-3">
-                <Input
-                  size="sm"
-                  className="w-screen max-w-[300px]"
-                  textarea
-                  {...exchangePolicyRegister("exchangePolicy", {
-                    maxLength: {
-                      value: 2000,
-                      message:
-                        "Exchange policy must be at most 2000 characters.",
-                    },
-                  })}
-                />
-                <Button
-                  size="sm"
-                  text="Save"
-                  disabled={exchangePolicyMutation.isPending}
-                  type="submit"
-                />
+            <form
+              onSubmit={handleExchangePolicySubmit(onExchangePolicySubmit)}
+              className="cols-span-2"
+            >
+              <div className="w-full">
+                <p className="label-small mb-1">Exchange Period</p>
+                <div className="flex gap-3">
+                  <Controller
+                    control={exchangePolicyControl}
+                    name="exchange_period"
+                    render={({
+                      field: { onChange, value, name, ref, onBlur, disabled },
+                    }) => (
+                      <Select
+                        size="sm"
+                        className="w-screen !max-w-[200px]"
+                        value={value}
+                        width="1000px"
+                        onChange={onChange}
+                        options={exchange_durations}
+                        name={name}
+                        ref={ref}
+                        onBlur={onBlur}
+                        isDisabled={disabled}
+                      />
+                    )}
+                  />
+                  <Button
+                    size="sm"
+                    text="Save"
+                    disabled={exchangePolicyMutation.isPending}
+                    type="submit"
+                  />
+                </div>
               </div>
             </form>
-            <div />
           </>
         ) : (
           <>
@@ -321,11 +431,14 @@ export default function Page() {
             </div>
             <div className="flex flex-col gap-2 self-center">
               <p className="paragraph-small">
-                {data?.exchange_policy || "No exchange policy"}
+                {exchange_durations.find(
+                  (duration) =>
+                    duration.value === user?.feature_flags?.exchange_period,
+                )?.label || "No exchanges allowed"}
               </p>
               <button
                 onClick={() => setEditingExchangePolicy(true)}
-                className="label-small flex items-center gap-0.5 text-main-base"
+                className="label-small flex w-fit items-center gap-0.5 text-main-base"
               >
                 Edit <RiArrowRightSLine size={20} />
               </button>

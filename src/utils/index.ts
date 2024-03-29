@@ -4,17 +4,17 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { StylesConfig } from "react-select";
 
 export const useUser = () => {
-  const { data: user } = useQuery({
+  const { data: user, isFetching } = useQuery({
     queryKey: ["current-user"],
     queryFn: async () => {
       const res = await fetch("/api/current-user");
       const data = await res.json();
 
-      return data as User | null;
+      return data as User;
     },
   });
 
-  return user;
+  return { user, isFetching };
 };
 
 function leapYear(year: number) {

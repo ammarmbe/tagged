@@ -266,7 +266,7 @@ export default function Table() {
         <Filters />
       </div>
       <div className="flex flex-grow flex-col justify-between gap-10">
-        <div className="relative flex-grow">
+        <div className="relative flex flex-grow">
           <div
             className={`absolute inset-0 flex flex-col ${
               isFetching ? "" : "pointer-events-none"

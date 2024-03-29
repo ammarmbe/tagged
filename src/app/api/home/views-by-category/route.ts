@@ -17,9 +17,10 @@ export async function GET(req: Request) {
   }
 
   const data = await sql(
-    `SELECT categories, COUNT(*) AS views FROM views JOIN items ON items.id = views.item_id WHERE items.store_id = $1 AND ${timeConstraint(
+    `SELECT category, COUNT(*) AS views FROM views JOIN items ON items.id = views.item_id WHERE items.store_id = $1 AND ${timeConstraint(
       range,
-    )} GROUP BY categories`,
+      "views",
+    )} GROUP BY category`,
     [user.id],
   );
 

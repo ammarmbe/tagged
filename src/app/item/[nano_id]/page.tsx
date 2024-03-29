@@ -25,7 +25,7 @@ export default function Page({ params }: { params: { nano_id: string } }) {
         description: string;
         price: number;
         discount: number;
-        categories: string[];
+        category: string[];
         colors: string[];
         sizes: string[];
         quantity: number;

@@ -114,6 +114,7 @@ export default function Filters() {
           <Select
             isMulti
             placeholder
+            isClearable={false}
             size="sm"
             value={localFilters.category.map((item) => ({
               value: item,
@@ -197,7 +198,7 @@ export default function Filters() {
           </div>
         </div>
         <div className="grid grid-cols-2 gap-3.5 gap-y-1">
-          <p className="label-small col-span-2">Quantity</p>
+          <p className="label-small col-span-2">Inventory</p>
           <Input
             size="sm"
             className="!w-auto"

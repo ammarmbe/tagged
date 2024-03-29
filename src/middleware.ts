@@ -6,7 +6,7 @@ import { lucia } from "./utils/auth";
 
 export async function middleware(request: NextRequest): Promise<NextResponse> {
   if (request.method === "GET") {
-    if (/\.(css|js|png|jpg|jpeg|svg|gif)$/.test(request.nextUrl.pathname)) {
+    if (/\.(css|js|png|jpg|jpeg|svg|gif|ttf)$/.test(request.nextUrl.pathname)) {
       return NextResponse.next();
     }
 

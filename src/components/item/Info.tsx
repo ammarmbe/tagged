@@ -16,7 +16,7 @@ export default function Info({
     description: string;
     price: number;
     discount: number;
-    categories: string[];
+    category: string[];
     colors: string[];
     sizes: string[];
     quantity: number;
@@ -51,7 +51,7 @@ export default function Info({
         <div>
           <p className="subheading-xsmall mb-1 text-text-400">Category</p>
           <p className="label-small flex gap-0.5">
-            {data?.categories.map((c, i) => (
+            {data?.category.map((c, i) => (
               <React.Fragment key={c}>
                 <Link
                   href={`/items?category=${c.toLowerCase()}`}
@@ -59,7 +59,7 @@ export default function Info({
                 >
                   {c}
                 </Link>
-                {i < data?.categories.length - 1 ? (
+                {i < data?.category.length - 1 ? (
                   <RiArrowRightSLine size={20} className="text-icon-400" />
                 ) : null}
               </React.Fragment>

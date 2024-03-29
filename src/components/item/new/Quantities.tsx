@@ -99,7 +99,7 @@ export default function Quantities({
                   {...register(`quantities.${index}.quantity` as const, {
                     min: {
                       value: 0,
-                      message: "Quantity must be at least 0",
+                      message: "Inventory must be at least 0",
                     },
                   })}
                 />
