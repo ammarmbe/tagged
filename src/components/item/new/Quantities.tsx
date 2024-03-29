@@ -60,7 +60,7 @@ export default function Quantities({
 
   return (
     <>
-      <div className="flex flex-col items-center pt-12">
+      <div className="hidden flex-col items-center pt-12 sm:flex">
         <div className="relative w-fit rounded-full bg-[linear-gradient(180deg,#E4E5E7_0%,rgba(228,229,231,0)76.56%)] p-px">
           <div className="absolute inset-px rounded-full bg-white" />
           <div className="relative z-10 w-fit rounded-full bg-[linear-gradient(180deg,rgba(228,229,231,0.48)0%,rgba(247,248,248,0)100%,rgba(228,229,231,0)100%)] p-4">
@@ -76,11 +76,11 @@ export default function Quantities({
       </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="card h-fit w-full max-w-md !gap-0 !p-0"
+        className="sm:card flex h-fit w-full flex-grow flex-col !gap-0 !overflow-visible !p-0 sm:max-w-md sm:flex-grow-0"
       >
         <div className="label-medium p-4">Quantities</div>
         <div className="border-t" />
-        <div className="flex flex-col gap-4 p-4">
+        <div className="flex min-h-0 flex-grow flex-col gap-6 p-4 sm:flex-grow-0">
           {watch("quantities")?.map((quantity, index) => {
             return (
               <div
@@ -93,7 +93,7 @@ export default function Quantities({
                 <Input
                   size="sm"
                   type="number"
-                  className="!w-[200px]"
+                  className="w-[100px] sm:!w-[200px]"
                   error={Boolean(errors.quantities?.[index]?.quantity?.message)}
                   errorMessage={errors.quantities?.[index]?.quantity?.message}
                   {...register(`quantities.${index}.quantity` as const, {

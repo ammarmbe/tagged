@@ -82,15 +82,15 @@ export default function RevenueByCategory() {
             },
             {
               value: "week",
-              label: "This week",
+              label: "Last week",
             },
             {
               value: "month",
-              label: "This month",
+              label: "Last month",
             },
             {
               value: "year",
-              label: "This year",
+              label: "Last year",
             },
             {
               value: "all",

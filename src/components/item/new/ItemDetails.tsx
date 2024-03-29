@@ -91,7 +91,7 @@ export default function ItemDetails({
 
   return (
     <>
-      <div className="flex flex-col items-center pt-12">
+      <div className="hidden flex-col items-center pt-12 sm:flex">
         <div className="relative w-fit rounded-full bg-[linear-gradient(180deg,#E4E5E7_0%,rgba(228,229,231,0)76.56%)] p-px">
           <div className="absolute inset-px rounded-full bg-white" />
           <div className="relative z-10 w-fit rounded-full bg-[linear-gradient(180deg,rgba(228,229,231,0.48)0%,rgba(247,248,248,0)100%,rgba(228,229,231,0)100%)] p-4">
@@ -107,11 +107,11 @@ export default function ItemDetails({
       </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="card h-fit max-w-md !gap-0 !p-0"
+        className="sm:card flex h-fit max-w-md flex-grow flex-col !gap-0 !overflow-visible !p-0 sm:flex-grow-0"
       >
         <div className="label-medium p-4">Item Details</div>
         <div className="border-t" />
-        <div className="flex flex-col gap-6 p-4">
+        <div className="flex min-h-0 flex-grow flex-col gap-6 p-4 sm:flex-grow-0">
           <div className="flex flex-col gap-1">
             <label htmlFor="editName" className="label-small">
               Name

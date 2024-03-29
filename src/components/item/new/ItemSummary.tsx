@@ -50,7 +50,7 @@ export default function ItemSummary({
 
   return (
     <>
-      <div className="flex flex-col items-center pt-12">
+      <div className="hidden flex-col items-center pt-12 sm:flex">
         <div className="relative w-fit rounded-full bg-[linear-gradient(180deg,#E4E5E7_0%,rgba(228,229,231,0)76.56%)] p-px">
           <div className="absolute inset-px rounded-full bg-white" />
           <div className="relative z-10 w-fit rounded-full bg-[linear-gradient(180deg,rgba(228,229,231,0.48)0%,rgba(247,248,248,0)100%,rgba(228,229,231,0)100%)] p-4">
@@ -65,91 +65,97 @@ export default function ItemSummary({
           them.
         </p>
       </div>
-      <div className="card h-fit w-full max-w-md !gap-0 !p-0">
+      <div className="sm:card flex h-fit w-full flex-grow flex-col !gap-0 !overflow-visible !p-0 sm:max-w-md sm:flex-grow-0">
         <div className="label-medium p-4">Item Summary</div>
-        <div className="subheading-xsmall flex items-center justify-between bg-bg-100 px-2 py-1.5 pl-4 text-text-400">
-          Item details
-        </div>
-        <div className="grid grid-cols-[1fr,auto] gap-2 p-4">
-          <p className="paragraph-small text-text-500">Name</p>
-          <p className="label-small text-end">{itemDetails?.name}</p>
-          <p className="paragraph-small text-text-500">Description</p>
-          <p className="label-small text-end">{itemDetails?.description}</p>
-          <p className="paragraph-small text-text-500">Category</p>
-          <p className="label-small text-end">
-            {itemDetails?.category.value.map((c, i) => (
-              <React.Fragment key={c}>
-                <span className="underline-offset-2 hover:underline">{c}</span>
-                {i < itemDetails?.category.value.length - 1 ? (
-                  <RiArrowRightSLine size={20} className="text-icon-400" />
-                ) : null}
-              </React.Fragment>
-            ))}
-          </p>
-          <p className="paragraph-small text-text-500">Price</p>
-          <p className="label-small text-end">
-            {formatCurrency(itemDetails?.price)}
-          </p>
-          <p className="paragraph-small text-text-500">Discount</p>
-          <p className="label-small text-end">
-            {itemDetails?.discount
-              ? formatCurrency(itemDetails?.discount)
-              : "-"}
-          </p>
-        </div>
-        <div className="subheading-xsmall flex items-center justify-between bg-bg-100 px-2 py-1.5 pl-4 text-text-400">
-          Colors & Sizes
-        </div>
-        <div className="grid grid-cols-[1fr,auto] gap-2 p-4">
-          <p className="paragraph-small text-text-500">Colors</p>
-          <div className="flex justify-end gap-2.5">
-            {colors
-              .concat([
-                {
-                  color: "Red",
-                  hex: "#FF0000",
-                },
-                {
-                  color: "Green",
-                  hex: "#00FF00",
-                },
-                {
-                  color: "Blue",
-                  hex: "#0000FF",
-                },
-              ])
-              .map((color) => {
-                return (
-                  <div
-                    key={color.color}
-                    className="label-small flex items-center gap-1"
-                  >
-                    <div
-                      className="size-4 rounded-full shadow-sm"
-                      style={{ backgroundColor: color.hex }}
-                    />
-                    <span>{color.color}</span>
-                  </div>
-                );
-              })}
+        <div className="flex min-h-0 flex-grow flex-col sm:flex-grow-0">
+          <div className="subheading-xsmall flex items-center justify-between bg-bg-100 px-2 py-1.5 pl-4 text-text-400">
+            Item details
           </div>
-          <p className="paragraph-small text-text-500">Sizes</p>
-          <div className="label-small text-end">{sizes.join(", ")}</div>
-        </div>
-        <div className="subheading-xsmall flex items-center justify-between bg-bg-100 px-2 py-1.5 pl-4 text-text-400">
-          Quantities
-        </div>
-        <div className="grid grid-cols-[1fr,auto] gap-2 p-4">
-          {quantities.map((quantity, index) => {
-            return (
-              <React.Fragment key={index}>
-                <p className="paragraph-small text-text-500">
-                  {quantity.color + " / " + quantity.size}
-                </p>
-                <p className="label-small text-end">{quantity.quantity || 0}</p>
-              </React.Fragment>
-            );
-          })}
+          <div className="grid grid-cols-[1fr,auto] gap-2 p-4">
+            <p className="paragraph-small text-text-500">Name</p>
+            <p className="label-small text-end">{itemDetails?.name}</p>
+            <p className="paragraph-small text-text-500">Description</p>
+            <p className="label-small text-end">{itemDetails?.description}</p>
+            <p className="paragraph-small text-text-500">Category</p>
+            <p className="label-small text-end">
+              {itemDetails?.category.value.map((c, i) => (
+                <React.Fragment key={c}>
+                  <span className="underline-offset-2 hover:underline">
+                    {c}
+                  </span>
+                  {i < itemDetails?.category.value.length - 1 ? (
+                    <RiArrowRightSLine size={20} className="text-icon-400" />
+                  ) : null}
+                </React.Fragment>
+              ))}
+            </p>
+            <p className="paragraph-small text-text-500">Price</p>
+            <p className="label-small text-end">
+              {formatCurrency(itemDetails?.price)}
+            </p>
+            <p className="paragraph-small text-text-500">Discount</p>
+            <p className="label-small text-end">
+              {itemDetails?.discount
+                ? formatCurrency(itemDetails?.discount)
+                : "-"}
+            </p>
+          </div>
+          <div className="subheading-xsmall flex items-center justify-between bg-bg-100 px-2 py-1.5 pl-4 text-text-400">
+            Colors & Sizes
+          </div>
+          <div className="grid grid-cols-[1fr,auto] gap-2 p-4">
+            <p className="paragraph-small text-text-500">Colors</p>
+            <div className="flex justify-end gap-2.5">
+              {colors
+                .concat([
+                  {
+                    color: "Red",
+                    hex: "#FF0000",
+                  },
+                  {
+                    color: "Green",
+                    hex: "#00cc00",
+                  },
+                  {
+                    color: "Blue",
+                    hex: "#0000FF",
+                  },
+                ])
+                .map((color) => {
+                  return (
+                    <div
+                      key={color.color}
+                      className="label-small flex items-center gap-1"
+                    >
+                      <div
+                        className="size-2.5 rounded-full shadow-sm"
+                        style={{ backgroundColor: color.hex }}
+                      />
+                      <span>{color.color}</span>
+                    </div>
+                  );
+                })}
+            </div>
+            <p className="paragraph-small text-text-500">Sizes</p>
+            <div className="label-small text-end">{sizes.join(", ")}</div>
+          </div>
+          <div className="subheading-xsmall flex items-center justify-between bg-bg-100 px-2 py-1.5 pl-4 text-text-400">
+            Quantities
+          </div>
+          <div className="grid grid-cols-[1fr,auto] gap-2 p-4">
+            {quantities.map((quantity, index) => {
+              return (
+                <React.Fragment key={index}>
+                  <p className="paragraph-small text-text-500">
+                    {quantity.color + " / " + quantity.size}
+                  </p>
+                  <p className="label-small text-end">
+                    {quantity.quantity || 0}
+                  </p>
+                </React.Fragment>
+              );
+            })}
+          </div>
         </div>
         <div className="grid grid-cols-2 gap-4 border-t p-4">
           <Button

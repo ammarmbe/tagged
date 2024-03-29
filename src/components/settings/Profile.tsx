@@ -115,7 +115,9 @@ export default function Page() {
       <div className="grid gap-x-10 gap-y-5 px-8 py-5 sm:grid-cols-2 sm:gap-x-20">
         <div>
           <p className="label-small">Store ID</p>
-          <div className="paragraph-small mt-1 text-text-500">{user?.id}</div>
+          <div className="paragraph-small mt-1 text-text-500">
+            {user?.nano_id}
+          </div>
         </div>
         <Button
           size="xs"

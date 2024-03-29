@@ -78,14 +78,14 @@ export default function Page() {
   }, [colors, sizes]);
 
   return (
-    <>
+    <div className="flex h-screen flex-grow flex-col sm:flex-row">
       <Sidebar current_level={level} />
-      <div className="relative z-10 flex flex-grow flex-col items-center gap-10">
+      <div className="relative z-10 flex min-h-0 min-w-0 flex-grow flex-col items-center gap-10 overflow-auto">
         <Button
           color="gray"
           disabled={level === 1}
           onClick={() => setLevel(level === 1 ? level : level - 1)}
-          className="absolute right-6 top-6 rounded-full border bg-white p-3 shadow-md"
+          className="absolute right-6 top-6 hidden rounded-full border bg-white p-3 shadow-md sm:block"
           iconLeft={<RiArrowLeftLine />}
         />
         {level === 1 ? (
@@ -119,6 +119,6 @@ export default function Page() {
           />
         )}
       </div>
-    </>
+    </div>
   );
 }

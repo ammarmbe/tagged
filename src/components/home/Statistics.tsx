@@ -95,7 +95,7 @@ export default function Statistics() {
           </div>
           <div>
             <p className="paragraph-small mb-1 text-text-500">
-              Average Over Value
+              Average Order Value
             </p>
             <p className="title-h4 flex items-center gap-2">
               {formatCurrency(data.average_order_value)}

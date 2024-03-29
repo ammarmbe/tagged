@@ -13,15 +13,15 @@ export type TRange =
     }
   | {
       value: "week";
-      label: "This week";
+      label: "Last week";
     }
   | {
       value: "month";
-      label: "This month";
+      label: "Last month";
     }
   | {
       value: "year";
-      label: "This year";
+      label: "Last year";
     }
   | {
       value: "all";
@@ -51,15 +51,15 @@ export default function RevenueOverview() {
             },
             {
               value: "week",
-              label: "This week",
+              label: "Last week",
             },
             {
               value: "month",
-              label: "This month",
+              label: "Last month",
             },
             {
               value: "year",
-              label: "This year",
+              label: "Last year",
             },
             {
               value: "all",

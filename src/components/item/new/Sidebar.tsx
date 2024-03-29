@@ -21,14 +21,16 @@ const levels = [
 
 export default function Sidebar({ current_level }: { current_level: number }) {
   return (
-    <aside className="m-2 flex-none rounded-2xl bg-bg-100 p-4">
+    <aside className="flex-none bg-bg-100 p-3 sm:m-2 sm:rounded-2xl sm:p-4">
       <div className="flex flex-grow flex-col gap-3">
-        <p className="subheading-xsmall p-1 text-text-400">New Item</p>
-        <nav className="flex flex-col gap-2">
+        <p className="subheading-xsmall hidden p-1 text-text-400 sm:block">
+          New Item
+        </p>
+        <nav className="grid grid-cols-4 flex-col gap-2 sm:flex">
           {levels.map((level) => (
             <div
               key={level.number}
-              className={`flex cursor-pointer items-center gap-2.5 rounded-[10px] p-2 transition-all ${
+              className={`flex cursor-pointer items-center justify-center gap-2.5 rounded-[10px] p-2 transition-all ${
                 level.number === current_level
                   ? "bg-white shadow-[0px_2px_4px_0px_#1B1C1D0A]"
                   : "text-text-500"
@@ -49,12 +51,14 @@ export default function Sidebar({ current_level }: { current_level: number }) {
                   {level.number}
                 </div>
               )}
-              <p className="label-small flex-grow pr-8">{level.title}</p>
+              <p className="label-small hidden flex-grow pr-8 sm:block">
+                {level.title}
+              </p>
               <div
                 className={
                   level.number === current_level
-                    ? "text-icon-500 transition-all"
-                    : "opacity-0 transition-all"
+                    ? "hidden text-icon-500 transition-all sm:block"
+                    : "hidden opacity-0 transition-all sm:block"
                 }
               >
                 <RiArrowRightSLine size={20} />

@@ -15,6 +15,7 @@ export const lucia = new Lucia(adapter, {
       name: user.name,
       store: user.store,
       feature_flags: user.feature_flags,
+      nano_id: user.nano_id,
     };
   },
 });
@@ -42,4 +43,5 @@ interface DatabaseUserAttributes {
     facebook?: string;
     instagram?: string;
   };
+  nano_id: string;
 }

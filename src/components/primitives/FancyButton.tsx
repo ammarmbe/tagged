@@ -32,14 +32,18 @@ const Button: React.FC<
   iconLeft?: React.ReactNode;
   iconRight?: React.ReactNode;
 }) => {
+  const class_name = `flex h-full flex-grow items-center gap-0.5 rounded-[8px] bg-[linear-gradient(180deg,rgba(255,255,255,0.12)0%,rgba(255,255,255,0)100%),linear-gradient(0deg,#6E3FF3,#6E3FF3)] text-white transition-all hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.24)0%,rgba(255,255,255,0)100%),linear-gradient(0deg,#6E3FF3,#6E3FF3)] active:bg-[linear-gradient(180deg,rgba(255,255,255,0)0%,rgba(255,255,255,0.16)100%),linear-gradient(0deg,#6E3FF3,#6E3FF3)] disabled:border-border-200 disabled:!bg-bg-100 disabled:text-text-300 disabled:!shadow-none ${
+    size === "xs" ? "p-1.5" : size === "sm" ? "p-1.5 sm:p-2" : "p-2 sm:p-2.5"
+  } ${className}`;
+
   return (
     <div
       style={{
         backgroundImage:
-          "linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 100%), linear-gradient(0deg, #DF1C41, #DF1C41)",
-        boxShadow: "0px 0px 0px 1px #E93535, 0px 1px 2px 0px #AF1D1D7A",
+          "linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 100%), linear-gradient(0deg, #6E3FF3, #6E3FF3)",
+        boxShadow: "0px 0px 0px 1px #6E3FF3, 0px 1px 2px 0px #5A36BF7A",
       }}
-      className={`rounded-[10px] overflow-hidden flex ${
+      className={`flex overflow-hidden rounded-[10px] ${
         //@ts-ignore
         props.disabled ? "!bg-none !shadow-none" : ""
       }`}
@@ -49,7 +53,7 @@ const Button: React.FC<
           backgroundImage:
             "linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 100%)",
         }}
-        className={`rounded-[9px] overflow-hidden flex-grow flex ${
+        className={`flex flex-grow overflow-hidden rounded-[9px] ${
           //@ts-ignore
           props.disabled ? "!bg-none" : "p-px"
         }`}
@@ -62,9 +66,7 @@ const Button: React.FC<
               //@ts-ignore
               backgroundImage: props.disabled ? "none" : undefined,
             }}
-            className={`rounded-[8px] bg-[linear-gradient(180deg,rgba(255,255,255,0.12)0%,rgba(255,255,255,0)100%),linear-gradient(0deg,#DF1C41,#DF1C41)] hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.24)0%,rgba(255,255,255,0)100%),linear-gradient(0deg,#DF1C41,#DF1C41)] active:bg-[linear-gradient(180deg,rgba(255,255,255,0)0%,rgba(255,255,255,0.16)100%),linear-gradient(0deg,#DF1C41,#DF1C41)] text-white h-full flex-grow disabled:!bg-bg-100 disabled:text-text-300 disabled:border-border-200 disabled:!shadow-none  transition-all flex gap-0.5 items-center ${
-              size === "xs" ? "p-1.5" : size === "sm" ? "p-2" : "p-2.5"
-            } ${className}`}
+            className={class_name}
           >
             {iconLeft}
             {text ? <span className="label-small px-1">{text}</span> : null}
@@ -77,9 +79,7 @@ const Button: React.FC<
               //@ts-ignore
               backgroundImage: props.disabled ? "none" : undefined,
             }}
-            className={`rounded-[9px] bg-[linear-gradient(180deg,rgba(255,255,255,0.12)0%,rgba(255,255,255,0)100%),linear-gradient(0deg,#DF1C41,#DF1C41)] hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.24)0%,rgba(255,255,255,0)100%),linear-gradient(0deg,#DF1C41,#DF1C41)] active:bg-[linear-gradient(180deg,rgba(255,255,255,0)0%,rgba(255,255,255,0.16)100%),linear-gradient(0deg,#DF1C41,#DF1C41)] text-white h-full flex-grow disabled:!bg-bg-100 disabled:text-text-300 disabled:border-border-200 disabled:!shadow-none  transition-all flex gap-0.5 items-center ${
-              size === "xs" ? "p-1.5" : size === "sm" ? "p-2" : "p-2.5"
-            } ${className}`}
+            className={class_name}
           >
             {iconLeft}
             {text ? <span className="label-small px-1">{text}</span> : null}
