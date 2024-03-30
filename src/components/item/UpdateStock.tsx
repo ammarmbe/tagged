@@ -94,7 +94,7 @@ export default function UpdateStock({
         </div>
       </div>
       <div className="border-t" />
-      <div className="flex flex-grow justify-center">
+      <div className="flex flex-grow flex-col justify-center">
         {data?.quantities?.map((quantity, index) => {
           return (
             <Fragment key={index}>
