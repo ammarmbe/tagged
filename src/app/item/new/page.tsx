@@ -37,7 +37,12 @@ export default function Page() {
   ]);
   const [sizes, setSizes] = useState<string[]>(["Small", "Medium", "Large"]);
   const [quantities, setQuantities] = useState<
-    { color: string; size: string; quantity: number | undefined }[]
+    {
+      color: string;
+      size: string;
+      color_hex: string;
+      quantity: number | undefined;
+    }[]
   >([]);
 
   useEffect(() => {
@@ -59,6 +64,8 @@ export default function Page() {
   }, [level, colors, sizes]);
 
   useEffect(() => {
+    console.log(quantities);
+
     if (
       level > 3 &&
       (!quantities.length || quantities.length !== colors.length * sizes.length)

@@ -17,7 +17,7 @@ import {
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import ReactSelect from "react-select";
-import { formatCurrency, selectStyles, useFilters } from "@/utils";
+import { formatCurrency, selectStyles, useFilters, useUser } from "@/utils";
 import Spinner from "../primitives/Spinner";
 import Filters from "./Filters";
 import Status from "../Status";
@@ -120,6 +120,7 @@ export default function Table() {
   }>();
   const [limit, setLimit] = useState(10);
   const router = useRouter();
+  const { user } = useUser();
 
   const orderFilters = useMemo(() => {
     let filters = {} as TFilters;
@@ -287,7 +288,7 @@ export default function Table() {
                     {headerGroup.headers.map((header) => (
                       <th
                         key={header.id}
-                        className="paragraph-small bg-bg-100 px-6 py-2 font-normal text-text-500 first:rounded-l-lg last:rounded-r-lg"
+                        className={`paragraph-small bg-bg-100 py-2 font-normal text-text-500 first:rounded-l-lg last:rounded-r-lg ${user?.feature_flags.table_size === "compact" ? "px-4" : "px-6"}`}
                         style={{
                           width: header.column.columnDef.size + "%",
                         }}
@@ -380,11 +381,11 @@ export default function Table() {
                     {row.getVisibleCells().map((cell) => (
                       <td
                         key={cell.id}
-                        className={`paragraph-medium truncate px-6 py-4 first:rounded-l-xl last:rounded-r-xl ${
+                        className={`paragraph-medium truncate first:rounded-l-xl last:rounded-r-xl ${
                           cell.column.columnDef.id !== "total_price"
                             ? "text-text-500"
                             : ""
-                        }`}
+                        } ${user?.feature_flags.table_size === "compact" ? "px-4 py-2" : "px-6 py-4"}`}
                         style={{
                           width: cell.column.columnDef.size + "%",
                         }}

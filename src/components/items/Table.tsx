@@ -569,7 +569,7 @@ export default function Table() {
                     {headerGroup.headers.map((header) => (
                       <th
                         key={header.id}
-                        className={`paragraph-small bg-bg-100 px-6 py-2 font-normal text-text-500 first:rounded-l-lg last:rounded-r-lg ${user?.feature_flags.table_size === "compact" ? "px-4" : "px-6"}`}
+                        className={`paragraph-small bg-bg-100 py-2 font-normal text-text-500 first:rounded-l-lg last:rounded-r-lg ${user?.feature_flags.table_size === "compact" ? "px-4" : "px-6"}`}
                         style={{
                           width:
                             header.column.id === "checkbox"

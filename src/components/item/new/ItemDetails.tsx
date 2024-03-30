@@ -266,6 +266,7 @@ export default function ItemDetails({
             text="Back"
             href="/"
             size="md"
+            type="button"
             color="gray"
             className="justify-center"
           />

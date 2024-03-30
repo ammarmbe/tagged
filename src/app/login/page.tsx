@@ -48,7 +48,7 @@ export default function Login() {
       return;
     }
 
-    router.refresh();
+    router.push("/");
   };
 
   return (

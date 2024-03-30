@@ -19,7 +19,12 @@ export async function POST(req: Request) {
         value: string[];
       };
     };
-    quantities: { color: string; size: string; quantity: number | undefined }[];
+    quantities: {
+      color: string;
+      size: string;
+      color_hex: string;
+      quantity: number | undefined;
+    }[];
   } = await req.json();
 
   const { user } = await getUser();
@@ -45,10 +50,12 @@ export async function POST(req: Request) {
     ],
   );
 
-  quantities.forEach(async ({ color, size, quantity }) => {
+  console.log(quantities);
+
+  quantities.forEach(async ({ color, size, quantity, color_hex }) => {
     await sql(
-      "INSERT INTO item_configs (item_id, color, size, quantity) VALUES ($1, $2, $3, $4)",
-      [id[0].id, color, size, quantity || 0],
+      "INSERT INTO item_configs (item_id, color, size, quantity, color_hex) VALUES ($1, $2, $3, $4, $5)",
+      [id[0].id, color, size, quantity || 0, color_hex],
     );
   });
 

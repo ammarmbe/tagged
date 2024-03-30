@@ -365,6 +365,7 @@ export default function ColorsSizes({
             text="Back"
             onClick={() => setLevel((prev) => prev - 1)}
             size="md"
+            type="button"
             color="gray"
             className="justify-center"
           />

@@ -33,6 +33,8 @@ export default function ItemSummary({
   const newItemMutation = useMutation({
     mutationKey: ["new-item"],
     mutationFn: async () => {
+      console.log(quantities);
+
       const res = await fetch("/api/item/new", {
         method: "POST",
         body: JSON.stringify({
@@ -162,6 +164,7 @@ export default function ItemSummary({
             text="Back"
             onClick={() => setLevel((prev) => prev - 1)}
             size="md"
+            type="button"
             color="gray"
             className="justify-center"
           />

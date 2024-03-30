@@ -13,7 +13,12 @@ export default function Quantities({
   sizes: string[];
   setQuantities: React.Dispatch<
     React.SetStateAction<
-      { color: string; size: string; quantity: number | undefined }[]
+      {
+        color: string;
+        size: string;
+        color_hex: string;
+        quantity: number | undefined;
+      }[]
     >
   >;
   setLevel: React.Dispatch<React.SetStateAction<number>>;
@@ -26,19 +31,26 @@ export default function Quantities({
   } = useForm<{
     quantities: {
       color: string;
+      color_hex: string;
       size: string;
       quantity: number | undefined;
     }[];
   }>({
     defaultValues: {
       quantities: colors.reduce<
-        { color: string; size: string; quantity: number | undefined }[]
+        {
+          color: string;
+          size: string;
+          color_hex: string;
+          quantity: number | undefined;
+        }[]
       >(
-        (acc, { color }) => [
+        (acc, { color, hex }) => [
           ...acc,
           ...sizes.map((size) => ({
             color,
             size,
+            color_hex: hex,
             quantity: undefined,
           })),
         ],
@@ -51,9 +63,12 @@ export default function Quantities({
     quantities: {
       color: string;
       size: string;
+      color_hex: string;
       quantity: number | undefined;
     }[];
   }> = (data) => {
+    console.log("data", data);
+
     setQuantities(data.quantities);
     setLevel(4);
   };
@@ -118,6 +133,7 @@ export default function Quantities({
             size="md"
             color="gray"
             className="justify-center"
+            type="button"
           />
           <Button
             text="Next"
