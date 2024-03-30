@@ -10,6 +10,7 @@ export default function Items({
   cart: {
     id: string;
     item_id: string;
+    store_nano_id: string;
     nano_id: string;
     store_id: string;
     item_name: string;

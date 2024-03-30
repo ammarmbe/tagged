@@ -17,7 +17,7 @@ import CancelOrder from "./CancelOrder";
 
 type Order = {
   customer_name: string;
-  reason: string;
+  cancel_reason: string;
   apartment: string;
   city: string;
   governorate: string;
@@ -102,7 +102,7 @@ export default function CustomerOrders() {
       const response = await fetch("/api/orders");
       return (await response.json()) as {
         customer_name: string;
-        reason: string;
+        cancel_reason: string;
         apartment: string;
         city: string;
         governorate: string;
