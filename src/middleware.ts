@@ -13,8 +13,11 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
     const sessionId =
       request.cookies.get(lucia.sessionCookieName)?.value ?? null;
 
-    if (!sessionId)
-      return NextResponse.redirect(process.env.NEXT_PUBLIC_URL + "/login");
+    if (!sessionId) {
+      if (request.nextUrl.pathname !== "/login")
+        return NextResponse.redirect(process.env.NEXT_PUBLIC_URL + "/login");
+      else return NextResponse.next();
+    }
 
     const { session, user } = await lucia.validateSession(sessionId);
 
