@@ -16,7 +16,7 @@ export async function POST(req: Request) {
   } = await req.json();
 
   await sql(
-    "INSERT INTO users (id, email, hashed_password, name) VALUES ($1, $2, $3, $4)",
+    "INSERT INTO users (nano_id, email, hashed_password, name) VALUES ($1, $2, $3, $4)",
     [userId, email, hashedPassword, name],
   );
 
@@ -30,7 +30,8 @@ export async function POST(req: Request) {
 
   return new Response("OK", {
     headers: {
-      "Content-Type": "application/json",
+      Location: "/",
+      "Set-Cookie": sessionCookie.serialize(),
     },
   });
 }
