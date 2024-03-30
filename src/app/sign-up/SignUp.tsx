@@ -1,11 +1,14 @@
 "use client";
 import Spinner from "@/components/Spinner";
-import { Scrypt, generateId } from "lucia";
+import { Scrypt } from "lucia";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import Link from "@/utils/Link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { customAlphabet } from "nanoid";
+
+const nanoid = customAlphabet("1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ", 10);
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
@@ -50,7 +53,7 @@ export default function SignUp() {
     }
 
     const hashedPassword = await new Scrypt().hash(password);
-    const userId = generateId(15);
+    const userId = nanoid(10);
 
     if (typeof email === "string") {
       await fetch("/api/sign-up", {
