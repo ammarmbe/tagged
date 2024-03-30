@@ -22,6 +22,7 @@ export async function GET(req: Request) {
       category: data[0].category,
       item_id: data[0].item_id,
       item_name: data[0].item_name,
+      store_nano_id: data[0].store_nano_id,
       store_name: data[0].store_name,
       description: data[0].description,
       store_id: data[0].store_id,
