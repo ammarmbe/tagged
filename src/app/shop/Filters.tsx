@@ -41,7 +41,7 @@ export default function Filters({
   const pathname = usePathname();
 
   const [values, setValues] = useState<{
-    // categories: { id: number; name: string; parent_id: number }[];
+    // category: { id: number; name: string; parent_id: number }[];
     colors: string[];
     maxPrice: number;
     stores: { id: number; name: string }[];

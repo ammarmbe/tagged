@@ -54,9 +54,7 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
       fetch(`${process.env.NEXT_PUBLIC_URL}/api/views`, {
         method: "POST",
         body: JSON.stringify({
-          store_id: request.nextUrl.pathname
-            .split("/shop/store/")[1]
-            .split("-")[1],
+          store_id: request.nextUrl.pathname.split("/shop/store/")[1],
           ip: request.ip,
         }),
       });

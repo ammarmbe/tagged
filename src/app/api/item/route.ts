@@ -9,7 +9,7 @@ export async function GET(req: Request) {
   }
 
   const data = await sql(
-    "SELECT categories, color, color_value, size, quantity, items.name as item_name, items.description as description, price, discount, users.name as store_name, users.id as store_id, items.id as item_id FROM item_details JOIN items ON items.id = item_details.item_id JOIN users ON users.id = items.store_id WHERE items.nano_id = $1 AND items.deleted != true",
+    "SELECT category, color, color_hex, size, quantity, users.nano_id AS store_nano_id, items.name as item_name, items.description as description, price, discount, users.name as store_name, users.id as store_id, items.id as item_id FROM item_configs JOIN items ON items.id = item_configs.item_id JOIN users ON users.id = items.store_id WHERE items.nano_id = $1 AND items.deleted != true",
     [nano_id],
   );
 
@@ -19,7 +19,7 @@ export async function GET(req: Request) {
 
   return new Response(
     JSON.stringify({
-      categories: data[0].categories,
+      category: data[0].category,
       item_id: data[0].item_id,
       item_name: data[0].item_name,
       store_name: data[0].store_name,
@@ -31,13 +31,13 @@ export async function GET(req: Request) {
         color: item.color,
         size: item.size,
         quantity: item.quantity,
-        color_value: item.color_value,
+        color_hex: item.color_hex,
       })),
       colors: Array.from(new Set(data.map((item) => item.color))).map(
         (color) => {
           return {
             name: color,
-            value: data.find((item) => item.color === color)?.color_value,
+            value: data.find((item) => item.color === color)?.color_hex,
           };
         },
       ),

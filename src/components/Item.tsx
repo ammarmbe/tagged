@@ -10,6 +10,7 @@ export default function Item({
   item: {
     item_name: string;
     item_id: string;
+    store_nano_id: string;
     store_name: string;
     store_id: string;
     nano_id: string;
@@ -77,7 +78,7 @@ export default function Item({
       <p className="text-tertiary text-sm font-medium sm:text-base">
         From{" "}
         <Link
-          href={`/shop/store/${item.store_id}`}
+          href={`/shop/store/${item.store_nano_id}`}
           className="font-semibold text-main-500 transition-colors hover:text-main-600"
         >
           {item.store_name}

@@ -11,11 +11,11 @@ export async function GET() {
   }
 
   const data = await sql(
-    "SELECT *, phone_number AS number FROM addresses WHERE user_id = $1",
+    "SELECT (address).*, first_name, governorate, (address).phone_number AS number FROM users WHERE id = $1",
     [user.id],
   );
 
-  return new Response(JSON.stringify(data[0]), {
+  return new Response(JSON.stringify({ ...data[0], ...data[0].address }), {
     status: 200,
   });
 }
@@ -39,15 +39,15 @@ export async function POST(req: Request) {
   }
 
   await sql(
-    "INSERT INTO addresses (first_name, last_name, street, apartment, city, governorate, phone_number, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) ON CONFLICT (user_id) DO UPDATE SET first_name = $1, last_name = $2, street = $3, apartment = $4, city = $5, governorate = $6, phone_number = $7",
+    "UPDATE users SET first_name = $1, governorate = $2, address = ROW($3, $4, $5, $6, $7) WHERE id = $8",
     [
       first_name,
-      last_name,
+      governorate,
       street,
       apartment,
       city,
-      governorate,
       number.startsWith("1") ? "0" + number : number,
+      last_name,
       user.id,
     ],
   );

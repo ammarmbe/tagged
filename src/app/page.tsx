@@ -4,14 +4,14 @@ import Strip from "@/components/home/Strip";
 
 export default async function Home() {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_URL}/api/home?categories=${["sweatpants", "hoodies", "jeans"].join(",")}&limit=10`,
+    `${process.env.NEXT_PUBLIC_URL}/api/home?category=${["sweatpants", "hoodies", "jeans"].join(",")}&limit=10`,
     {
       cache: "reload",
     },
   );
 
   const items = (await res.json()) as {
-    categories: string[];
+    category: string[];
     item_name: string;
     item_id: string;
     nano_id: string;
@@ -46,7 +46,7 @@ export default async function Home() {
           <p className="text-secondary text-lg font-medium">Shop Hoodies</p>
           <div className="flex gap-3 overflow-auto">
             {items
-              ?.filter((i) => i.categories.includes("hoodies"))
+              ?.filter((i) => i.category.includes("hoodies"))
               .map((item, index) => (
                 <div className="min-w-[200px]" key={item.item_id + index}>
                   <Item item={item} />
@@ -58,7 +58,7 @@ export default async function Home() {
           <p className="text-secondary text-lg font-medium">Shop Jeans</p>
           <div className="flex gap-3 overflow-auto">
             {items
-              ?.filter((i) => i.categories.includes("jeans"))
+              ?.filter((i) => i.category.includes("jeans"))
               .map((item, index) => (
                 <div className="min-w-[200px]" key={item.item_id + index}>
                   <Item item={item} />
@@ -70,7 +70,7 @@ export default async function Home() {
           <p className="text-secondary text-lg font-medium">Shop Sweatpants</p>
           <div className="flex gap-3 overflow-auto">
             {items
-              ?.filter((i) => i.categories.includes("sweatpants"))
+              ?.filter((i) => i.category.includes("sweatpants"))
               .map((item, index) => (
                 <div className="min-w-[200px]" key={item.item_id + index}>
                   <Item item={item} />

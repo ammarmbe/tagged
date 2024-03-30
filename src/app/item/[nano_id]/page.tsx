@@ -3,10 +3,11 @@ import getUser from "@/utils/getUser";
 import { QueryClient } from "@tanstack/react-query";
 
 export type Item = {
-  categories: string[];
+  category: string[];
   item_id: string;
   item_name: string;
   store_name: string;
+  store_nano_id: string;
   store_id: string;
   description: string;
   price: number;
@@ -15,7 +16,7 @@ export type Item = {
     color: string;
     size: string;
     quantity: number;
-    color_value: string;
+    color_hex: string;
   }[];
   colors: { name: string; value: string }[];
   sizes: string[];

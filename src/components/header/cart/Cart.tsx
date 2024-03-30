@@ -8,9 +8,12 @@ import CartItem from "./CartItem";
 import Link from "@/utils/Link";
 
 export default function Cart() {
+  const [dialogOpen, setDialogOpen] = useState(false);
+
   const [items, setItems] = useState<
     {
       id: string;
+      store_nano_id: string;
       store_id: string;
       item_id: string;
       nano_id: string;
@@ -43,6 +46,7 @@ export default function Cart() {
         id: string;
         store_id: string;
         item_id: string;
+        store_nano_id: string;
         nano_id: string;
         item_name: string;
         store_name: string;
@@ -66,7 +70,7 @@ export default function Cart() {
   }, [data]);
 
   return (
-    <Dialog.Root>
+    <Dialog.Root open={dialogOpen} onOpenChange={setDialogOpen}>
       <Dialog.Trigger asChild>
         <button className="button secondary relative !p-2" type="button">
           <ShoppingBag size={20} />
@@ -187,14 +191,13 @@ export default function Cart() {
                     )}
                   </p>
                 </div>
-                <Dialog.Close asChild>
-                  <Link
-                    href="/checkout"
-                    className="button main sm:lg md w-full justify-center"
-                  >
-                    Check Out
-                  </Link>
-                </Dialog.Close>
+                <Link
+                  href="/checkout"
+                  className="button main sm:lg md w-full justify-center"
+                  onClick={() => setDialogOpen(false)}
+                >
+                  Check Out
+                </Link>
               </div>
             </>
           )}

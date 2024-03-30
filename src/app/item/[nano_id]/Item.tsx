@@ -46,19 +46,19 @@ export default function Page({
           <div className="m-7">
             <div className="flex justify-between gap-3">
               <div className="flex-grow">
-                {item.categories ? (
+                {item.category ? (
                   <div className="mb-2 flex items-center gap-2 text-sm">
-                    {item.categories.map((category, i) => (
+                    {item.category.map((category, i) => (
                       <Fragment key={i}>
                         <span>
                           <Link
                             href={`/shop?category=${category.toLocaleLowerCase()}`}
-                            className={`rounded-md font-medium transition-all ${i === item.categories.length - 1 ? "text-main-500 hover:text-main-600 active:text-main-700" : "hover:text-secondary text-tertiary active:text-secondary"}`}
+                            className={`rounded-md font-medium transition-all ${i === item.category.length - 1 ? "text-main-500 hover:text-main-600 active:text-main-700" : "hover:text-secondary text-tertiary active:text-secondary"}`}
                           >
                             {category}
                           </Link>
                         </span>
-                        {i < item.categories.length - 1 ? (
+                        {i < item.category.length - 1 ? (
                           <span className="text-quaternary">
                             <ChevronRight size={16} />
                           </span>
@@ -83,7 +83,7 @@ export default function Page({
                       From{" "}
                       <Link
                         className="font-semibold text-main-500"
-                        href={`/shop/store/${item.store_id}`}
+                        href={`/shop/store/${item.store_nano_id}`}
                       >
                         {item.store_name}
                       </Link>

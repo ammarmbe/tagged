@@ -107,13 +107,13 @@ export default function Status({
           className="flex cursor-help items-center justify-center"
           asChild
         >
-          <div
+          <span
             style={{
               borderColor: statusColors.border,
               color: statusColors.text,
               backgroundColor: statusColors.background,
             }}
-            className={`text-medium w-fit text-nowrap rounded-full border p-2 py-0.5 text-xs ${inline ? "inline" : ""}`}
+            className={`text-medium w-fit text-nowrap rounded-full border p-2 py-0.5 text-xs ${inline ? "inline" : "block"}`}
           >
             {status === "customer_cancelled" ? (
               "Cancelled by customer"
@@ -122,7 +122,7 @@ export default function Status({
             ) : (
               <span className="capitalize">{status}</span>
             )}
-          </div>
+          </span>
         </Tooltip.Trigger>
         <Tooltip.Portal>
           <Tooltip.Content className="rounded-md bg-[#0C111D] px-3 py-2 text-xs font-medium text-white shadow-lg animate-in fade-in-0 data-[state=closed]:animate-out data-[state=closed]:fade-out-0">

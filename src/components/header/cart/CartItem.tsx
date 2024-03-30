@@ -11,6 +11,7 @@ export default function CartItem({
 }: {
   item: {
     id: string;
+    store_nano_id: string;
     nano_id: string;
     discount: number;
     item_id: string;
@@ -28,6 +29,7 @@ export default function CartItem({
     SetStateAction<
       {
         id: string;
+        store_nano_id: string;
         nano_id: string;
         item_id: string;
         discount: number;
@@ -120,7 +122,7 @@ export default function CartItem({
           </button>
         </div>
         <Link
-          href={`/shop/store/${item.store_id}`}
+          href={`/shop/store/${item.store_nano_id}`}
           className="font-medium text-main-500"
         >
           {item.store_name}

@@ -3,7 +3,7 @@ import sql from "@/utils/db";
 export async function POST(req: Request) {
   const {
     name,
-    store_ids,
+    store_nano_ids,
     price_min,
     price_max,
     sale,
@@ -15,7 +15,7 @@ export async function POST(req: Request) {
   } = await req.json();
 
   let query =
-    "SELECT items.id AS item_id, nano_id, array_unique(array_agg(color_value)) as colors, (CASE WHEN (SELECT SUM(quantity) FROM item_details WHERE item_id = items.id) > 0 THEN false ELSE true END) as out_of_stock, items.name AS item_name, items.description AS description, price, discount, users.name AS store_name, users.id AS store_id FROM items JOIN item_details ON item_details.item_id = items.id JOIN users ON users.id = items.store_id WHERE items.id > $1 AND items.deleted != true";
+    "SELECT items.id AS item_id, items.nano_id, users.nano_id as store_nano_id, array_agg(DISTINCT color_hex) as colors, (CASE WHEN (SELECT SUM(quantity) FROM item_configs WHERE item_id = items.id) > 0 THEN false ELSE true END) as out_of_stock, items.name AS item_name, items.description AS description, price, discount, users.name AS store_name, users.id AS store_id FROM items JOIN item_configs ON item_configs.item_id = items.id JOIN users ON users.id = items.store_id WHERE items.id > $1 AND items.deleted != true";
   const params = [id];
 
   if (name) {
@@ -24,13 +24,13 @@ export async function POST(req: Request) {
   }
 
   if (category) {
-    query += ` AND $${params.length + 1} = ANY(items.categories)`;
+    query += ` AND $${params.length + 1} = ANY(items.category)`;
     params.push(category);
   }
 
-  if (store_ids) {
-    query += ` AND items.store_id = ANY($${params.length + 1})`;
-    params.push(store_ids);
+  if (store_nano_ids) {
+    query += ` AND users.nano_id = ANY($${params.length + 1})`;
+    params.push(store_nano_ids);
   }
 
   if (price_min) {
@@ -48,17 +48,17 @@ export async function POST(req: Request) {
   }
 
   if (colors) {
-    query += ` AND item_details.color % ANY($${params.length + 1})`;
+    query += ` AND item_configs.color % ANY($${params.length + 1})`;
     params.push(colors);
   }
 
   if (in_stock !== out_of_stock) {
     if (in_stock) {
-      query += ` AND (CASE WHEN (SELECT SUM(quantity) FROM item_details WHERE item_id = items.id) > 0 THEN false ELSE true END) = false`;
+      query += ` AND (CASE WHEN (SELECT SUM(quantity) FROM item_configs WHERE item_id = items.id) > 0 THEN false ELSE true END) = false`;
     }
 
     if (out_of_stock) {
-      query += ` AND (CASE WHEN (SELECT SUM(quantity) FROM item_details WHERE item_id = items.id) > 0 THEN false ELSE true END) = true`;
+      query += ` AND (CASE WHEN (SELECT SUM(quantity) FROM item_configs WHERE item_id = items.id) > 0 THEN false ELSE true END) = true`;
     }
   }
 

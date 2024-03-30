@@ -229,26 +229,30 @@ export default function Items({
               currency: "EGP",
               currencyDisplay: "symbol",
             }).format(
-              items.reduce(
-                (acc, item) =>
-                  acc + (item.price - item.discount) * item.quantity,
-                0,
+              Number(
+                items.reduce(
+                  (acc, item) =>
+                    acc + (item.price - item.discount) * item.quantity,
+                  0,
+                ),
               ) +
-                items
-                  .reduce<
-                    {
-                      store_id: string;
-                      shipping_price: number;
-                    }[]
-                  >((acc, item) => {
-                    if (acc.find((a) => a.store_id === item.store_id))
-                      return acc;
-                    return acc.concat({
-                      store_id: item.store_id,
-                      shipping_price: item.shipping_price,
-                    });
-                  }, [])
-                  .reduce((acc, item) => acc + item.shipping_price, 0),
+                Number(
+                  items
+                    .reduce<
+                      {
+                        store_id: string;
+                        shipping_price: number;
+                      }[]
+                    >((acc, item) => {
+                      if (acc.find((a) => a.store_id === item.store_id))
+                        return acc;
+                      return acc.concat({
+                        store_id: item.store_id,
+                        shipping_price: item.shipping_price,
+                      });
+                    }, [])
+                    .reduce((acc, item) => acc + item.shipping_price, 0),
+                ),
             )}
           </p>
         </div>

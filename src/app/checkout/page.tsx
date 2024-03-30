@@ -55,7 +55,7 @@ export default function Page() {
 
   return (
     <div className="mx-auto w-full max-w-[min(100%,80rem)] px-4">
-      <div className="flex-grow overflow-hidden rounded-xl border">
+      <div className="flex-grow overflow-visible rounded-xl border">
         <h2 className="mx-6 my-7 mb-6 text-xl font-semibold">Check Out</h2>
         <div className="mb-7 border-t" />
         <CheckOut address={address} cart={cart} />

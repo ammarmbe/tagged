@@ -1,5 +1,5 @@
 import { generalSans } from "@/utils";
-import { Facebook, Instagram, Twitter } from "lucide-react";
+import { Facebook, Instagram, Circle } from "lucide-react";
 import Image from "next/image";
 import Link from "@/utils/Link";
 
@@ -57,7 +57,7 @@ export default function Footer() {
             <div className="flex gap-4">
               <Instagram size={20} />
               <Facebook size={20} />
-              <Twitter size={20} />
+              <Circle size={20} />
             </div>
             <p>&copy; {new Date().getFullYear()} Atlas. All rights reserved.</p>
           </div>

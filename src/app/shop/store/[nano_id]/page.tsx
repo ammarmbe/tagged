@@ -3,30 +3,21 @@ import Spinner from "@/components/Spinner";
 import * as Dialog from "@radix-ui/react-dialog";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import Filters from "../../Filters";
-import {
-  X,
-  Search,
-  ShoppingBag,
-  Instagram,
-  Facebook,
-  Twitter,
-  Grid,
-  Grid2X2,
-  Filter,
-} from "lucide-react";
+import { X, Search, ShoppingBag, Grid, Grid2X2, Filter } from "lucide-react";
 import { useState, useEffect, useMemo } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Item from "@/components/Item";
 import { usePathname, useRouter } from "next/navigation";
 import { TFilter } from "../../page";
+import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
 
 export default function ShopStore({
   searchParams,
   params,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
-  params: { id: string };
+  params: { nano_id: string };
 }) {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [largeView, setLargeView] = useState(false);
@@ -69,7 +60,7 @@ export default function ShopStore({
       const res = await fetch("/api/shop", {
         method: "POST",
         body: JSON.stringify({
-          store_ids: [params.id],
+          store_nano_ids: [params.nano_id],
           id: pageParam,
           ...filters,
         }),
@@ -79,6 +70,7 @@ export default function ShopStore({
         item_name: string;
         item_id: string;
         store_name: string;
+        store_nano_id: string;
         store_id: string;
         nano_id: string;
         description: string;
@@ -94,19 +86,21 @@ export default function ShopStore({
   });
 
   const { data: settings, isLoading: isSettingsLoading } = useQuery({
-    queryKey: ["description", params.id],
+    queryKey: ["description", params.nano_id],
     queryFn: async () => {
-      const res = await fetch(`/api/store?id=${params.id}`);
+      const res = await fetch(`/api/store?nano_id=${params.nano_id}`);
 
       return res.json() as Promise<{
         name: string;
         description: string;
         instagram: string;
         facebook: string;
-        twitter: string;
+        tiktok: string;
       }>;
     },
   });
+
+  console.log(settings);
 
   useEffect(() => {
     refetch();
@@ -126,7 +120,7 @@ export default function ShopStore({
   if (items)
     return (
       <div className="mx-auto w-full max-w-[min(100%,80rem)] px-4">
-        <div className="flex-grow overflow-hidden rounded-xl border">
+        <div className="flex-grow overflow-visible rounded-xl border">
           <div className="m-1.5 h-24 rounded-lg bg-gray-100"></div>
           <div className="m-6 flex flex-col items-center justify-between gap-x-10 gap-y-5 sm:flex-row sm:items-start">
             <div className="flex flex-col items-center gap-x-6 gap-y-3 text-center sm:flex-row sm:items-start sm:text-start">
@@ -151,7 +145,7 @@ export default function ShopStore({
                   target="_blank"
                   className="button gray !p-2"
                 >
-                  <Instagram size={16} />
+                  <FaInstagram size={16} />
                 </a>
               ) : null}
               {settings?.facebook ? (
@@ -162,18 +156,18 @@ export default function ShopStore({
                   target="_blank"
                   className="button gray !p-2"
                 >
-                  <Facebook size={16} />
+                  <FaFacebook size={16} />
                 </a>
               ) : null}
-              {settings?.twitter ? (
+              {settings?.tiktok ? (
                 <a
                   href={new URL(
-                    `https://www.x.com/${settings.twitter}`,
+                    `https://www.x.com/${settings.tiktok}`,
                   ).toString()}
                   target="_blank"
                   className="button gray !p-2"
                 >
-                  <Twitter size={16} />
+                  <FaTiktok size={16} />
                 </a>
               ) : null}
             </div>

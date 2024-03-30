@@ -136,7 +136,7 @@ export default function Address({
     <div className="mx-auto w-full max-w-[min(100%,80rem)] px-4">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex-grow overflow-hidden rounded-xl border"
+        className="flex-grow overflow-visible rounded-xl border"
       >
         <div className="mx-6 my-7 flex items-center justify-between">
           <h2 className="text-xl font-semibold">Your Address</h2>

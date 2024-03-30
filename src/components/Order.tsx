@@ -10,7 +10,7 @@ export default function Page({
     city: string;
     created_at: string;
     shipping_price: number;
-    reason: string;
+    cancel_reason: string;
     status:
       | "pending"
       | "shipped"
@@ -108,12 +108,12 @@ export default function Page({
               <Status status={order.status} inline store={false} />
             </p>
           </div>
-          {order.status === "cancelled" && order.reason ? (
+          {order.status === "cancelled" && order.cancel_reason ? (
             <div>
               <p className="text-tertiary mb-1 font-medium">Reason</p>
               <p>
-                {reasons.find((r) => r.value === order.reason)?.label ??
-                  order.reason}
+                {reasons.find((r) => r.value === order.cancel_reason)?.label ??
+                  order.cancel_reason}
               </p>
             </div>
           ) : null}
