@@ -10,8 +10,6 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
       return NextResponse.next();
     }
 
-    if (request.nextUrl.pathname === "/login") return NextResponse.next();
-
     const sessionId =
       request.cookies.get(lucia.sessionCookieName)?.value ?? null;
 
@@ -21,6 +19,10 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
 
     if (!session || !user.store)
       return NextResponse.redirect(process.env.NEXT_PUBLIC_URL + "/login");
+
+    if (request.nextUrl.pathname === "/login" && session && user.store) {
+      return NextResponse.redirect(process.env.NEXT_PUBLIC_URL + "/");
+    }
 
     return NextResponse.next();
   }

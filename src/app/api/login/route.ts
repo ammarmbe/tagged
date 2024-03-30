@@ -36,6 +36,8 @@ export async function POST(req: Request) {
     sessionCookie.attributes,
   );
 
+  console.log(sessionCookie);
+
   return new Response(null, {
     status: 302,
     headers: {
