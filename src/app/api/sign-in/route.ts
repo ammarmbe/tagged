@@ -41,8 +41,8 @@ export async function POST(req: Request) {
 
   return new Response("OK", {
     headers: {
-      "Content-Type": "application/json",
+      Location: "/",
+      "Set-Cookie": sessionCookie.serialize(),
     },
-    status: 200,
   });
 }
