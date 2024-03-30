@@ -19,8 +19,8 @@ export async function PATCH(req: Request) {
   }
 
   await sql(
-    `UPDATE users SET feature_flags = jsonb_set(feature_flags, '{return_period}', '"${return_period}"') WHERE id = $1`,
-    [user.id],
+    `UPDATE users SET feature_flags = jsonb_set(feature_flags, '{return_period}', to_jsonb($1::text)) WHERE id = $2`,
+    [return_period, user.id],
   );
 
   return new Response("OK");

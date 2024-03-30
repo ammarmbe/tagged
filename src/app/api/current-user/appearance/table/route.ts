@@ -18,8 +18,8 @@ export async function POST(req: Request) {
   }
 
   await sql(
-    `UPDATE users SET feature_flags = jsonb_set(feature_flags, '{table_size}', '"${table}"') WHERE id = $1`,
-    [user.id],
+    `UPDATE users SET feature_flags = jsonb_set(feature_flags, '{table_size}', to_jsonb($1::text)) WHERE id = $2`,
+    [table, user.id],
   );
 
   return new Response("OK");

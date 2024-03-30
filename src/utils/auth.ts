@@ -39,7 +39,7 @@ interface DatabaseUserAttributes {
     shipping_price?: number;
     return_period?: "1d" | "3d" | "7d" | "14d" | "30d" | "";
     exchange_period?: "1d" | "3d" | "7d" | "14d" | "30d" | "";
-    twitter?: string;
+    tiktok?: string;
     facebook?: string;
     instagram?: string;
   };
