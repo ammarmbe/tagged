@@ -15,13 +15,15 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
 
     if (!sessionId)
       return NextResponse.redirect(process.env.NEXT_PUBLIC_URL + "/login");
-    const { session, user } = await lucia.validateSession(sessionId);
 
-    if (!session || !user.store)
-      return NextResponse.redirect(process.env.NEXT_PUBLIC_URL + "/login");
+    const { session, user } = await lucia.validateSession(sessionId);
 
     if (request.nextUrl.pathname === "/login" && session && user.store) {
       return NextResponse.redirect(process.env.NEXT_PUBLIC_URL + "/");
+    }
+
+    if (!session || !user.store) {
+      return NextResponse.redirect(process.env.NEXT_PUBLIC_URL + "/login");
     }
 
     return NextResponse.next();
