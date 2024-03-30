@@ -86,7 +86,7 @@ export default function UpdateStatus({
         | null;
       cancel_reason?: string | null;
     }) => {
-      await fetch(`/api/order/update-status`, {
+      const res = await fetch(`/api/order/update-status`, {
         method: "POST",
         body: JSON.stringify({
           nano_id: nano_id,
@@ -94,19 +94,29 @@ export default function UpdateStatus({
           cancel_reason,
         }),
       });
+
+      return res.ok;
     },
-    onSuccess: async () => {
+    onSuccess: async (ok) => {
       setStatus(null);
       setCancelReason("");
       setUpdateStatusOpen(false);
 
-      toast({
-        title: "Your changes have been saved successfully",
-        color: "green",
-        saturation: "high",
-        size: "sm",
-        position: "center",
-      });
+      ok
+        ? toast({
+            title: "Your changes have been saved successfully",
+            color: "green",
+            saturation: "high",
+            size: "sm",
+            position: "center",
+          })
+        : toast({
+            title: "An error occured, please try again.",
+            color: "red",
+            saturation: "high",
+            size: "sm",
+            position: "center",
+          });
 
       // Update header and info card query
       await queryClient.invalidateQueries({

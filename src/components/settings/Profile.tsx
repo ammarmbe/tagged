@@ -53,23 +53,33 @@ export default function Page() {
     mutationFn: async (email: string) => {
       if (email === user?.email || !email) return;
 
-      await fetch("/api/current-user/email", {
+      const res = await fetch("/api/current-user/email", {
         method: "PATCH",
         body: JSON.stringify({ email }),
       });
+
+      return res.ok;
     },
-    async onSuccess() {
+    async onSuccess(ok) {
       await queryClient.invalidateQueries({
         predicate: (query) => query.queryKey[0] === "current-user",
       });
 
-      toast({
-        title: "Email updated successfully.",
-        color: "green",
-        saturation: "high",
-        size: "sm",
-        position: "center",
-      });
+      ok
+        ? toast({
+            title: "Email updated successfully.",
+            color: "green",
+            saturation: "high",
+            size: "sm",
+            position: "center",
+          })
+        : toast({
+            title: "An error occured, please try again.",
+            color: "red",
+            saturation: "high",
+            size: "sm",
+            position: "center",
+          });
 
       setEditingEmail(false);
     },
@@ -80,23 +90,33 @@ export default function Page() {
     mutationFn: async (instagram: string) => {
       if (instagram === user?.feature_flags.instagram) return;
 
-      await fetch("/api/current-user/instagram", {
+      const res = await fetch("/api/current-user/instagram", {
         method: "PATCH",
         body: JSON.stringify({ instagram }),
       });
+
+      return res.ok;
     },
-    async onSuccess() {
+    async onSuccess(ok) {
       await queryClient.invalidateQueries({
         predicate: (query) => query.queryKey[0] === "current-user",
       });
 
-      toast({
-        title: "Instagram username updated successfully.",
-        color: "green",
-        saturation: "high",
-        size: "sm",
-        position: "center",
-      });
+      ok
+        ? toast({
+            title: "Instagram username updated successfully.",
+            color: "green",
+            saturation: "high",
+            size: "sm",
+            position: "center",
+          })
+        : toast({
+            title: "An error occured, please try again.",
+            color: "red",
+            saturation: "high",
+            size: "sm",
+            position: "center",
+          });
 
       setEditingInstagram(false);
     },
@@ -107,23 +127,33 @@ export default function Page() {
     mutationFn: async (facebook: string) => {
       if (facebook === user?.feature_flags.facebook) return;
 
-      await fetch("/api/current-user/facebook", {
+      const res = await fetch("/api/current-user/facebook", {
         method: "PATCH",
         body: JSON.stringify({ facebook }),
       });
+
+      return res.ok;
     },
-    async onSuccess() {
+    async onSuccess(ok) {
       await queryClient.invalidateQueries({
         predicate: (query) => query.queryKey[0] === "current-user",
       });
 
-      toast({
-        title: "Facebook username updated successfully.",
-        color: "green",
-        saturation: "high",
-        size: "sm",
-        position: "center",
-      });
+      ok
+        ? toast({
+            title: "Facebook username updated successfully.",
+            color: "green",
+            saturation: "high",
+            size: "sm",
+            position: "center",
+          })
+        : toast({
+            title: "An error occured, please try again.",
+            color: "red",
+            saturation: "high",
+            size: "sm",
+            position: "center",
+          });
 
       setEditingFacebook(false);
     },
@@ -134,23 +164,33 @@ export default function Page() {
     mutationFn: async (tiktok: string) => {
       if (tiktok === user?.feature_flags.tiktok) return;
 
-      await fetch("/api/current-user/tiktok", {
+      const res = await fetch("/api/current-user/tiktok", {
         method: "PATCH",
         body: JSON.stringify({ tiktok }),
       });
+
+      return res.ok;
     },
-    async onSuccess() {
+    async onSuccess(ok) {
       await queryClient.invalidateQueries({
         predicate: (query) => query.queryKey[0] === "current-user",
       });
 
-      toast({
-        title: "Tiktok username updated successfully.",
-        color: "green",
-        saturation: "high",
-        size: "sm",
-        position: "center",
-      });
+      ok
+        ? toast({
+            title: "Tiktok username updated successfully.",
+            color: "green",
+            saturation: "high",
+            size: "sm",
+            position: "center",
+          })
+        : toast({
+            title: "An error occured, please try again.",
+            color: "red",
+            saturation: "high",
+            size: "sm",
+            position: "center",
+          });
 
       setEditingTiktok(false);
     },

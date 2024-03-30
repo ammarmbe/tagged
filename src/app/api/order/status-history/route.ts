@@ -14,7 +14,7 @@ export async function GET(req: Request) {
   }
 
   const data = await sql(
-    "SELECT orders.created_at, order_status_changes.date, order_status_changes.status FROM orders LEFT JOIN order_status_changes ON order_status_changes.order_id = orders.id WHERE orders.nano_id = $1 AND orders.store_id = $2 ORDER BY date DESC",
+    "SELECT orders.created_at, order_status_history.created_at as date, order_status_history.status FROM orders LEFT JOIN order_status_history ON order_status_history.order_id = orders.id WHERE orders.nano_id = $1 AND orders.store_id = $2 ORDER BY date DESC",
     [nano_id, user.id],
   );
 

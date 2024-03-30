@@ -67,8 +67,6 @@ export default function Quantities({
       quantity: number | undefined;
     }[];
   }> = (data) => {
-    console.log("data", data);
-
     setQuantities(data.quantities);
     setLevel(4);
   };

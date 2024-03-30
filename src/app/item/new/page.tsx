@@ -64,8 +64,6 @@ export default function Page() {
   }, [level, colors, sizes]);
 
   useEffect(() => {
-    console.log(quantities);
-
     if (
       level > 3 &&
       (!quantities.length || quantities.length !== colors.length * sizes.length)

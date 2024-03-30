@@ -72,8 +72,9 @@ export default function Notifications() {
         setUnreadCount(0);
       }
 
-      queryClient.setQueryData(["current-status"], {
-        notifications: (oldData: {
+      queryClient.setQueryData(
+        ["current-status"],
+        (oldData: {
           orders_pending: number;
           return_requests: number;
           new_notifications: number;
@@ -83,7 +84,7 @@ export default function Notifications() {
             new_notifications: id ? oldData.new_notifications - 1 : 0,
           };
         },
-      });
+      );
     },
   });
 
@@ -244,16 +245,19 @@ export default function Notifications() {
                             <span
                               className="text-main-base underline-offset-2 hover:underline"
                               onMouseEnter={(e) => {
+                                e.stopPropagation();
                                 e.currentTarget.parentElement?.parentElement?.classList.remove(
                                   "hover:bg-bg-100",
                                 );
                               }}
                               onMouseLeave={(e) => {
+                                e.stopPropagation();
                                 e.currentTarget.parentElement?.parentElement?.classList.add(
                                   "hover:bg-bg-100",
                                 );
                               }}
                               onClick={(e) => {
+                                e.stopPropagation();
                                 readMutation.mutate(n.id);
                                 e.currentTarget.parentElement?.parentElement?.classList.add(
                                   "hover:bg-bg-100",

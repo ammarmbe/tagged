@@ -90,23 +90,33 @@ export default function Page() {
     mutationFn: async (price: number) => {
       if (price === Number(user?.feature_flags?.shipping_price)) return;
 
-      await fetch("/api/current-user/shipping/price", {
+      const res = await fetch("/api/current-user/shipping/price", {
         method: "PATCH",
         body: JSON.stringify({ price }),
       });
+
+      return res.ok;
     },
-    async onSuccess() {
+    async onSuccess(ok) {
       await queryClient.invalidateQueries({
         predicate: (query) => query.queryKey[0] === "current-user",
       });
 
-      toast({
-        title: "Price updated successfully.",
-        color: "green",
-        saturation: "high",
-        size: "sm",
-        position: "center",
-      });
+      ok
+        ? toast({
+            title: "Price updated successfully.",
+            color: "green",
+            saturation: "high",
+            size: "sm",
+            position: "center",
+          })
+        : toast({
+            title: "An error occured, please try again.",
+            color: "red",
+            saturation: "high",
+            size: "sm",
+            position: "center",
+          });
 
       setEditingPrice(false);
     },
@@ -115,23 +125,33 @@ export default function Page() {
   const exchangePolicyMutation = useMutation({
     mutationKey: ["updateExchangePolicy"],
     mutationFn: async ({ exchange_period }: { exchange_period: TDuration }) => {
-      await fetch("/api/current-user/shipping/exchange-policy", {
+      const res = await fetch("/api/current-user/shipping/exchange-policy", {
         method: "PATCH",
         body: JSON.stringify({ exchange_period: exchange_period.value }),
       });
+
+      return res.ok;
     },
-    async onSuccess() {
+    async onSuccess(ok) {
       await queryClient.invalidateQueries({
         predicate: (query) => query.queryKey[0] === "current-user",
       });
 
-      toast({
-        title: "Exchange policy updated successfully.",
-        color: "green",
-        saturation: "high",
-        size: "sm",
-        position: "center",
-      });
+      ok
+        ? toast({
+            title: "Exchange policy updated successfully.",
+            color: "green",
+            saturation: "high",
+            size: "sm",
+            position: "center",
+          })
+        : toast({
+            title: "An error occured, please try again.",
+            color: "red",
+            saturation: "high",
+            size: "sm",
+            position: "center",
+          });
 
       setEditingExchangePolicy(false);
     },
@@ -140,23 +160,33 @@ export default function Page() {
   const returnPolicyMutation = useMutation({
     mutationKey: ["updateReturnPolicy"],
     mutationFn: async ({ return_period }: { return_period: TDuration }) => {
-      await fetch("/api/current-user/shipping/return-policy", {
+      const res = await fetch("/api/current-user/shipping/return-policy", {
         method: "PATCH",
         body: JSON.stringify({ return_period: return_period.value }),
       });
+
+      return res.ok;
     },
-    async onSuccess() {
+    async onSuccess(ok) {
       await queryClient.invalidateQueries({
         predicate: (query) => query.queryKey[0] === "current-user",
       });
 
-      toast({
-        title: "Return policy updated successfully.",
-        color: "green",
-        saturation: "high",
-        size: "sm",
-        position: "center",
-      });
+      ok
+        ? toast({
+            title: "Return policy updated successfully.",
+            color: "green",
+            saturation: "high",
+            size: "sm",
+            position: "center",
+          })
+        : toast({
+            title: "An error occured, please try again.",
+            color: "red",
+            saturation: "high",
+            size: "sm",
+            position: "center",
+          });
 
       setEditingReturnPolicy(false);
     },

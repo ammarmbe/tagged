@@ -42,21 +42,31 @@ export default function UpdateStock({
     mutationFn: async (
       quantities: { color: string; size: string; quantity: string }[],
     ) => {
-      await fetch(`/api/item/update-quantities`, {
+      const res = await fetch(`/api/item/update-quantities`, {
         method: "POST",
         body: JSON.stringify({ id: data?.id, quantities }),
       });
+
+      return res.ok;
     },
-    onSuccess: async () => {
+    onSuccess: async (ok) => {
       setQuantitiesOpen(false);
 
-      toast({
-        title: "Your changes have been saved successfully",
-        color: "green",
-        saturation: "high",
-        size: "sm",
-        position: "center",
-      });
+      ok
+        ? toast({
+            title: "Your changes have been saved successfully",
+            color: "green",
+            saturation: "high",
+            size: "sm",
+            position: "center",
+          })
+        : toast({
+            title: "An error occured, please try again.",
+            color: "red",
+            saturation: "high",
+            size: "sm",
+            position: "center",
+          });
 
       // Update header and info card query
       await queryClient.invalidateQueries({

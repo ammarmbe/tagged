@@ -50,8 +50,6 @@ export async function POST(req: Request) {
     ],
   );
 
-  console.log(quantities);
-
   quantities.forEach(async ({ color, size, quantity, color_hex }) => {
     await sql(
       "INSERT INTO item_configs (item_id, color, size, quantity, color_hex) VALUES ($1, $2, $3, $4, $5)",

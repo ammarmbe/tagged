@@ -243,21 +243,31 @@ export default function Table() {
   const stockMutation = useMutation({
     mutationKey: ["stock-mutation", allSelected, selected],
     mutationFn: async ({ selected }: { selected: true | number[] }) => {
-      await fetch("/api/items/out-of-stock", {
+      const res = await fetch("/api/items/out-of-stock", {
         method: "POST",
         body: JSON.stringify({
           selected,
         }),
       });
+
+      return res.ok;
     },
-    onSuccess() {
-      toast({
-        title: "Your changes have been saved successfully",
-        color: "green",
-        saturation: "high",
-        size: "sm",
-        position: "center",
-      });
+    onSuccess(ok) {
+      ok
+        ? toast({
+            title: "Your changes have been saved successfully",
+            color: "green",
+            saturation: "high",
+            size: "sm",
+            position: "center",
+          })
+        : toast({
+            title: "An error occured, please try again.",
+            color: "red",
+            saturation: "high",
+            size: "sm",
+            position: "center",
+          });
       refetch();
 
       setSelected([]);
@@ -276,19 +286,29 @@ export default function Table() {
     }) => {
       if (text !== "DELETE" || !selected) return;
 
-      await fetch(`/api/items/delete`, {
+      const res = await fetch(`/api/items/delete`, {
         method: "DELETE",
         body: JSON.stringify({ selected }),
       });
+
+      return res.ok;
     },
-    onSuccess: async () => {
-      toast({
-        title: "Your changes have been saved successfully",
-        color: "green",
-        saturation: "high",
-        size: "sm",
-        position: "center",
-      });
+    onSuccess: async (ok) => {
+      ok
+        ? toast({
+            title: "Your changes have been saved successfully",
+            color: "green",
+            saturation: "high",
+            size: "sm",
+            position: "center",
+          })
+        : toast({
+            title: "An error occured, please try again.",
+            color: "red",
+            saturation: "high",
+            size: "sm",
+            position: "center",
+          });
       refetch();
 
       setSelected([]);

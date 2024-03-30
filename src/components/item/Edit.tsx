@@ -68,21 +68,31 @@ export default function Edit({
       old_colors: string[] | undefined;
       old_sizes: string[] | undefined;
     }) => {
-      await fetch(`/api/item`, {
+      const res = await fetch(`/api/item`, {
         method: "PATCH",
         body: JSON.stringify(data),
       });
+
+      return res.ok;
     },
-    onSuccess: async () => {
+    onSuccess: async (ok) => {
       setEditOpen(false);
 
-      toast({
-        title: "Your changes have been saved successfully",
-        color: "green",
-        saturation: "high",
-        size: "sm",
-        position: "center",
-      });
+      ok
+        ? toast({
+            title: "Your changes have been saved successfully",
+            color: "green",
+            saturation: "high",
+            size: "sm",
+            position: "center",
+          })
+        : toast({
+            title: "An error occured, please try again.",
+            color: "red",
+            saturation: "high",
+            size: "sm",
+            position: "center",
+          });
 
       // Update header and info card query
       await queryClient.invalidateQueries({
@@ -111,7 +121,7 @@ export default function Edit({
         <Button
           iconLeft={<RiPencilLine size={20} />}
           color="gray"
-          size="sm"
+          size="xs"
           text="Edit"
         />
       }

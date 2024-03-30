@@ -33,12 +33,12 @@ export async function POST(req: Request) {
   }
 
   await sql(
-    `UPDATE orders SET status = $1, ${status === "completed" ? "completed_at = now() at time zone 'Africa/Cairo', " : ""}reason = $2 WHERE nano_id = $3 AND store_id = $4`,
+    `UPDATE orders SET status = $1, ${status === "completed" ? "completed_at = now() at time zone 'Africa/Cairo', " : ""}cancel_reason = $2 WHERE nano_id = $3 AND store_id = $4`,
     [status, cancel_reason, nano_id, user.id],
   );
 
   await sql(
-    "INSERT INTO order_status_changes (order_id, status) VALUES ((SELECT id FROM orders WHERE nano_id = $1), $2)",
+    "INSERT INTO order_status_history (order_id, status) VALUES ((SELECT id FROM orders WHERE nano_id = $1), $2)",
     [nano_id, status],
   );
 
