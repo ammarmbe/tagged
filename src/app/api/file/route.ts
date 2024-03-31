@@ -6,7 +6,7 @@ export async function POST(req: Request) {
   const file = formData.get("file") as File;
   const name = formData.get("name") as string;
   const { searchParams } = new URL(req.url);
-  const item_id = searchParams.get("item_id");
+  const nano_id = searchParams.get("nano_id");
 
   const fileBuffer = await file.arrayBuffer();
 
@@ -30,11 +30,10 @@ export async function POST(req: Request) {
 
   const url = blockBlobClient.url;
 
-  await sql("INSERT INTO item_images (item_id, url, id) VALUES ($1, $2, $3)", [
-    item_id,
-    url,
-    name,
-  ]);
+  await sql(
+    "INSERT INTO item_images (item_id, url, id) VALUES ((SELECT id FROM items WHERE nano_id = $1), $2, $3)",
+    [nano_id, url, name],
+  );
 
   return new Response(url, {
     status: 200,
