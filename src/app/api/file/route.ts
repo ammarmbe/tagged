@@ -14,7 +14,7 @@ export async function POST(req: Request) {
   const sasToken = process.env.SAS_TOKEN;
   const containerName = "container";
 
-  if (!file) return new Response("No file", { status: 400 });
+  if (!file) return new Response(JSON.stringify(null), { status: 400 });
 
   const blobServiceClient = new BlobServiceClient(
     `https://${accountName}.blob.core.windows.net/?${sasToken}`,
