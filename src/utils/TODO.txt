@@ -1,0 +1,10 @@
+- [ ] Update homepage.
+- [ ] Backlog
+	- [ ] Redesign UI.
+	- [ ] Make fast.
+	- [ ] Add password reset, login throttling.
+	- [ ] Implement emails.
+	- [ ] Add image support.
+	- [ ] Cleanup file structure.
+	- [ ] Add reporting.
+- [ ] Add sorting?

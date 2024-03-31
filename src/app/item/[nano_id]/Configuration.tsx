@@ -139,9 +139,9 @@ export default function Configuration({
               key={i}
               type="button"
               onClick={() => setSelected({ ...selected, size_id: i })}
-              className={`button gray sm:lg md !text-secondary !border-2 !px-3.5 !py-1.5 ${
+              className={`button gray sm:lg md !text-secondary !border-2 !px-3.5 !py-1.5 hover:!bg-white ${
                 selected.size_id === i
-                  ? "active:!bg-primary !border-main-500 hover:!bg-main-50 active:!shadow-[0_0_0_4px_#9e77ed3D,0_1px_2px_0_#1018280D]"
+                  ? "active:!bg-primary !border-main-500 active:!shadow-[0_0_0_4px_#9e77ed3D,0_1px_2px_0_#1018280D]"
                   : "!border-primary active:!shadow-[0_0_0_4px_#98a2b324,_0_1px_2px_0_#1018280d]"
               }`}
             >
@@ -150,30 +150,6 @@ export default function Configuration({
           ))}
         </div>
       </div>
-      {(item.configurations.find(
-        (config) =>
-          config.color === item.colors[selected.color_id].name &&
-          config.size === item.sizes[selected.size_id],
-      )?.quantity || 0) == 0 ? (
-        <p className="mt-6 text-sm font-medium text-red-500">Out of Stock</p>
-      ) : (item.configurations.find(
-          (config) =>
-            config.color === item.colors[selected.color_id].name &&
-            config.size === item.sizes[selected.size_id],
-        )?.quantity || 0) < 5 ? (
-        <p className="mt-6 text-sm font-medium text-red-500">
-          Only{" "}
-          {
-            item.configurations.find(
-              (config) =>
-                config.color === item.colors[selected.color_id].name &&
-                config.size === item.sizes[selected.size_id],
-            )?.quantity
-          }{" "}
-          left in stock
-        </p>
-      ) : null}
-
       <div className="mt-10 grid grid-cols-2 gap-3">
         <button
           disabled={

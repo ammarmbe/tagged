@@ -8,6 +8,7 @@ import Configuration from "./Configuration";
 import { Item } from "./page";
 import { useQuery } from "@tanstack/react-query";
 import Spinner from "@/components/Spinner";
+import Images from "./Images";
 
 export default function Page({
   nano_id,
@@ -41,9 +42,9 @@ export default function Page({
   if (item)
     return (
       <div className="mx-auto w-full max-w-[min(100%,80rem)] px-4">
-        <div className="grid flex-grow gap-3 overflow-hidden rounded-xl border sm:grid-cols-2">
-          <div />
-          <div className="m-7">
+        <div className="grid flex-grow gap-3 overflow-hidden rounded-xl border lg:grid-cols-2">
+          <Images id={item.item_id} />
+          <div className="m-7 mt-0 sm:mt-7 lg:ml-3.5">
             <div className="flex justify-between gap-3">
               <div className="flex-grow">
                 {item.category ? (
