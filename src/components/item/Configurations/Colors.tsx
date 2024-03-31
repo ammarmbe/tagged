@@ -76,6 +76,7 @@ export default function Colors({
       return res.json() as Promise<
         {
           name: string;
+          hex: string;
           quantity: number;
           sizes: string[];
           revenue: number;

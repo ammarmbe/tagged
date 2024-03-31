@@ -1,129 +1,260 @@
 "use client";
-import ColorsSizes from "@/components/item/new/ColorsSizes";
-import ItemDetails from "@/components/item/new/ItemDetails";
-import ItemSummary from "@/components/item/new/ItemSummary";
-import Quantities from "@/components/item/new/Quantities";
-import Sidebar from "@/components/item/new/Sidebar";
 import Button from "@/components/primitives/Button";
-import { RiArrowLeftLine } from "react-icons/ri";
-import { useEffect, useState } from "react";
+import Input from "@/components/primitives/Input";
+import Select from "@/components/primitives/Select";
+import { RiFileTextLine } from "react-icons/ri";
+import { useMemo } from "react";
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
-export default function Page() {
-  const [level, setLevel] = useState(1);
-  const [itemDetails, setItemDetails] = useState<
-    | {
-        name: string;
-        description: string;
-        price: number;
-        discount: number;
-        category: {
-          label: string;
-          value: string[];
-        };
-      }
-    | undefined
-  >({
-    name: "Black Dress",
-    description: "A simple black dress",
-    price: 1800,
-    discount: 0,
+export default function ItemDetails() {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+
+  const {
+    register,
+    handleSubmit,
+    control,
+    watch,
+    formState: { errors },
+  } = useForm<{
+    name: string;
+    description: string;
+    price: number;
+    discount: number;
     category: {
-      label: "Dresses",
-      value: ["Dresses"],
-    },
+      label: string;
+      value: string[];
+    };
+  }>({
+    defaultValues: queryClient.getQueryData(["itemDetails"]),
   });
-  const [colors, setColors] = useState<{ color: string; hex: string }[]>([
-    { color: "Black", hex: "#000000" },
-  ]);
-  const [sizes, setSizes] = useState<string[]>(["Small", "Medium", "Large"]);
-  const [quantities, setQuantities] = useState<
-    {
-      color: string;
-      size: string;
-      color_hex: string;
-      quantity: number | undefined;
-    }[]
-  >([]);
 
-  useEffect(() => {
-    if (
-      level > 1 &&
-      (!itemDetails?.name ||
-        !itemDetails?.description ||
-        !itemDetails?.price ||
-        !itemDetails?.category?.value.filter((c) => c).length)
-    ) {
-      setLevel(1);
-    }
-  }, [level, itemDetails]);
+  const onSubmit: SubmitHandler<{
+    name: string;
+    description: string;
+    price: number;
+    discount: number;
+    category: {
+      label: string;
+      value: string[];
+    };
+  }> = (data) => {
+    queryClient.setQueryData(["itemDetails"], data);
 
-  useEffect(() => {
-    if (level > 2 && (!colors.length || !sizes.length)) {
-      setLevel(2);
-    }
-  }, [level, colors, sizes]);
+    router.push("/item/new/colors-sizes");
+  };
 
-  useEffect(() => {
-    if (
-      level > 3 &&
-      (!quantities.length || quantities.length !== colors.length * sizes.length)
-    ) {
-      setLevel(3);
-    }
-  }, [level, quantities, colors, sizes]);
-
-  useEffect(() => {
-    setColors([{ color: "Black", hex: "#000000" }]);
-    setSizes(["Small", "Medium", "Large"]);
-    setQuantities([]);
-  }, [itemDetails]);
-
-  useEffect(() => {
-    setQuantities([]);
-  }, [colors, sizes]);
+  const options = useMemo(
+    () => [
+      ["Jackets"],
+      ["Dresses"],
+      ["Shoes"],
+      ["Accessories"],
+      ["Tops", "Tshirts"],
+      ["Tops", "Shirts"],
+      ["Tops", "Hoodies"],
+      ["Tops", "Sweatshirts"],
+      ["Bottoms", "Shorts"],
+      ["Bottoms", "Jeans"],
+      ["Bottoms", "Sweatpants"],
+      ["Bottoms", "Cargo"],
+      ["Bottoms", "Leggings"],
+    ],
+    [],
+  );
 
   return (
-    <div className="flex h-screen flex-grow flex-col sm:flex-row">
-      <Sidebar current_level={level} />
-      <div className="relative z-10 flex min-h-0 min-w-0 flex-grow flex-col items-center gap-10 overflow-auto">
-        <Button
-          color="gray"
-          disabled={level === 1}
-          onClick={() => setLevel(level === 1 ? level : level - 1)}
-          className="absolute right-6 top-6 hidden rounded-full border bg-white p-3 shadow-md sm:block"
-          iconLeft={<RiArrowLeftLine />}
-        />
-        {level === 1 ? (
-          <ItemDetails
-            setItemDetails={setItemDetails}
-            itemDetails={itemDetails}
-            setLevel={setLevel}
-          />
-        ) : level === 2 ? (
-          <ColorsSizes
-            setLevel={setLevel}
-            colors={colors}
-            sizes={sizes}
-            setColors={setColors}
-            setSizes={setSizes}
-          />
-        ) : level === 3 ? (
-          <Quantities
-            colors={colors}
-            sizes={sizes}
-            setQuantities={setQuantities}
-            setLevel={setLevel}
-          />
-        ) : (
-          <ItemSummary
-            itemDetails={itemDetails}
-            colors={colors}
-            sizes={sizes}
-            quantities={quantities}
-            setLevel={setLevel}
-          />
-        )}
+    <>
+      <div className="hidden flex-col items-center pt-12 sm:flex">
+        <div className="relative w-fit rounded-full bg-[linear-gradient(180deg,#E4E5E7_0%,rgba(228,229,231,0)76.56%)] p-px">
+          <div className="absolute inset-px rounded-full bg-white" />
+          <div className="relative z-10 w-fit rounded-full bg-[linear-gradient(180deg,rgba(228,229,231,0.48)0%,rgba(247,248,248,0)100%,rgba(228,229,231,0)100%)] p-4">
+            <div className="w-fit rounded-full border bg-white p-4 shadow-[0px_2px_4px_0px_#1B1C1D0A]">
+              <RiFileTextLine size={32} className="text-icon-500" />
+            </div>
+          </div>
+        </div>
+        <div className="title-h5 mt-2">Item Details</div>
+        <p className="paragraph-medium mt-1 text-text-500">
+          Set name, description, price, and category for your new item.
+        </p>
       </div>
-    </div>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="sm:card flex h-fit max-w-md flex-grow flex-col !gap-0 !overflow-visible !p-0 sm:flex-grow-0"
+      >
+        <div className="label-medium p-4">Item Details</div>
+        <div className="border-t" />
+        <div className="flex min-h-0 flex-grow flex-col gap-6 p-4 sm:flex-grow-0">
+          <div className="flex flex-col gap-1">
+            <label htmlFor="editName" className="label-small">
+              Name
+            </label>
+            <Input
+              size="sm"
+              className="!w-full"
+              id="editName"
+              error={Boolean(errors.name)}
+              errorMessage={errors.name?.message}
+              {...register("name", {
+                required: {
+                  value: true,
+                  message: "Name is required.",
+                },
+                maxLength: {
+                  value: 64,
+                  message: "Name should not exceed 64 characters.",
+                },
+                minLength: {
+                  value: 3,
+                  message: "Name should be at least 3 characters.",
+                },
+              })}
+            />
+          </div>
+          <div className="flex flex-col gap-1">
+            <label htmlFor="editDescription" className="label-small">
+              Description
+            </label>
+            <Input
+              textarea
+              size="sm"
+              className="!w-full"
+              id="editDescription"
+              error={Boolean(errors.description)}
+              errorMessage={errors.description?.message}
+              {...register("description", {
+                required: {
+                  value: true,
+                  message: "description is required.",
+                },
+                maxLength: {
+                  value: 2000,
+                  message: "description should not exceed 2000 characters.",
+                },
+                minLength: {
+                  value: 10,
+                  message: "description should be at least 10 characters.",
+                },
+              })}
+            />
+          </div>
+          <div className="grid grid-cols-2 gap-3.5 gap-y-1">
+            <div className="flex flex-col gap-1">
+              <label htmlFor="editPrice" className="label-small">
+                Price <span className="font-normal text-text-500">(EGP)</span>
+              </label>
+              <Input
+                type="number"
+                size="sm"
+                className="!w-full"
+                id="editPrice"
+                error={Boolean(errors.price)}
+                errorMessage={errors.price?.message}
+                {...register("price", {
+                  required: {
+                    value: true,
+                    message: "Price is required.",
+                  },
+                  max: {
+                    value: 10000,
+                    message: "Price should not exceed 10000 EGP.",
+                  },
+                  min: {
+                    value: 10,
+                    message: "Price should be at least 10 EGP.",
+                  },
+                })}
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <label htmlFor="editDiscount" className="label-small">
+                Discount{" "}
+                <span className="font-normal text-text-500">(EGP)</span>
+              </label>
+              <Input
+                type="number"
+                size="sm"
+                className="!w-full"
+                id="editDiscount"
+                error={Boolean(errors.discount)}
+                errorMessage={errors.discount?.message}
+                {...register("discount", {
+                  max: {
+                    value: 9999,
+                    message: "Discount should not exceed 9999 EGP.",
+                  },
+                  min: {
+                    value: 0,
+                    message: "Discount should not be less than 0 EGP.",
+                  },
+                  validate: (value) => {
+                    if (Number(value) >= Number(watch("price"))) {
+                      return "Discount should be less than price.";
+                    }
+
+                    return true;
+                  },
+                })}
+              />
+            </div>
+          </div>
+          <div className="flex flex-col gap-1">
+            <p className="label-small">Category</p>
+            <Controller
+              control={control}
+              name="category"
+              rules={{ required: "Category is required." }}
+              render={({
+                field: { onChange, value, name, ref, onBlur, disabled },
+              }) => (
+                <Select
+                  size="sm"
+                  className="!w-full"
+                  instanceId={"category-new"}
+                  placeholder
+                  error={Boolean(errors.category)}
+                  errorMessage="Category is required."
+                  options={options.map((option) => {
+                    return {
+                      label: option.at(-1) || "",
+                      value: option,
+                    };
+                  })}
+                  onChange={onChange}
+                  value={{
+                    label: value?.label || "",
+                    value: value?.value || [],
+                  }}
+                  name={name}
+                  ref={ref}
+                  isDisabled={disabled}
+                  onBlur={onBlur}
+                />
+              )}
+            />
+          </div>
+        </div>
+        <div className="grid grid-cols-2 gap-4 border-t p-4">
+          <Button
+            text="Back"
+            href="/"
+            size="md"
+            type="button"
+            color="gray"
+            className="justify-center"
+          />
+          <Button
+            text="Next"
+            size="md"
+            color="main"
+            className="justify-center"
+            type="submit"
+          />
+        </div>
+      </form>
+    </>
   );
 }

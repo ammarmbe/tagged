@@ -12,6 +12,7 @@ import UpdateStock from "@/components/item/UpdateStock";
 import Button from "@/components/primitives/Button";
 import { DialogTrigger } from "@radix-ui/react-dialog";
 import { RiBox3Line, RiTShirt2Line } from "react-icons/ri";
+import Images from "@/components/item/Images";
 
 export default function Page({ params }: { params: { nano_id: string } }) {
   const { data, isFetching } = useQuery({
@@ -111,6 +112,7 @@ export default function Page({ params }: { params: { nano_id: string } }) {
         <div className="flex flex-col gap-4 sm:gap-6">
           <Info data={data} isFetching={isFetching} nano_id={params.nano_id} />
           <Configurations nano_id={params.nano_id} />
+          <Images nano_id={params.nano_id} />
         </div>
         <div className="flex flex-col gap-4 sm:gap-6">
           <Overview nano_id={params.nano_id} />

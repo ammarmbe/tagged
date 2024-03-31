@@ -38,7 +38,7 @@ export default function Sidebar() {
     },
   ]);
 
-  if (pathname === "/login" || pathname === "/item/new") return null;
+  if (pathname === "/login" || pathname.startsWith("/item/new")) return null;
 
   return (
     <>

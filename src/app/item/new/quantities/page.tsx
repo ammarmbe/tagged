@@ -1,28 +1,15 @@
+"use client";
 import Button from "@/components/primitives/Button";
 import Input from "@/components/primitives/Input";
 import { RiNumbersLine } from "react-icons/ri";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
-export default function Quantities({
-  colors,
-  sizes,
-  setLevel,
-  setQuantities,
-}: {
-  colors: { color: string; hex: string }[];
-  sizes: string[];
-  setQuantities: React.Dispatch<
-    React.SetStateAction<
-      {
-        color: string;
-        size: string;
-        color_hex: string;
-        quantity: number | undefined;
-      }[]
-    >
-  >;
-  setLevel: React.Dispatch<React.SetStateAction<number>>;
-}) {
+export default function Quantities() {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+
   const {
     register,
     handleSubmit,
@@ -31,31 +18,41 @@ export default function Quantities({
   } = useForm<{
     quantities: {
       color: string;
-      color_hex: string;
+      hex: string;
       size: string;
       quantity: number | undefined;
     }[];
   }>({
     defaultValues: {
-      quantities: colors.reduce<
-        {
-          color: string;
-          size: string;
-          color_hex: string;
-          quantity: number | undefined;
-        }[]
-      >(
-        (acc, { color, hex }) => [
-          ...acc,
-          ...sizes.map((size) => ({
-            color,
-            size,
-            color_hex: hex,
-            quantity: undefined,
-          })),
-        ],
+      quantities:
+        queryClient.getQueryData(["quantities"]) ??
+        (
+          queryClient.getQueryData(["colors"]) as {
+            color: string;
+            hex: string;
+          }[]
+        )?.reduce<
+          {
+            color: string;
+            size: string;
+            hex: string;
+            quantity: number | undefined;
+          }[]
+        >(
+          (acc, { color, hex }) => [
+            ...acc,
+            ...(queryClient.getQueryData(["sizes"]) as string[]).map(
+              (size) => ({
+                color,
+                size,
+                hex,
+                quantity: undefined,
+              }),
+            ),
+          ],
+          [],
+        ) ??
         [],
-      ),
     },
   });
 
@@ -63,12 +60,12 @@ export default function Quantities({
     quantities: {
       color: string;
       size: string;
-      color_hex: string;
+      hex: string;
       quantity: number | undefined;
     }[];
   }> = (data) => {
-    setQuantities(data.quantities);
-    setLevel(4);
+    queryClient.setQueryData(["quantities"], data.quantities);
+    router.push("/item/new/images");
   };
 
   return (
@@ -127,7 +124,7 @@ export default function Quantities({
         <div className="grid grid-cols-2 gap-4 border-t p-4">
           <Button
             text="Back"
-            onClick={() => setLevel((prev) => prev - 1)}
+            href="/item/new/colors-sizes"
             size="md"
             color="gray"
             className="justify-center"

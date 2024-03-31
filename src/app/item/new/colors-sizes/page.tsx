@@ -1,9 +1,11 @@
+"use client";
 import Button from "@/components/primitives/Button";
 import Input from "@/components/primitives/Input";
 import { RiCloseLine, RiPantoneLine } from "react-icons/ri";
-import { Dispatch, SetStateAction } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useDebouncedCallback } from "use-debounce";
+import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
 const customColors = {
   blue: {
@@ -71,19 +73,10 @@ const customColors = {
   };
 };
 
-export default function ColorsSizes({
-  colors,
-  sizes,
-  setColors,
-  setSizes,
-  setLevel,
-}: {
-  colors: { color: string; hex: string }[];
-  sizes: string[];
-  setColors: Dispatch<SetStateAction<{ color: string; hex: string }[]>>;
-  setSizes: Dispatch<SetStateAction<string[]>>;
-  setLevel: Dispatch<SetStateAction<number>>;
-}) {
+export default function ColorsSizes() {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+
   const {
     register,
     handleSubmit,
@@ -98,8 +91,8 @@ export default function ColorsSizes({
     sizes: string[];
   }>({
     defaultValues: {
-      colors,
-      sizes,
+      colors: queryClient.getQueryData(["colors"]) ?? [],
+      sizes: queryClient.getQueryData(["sizes"]) ?? [],
     },
   });
 
@@ -117,9 +110,9 @@ export default function ColorsSizes({
     }[];
     sizes: string[];
   }> = (e) => {
-    setColors(e.colors);
-    setSizes(e.sizes);
-    setLevel(3);
+    queryClient.setQueryData(["colors"], e.colors);
+    queryClient.setQueryData(["sizes"], e.sizes);
+    router.push("/item/new/quantities");
   };
 
   return (
@@ -140,13 +133,14 @@ export default function ColorsSizes({
       </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="sm:card flex h-fit w-full flex-grow flex-col !gap-0 !overflow-visible !p-0 sm:max-w-md sm:flex-grow-0"
+        className="sm:card flex h-fit w-full flex-grow flex-col !gap-0 !overflow-visible !p-0 sm:max-w-lg sm:flex-grow-0"
       >
         <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 p-4">
           <div className="label-medium">Colors & Sizes</div>
           <div className="flex gap-2">
             <Button
               text="Add color"
+              type="button"
               onClick={() =>
                 setValue("colors", [
                   ...watch("colors"),
@@ -158,6 +152,7 @@ export default function ColorsSizes({
             />
             <Button
               text="Add size"
+              type="button"
               onClick={() => setValue("sizes", [...watch("sizes"), ""])}
               size="xs"
               color="gray"
@@ -253,7 +248,8 @@ export default function ColorsSizes({
                         onChange={(e) => {
                           debounced({ hex: e.target.value, index: i });
                         }}
-                        className="size-[calc(2rem+2px)] sm:size-[calc(2.251rem+2px)]"
+                        defaultValue={color.hex}
+                        className="size-[calc(2rem+2px)] bg-transparent sm:size-[calc(2.251rem+2px)]"
                       />
                       <Input
                         type="text"
@@ -363,7 +359,7 @@ export default function ColorsSizes({
         <div className="grid grid-cols-2 gap-4 border-t p-4">
           <Button
             text="Back"
-            onClick={() => setLevel((prev) => prev - 1)}
+            href="/item/new"
             size="md"
             type="button"
             color="gray"

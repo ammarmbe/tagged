@@ -1,34 +1,67 @@
+"use client";
 import Button from "@/components/primitives/Button";
 import FancyButton from "@/components/primitives/FancyButton";
 import { formatCurrency } from "@/utils";
 import { RiArrowRightSLine, RiFileTextLine } from "react-icons/ri";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import React from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import React, { useMemo } from "react";
 
-export default function ItemSummary({
-  itemDetails,
-  colors,
-  sizes,
-  quantities,
-  setLevel,
-}: {
-  itemDetails?: {
-    name: string;
-    description: string;
-    price: number;
-    discount: number;
-    category: {
-      label: string;
-      value: string[];
+export default function ItemSummary() {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+
+  const itemDetails = useMemo(
+    () => queryClient.getQueryData(["itemDetails"]),
+    [queryClient],
+  ) as {
+    name?: string;
+    description?: string;
+    price?: number;
+    discount?: number;
+    category?: {
+      label?: string;
+      value?: string[];
     };
   };
-  colors: { color: string; hex: string }[];
-  sizes: string[];
-  quantities: { color: string; size: string; quantity: number | undefined }[];
-  setLevel: React.Dispatch<React.SetStateAction<number>>;
-}) {
-  const router = useRouter();
+  const colors = useMemo(
+    () => queryClient.getQueryData(["colors"]),
+    [queryClient],
+  ) as
+    | {
+        color?: string;
+        hex?: string;
+      }[]
+    | undefined;
+  const sizes = useMemo(
+    () => queryClient.getQueryData(["sizes"]),
+    [queryClient],
+  ) as string[] | undefined;
+  const quantities = useMemo(
+    () => queryClient.getQueryData(["quantities"]),
+    [queryClient],
+  ) as
+    | {
+        color?: string;
+        size?: string;
+        hex?: string;
+        quantity?: number;
+      }[]
+    | undefined;
+  const images = useMemo(
+    () => queryClient.getQueryData(["images"]),
+    [queryClient],
+  ) as
+    | {
+        id: string;
+        color?: string | undefined;
+        uploaded?: number | undefined;
+        url?: string | undefined;
+        file: File;
+        error?: boolean | undefined;
+      }[]
+    | undefined;
 
   const newItemMutation = useMutation({
     mutationKey: ["new-item"],
@@ -38,13 +71,19 @@ export default function ItemSummary({
         body: JSON.stringify({
           itemDetails,
           quantities,
+          images:
+            images?.map((image) => ({
+              color: image.color,
+              url: image.url,
+              id: image.id,
+            })) ?? [],
         }),
       });
 
-      return res.text();
+      return res;
     },
-    onSuccess(data) {
-      router.push(`/item/${data}`);
+    async onSuccess(data) {
+      if (data.ok) router.push(`/item/${await data.text()}`);
     },
   });
 
@@ -78,12 +117,12 @@ export default function ItemSummary({
             <p className="label-small text-end">{itemDetails?.description}</p>
             <p className="paragraph-small text-text-500">Category</p>
             <p className="label-small text-end">
-              {itemDetails?.category.value.map((c, i) => (
-                <React.Fragment key={c}>
+              {itemDetails?.category?.value?.map((c, i) => (
+                <React.Fragment key={c + i}>
                   <span className="underline-offset-2 hover:underline">
                     {c}
                   </span>
-                  {i < itemDetails?.category.value.length - 1 ? (
+                  {i < (itemDetails?.category?.value?.length || 0) - 1 ? (
                     <RiArrowRightSLine size={20} className="text-icon-400" />
                   ) : null}
                 </React.Fragment>
@@ -106,44 +145,29 @@ export default function ItemSummary({
           <div className="grid grid-cols-[1fr,auto] gap-2 p-4">
             <p className="paragraph-small text-text-500">Colors</p>
             <div className="flex justify-end gap-2.5">
-              {colors
-                .concat([
-                  {
-                    color: "Red",
-                    hex: "#FF0000",
-                  },
-                  {
-                    color: "Green",
-                    hex: "#00cc00",
-                  },
-                  {
-                    color: "Blue",
-                    hex: "#0000FF",
-                  },
-                ])
-                .map((color) => {
-                  return (
+              {colors?.map((color) => {
+                return (
+                  <div
+                    key={color.color}
+                    className="label-small flex items-center gap-1"
+                  >
                     <div
-                      key={color.color}
-                      className="label-small flex items-center gap-1"
-                    >
-                      <div
-                        className="size-2.5 rounded-full shadow-sm"
-                        style={{ backgroundColor: color.hex }}
-                      />
-                      <span>{color.color}</span>
-                    </div>
-                  );
-                })}
+                      className="size-2.5 rounded-full shadow-sm"
+                      style={{ backgroundColor: color.hex }}
+                    />
+                    <span>{color.color}</span>
+                  </div>
+                );
+              })}
             </div>
             <p className="paragraph-small text-text-500">Sizes</p>
-            <div className="label-small text-end">{sizes.join(", ")}</div>
+            <div className="label-small text-end">{sizes?.join(", ")}</div>
           </div>
           <div className="subheading-xsmall flex items-center justify-between bg-bg-100 px-2 py-1.5 pl-4 text-text-400">
             Quantities
           </div>
           <div className="grid grid-cols-[1fr,auto] gap-2 p-4">
-            {quantities.map((quantity, index) => {
+            {quantities?.map((quantity, index) => {
               return (
                 <React.Fragment key={index}>
                   <p className="paragraph-small text-text-500">
@@ -156,11 +180,19 @@ export default function ItemSummary({
               );
             })}
           </div>
+          <div className="subheading-xsmall flex items-center justify-between bg-bg-100 px-2 py-1.5 pl-4 text-text-400">
+            Images
+          </div>
+          <div className="grid grid-cols-[1fr,auto] gap-2 p-4">
+            <p className="label-small">
+              {images?.length || 0} image{images?.length === 1 ? "" : "s"}
+            </p>
+          </div>
         </div>
         <div className="grid grid-cols-2 gap-4 border-t p-4">
           <Button
             text="Back"
-            onClick={() => setLevel((prev) => prev - 1)}
+            href="/item/new/images"
             size="md"
             type="button"
             color="gray"

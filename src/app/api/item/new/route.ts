@@ -8,22 +8,30 @@ export async function POST(req: Request) {
   const {
     itemDetails,
     quantities,
+    images,
   }: {
     itemDetails: {
-      name: string;
-      description: string;
-      price: number;
-      discount: number;
-      category: {
-        label: string;
-        value: string[];
-      };
+      name?: string | undefined;
+      description?: string | undefined;
+      price?: number | undefined;
+      discount?: number | undefined;
+      category?:
+        | {
+            label?: string | undefined;
+            value?: string[] | undefined;
+          }
+        | undefined;
     };
     quantities: {
-      color: string;
-      size: string;
-      color_hex: string;
-      quantity: number | undefined;
+      color?: string | undefined;
+      size?: string | undefined;
+      hex?: string | undefined;
+      quantity?: number | undefined;
+    }[];
+    images: {
+      color: string | undefined;
+      url: string | undefined;
+      id: string;
     }[];
   } = await req.json();
 
@@ -42,18 +50,25 @@ export async function POST(req: Request) {
     [
       itemDetails.name,
       itemDetails.description,
-      itemDetails.price,
-      itemDetails.discount ?? 0,
-      itemDetails.category.value,
+      itemDetails.price || 0,
+      itemDetails.discount || 0,
+      itemDetails.category?.value,
       user.id,
       nano_id,
     ],
   );
 
-  quantities.forEach(async ({ color, size, quantity, color_hex }) => {
+  quantities.forEach(async ({ color, size, quantity, hex }) => {
     await sql(
       "INSERT INTO item_configs (item_id, color, size, quantity, color_hex) VALUES ($1, $2, $3, $4, $5)",
-      [id[0].id, color, size, quantity || 0, color_hex],
+      [id[0].id, color, size, quantity || 0, hex],
+    );
+  });
+
+  images.forEach(async ({ color, url, id: i }) => {
+    await sql(
+      "INSERT INTO item_images (item_id, color, url, id) VALUES ($1, $2, $3, $4)",
+      [id[0].id, color, url, i],
     );
   });
 

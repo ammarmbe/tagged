@@ -8,13 +8,11 @@ import {
   RiEyeOffLine,
   RiUserLine,
 } from "react-icons/ri";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
-  const router = useRouter();
 
   const {
     register,
@@ -48,7 +46,7 @@ export default function Login() {
       return;
     }
 
-    router.push("/");
+    window.location.href = "/";
   };
 
   return (

@@ -58,7 +58,7 @@ const config: Config = {
         success: "#38C793",
         warning: "#F17B2B",
         error: "#DF1C41",
-        information: "#6E3FF3",
+        information: "#375DFB",
         neutral: "#868C98",
       },
     },
