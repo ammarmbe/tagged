@@ -15,7 +15,7 @@ export async function POST(req: Request) {
   } = await req.json();
 
   let query =
-    "SELECT items.id AS item_id, items.nano_id, users.nano_id as store_nano_id, array_agg(DISTINCT color_hex) as colors, (CASE WHEN (SELECT SUM(quantity) FROM item_configs WHERE item_id = items.id) > 0 THEN false ELSE true END) as out_of_stock, items.name AS item_name, items.description AS description, price, discount, users.name AS store_name, users.id AS store_id FROM items JOIN item_configs ON item_configs.item_id = items.id JOIN users ON users.id = items.store_id WHERE items.id > $1 AND items.deleted != true";
+    "SELECT items.id AS item_id, items.nano_id, users.nano_id as store_nano_id, array_agg(DISTINCT color_hex) as colors, (SELECT url FROM item_images WHERE item_id = items.id LIMIT 1) AS image_url, (CASE WHEN (SELECT SUM(quantity) FROM item_configs WHERE item_id = items.id) > 0 THEN false ELSE true END) as out_of_stock, items.name AS item_name, items.description AS description, price, discount, users.name AS store_name, users.id AS store_id FROM items JOIN item_configs ON item_configs.item_id = items.id JOIN users ON users.id = items.store_id WHERE items.id > $1 AND items.deleted != true";
   const params = [id];
 
   if (name) {

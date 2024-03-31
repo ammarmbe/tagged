@@ -70,6 +70,7 @@ export default function ShopStore({
         item_name: string;
         item_id: string;
         store_name: string;
+        image_url: string;
         store_nano_id: string;
         store_id: string;
         nano_id: string;

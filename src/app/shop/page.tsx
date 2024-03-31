@@ -71,6 +71,7 @@ export default function ShopAll({
         item_id: string;
         store_name: string;
         nano_id: string;
+        image_url: string;
         store_nano_id: string;
         store_id: string;
         description: string;

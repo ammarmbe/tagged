@@ -2,6 +2,7 @@
 import Link from "@/utils/Link";
 import * as AspectRatio from "@radix-ui/react-aspect-ratio";
 import { useQueryClient } from "@tanstack/react-query";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 export default function Item({
@@ -11,6 +12,7 @@ export default function Item({
     item_name: string;
     item_id: string;
     store_nano_id: string;
+    image_url: string;
     store_name: string;
     store_id: string;
     nano_id: string;
@@ -29,9 +31,9 @@ export default function Item({
       className="border-primary relative flex cursor-pointer flex-col rounded-[10px] border p-3 shadow-sm transition-all hover:bg-gray-50 hover:!shadow-none"
       onMouseEnter={async () => {
         await queryClient.prefetchQuery({
-          queryKey: ["item", item.item_id],
+          queryKey: ["item", item.nano_id],
           queryFn: async () => {
-            const res = await fetch(`/api/item?id=${item.item_id}`);
+            const res = await fetch(`/api/item?nano_id=${item.nano_id}`);
             return await res.json();
           },
         });
@@ -47,7 +49,14 @@ export default function Item({
         }
       }}
     >
-      <div className="flex w-full flex-col justify-between rounded-md bg-gray-100 p-2">
+      <div className="relative flex w-full flex-col justify-between overflow-hidden rounded-md bg-gray-100 p-2">
+        <Image
+          src={item.image_url}
+          alt="Image"
+          fill
+          className="object-cover"
+          quality={50}
+        />
         <AspectRatio.Root ratio={1} className="flex flex-col justify-between">
           <div className="flex flex-wrap justify-end gap-1">
             {item.out_of_stock ? (
@@ -61,7 +70,7 @@ export default function Item({
               </div>
             ) : null}
           </div>
-          <div className="flex justify-end gap-1.5">
+          <div className="flex w-fit gap-1.5 self-end rounded-full bg-gray-100/70 p-1 backdrop-blur-md">
             {item.colors.map((color, index) => (
               <div
                 key={index}
