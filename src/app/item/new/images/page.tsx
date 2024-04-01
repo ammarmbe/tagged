@@ -1,21 +1,11 @@
 "use client";
 import Button from "@/components/primitives/Button";
 import { nanoid } from "nanoid";
-import Image from "next/image";
 import { useMemo, useState } from "react";
-import { LuDot } from "react-icons/lu";
-import {
-  RiCheckboxCircleFill,
-  RiCloseLine,
-  RiDeleteBinLine,
-  RiErrorWarningFill,
-  RiImageLine,
-  RiLoader2Fill,
-  RiUploadCloud2Line,
-} from "react-icons/ri";
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import { RiImageLine, RiUploadCloud2Line } from "react-icons/ri";
 import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
+import ImageComponent from "@/components/Image";
 
 export default function Images() {
   const router = useRouter();
@@ -29,11 +19,12 @@ export default function Images() {
   const [localImages, setLocalImages] = useState<
     {
       id: string;
-      color?: string;
-      uploaded?: number;
       url?: string;
-      file: File;
+      file?: File;
+      size?: number;
+      color?: string;
       error?: boolean;
+      uploaded?: number;
     }[]
   >(queryClient.getQueryData(["images"]) ?? []);
 
@@ -177,165 +168,14 @@ export default function Images() {
               />
             </label>
           </div>
-          {localImages.map((image, index) => (
-            <div
-              key={index}
-              className={`flex flex-col rounded-xl border px-3.5 py-4 ${image.error ? "border-error" : ""}`}
-            >
-              <div className="flex items-start gap-3">
-                <Image src="/img.svg" height={40} width={36} alt="image" />
-                <div className="flex flex-grow flex-col gap-1">
-                  <p className="label-small">{image.file.name}</p>
-                  <div className="paragraph-xsmall flex items-center gap-1 text-text-400">
-                    <span>
-                      {image.file.size / 1024 / 1024 > 1
-                        ? `${new Intl.NumberFormat(undefined, { maximumFractionDigits: 1 }).format(image.file.size / 1024 / 1024)} MB`
-                        : `${Math.ceil(image.file.size / 1024)} KB`}
-                    </span>
-                    <LuDot size={16} />
-                    {image.error ? (
-                      <span className="flex items-center gap-1 text-text-900">
-                        <RiErrorWarningFill size={16} className="text-error" />
-                        {image.file.size > 5 * 1024 * 1024
-                          ? "File too large"
-                          : "Failed"}
-                      </span>
-                    ) : image.uploaded !== 1 || !image.url ? (
-                      <span className="flex items-center gap-1 text-text-900">
-                        <RiLoader2Fill
-                          size={16}
-                          className="animate-spin text-information"
-                        />
-                        Uploading...
-                      </span>
-                    ) : (
-                      <span className="flex items-center gap-1 text-text-900">
-                        <RiCheckboxCircleFill
-                          size={16}
-                          className="text-success"
-                        />
-                        Completed
-                      </span>
-                    )}
-                    {image.file.size < 5 * 1024 * 1024 && image.url ? (
-                      <>
-                        <LuDot size={16} />
-                        <DropdownMenu.Root modal={false}>
-                          <DropdownMenu.Trigger className="label-xsmall flex items-center gap-1.5 text-text-900">
-                            {colors?.find(
-                              (c: { color: string; hex: string }) =>
-                                c.color === image.color,
-                            )?.hex ? (
-                              <div
-                                style={{
-                                  backgroundColor: colors.find(
-                                    (c: { color: string; hex: string }) =>
-                                      c.color === image.color,
-                                  )?.hex,
-                                }}
-                                className="size-3 rounded-full"
-                              />
-                            ) : null}
-                            <span className="underline underline-offset-2">
-                              {image.color ? image.color : "Select color"}
-                            </span>
-                          </DropdownMenu.Trigger>
-                          <DropdownMenu.Content className="z-30 mt-1 overflow-hidden rounded-lg border bg-white shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2">
-                            {colors
-                              .concat({
-                                color: "No color",
-                                hex: "transparent",
-                              })
-                              .reverse()
-                              .map(
-                                (
-                                  color: { color: string; hex: string },
-                                  i: number,
-                                ) => (
-                                  <DropdownMenu.Item
-                                    key={i}
-                                    className="flex cursor-pointer items-center gap-2 p-3 py-2.5 font-medium text-text-900 hover:bg-bg-100"
-                                    onSelect={() =>
-                                      setLocalImages((prev) =>
-                                        prev.map((img, j) =>
-                                          j === index
-                                            ? { ...img, color: color.color }
-                                            : img,
-                                        ),
-                                      )
-                                    }
-                                  >
-                                    <div
-                                      className="h-4 w-4 rounded-full"
-                                      style={{ backgroundColor: color.hex }}
-                                    />
-                                    <span>{color.color}</span>
-                                  </DropdownMenu.Item>
-                                ),
-                              )}
-                          </DropdownMenu.Content>
-                        </DropdownMenu.Root>
-                      </>
-                    ) : null}
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  className="p-0.5 text-icon-500 hover:text-icon-900"
-                  onClick={async () => {
-                    setLocalImages((prev) =>
-                      prev.filter((_, i) => i !== index),
-                    );
-
-                    await fetch("/api/file", {
-                      method: "DELETE",
-                      body: JSON.stringify({ id: image.id }),
-                    });
-                  }}
-                >
-                  {image.uploaded === 1 || image.error ? (
-                    <RiDeleteBinLine
-                      size={20}
-                      className={image.error ? "!text-error" : ""}
-                    />
-                  ) : (
-                    <RiCloseLine size={20} />
-                  )}
-                </button>
-              </div>
-              {image.error ? (
-                image.file.size < 5 * 1024 * 1024 ? (
-                  <button
-                    onClick={() => {
-                      setLocalImages((prev) =>
-                        prev.map((img) =>
-                          img.id === image.id
-                            ? {
-                                ...img,
-                                error: false,
-                              }
-                            : img,
-                        ),
-                      );
-
-                      uploadFile({ file: image.file, id: image.id });
-                    }}
-                    className="ml-[calc(0.75rem+36px)] mt-2 w-fit text-xs font-medium text-error underline underline-offset-2"
-                  >
-                    Try Again
-                  </button>
-                ) : null
-              ) : (
-                <div className="relative mt-4 h-1.5 w-full overflow-hidden rounded-full bg-bg-200">
-                  <div
-                    className="absolute h-full rounded-full bg-main-base"
-                    style={{
-                      width: `${((image.uploaded || 0) - (!image.url ? 0.05 : 0)) * 100}%`,
-                    }}
-                  />
-                </div>
-              )}
-            </div>
+          {localImages.map((image) => (
+            <ImageComponent
+              image={image}
+              key={image.id}
+              setImages={setLocalImages}
+              invalidate={[]}
+              colors={colors}
+            />
           ))}
         </div>
         <div className="grid grid-cols-2 gap-4 border-t p-4">

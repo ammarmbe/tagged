@@ -1,12 +1,8 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-  RiCheckboxCircleFill,
   RiCloseLine,
-  RiDeleteBinLine,
-  RiErrorWarningFill,
   RiImage2Line,
   RiImageLine,
-  RiLoader2Fill,
   RiPencilLine,
   RiUploadCloud2Line,
 } from "react-icons/ri";
@@ -16,8 +12,8 @@ import Image from "next/image";
 import Button from "../primitives/Button";
 import DialogComponent from "../primitives/Dialog";
 import { nanoid } from "nanoid";
-import { LuDot } from "react-icons/lu";
 import { useEffect, useState } from "react";
+import ImageComponent from "../Image";
 
 export default function Images({ nano_id }: { nano_id: string }) {
   const queryClient = useQueryClient();
@@ -38,25 +34,22 @@ export default function Images({ nano_id }: { nano_id: string }) {
   });
 
   const [localImages, setLocalImages] = useState<
-    ({
+    {
       id: string;
+      url?: string;
+      file?: File;
+      size?: number;
+      error?: boolean;
       color?: string;
       uploaded?: number;
-      url?: string;
-      error?: boolean;
-    } & ({ file: File; old: false } | { file: undefined; old: true }))[]
-  >(
-    data?.map((img) => ({ ...img, uploaded: 1, file: undefined, old: true })) ||
-      [],
-  );
+    }[]
+  >(data?.map((img) => ({ ...img, uploaded: 1 })) || []);
 
   useEffect(() => {
     setLocalImages(
       data?.map((img) => ({
         ...img,
         uploaded: 1,
-        file: undefined,
-        old: true,
       })) || [],
     );
   }, [data]);
@@ -106,6 +99,19 @@ export default function Images({ nano_id }: { nano_id: string }) {
 
     xhr.send(formData);
   };
+
+  const { data: item_colors } = useQuery({
+    queryKey: ["images", "item-colors", nano_id],
+    queryFn: async () => {
+      const res = await fetch(`/api/item/images/colors?nano_id=${nano_id}`);
+      return res.json() as Promise<
+        {
+          color: string;
+          hex: string;
+        }[]
+      >;
+    },
+  });
 
   return (
     <div className="card !gap-0 !p-0 sm:min-w-[350px]">
@@ -205,125 +211,17 @@ export default function Images({ nano_id }: { nano_id: string }) {
                 />
               </label>
             </div>
-            {localImages.map((image, index) => (
-              <div
-                key={index}
-                className={`flex flex-col rounded-xl border px-3.5 py-4 ${image.error ? "border-error" : ""}`}
-              >
-                <div
-                  className={`flex items-start gap-3 ${image.old ? "items-center" : ""}`}
-                >
-                  <Image src="/img.svg" height={40} width={36} alt="image" />
-                  <div className="flex flex-grow flex-col gap-1">
-                    <p className="label-small">
-                      {image.file?.name ||
-                        image.id.substring(0, image.id.length - 22)}
-                    </p>
-                    {!image.old ? (
-                      <div className="paragraph-xsmall flex items-center gap-1 text-text-400">
-                        <span>
-                          {image.file.size / 1024 / 1024 > 1
-                            ? `${new Intl.NumberFormat(undefined, { maximumFractionDigits: 1 }).format(image.file.size / 1024 / 1024)} MB`
-                            : `${Math.ceil(image.file.size / 1024)} KB`}
-                        </span>
-                        <LuDot size={16} />
-                        {image.error ? (
-                          <span className="flex items-center gap-1 text-text-900">
-                            <RiErrorWarningFill
-                              size={16}
-                              className="text-error"
-                            />
-                            {(image.file?.size || 0) > 5 * 1024 * 1024
-                              ? "File too large"
-                              : "Failed"}
-                          </span>
-                        ) : image.uploaded !== 1 || !image.url ? (
-                          <span className="flex items-center gap-1 text-text-900">
-                            <RiLoader2Fill
-                              size={16}
-                              className="animate-spin text-information"
-                            />
-                            Uploading...
-                          </span>
-                        ) : (
-                          <span className="flex items-center gap-1 text-text-900">
-                            <RiCheckboxCircleFill
-                              size={16}
-                              className="text-success"
-                            />
-                            Completed
-                          </span>
-                        )}
-                      </div>
-                    ) : null}
-                  </div>
-                  <button
-                    type="button"
-                    className="self-start p-0.5 text-icon-500 hover:text-icon-900"
-                    onClick={async () => {
-                      setLocalImages((prev) =>
-                        prev.filter((_, i) => i !== index),
-                      );
-
-                      await fetch("/api/file", {
-                        method: "DELETE",
-                        body: JSON.stringify({ id: image.id }),
-                      });
-
-                      queryClient.invalidateQueries({
-                        predicate: (query) =>
-                          query.queryKey[0] === "images" &&
-                          query.queryKey[1] === nano_id,
-                      });
-                    }}
-                  >
-                    {image.uploaded === 1 || image.error ? (
-                      <RiDeleteBinLine
-                        size={20}
-                        className={image.error ? "!text-error" : ""}
-                      />
-                    ) : (
-                      <RiCloseLine size={20} />
-                    )}
-                  </button>
-                </div>
-                {image.old ? null : image.error ? (
-                  (image.file?.size || 0) < 5 * 1024 * 1024 ? (
-                    <button
-                      onClick={() => {
-                        setLocalImages((prev) =>
-                          prev.map((img) =>
-                            img.id === image.id
-                              ? {
-                                  ...img,
-                                  error: false,
-                                }
-                              : img,
-                          ),
-                        );
-
-                        image.file &&
-                          uploadFile({ file: image.file, id: image.id });
-                      }}
-                      className="ml-[calc(0.75rem+36px)] mt-2 w-fit text-xs font-medium text-error underline underline-offset-2"
-                    >
-                      Try Again
-                    </button>
-                  ) : null
-                ) : (
-                  <div className="relative mt-4 h-1.5 w-full overflow-hidden rounded-full bg-bg-200">
-                    <div
-                      className="absolute h-full rounded-full bg-main-base"
-                      style={{
-                        width: `${((image.uploaded || 0) - (!image.url ? 0.05 : 0)) * 100}%`,
-                      }}
-                    />
-                  </div>
-                )}
-              </div>
+            {localImages.map((image) => (
+              <ImageComponent
+                image={image}
+                key={image.id}
+                setImages={setLocalImages}
+                nano_id={nano_id}
+                invalidate={[["images", nano_id]]}
+                colors={item_colors || []}
+              />
             ))}
           </div>
-          <div className="flex flex-grow flex-col gap-6 px-6 py-5"></div>
         </DialogComponent>
       </div>
       <div className="mx-4 border-t" />

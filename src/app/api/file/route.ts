@@ -30,10 +30,11 @@ export async function POST(req: Request) {
 
   const url = blockBlobClient.url;
 
-  await sql(
-    "INSERT INTO item_images (item_id, url, id) VALUES ((SELECT id FROM items WHERE nano_id = $1), $2, $3)",
-    [nano_id, url, name],
-  );
+  if (nano_id)
+    await sql(
+      "INSERT INTO item_images (item_id, url, id, size) VALUES ((SELECT id FROM items WHERE nano_id = $1), $2, $3, $4)",
+      [nano_id, url, name, fileBuffer.byteLength],
+    );
 
   return new Response(url, {
     status: 200,

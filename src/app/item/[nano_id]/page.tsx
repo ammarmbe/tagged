@@ -49,31 +49,32 @@ export default function Page({ params }: { params: { nano_id: string } }) {
         title={data?.name}
         icon={<RiTShirt2Line size={24} className="text-icon-500" />}
         description={
-          <span className="flex items-center gap-2">
-            <TooltipComponent
-              trigger={
-                <span className="underline-offset-2 hover:underline">
-                  {data?.colors[0] ? data?.colors.length : 0} color
-                  {data?.colors.length === 1 ? "" : "s"}
-                </span>
-              }
-              content={data?.colors.join(", ") || "0 sizes"}
-            />
-            <LuDot size={16} className="text-icon-500" />
-            <TooltipComponent
-              trigger={
-                <span className="underline-offset-2 hover:underline">
-                  {data?.sizes[0] ? data?.sizes.length : 0} size
-                  {data?.sizes.length === 1 ? "" : "s"}{" "}
-                </span>
-              }
-              content={data?.sizes.join(", ") || "0 colors"}
-            />
-            <LuDot size={16} className="text-icon-500" />
-            <TooltipComponent
-              trigger={
-                <span
-                  className={`underline-offset-2 hover:underline 
+          data ? (
+            <span className="flex items-center gap-2">
+              <TooltipComponent
+                trigger={
+                  <span className="underline-offset-2 hover:underline">
+                    {data?.colors[0] ? data?.colors.length : 0} color
+                    {data?.colors.length === 1 ? "" : "s"}
+                  </span>
+                }
+                content={data?.colors.join(", ") || "0 sizes"}
+              />
+              <LuDot size={16} className="text-icon-500" />
+              <TooltipComponent
+                trigger={
+                  <span className="underline-offset-2 hover:underline">
+                    {data?.sizes[0] ? data?.sizes.length : 0} size
+                    {data?.sizes.length === 1 ? "" : "s"}{" "}
+                  </span>
+                }
+                content={data?.sizes.join(", ") || "0 colors"}
+              />
+              <LuDot size={16} className="text-icon-500" />
+              <TooltipComponent
+                trigger={
+                  <span
+                    className={`underline-offset-2 hover:underline 
                   ${
                     (data?.quantity ?? 0) == 0
                       ? "text-error"
@@ -81,15 +82,19 @@ export default function Page({ params }: { params: { nano_id: string } }) {
                         ? "text-warning"
                         : undefined
                   }`}
-                >
-                  {data?.quantity ?? 0} in stock
-                </span>
-              }
-              content={
-                data?.quantities?.map((q) => <p key={q}>{q}</p>) || "0 in stock"
-              }
-            />
-          </span>
+                  >
+                    {data?.quantity ?? 0} in stock
+                  </span>
+                }
+                content={
+                  data?.quantities?.map((q) => <p key={q}>{q}</p>) ||
+                  "0 in stock"
+                }
+              />
+            </span>
+          ) : (
+            <span></span>
+          )
         }
         buttonNode={
           <UpdateStock
