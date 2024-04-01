@@ -52,7 +52,7 @@ export async function POST(req: Request) {
       itemDetails.description,
       itemDetails.price || 0,
       itemDetails.discount || 0,
-      itemDetails.category?.value,
+      itemDetails.category?.value?.map((v) => v.toLowerCase()),
       user.id,
       nano_id,
     ],
