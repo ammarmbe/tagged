@@ -145,7 +145,7 @@ export default function ItemSales({ nano_id }: { nano_id: string }) {
   return (
     <div className="card">
       <div className="flex gap-2">
-        <RiBarcodeLine size={24} className="text-icon-500" />
+        <RiBarcodeLine size={24} className="text-text-600" />
         <p className="label-medium">Item Sales</p>
       </div>
       <div className="border-t" />
@@ -158,7 +158,7 @@ export default function ItemSales({ nano_id }: { nano_id: string }) {
                   {headerGroup.headers.map((header) => (
                     <th
                       key={header.id}
-                      className="paragraph-small bg-bg-100 px-6 py-2 font-normal text-text-500 first:rounded-l-lg last:rounded-r-lg"
+                      className="paragraph-small bg-bg-50 px-6 py-2 font-normal text-text-600 first:rounded-l-lg last:rounded-r-lg"
                     >
                       <button
                         className="flex items-center gap-1"
@@ -224,7 +224,7 @@ export default function ItemSales({ nano_id }: { nano_id: string }) {
             </thead>
             <tbody className="relative">
               {isFetching ? (
-                <tr className="absolute inset-0 z-10 bg-white/40 backdrop-blur-[2px]">
+                <tr className="bg-bg-0/40 absolute inset-0 z-10 backdrop-blur-[2px]">
                   <td className="absolute inset-0 flex items-center justify-center">
                     <Spinner size={44} fill="fill-main-base" />
                   </td>
@@ -235,7 +235,7 @@ export default function ItemSales({ nano_id }: { nano_id: string }) {
                   {row.getVisibleCells().map((cell) => (
                     <td
                       key={cell.id}
-                      className="paragraph-medium truncate px-6 py-4 text-text-500 first:rounded-l-xl last:rounded-r-xl"
+                      className="paragraph-medium truncate px-6 py-4 text-text-600 first:rounded-l-xl last:rounded-r-xl"
                     >
                       {flexRender(
                         cell.column.columnDef.cell,
@@ -250,13 +250,13 @@ export default function ItemSales({ nano_id }: { nano_id: string }) {
         </div>
         <footer>
           <div className="grid grid-cols-2">
-            <p className="paragraph-small self-center text-text-500">
+            <p className="paragraph-small self-center text-text-600">
               Page {table.getState().pagination.pageIndex + 1} of{" "}
               {Math.ceil((data[0]?.total_count ?? 5) / 5)}
             </p>
             <div className="flex items-center gap-3 self-center justify-self-end">
               <button
-                className="rounded-[10px] border border-transparent p-2 text-text-500 transition-all hover:bg-bg-100 hover:text-text-900 active:bg-white active:shadow-[0_0_0_2px_#FFFFFF,0_0_0_4px_#E4E5E7] disabled:border-white disabled:bg-white disabled:text-text-300 disabled:shadow-none"
+                className="rounded-[10px] border border-transparent p-2 text-text-600 transition-all hover:bg-bg-50 hover:text-text-950 active:bg-bg-0 active:shadow-[0_0_0_2px_var(--color-bg-0),0_0_0_4px_#E4E5E7] disabled:border-white disabled:bg-bg-0 disabled:text-text-300 disabled:shadow-none"
                 disabled={table.getState().pagination.pageIndex === 0}
                 onClick={() =>
                   table.setPageIndex(table.getState().pagination.pageIndex - 1)
@@ -271,7 +271,7 @@ export default function ItemSales({ nano_id }: { nano_id: string }) {
                   key={i}
                   className={`${
                     i === table.getState().pagination.pageIndex
-                      ? "label-small text-text-900"
+                      ? "label-small text-text-950"
                       : "label-small text-text-400"
                   }`}
                 >
@@ -279,7 +279,7 @@ export default function ItemSales({ nano_id }: { nano_id: string }) {
                 </span>
               ))}
               <button
-                className="rounded-[10px] border border-transparent p-2 text-text-500 transition-all hover:bg-bg-100 hover:text-text-900 active:bg-white active:shadow-[0_0_0_2px_#FFFFFF,0_0_0_4px_#E4E5E7] disabled:border-white disabled:bg-white disabled:text-text-300 disabled:shadow-none"
+                className="rounded-[10px] border border-transparent p-2 text-text-600 transition-all hover:bg-bg-50 hover:text-text-950 active:bg-bg-0 active:shadow-[0_0_0_2px_var(--color-bg-0),0_0_0_4px_#E4E5E7] disabled:border-white disabled:bg-bg-0 disabled:text-text-300 disabled:shadow-none"
                 onClick={async () => {
                   await fetchNextPage();
                   table.setPageIndex(table.getState().pagination.pageIndex + 1);

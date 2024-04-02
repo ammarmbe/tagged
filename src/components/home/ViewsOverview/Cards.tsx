@@ -48,10 +48,10 @@ export default function Cards({ range }: { range: TRange }) {
           {data?.category?.length ? (
             <p className="label-medium flex items-center gap-1.5">
               <Link
-                href={`/items?category=${data?.category.at(-1)?.toLowerCase()}`}
-                className="w-fit underline-offset-2 hover:underline"
+                href={`/items?category=${data?.category?.at(-1)?.toLowerCase()}`}
+                className="w-fit capitalize underline-offset-2 hover:underline"
               >
-                {data?.category.at(-1)}
+                {data?.category?.at(-1)}
               </Link>
               <span
                 className={`subheading-2xsmall flex items-center gap-0.5 rounded-full p-0.5 pr-1.5 ${

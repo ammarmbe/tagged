@@ -33,7 +33,7 @@ interface DatabaseUserAttributes {
   name: string;
   store: boolean;
   feature_flags: {
-    dark_mode?: boolean;
+    color_theme?: "dark" | "light";
     notifications?: boolean;
     table_size?: "comfortable" | "compact";
     shipping_price?: number;

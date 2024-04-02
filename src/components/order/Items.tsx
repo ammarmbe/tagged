@@ -31,7 +31,7 @@ export default function Items({ nano_id }: { nano_id: string }) {
   return (
     <div className="card min-w-[200px] !gap-0 !p-0">
       <div className="flex gap-2 p-4">
-        <RiTShirt2Line size={24} className="text-icon-500" />
+        <RiTShirt2Line size={24} className="text-text-600" />
         <p className="label-medium flex items-center gap-1.5">Order Items </p>
       </div>
       <div className="mx-4 border-t" />
@@ -41,7 +41,7 @@ export default function Items({ nano_id }: { nano_id: string }) {
           {data?.map((item) => (
             <div
               key={item.id}
-              className="flex flex-col gap-1 p-4 px-6 transition-all hover:bg-bg-100"
+              className="hover:bg-bg-50 flex flex-col gap-1 p-4 px-6 transition-all"
               tabIndex={0}
               onClick={() => {
                 router.push(`/item/${item.nano_id}`);
@@ -59,7 +59,7 @@ export default function Items({ nano_id }: { nano_id: string }) {
                   {item.color} / {item.size}
                 </p>
               </div>
-              <p className="label-small flex items-center gap-1.5 truncate text-text-500 transition-all group-hover:text-text-500">
+              <p className="label-small text-text-600 group-hover:text-text-600 flex items-center gap-1.5 truncate transition-all">
                 <span>{item.quantity}</span>
                 <span>x</span>
                 <span>{formatCurrency(item.price - item.discount)}</span>

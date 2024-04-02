@@ -48,13 +48,13 @@ export default function RevenueByCategory() {
   }, [range, refetch]);
 
   const data = {
-    labels: raw?.map((d) => d.category.at(-1)) || [],
+    labels: raw?.map((d) => d.category?.at(-1)) || [],
     datasets: [
       {
         label: "Revenue",
         data:
           raw?.map((d) => ({
-            x: d.category.at(-1),
+            x: d.category?.at(-1),
             y: d.revenue,
           })) || [],
         backgroundColor: "#6E3FF3",
@@ -67,9 +67,9 @@ export default function RevenueByCategory() {
     <div className="card h-fit">
       <div className="flex flex-wrap items-center justify-between gap-x-5 gap-y-3">
         <div className="flex gap-2">
-          <RiMoneyDollarCircleLine size={24} className="text-icon-500" />
+          <RiMoneyDollarCircleLine size={24} className="text-text-600" />
           <p className="label-medium">
-            Revenue <span className="text-text-500">(by category)</span>
+            Revenue <span className="text-text-600">(by category)</span>
           </p>
         </div>
         <ReactSelect

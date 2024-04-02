@@ -98,7 +98,7 @@ export default function Notifications() {
     >
       <DropdownMenu.Trigger
         id="notifications-trigger"
-        className="relative h-fit rounded-[10px] border border-transparent p-2 text-icon-500 transition-all hover:bg-bg-100 hover:text-text-900 active:bg-white active:shadow-[0_0_0_2px_#FFFFFF,0_0_0_4px_#E4E5E7] disabled:text-text-300 disabled:shadow-none sm:p-2.5"
+        className="relative h-fit rounded-[10px] border border-transparent p-2 text-text-600 transition-all hover:bg-bg-50 hover:text-text-950 active:bg-bg-0 active:shadow-[0_0_0_2px_var(--color-bg-0),0_0_0_4px_#E4E5E7] disabled:text-text-300 disabled:shadow-none sm:p-2.5"
       >
         <RiNotification3Line size={20} />
         {unreadCount ? (
@@ -125,7 +125,7 @@ export default function Notifications() {
           <div className="border-t" />
           <div className="flex gap-4 border-b px-3.5">
             <button
-              className={`label-small -mb-px flex flex-col gap-3.5 pt-3.5 transition-all ${selected === "all" ? "" : "text-text-500"}`}
+              className={`label-small -mb-px flex flex-col gap-3.5 pt-3.5 transition-all ${selected === "all" ? "" : "text-text-600"}`}
               onClick={() => {
                 setSelected("all");
               }}
@@ -136,7 +136,7 @@ export default function Notifications() {
               />
             </button>
             <button
-              className={`label-small -mb-px flex flex-col gap-3.5 pt-3.5 transition-all ${selected === "unread" ? "" : "text-text-500"}`}
+              className={`label-small -mb-px flex flex-col gap-3.5 pt-3.5 transition-all ${selected === "unread" ? "" : "text-text-600"}`}
               onClick={() => {
                 setSelected("unread");
               }}
@@ -158,7 +158,7 @@ export default function Notifications() {
               />
             </button>
             <button
-              className={`label-small -mb-px flex flex-col gap-3.5 pt-3.5 transition-all ${selected === "new-orders" ? "" : "text-text-500"}`}
+              className={`label-small -mb-px flex flex-col gap-3.5 pt-3.5 transition-all ${selected === "new-orders" ? "" : "text-text-600"}`}
               onClick={() => {
                 setSelected("new-orders");
               }}
@@ -201,7 +201,7 @@ export default function Notifications() {
                   }) => (
                     <div
                       key={n.id}
-                      className="label-small relative cursor-pointer border-t px-3 py-3 text-text-500 transition-all first:border-t-0 hover:bg-bg-100"
+                      className="label-small relative cursor-pointer border-t px-3 py-3 text-text-600 transition-all first:border-t-0 hover:bg-bg-50"
                       tabIndex={n.type === "new-order" ? 0 : undefined}
                       role={n.type === "new-order" ? "button" : undefined}
                       onClick={() => {
@@ -215,15 +215,15 @@ export default function Notifications() {
                         }
                       }}
                     >
-                      <p className="text-text-500">
+                      <p className="text-text-600">
                         {n.type === "new-order" ? (
                           <>
                             New order from{" "}
-                            <span className="text-text-900">
+                            <span className="text-text-950">
                               {n.customer_name}
                             </span>{" "}
                             in{" "}
-                            <span className="text-text-900">
+                            <span className="text-text-950">
                               {n.order_governorate}
                             </span>
                           </>
@@ -247,20 +247,20 @@ export default function Notifications() {
                               onMouseEnter={(e) => {
                                 e.stopPropagation();
                                 e.currentTarget.parentElement?.parentElement?.classList.remove(
-                                  "hover:bg-bg-100",
+                                  "hover:bg-bg-50",
                                 );
                               }}
                               onMouseLeave={(e) => {
                                 e.stopPropagation();
                                 e.currentTarget.parentElement?.parentElement?.classList.add(
-                                  "hover:bg-bg-100",
+                                  "hover:bg-bg-50",
                                 );
                               }}
                               onClick={(e) => {
                                 e.stopPropagation();
                                 readMutation.mutate(n.id);
                                 e.currentTarget.parentElement?.parentElement?.classList.add(
-                                  "hover:bg-bg-100",
+                                  "hover:bg-bg-50",
                                 );
                               }}
                             >
@@ -273,7 +273,7 @@ export default function Notifications() {
                   ),
                 )
             ) : (
-              <p className="label-small p-4 text-center text-text-300">
+              <p className="label-small p-4 text-center text-text-400">
                 No notifications
               </p>
             )}

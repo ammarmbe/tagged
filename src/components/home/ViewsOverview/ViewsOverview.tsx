@@ -17,7 +17,7 @@ export default function ViewsOverview() {
     <div className="card h-fit">
       <div className="flex flex-wrap items-center justify-between gap-x-5 gap-y-3">
         <div className="flex gap-2">
-          <RiEye2Line size={24} className="text-icon-500" />
+          <RiEye2Line size={24} className="text-text-600" />
           <p className="label-medium">Views Overview</p>
         </div>
         <ReactSelect

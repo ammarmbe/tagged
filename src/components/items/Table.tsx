@@ -151,7 +151,9 @@ export default function Table() {
       columnHelper.accessor("category", {
         id: "category",
         header: () => "Category",
-        cell: (info) => info.renderValue()?.at(-1),
+        cell: (info) => (
+          <span className="capitalize">{info.renderValue()?.at(-1)}</span>
+        ),
         size: 12.5,
       }),
       columnHelper.display({
@@ -377,11 +379,11 @@ export default function Table() {
   return (
     <>
       <div className="flex flex-wrap justify-between gap-3 pb-4 pt-6">
-        <div className="hidden min-w-[300px] grid-cols-3 gap-4 rounded-[10px] bg-bg-100 p-1 sm:grid">
+        <div className="hidden min-w-[300px] grid-cols-3 gap-4 rounded-[10px] bg-bg-50 p-1 sm:grid">
           <button
             className={`label-small rounded-[10px] px-4 py-1 transition-all ${
               !itemFilters.availability
-                ? "bg-white shadow-[0px_2px_4px_0px_#1B1C1D05,0px_6px_10px_0px_#1B1C1D0F]"
+                ? "bg-bg-0 shadow-[0px_2px_4px_0px_#1B1C1D05,0px_6px_10px_0px_#1B1C1D0F]"
                 : "text-text-400"
             }`}
             onClick={() => filters.clear("availability")}
@@ -391,7 +393,7 @@ export default function Table() {
           <button
             className={`label-small rounded-[10px] px-4 py-1 transition-all ${
               itemFilters.availability === "in_stock"
-                ? "bg-white shadow-[0px_2px_4px_0px_#1B1C1D05,0px_6px_10px_0px_#1B1C1D0F]"
+                ? "bg-bg-0 shadow-[0px_2px_4px_0px_#1B1C1D05,0px_6px_10px_0px_#1B1C1D0F]"
                 : "text-text-400"
             }`}
             onClick={() => filters.set("availability", "in_stock")}
@@ -401,7 +403,7 @@ export default function Table() {
           <button
             className={`label-small rounded-[10px] px-4 py-1 transition-all ${
               itemFilters.availability === "out_of_stock"
-                ? "bg-white shadow-[0px_2px_4px_0px_#1B1C1D05,0px_6px_10px_0px_#1B1C1D0F]"
+                ? "bg-bg-0 shadow-[0px_2px_4px_0px_#1B1C1D05,0px_6px_10px_0px_#1B1C1D0F]"
                 : "text-text-400"
             }`}
             onClick={() => filters.set("availability", "out_of_stock")}
@@ -418,7 +420,7 @@ export default function Table() {
               </p>
               <DialogComponent trigger={<Button text="Set out of stock" />}>
                 <div className="flex gap-4 p-4">
-                  <div className="h-fit rounded-full border p-2.5 text-icon-500">
+                  <div className="h-fit rounded-full border p-2.5 text-text-600">
                     <RiDeleteBinLine size={24} />
                   </div>
                   <div className="flex-grow">
@@ -432,9 +434,9 @@ export default function Table() {
                         />
                       </DialogClose>
                     </div>
-                    <p className="paragraph-small mt-1 text-text-500">
+                    <p className="paragraph-small mt-1 text-text-600">
                       You are about to{" "}
-                      <span className="font-medium text-text-900">
+                      <span className="font-medium text-text-950">
                         set{" "}
                         {allSelected ? data[0]?.total_count : selected.length}{" "}
                         item
@@ -481,9 +483,9 @@ export default function Table() {
               <DialogComponent
                 trigger={<Button iconLeft={<RiDeleteBinLine size={20} />} />}
               >
-                <div className="pointer-events-auto h-fit min-w-[350px] max-w-2xl rounded-2xl bg-white sm:max-w-md">
+                <div className="pointer-events-auto h-fit min-w-[350px] max-w-2xl rounded-2xl bg-bg-0 sm:max-w-md">
                   <div className="flex gap-4 p-4">
-                    <div className="h-fit rounded-full border p-2.5 text-icon-500">
+                    <div className="h-fit rounded-full border p-2.5 text-text-600">
                       <RiDeleteBinLine size={24} />
                     </div>
                     <div className="flex-grow">
@@ -497,9 +499,9 @@ export default function Table() {
                           />
                         </DialogClose>
                       </div>
-                      <p className="paragraph-small mt-1 text-text-500">
+                      <p className="paragraph-small mt-1 text-text-600">
                         You are about to{" "}
-                        <span className="font-medium text-text-900">
+                        <span className="font-medium text-text-950">
                           delete{" "}
                           {allSelected ? data[0]?.total_count : selected.length}{" "}
                           item
@@ -515,8 +517,8 @@ export default function Table() {
                   </div>
                   <div className="border-t" />
                   <div className="p-5">
-                    <p className="label-small mb-1 text-text-500">
-                      Please type <span className="text-text-900">DELETE</span>{" "}
+                    <p className="label-small mb-1 text-text-600">
+                      Please type <span className="text-text-950">DELETE</span>{" "}
                       to confirm.
                     </p>
                     <Input
@@ -576,7 +578,7 @@ export default function Table() {
           >
             <div className="h-[2.25rem] w-full" />
             {isFetching ? (
-              <div className="z-10 flex flex-grow items-center justify-center bg-white/40 backdrop-blur-[2px]">
+              <div className="bg-bg-0/40 z-10 flex flex-grow items-center justify-center backdrop-blur-[2px]">
                 <Spinner size={44} fill="fill-main-base" />
               </div>
             ) : null}
@@ -589,7 +591,7 @@ export default function Table() {
                     {headerGroup.headers.map((header) => (
                       <th
                         key={header.id}
-                        className={`paragraph-small bg-bg-100 py-2 font-normal text-text-500 first:rounded-l-lg last:rounded-r-lg ${user?.feature_flags.table_size === "compact" ? "px-4" : "px-6"}`}
+                        className={`paragraph-small bg-bg-50 py-2 font-normal text-text-600 first:rounded-l-lg last:rounded-r-lg ${user?.feature_flags.table_size === "compact" ? "px-4" : "px-6"}`}
                         style={{
                           width:
                             header.column.id === "checkbox"
@@ -678,7 +680,7 @@ export default function Table() {
                 {table.getRowModel().rows.map((row) => (
                   <tr
                     key={row.id}
-                    className="peer cursor-pointer border-t first:border-t-0 hover:border-transparent hover:bg-bg-100 [&+tr]:hover:border-transparent"
+                    className="peer cursor-pointer border-t first:border-t-0 hover:border-transparent hover:bg-bg-50 [&+tr]:hover:border-transparent"
                     role="button"
                     onClick={() => {
                       router.push("/item/" + row.original.nano_id);
@@ -694,7 +696,7 @@ export default function Table() {
                         key={cell.id}
                         className={`paragraph-medium truncate first:rounded-l-xl last:rounded-r-xl ${
                           cell.column.columnDef.id !== "name"
-                            ? "text-text-500"
+                            ? "text-text-600"
                             : ""
                         } ${user?.feature_flags.table_size === "compact" ? "px-4 py-2" : "px-6 py-4"}`}
                         style={{
@@ -722,13 +724,13 @@ export default function Table() {
         </div>
         <footer className="pb-4 sm:pb-7">
           <div className="grid grid-cols-2 sm:grid-cols-3">
-            <p className="paragraph-small self-center text-text-500">
+            <p className="paragraph-small self-center text-text-600">
               Page {table.getState().pagination.pageIndex + 1} of{" "}
               {Math.ceil((data[0]?.total_count || limit) / limit)}
             </p>
             <div className="flex items-center gap-3 self-center justify-self-end sm:justify-self-center">
               <button
-                className="rounded-[10px] border border-transparent p-2 text-text-500 transition-all hover:bg-bg-100 hover:text-text-900 active:bg-white active:shadow-[0_0_0_2px_#FFFFFF,0_0_0_4px_#E4E5E7] disabled:text-text-300 disabled:shadow-none"
+                className="rounded-[10px] border border-transparent p-2 text-text-600 transition-all hover:bg-bg-50 hover:text-text-950 active:bg-bg-0 active:shadow-[0_0_0_2px_var(--color-bg-0),0_0_0_4px_#E4E5E7] disabled:text-text-300 disabled:shadow-none"
                 disabled={table.getState().pagination.pageIndex === 0}
                 onClick={() =>
                   table.setPageIndex(table.getState().pagination.pageIndex - 1)
@@ -751,7 +753,7 @@ export default function Table() {
                           key={i}
                           className={`${
                             i === table.getState().pagination.pageIndex
-                              ? "label-small text-text-900"
+                              ? "label-small text-text-950"
                               : "label-small hidden text-text-400 sm:inline"
                           }`}
                         >
@@ -764,7 +766,7 @@ export default function Table() {
                           <span
                             className={`${
                               i === table.getState().pagination.pageIndex
-                                ? "label-small text-text-900"
+                                ? "label-small text-text-950"
                                 : "label-small hidden text-text-400 sm:inline"
                             }`}
                           >
@@ -784,7 +786,7 @@ export default function Table() {
                           <span
                             className={`${
                               i === table.getState().pagination.pageIndex
-                                ? "label-small text-text-900"
+                                ? "label-small text-text-950"
                                 : "label-small hidden text-text-400 sm:inline"
                             }`}
                           >
@@ -804,7 +806,7 @@ export default function Table() {
                           <span
                             className={`${
                               i === table.getState().pagination.pageIndex
-                                ? "label-small text-text-900"
+                                ? "label-small text-text-950"
                                 : "label-small hidden text-text-400 sm:inline"
                             }`}
                           >
@@ -828,7 +830,7 @@ export default function Table() {
                         key={i}
                         className={`${
                           i === table.getState().pagination.pageIndex
-                            ? "label-small text-text-900"
+                            ? "label-small text-text-950"
                             : "label-small hidden text-text-400 sm:inline"
                         }`}
                       >
@@ -839,7 +841,7 @@ export default function Table() {
                 })}
               </div>
               <button
-                className="rounded-[10px] border border-transparent p-2 text-text-500 transition-all hover:bg-bg-100 hover:text-text-900 active:bg-white active:shadow-[0_0_0_2px_#FFFFFF,0_0_0_4px_#E4E5E7] disabled:text-text-300 disabled:shadow-none"
+                className="rounded-[10px] border border-transparent p-2 text-text-600 transition-all hover:bg-bg-50 hover:text-text-950 active:bg-bg-0 active:shadow-[0_0_0_2px_var(--color-bg-0),0_0_0_4px_#E4E5E7] disabled:text-text-300 disabled:shadow-none"
                 onClick={async () => {
                   await fetchNextPage();
                   table.setPageIndex(table.getState().pagination.pageIndex + 1);

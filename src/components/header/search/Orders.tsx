@@ -28,16 +28,16 @@ export default function Items({ searchTerm }: { searchTerm: string }) {
 
   return data?.length ? (
     <div className="border-t p-4">
-      <p className="label-small text-text-500">Orders</p>
+      <p className="label-small text-text-600">Orders</p>
       <div className="mt-2">
         {data.map((result, index) => (
           <Link
             key={index}
             href={`/order/${result.nano_id}`}
-            className="group flex items-center rounded-lg border-bg-200 p-2 pl-3 hover:bg-bg-100"
+            className="border-bg-300 hover:bg-bg-50 group flex items-center rounded-lg p-2 pl-3"
           >
             <p className="paragraph-small flex-grow">Order #{result.nano_id}</p>
-            <span className="rounded-full bg-white text-text-500 opacity-0 shadow-sm group-hover:opacity-100">
+            <span className="bg-bg-0 text-text-600 rounded-full opacity-0 shadow-sm group-hover:opacity-100">
               <RiArrowRightSLine size={20} />
             </span>
           </Link>

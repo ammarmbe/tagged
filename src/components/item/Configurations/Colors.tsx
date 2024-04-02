@@ -115,7 +115,7 @@ export default function Colors({
               <Tooltip
                 content="Revenue in the selected range."
                 trigger={
-                  <p className="label-xsmall rounded-full bg-white px-2 py-0.5 text-text-500">
+                  <p className="label-xsmall bg-bg-0 text-text-600 rounded-full px-2 py-0.5">
                     {formatCurrency(color.revenue)}
                   </p>
                 }

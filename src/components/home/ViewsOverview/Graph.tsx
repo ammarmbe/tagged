@@ -10,7 +10,6 @@ import {
   PointElement,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-import "@/components/chart.css";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "@/components/primitives/Loading";
 import { TRange } from "../RevenueOverview/RevenueOverview";

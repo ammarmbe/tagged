@@ -69,7 +69,7 @@ const Select = React.forwardRef<
           />
         )}
         <div
-          className={`absolute top-[calc(0.5rem+1px)] text-icon-400 transition-all peer-hover:text-icon-500 peer-focus:text-icon-900 ${
+          className={`peer-focus:text-text-950 peer-hover:text-text-600 absolute top-[calc(0.5rem+1px)] text-text-400 transition-all ${
             size === "md" ? "p-[2px]" : ""
           } ${
             iconSide === "right"

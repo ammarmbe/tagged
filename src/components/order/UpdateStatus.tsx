@@ -168,7 +168,7 @@ export default function UpdateStatus({
         className="flex flex-grow flex-col rounded-none"
       >
         <div className="flex gap-4 p-4">
-          <div className="h-fit rounded-full border p-2.5 text-icon-500">
+          <div className="text-text-600 h-fit rounded-full border p-2.5">
             <RiMindMap size={24} />
           </div>
           <div className="flex-grow">
@@ -182,9 +182,9 @@ export default function UpdateStatus({
                 />
               </Dialog.Close>
             </div>
-            <p className="paragraph-small mt-1 text-text-500">
+            <p className="paragraph-small text-text-600 mt-1">
               Updating the status of an order will notify the customer.{" "}
-              <span className="font-medium text-text-900">
+              <span className="text-text-950 font-medium">
                 This action is irreversible.
               </span>
             </p>
@@ -207,15 +207,15 @@ export default function UpdateStatus({
                   aria-disabled={
                     statuses.findIndex((st) => st.name === current_status) >= i
                   }
-                  className={`group flex cursor-pointer gap-4 rounded-xl border p-4 transition-all hover:border-border-100 hover:bg-bg-100 disabled:!border-border-200 aria-disabled:cursor-not-allowed aria-disabled:hover:border-border-300 aria-disabled:hover:bg-white ${
+                  className={`aria-disabled:hover:bg-bg-0 hover:bg-bg-50 group flex cursor-pointer gap-4 rounded-xl border p-4 transition-all hover:border-border-300 disabled:!border-border-200 aria-disabled:cursor-not-allowed aria-disabled:hover:border-border-300 ${
                     status !== s.name
                       ? "shadow-xs"
-                      : "!border-main-base !bg-white"
+                      : "!bg-bg-0 !border-main-base"
                   }`}
                 >
                   <div className="flex-grow">
                     <p
-                      className={`label-small flex items-center gap-1.5 group-aria-disabled:text-text-500 ${
+                      className={`label-small group-aria-disabled:text-text-600 flex items-center gap-1.5 ${
                         s.name === "store_cancelled" ? "text-error" : ""
                       }`}
                     >
@@ -226,7 +226,7 @@ export default function UpdateStatus({
                         </span>
                       )}
                     </p>
-                    <p className="paragraph-small text-text-500 group-aria-disabled:text-text-400">
+                    <p className="paragraph-small text-text-600 group-aria-disabled:text-text-400">
                       {s.description}
                     </p>
                   </div>

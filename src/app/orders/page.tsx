@@ -9,7 +9,7 @@ export default function Page() {
   return (
     <main className="flex min-h-0 min-w-0 flex-grow flex-col overflow-auto">
       <Header
-        icon={<RiInboxUnarchiveLine size={24} className="text-icon-500" />}
+        icon={<RiInboxUnarchiveLine size={24} className="text-text-600" />}
         title="Orders"
         description="View and track your orders"
       />
@@ -18,7 +18,7 @@ export default function Page() {
           <div className="flex items-center justify-between gap-8 py-4">
             <div className="space-y-1">
               <p className="label-large">All Orders</p>
-              <p className="paragraph-small hidden text-text-500 sm:block">
+              <p className="paragraph-small text-text-600 hidden sm:block">
                 Monitor and manager your orders
               </p>
             </div>

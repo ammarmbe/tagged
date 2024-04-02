@@ -32,7 +32,7 @@ export default function RootLayout({
     <html lang="en">
       <QueryClientProvider>
         <body
-          className={`${inter.className} flex h-screen flex-col-reverse text-text-900 sm:flex-row`}
+          className={`${inter.className} flex h-screen flex-col-reverse bg-bg-0 text-text-950 sm:flex-row`}
         >
           <Toaster />
           <Sidebar />

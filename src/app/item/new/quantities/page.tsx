@@ -72,15 +72,15 @@ export default function Quantities() {
     <>
       <div className="hidden flex-col items-center pt-12 sm:flex">
         <div className="relative w-fit rounded-full bg-[linear-gradient(180deg,#E4E5E7_0%,rgba(228,229,231,0)76.56%)] p-px">
-          <div className="absolute inset-px rounded-full bg-white" />
+          <div className="bg-bg-0 absolute inset-px rounded-full" />
           <div className="relative z-10 w-fit rounded-full bg-[linear-gradient(180deg,rgba(228,229,231,0.48)0%,rgba(247,248,248,0)100%,rgba(228,229,231,0)100%)] p-4">
-            <div className="w-fit rounded-full border bg-white p-4 shadow-[0px_2px_4px_0px_#1B1C1D0A]">
-              <RiNumbersLine size={32} className="text-icon-500" />
+            <div className="bg-bg-0 w-fit rounded-full border p-4 shadow-[0px_2px_4px_0px_#1B1C1D0A]">
+              <RiNumbersLine size={32} className="text-text-600" />
             </div>
           </div>
         </div>
         <div className="title-h5 mt-2">Quantities</div>
-        <p className="paragraph-medium mt-1 text-text-500">
+        <p className="paragraph-medium text-text-600 mt-1">
           Set the quantities for different configurations of your new item.
         </p>
       </div>

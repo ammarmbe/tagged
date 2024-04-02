@@ -33,7 +33,7 @@ export default function StatusHistory({ nano_id }: { nano_id: string }) {
   return (
     <div className="card min-w-[200px] !gap-0 !p-0">
       <div className="flex gap-2 p-4">
-        <RiHistoryLine size={24} className="text-icon-500" />
+        <RiHistoryLine size={24} className="text-text-600" />
         <p className="label-medium flex items-center gap-1.5">
           Status History{" "}
         </p>
@@ -45,10 +45,10 @@ export default function StatusHistory({ nano_id }: { nano_id: string }) {
           {data?.[0]?.created_at ? (
             <>
               <p className="label-small flex items-center gap-1.5 capitalize">
-                <RiAddLine size={16} className="inline text-icon-500" />
+                <RiAddLine size={16} className="text-text-600 inline" />
                 Order created
               </p>
-              <p className="paragraph-small text-text-500 sm:text-end">
+              <p className="paragraph-small text-text-600 sm:text-end">
                 {new Intl.DateTimeFormat("en-US", {
                   dateStyle: "medium",
                   timeStyle: "short",
@@ -65,15 +65,15 @@ export default function StatusHistory({ nano_id }: { nano_id: string }) {
               <Fragment key={status.date}>
                 <p className="label-small flex items-center gap-1.5 capitalize">
                   {status.status.endsWith("cancelled") ? (
-                    <RiForbidLine size={16} className="inline text-icon-500" />
+                    <RiForbidLine size={16} className="text-text-600 inline" />
                   ) : status.status === "shipped" ? (
-                    <RiShip2Line size={16} className="inline text-icon-500" />
+                    <RiShip2Line size={16} className="text-text-600 inline" />
                   ) : status.status === "confirmed" ? (
-                    <RiCheckLine size={16} className="inline text-icon-500" />
+                    <RiCheckLine size={16} className="text-text-600 inline" />
                   ) : status.status === "completed" ? (
                     <RiCheckDoubleLine
                       size={16}
-                      className="inline text-icon-500"
+                      className="text-text-600 inline"
                     />
                   ) : null}
                   {status.status === "store_cancelled"
@@ -82,7 +82,7 @@ export default function StatusHistory({ nano_id }: { nano_id: string }) {
                       ? "Cancelled by customer"
                       : status.status}
                 </p>
-                <p className="paragraph-small text-text-500 sm:text-end">
+                <p className="paragraph-small text-text-600 sm:text-end">
                   {new Intl.DateTimeFormat("en-US", {
                     dateStyle: "medium",
                     timeStyle: "short",

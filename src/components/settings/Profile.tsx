@@ -304,7 +304,7 @@ export default function Page() {
   return (
     <div className="flex flex-grow flex-col">
       <Header
-        icon={<RiUserLine size={24} className="text-icon-500" />}
+        icon={<RiUserLine size={24} className="text-text-600" />}
         title="Profile Settings"
         description="Manage your store profile settings"
       />
@@ -312,7 +312,7 @@ export default function Page() {
       <div className="grid gap-x-10 gap-y-5 px-8 py-5 sm:grid-cols-2 sm:gap-x-20">
         <div>
           <p className="label-small">Store ID</p>
-          <div className="paragraph-small mt-1 text-text-500">
+          <div className="paragraph-small text-text-600 mt-1">
             {user?.nano_id}
           </div>
         </div>
@@ -337,7 +337,7 @@ export default function Page() {
         <div className="border-t sm:col-span-2" />
         <div>
           <p className="label-small">Profile Photo</p>
-          <div className="paragraph-small mt-1 text-text-500">
+          <div className="paragraph-small text-text-600 mt-1">
             Recommended 400x400px. PNG or JPEG formats only.
           </div>
         </div>
@@ -384,7 +384,7 @@ export default function Page() {
           <>
             <div>
               <p className="label-small">Store Name</p>
-              <div className="paragraph-small mt-1 text-text-500">
+              <div className="paragraph-small text-text-600 mt-1">
                 This will be displayed on your store page and on your items.
               </div>
             </div>
@@ -434,7 +434,7 @@ export default function Page() {
           <>
             <div>
               <p className="label-small">Email Address</p>
-              <div className="paragraph-small mt-1 text-text-500">
+              <div className="paragraph-small text-text-600 mt-1">
                 This will be used for order-related notifications.
               </div>
             </div>
@@ -481,7 +481,7 @@ export default function Page() {
           <>
             <div>
               <p className="label-small">Instagram</p>
-              <div className="paragraph-small mt-1 text-text-500">
+              <div className="paragraph-small text-text-600 mt-1">
                 Your Instagram username.
               </div>
             </div>
@@ -532,7 +532,7 @@ export default function Page() {
           <>
             <div>
               <p className="label-small">Facebook</p>
-              <div className="paragraph-small mt-1 text-text-500">
+              <div className="paragraph-small text-text-600 mt-1">
                 Your Facebook username.
               </div>
             </div>
@@ -582,7 +582,7 @@ export default function Page() {
           <>
             <div>
               <p className="label-small">Tiktok</p>
-              <div className="paragraph-small mt-1 text-text-500">
+              <div className="paragraph-small text-text-600 mt-1">
                 Your Tiktok username.
               </div>
             </div>

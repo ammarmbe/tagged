@@ -39,9 +39,9 @@ export default function DeleteItem({
       open={deleteOpen}
       onOpenChange={setDeleteOpen}
     >
-      <div className="pointer-events-auto h-fit min-w-[350px] max-w-2xl rounded-2xl bg-white sm:max-w-md">
+      <div className="bg-bg-0 pointer-events-auto h-fit min-w-[350px] max-w-2xl rounded-2xl sm:max-w-md">
         <div className="flex gap-4 p-4">
-          <div className="h-fit rounded-full border p-2.5 text-icon-500">
+          <div className="text-text-600 h-fit rounded-full border p-2.5">
             <RiDeleteBinLine size={24} />
           </div>
           <div className="flex-grow">
@@ -55,15 +55,15 @@ export default function DeleteItem({
                 />
               </Dialog.Close>
             </div>
-            <p className="paragraph-small mt-1 text-text-500">
+            <p className="paragraph-small text-text-600 mt-1">
               This action cannot be undone.
             </p>
           </div>
         </div>
         <div className="border-t" />
         <div className="p-5">
-          <p className="label-small mb-1 text-text-500">
-            Please type <span className="text-text-900">DELETE</span> to
+          <p className="label-small text-text-600 mb-1">
+            Please type <span className="text-text-950">DELETE</span> to
             confirm.
           </p>
           <Input

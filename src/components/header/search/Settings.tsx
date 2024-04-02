@@ -36,16 +36,16 @@ export default function Settings({ searchTerm }: { searchTerm: string }) {
   if (!searchTerm) {
     return (
       <div className="border-t p-4">
-        <p className="label-small text-text-500">Settings</p>
+        <p className="label-small text-text-600">Settings</p>
         <div className="mt-2">
           {settings.slice(0, 3).map((result, index) => (
             <Link
               key={index}
               href={result.link}
-              className="group flex items-center rounded-lg border-bg-200 p-2 pl-3 hover:bg-bg-100"
+              className="border-bg-300 hover:bg-bg-50 group flex items-center rounded-lg p-2 pl-3"
             >
               <p className="paragraph-small flex-grow">{result.name}</p>
-              <span className="rounded-full bg-white text-text-500 opacity-0 shadow-sm group-hover:opacity-100">
+              <span className="bg-bg-0 text-text-600 rounded-full opacity-0 shadow-sm group-hover:opacity-100">
                 <RiArrowRightSLine size={20} />
               </span>
             </Link>
@@ -57,16 +57,16 @@ export default function Settings({ searchTerm }: { searchTerm: string }) {
 
   return results.length ? (
     <div className="border-t p-4">
-      <p className="label-small text-text-500">Settings</p>
+      <p className="label-small text-text-600">Settings</p>
       <div className="mt-2">
         {results.map((result, index) => (
           <Link
             key={index}
             href={result.item.link}
-            className="group flex items-center rounded-lg border-bg-200 p-2 pl-3 hover:bg-bg-100"
+            className="border-bg-300 hover:bg-bg-50 group flex items-center rounded-lg p-2 pl-3"
           >
             <p className="paragraph-small flex-grow">{result.item.name}</p>
-            <span className="rounded-full bg-white text-text-500 opacity-0 shadow-sm group-hover:opacity-100">
+            <span className="bg-bg-0 text-text-600 rounded-full opacity-0 shadow-sm group-hover:opacity-100">
               <RiArrowRightSLine size={20} />
             </span>
           </Link>

@@ -47,7 +47,7 @@ export default function Page({ params }: { params: { nano_id: string } }) {
     <main className="flex min-h-0 min-w-0 flex-grow flex-col overflow-auto">
       <Header
         title={data?.name}
-        icon={<RiTShirt2Line size={24} className="text-icon-500" />}
+        icon={<RiTShirt2Line size={24} className="text-text-600" />}
         description={
           data ? (
             <span className="flex items-center gap-2">
@@ -60,7 +60,7 @@ export default function Page({ params }: { params: { nano_id: string } }) {
                 }
                 content={data?.colors.join(", ") || "0 sizes"}
               />
-              <LuDot size={16} className="text-icon-500" />
+              <LuDot size={16} className="text-text-600" />
               <TooltipComponent
                 trigger={
                   <span className="underline-offset-2 hover:underline">
@@ -70,7 +70,7 @@ export default function Page({ params }: { params: { nano_id: string } }) {
                 }
                 content={data?.sizes.join(", ") || "0 colors"}
               />
-              <LuDot size={16} className="text-icon-500" />
+              <LuDot size={16} className="text-text-600" />
               <TooltipComponent
                 trigger={
                   <span

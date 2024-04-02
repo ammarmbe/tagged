@@ -38,7 +38,7 @@ export default function RevenueOverview() {
     <div className="card h-fit">
       <div className="flex flex-wrap items-center justify-between gap-x-5 gap-y-3">
         <div className="flex gap-2">
-          <RiMoneyDollarCircleLine size={24} className="text-icon-500" />
+          <RiMoneyDollarCircleLine size={24} className="text-text-600" />
           <p className="label-medium">Revenue Overview</p>
         </div>
         <ReactSelect

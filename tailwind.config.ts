@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: ["selector", '[data-mode="dark"]'],
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -9,57 +10,38 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
-        },
-      },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-      },
       colors: {
         text: {
-          900: "#0A0D14",
-          500: "#525866",
-          400: "#868C98",
-          300: "#CDD0D5",
+          950: "var(--color-text-950)",
+          600: "var(--color-text-600)",
+          400: "var(--color-text-400)",
+          300: "var(--color-text-300)",
+          0: "var(--color-text-0)",
         },
         bg: {
-          900: "#0A0D14",
-          700: "#20232D",
-          200: "#E2E4E9",
-          100: "#F6F8FA",
+          950: "var(--color-bg-950)",
+          800: "var(--color-bg-800)",
+          300: "var(--color-bg-300)",
+          200: "var(--color-bg-300)",
+          50: "var(--color-bg-50)",
+          0: "var(--color-bg-0)",
         },
         border: {
-          900: "#0A0D14",
-          300: "#CDD0D5",
-          200: "#E2E4E9",
-          100: "#F6F8FA",
-        },
-        icon: {
-          900: "#0A0D14",
-          500: "#525866",
-          400: "#868C98",
-          300: "#CDD0D5",
+          950: "var(--color-border-950)",
+          300: "var(--color-border-300)",
+          200: "var(--color-border-200)",
+          0: "var(--color-border-0)",
         },
         main: {
-          darker: "#2B1664",
-          dark: "#5A36BF",
-          base: "#6E3FF3",
-          light: "#CAC2FF",
-          lighter: "#EEEBFF",
+          dark: "var(--color-main-dark)",
+          base: "var(--color-main-base)",
+          light: "var(--color-main-light)",
+          lighter: "var(--color-main-lighter)",
         },
         success: "#38C793",
         warning: "#F17B2B",
         error: "#DF1C41",
         information: "#375DFB",
-        neutral: "#868C98",
       },
     },
     boxShadow: {

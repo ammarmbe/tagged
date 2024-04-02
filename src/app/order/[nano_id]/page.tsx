@@ -40,7 +40,7 @@ export default function Page({ params }: { params: { nano_id: string } }) {
   return (
     <main className="flex min-h-0 min-w-0 flex-grow flex-col overflow-auto">
       <Header
-        icon={<RiInboxUnarchiveLine size={24} className="text-icon-500" />}
+        icon={<RiInboxUnarchiveLine size={24} className="text-text-600" />}
         title={`Order ${params.nano_id}`}
         description={
           <span className="flex items-center gap-1.5">

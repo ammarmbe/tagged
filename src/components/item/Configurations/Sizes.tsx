@@ -53,7 +53,7 @@ export default function Sizes({
               <Tooltip
                 content="Revenue in the selected range."
                 trigger={
-                  <p className="label-xsmall rounded-full bg-bg-100 px-2 py-0.5 text-text-500">
+                  <p className="label-xsmall text-text-600 rounded-full bg-bg-200 px-2 py-0.5">
                     {formatCurrency(size.revenue)}
                   </p>
                 }

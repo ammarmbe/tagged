@@ -60,7 +60,7 @@ export default function Sidebar() {
   }, [pathname, router, queryClient]);
 
   return (
-    <aside className="flex-none bg-bg-100 p-3 sm:m-2 sm:rounded-2xl sm:p-4">
+    <aside className="flex-none bg-bg-200 p-3 sm:m-2 sm:rounded-2xl sm:p-4">
       <div className="flex flex-grow flex-col gap-3">
         <p className="subheading-xsmall hidden p-1 text-text-400 sm:block">
           New Item
@@ -71,8 +71,8 @@ export default function Sidebar() {
               key={index}
               className={`flex cursor-pointer items-center justify-center gap-2.5 rounded-[10px] p-2 transition-all ${
                 level.pathname === pathname
-                  ? "bg-white shadow-[0px_2px_4px_0px_#1B1C1D0A]"
-                  : "text-text-500"
+                  ? "bg-bg-0 shadow-[0px_2px_4px_0px_#1B1C1D0A]"
+                  : "text-text-600"
               }`}
             >
               {index < levels.findIndex((l) => l.pathname === pathname) ? (
@@ -83,8 +83,8 @@ export default function Sidebar() {
                 <div
                   className={`label-xsmall flex size-6 items-center justify-center rounded-full p-1 text-center !font-semibold shadow-[0px_2px_4px_0px_#1B1C1D0A] transition-all ${
                     level.pathname === pathname
-                      ? "bg-bg-700 text-white"
-                      : "bg-white text-text-500"
+                      ? "bg-bg-800 text-white"
+                      : "bg-bg-0 text-text-600"
                   }`}
                 >
                   {index + 1}
@@ -96,7 +96,7 @@ export default function Sidebar() {
               <div
                 className={
                   level.pathname === pathname
-                    ? "hidden text-icon-500 transition-all sm:block"
+                    ? "text-text-600 hidden transition-all sm:block"
                     : "hidden opacity-0 transition-all sm:block"
                 }
               >

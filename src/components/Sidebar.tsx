@@ -9,7 +9,7 @@ import {
 } from "react-icons/ri";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -38,6 +38,18 @@ export default function Sidebar() {
     },
   ]);
 
+  useLayoutEffect(() => {
+    if (
+      localStorage.theme === "dark" ||
+      (!("theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, []);
+
   if (pathname === "/login" || pathname.startsWith("/item/new")) return null;
 
   return (
@@ -51,12 +63,12 @@ export default function Sidebar() {
               <Link
                 href={option.link}
                 key={option.label}
-                className={`relative flex items-center justify-center rounded-lg p-2 font-medium transition-all hover:bg-bg-100 ${
+                className={`relative flex items-center justify-center rounded-lg p-2 font-medium transition-all hover:bg-bg-50 ${
                   (option.link === "/settings" &&
                     pathname.startsWith(option.link)) ||
                   pathname === option.link
-                    ? "bg-bg-100 text-text-900"
-                    : "text-text-500"
+                    ? "bg-bg-50 text-text-950"
+                    : "text-text-600"
                 }`}
               >
                 <span
@@ -66,7 +78,7 @@ export default function Sidebar() {
                       pathname.startsWith(option.link)) ||
                     pathname === option.link
                       ? "text-main-base"
-                      : "text-icon-500")
+                      : "text-text-600")
                   }
                 >
                   {option.icon}
@@ -88,12 +100,12 @@ export default function Sidebar() {
               <Link
                 href={option.link}
                 key={option.label}
-                className={`relative flex items-center justify-between gap-3 rounded-lg font-medium transition-all hover:bg-bg-100 ${pathname.startsWith("/settings") ? "p-2" : "px-3 py-2"} ${
+                className={`relative flex items-center justify-between gap-3 rounded-lg font-medium transition-all hover:bg-bg-50 ${pathname.startsWith("/settings") ? "p-2" : "px-3 py-2"} ${
                   (option.link === "/settings" &&
                     pathname.startsWith(option.link)) ||
                   pathname === option.link
-                    ? "bg-bg-100 text-text-900"
-                    : "text-text-500"
+                    ? "bg-bg-50 text-text-950"
+                    : "text-text-600"
                 }`}
               >
                 <span
@@ -113,7 +125,7 @@ export default function Sidebar() {
                         pathname.startsWith(option.link)) ||
                       pathname === option.link
                         ? "text-main-base"
-                        : "text-icon-500")
+                        : "text-text-600")
                     }
                   >
                     {option.icon}
@@ -130,8 +142,8 @@ export default function Sidebar() {
                       ((option.link === "/settings" &&
                         pathname.startsWith(option.link)) ||
                       pathname === option.link
-                        ? "text-icon-500"
-                        : "text-bg-100")
+                        ? "text-text-600"
+                        : "text-text-0")
                     }
                   />
                 )}
@@ -149,15 +161,15 @@ export default function Sidebar() {
         ) : (
           <Link href="/settings/profile" className="group flex flex-col">
             <span className="mx-5 block border-t transition-all group-hover:border-transparent" />
-            <span className="flex items-center gap-3 p-6 pt-5 transition-all group-hover:bg-bg-100">
+            <span className="flex items-center gap-3 p-6 pt-5 transition-all group-hover:bg-bg-50">
               <span className="block size-10 rounded-full bg-gray-100" />
               <span className="flex min-w-32 flex-grow flex-col gap-1 text-sm">
                 <span className="label-small block">{user?.name}</span>
-                <span className="paragraph-xsmall block text-text-500">
+                <span className="paragraph-xsmall block text-text-600">
                   {user?.email}
                 </span>
               </span>
-              <RiArrowRightSLine size={20} className="text-icon-500" />
+              <RiArrowRightSLine size={20} className="text-text-600" />
             </span>
           </Link>
         )}

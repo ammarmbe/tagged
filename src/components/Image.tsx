@@ -119,7 +119,7 @@ export default function ImageComponent({
             {image.error ? (
               <>
                 <LuDot size={16} />
-                <span className="flex items-center gap-1 text-text-900">
+                <span className="text-text-950 flex items-center gap-1">
                   <RiErrorWarningFill size={16} className="text-error" />
                   {(image.file?.size || 0) > 5 * 1024 * 1024
                     ? "File too large"
@@ -129,7 +129,7 @@ export default function ImageComponent({
             ) : (image.uploaded !== 1 || !image.url) && image.file ? (
               <>
                 <LuDot size={16} />
-                <span className="flex items-center gap-1 text-text-900">
+                <span className="text-text-950 flex items-center gap-1">
                   <RiLoader2Fill
                     size={16}
                     className="animate-spin text-information"
@@ -140,7 +140,7 @@ export default function ImageComponent({
             ) : image.file ? (
               <>
                 <LuDot size={16} />
-                <span className="flex items-center gap-1 text-text-900">
+                <span className="text-text-950 flex items-center gap-1">
                   <RiCheckboxCircleFill size={16} className="text-success" />
                   Completed
                 </span>
@@ -150,7 +150,7 @@ export default function ImageComponent({
               <>
                 <LuDot size={16} />
                 <DropdownMenu.Root modal={false}>
-                  <DropdownMenu.Trigger className="label-xsmall flex items-center gap-1.5 text-text-900">
+                  <DropdownMenu.Trigger className="label-xsmall text-text-950 flex items-center gap-1.5">
                     {colors?.find(
                       (c: { color: string; hex: string }) =>
                         c.color === image.color,
@@ -169,7 +169,7 @@ export default function ImageComponent({
                       {image.color ? image.color : "Select color"}
                     </span>
                   </DropdownMenu.Trigger>
-                  <DropdownMenu.Content className="z-30 mt-1 overflow-hidden rounded-lg border bg-white shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2">
+                  <DropdownMenu.Content className="bg-bg-0 z-30 mt-1 overflow-hidden rounded-lg border shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2">
                     {colors
                       .concat({
                         color: "No color",
@@ -180,7 +180,7 @@ export default function ImageComponent({
                         (color: { color: string; hex: string }, i: number) => (
                           <DropdownMenu.Item
                             key={i}
-                            className="flex cursor-pointer items-center gap-2 p-3 py-2.5 font-medium text-text-900 hover:bg-bg-100"
+                            className="text-text-950 hover:bg-bg-50 flex cursor-pointer items-center gap-2 p-3 py-2.5 font-medium"
                             onSelect={async () => {
                               setImages((prev) =>
                                 prev.map((img) =>
@@ -223,7 +223,7 @@ export default function ImageComponent({
         </div>
         <button
           type="button"
-          className="self-start p-0.5 text-icon-500 hover:text-icon-900"
+          className="hover:text-text-950 text-text-600 self-start p-0.5"
           onClick={async () => {
             setImages((prev) => prev.filter(({ id }) => id !== image.id));
 
@@ -270,7 +270,7 @@ export default function ImageComponent({
           Try Again
         </button>
       ) : image.file ? (
-        <div className="relative mt-4 h-1.5 w-full overflow-hidden rounded-full bg-bg-200">
+        <div className="bg-bg-300 relative mt-4 h-1.5 w-full overflow-hidden rounded-full">
           <div
             className="absolute h-full rounded-full bg-main-base"
             style={{

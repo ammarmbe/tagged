@@ -36,7 +36,7 @@ export default function BackButton() {
       }
       color="gray"
       disabled={pathname === "/item/new"}
-      className="absolute right-6 top-6 hidden rounded-full border bg-white p-3 shadow-md sm:block"
+      className="absolute right-6 top-6 hidden rounded-full border bg-bg-0 p-3 shadow-md sm:block"
       iconLeft={<RiArrowLeftLine />}
     />
   );

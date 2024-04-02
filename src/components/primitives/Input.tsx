@@ -30,7 +30,7 @@ const Input = React.forwardRef<
     },
     ref,
   ) => {
-    const classes = `border rounded-lg max-w-full placeholder:text-text-400 shadow-xs hover:border-transparent hover:bg-bg-100 hover:placeholder:text-icon-500 focus:bg-white focus:placeholder:text-icon-500 focus:border-border-900 peer focus:shadow-[0px_0px_0px_2px_#FFFFFF,0px_0px_0px_4px_#E4E5E7] text-text-900 transition-all placeholder:transition-all disabled:bg-bg-100 disabled:border-transparent disabled:text-text-300 min-w-0 disabled:placeholder:text-text-300 disabled:hover:placeholder:text-text-300 resize-none ${
+    const classes = `border rounded-lg max-w-full placeholder:text-text-400 shadow-xs hover:border-transparent hover:bg-bg-50 hover:placeholder:text-text-600 focus:bg-bg-0 focus:placeholder:text-text-600 focus:border-border-950 peer focus:shadow-[0px_0px_0px_2px_var(--color-bg-0),0px_0px_0px_4px_#E4E5E7] text-text-950 transition-all placeholder:transition-all disabled:bg-bg-200 disabled:border-transparent disabled:text-text-300 min-w-0 disabled:placeholder:text-text-300 disabled:hover:placeholder:text-text-300 resize-none ${
       size === "md"
         ? "p-2 sm:px-3 px-2 paragraph-small"
         : "sm:p-2 p-1.5 paragraph-small"
@@ -46,7 +46,7 @@ const Input = React.forwardRef<
         : ""
     } ${
       Boolean(error)
-        ? "!border-error focus:!shadow-[0px_0px_0px_2px_#FFFFFF,0px_0px_0px_4px_#F8C9D2]"
+        ? "!border-error focus:!shadow-[0px_0px_0px_2px_var(--color-bg-0),0px_0px_0px_4px_#F8C9D2]"
         : "border-border-300"
     } ${className}`;
 
@@ -65,7 +65,7 @@ const Input = React.forwardRef<
             <input ref={ref} {...props} className={classes} />
           )}
           <div
-            className={`absolute text-icon-400 transition-all peer-hover:text-icon-500 peer-focus:text-icon-900 ${
+            className={`absolute text-text-400 transition-all peer-hover:text-text-600 peer-focus:text-text-950 ${
               size === "md"
                 ? "top-[calc(0.5rem+1px)] sm:p-[2px]"
                 : "top-[calc(0.375rem+1px)] sm:top-[calc(0.5rem+1px)]"

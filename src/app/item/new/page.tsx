@@ -69,15 +69,15 @@ export default function ItemDetails() {
     <>
       <div className="hidden flex-col items-center pt-12 sm:flex">
         <div className="relative w-fit rounded-full bg-[linear-gradient(180deg,#E4E5E7_0%,rgba(228,229,231,0)76.56%)] p-px">
-          <div className="absolute inset-px rounded-full bg-white" />
+          <div className="bg-bg-0 absolute inset-px rounded-full" />
           <div className="relative z-10 w-fit rounded-full bg-[linear-gradient(180deg,rgba(228,229,231,0.48)0%,rgba(247,248,248,0)100%,rgba(228,229,231,0)100%)] p-4">
-            <div className="w-fit rounded-full border bg-white p-4 shadow-[0px_2px_4px_0px_#1B1C1D0A]">
-              <RiFileTextLine size={32} className="text-icon-500" />
+            <div className="bg-bg-0 w-fit rounded-full border p-4 shadow-[0px_2px_4px_0px_#1B1C1D0A]">
+              <RiFileTextLine size={32} className="text-text-600" />
             </div>
           </div>
         </div>
         <div className="title-h5 mt-2">Item Details</div>
-        <p className="paragraph-medium mt-1 text-text-500">
+        <p className="paragraph-medium text-text-600 mt-1">
           Set name, description, price, and category for your new item.
         </p>
       </div>
@@ -144,7 +144,7 @@ export default function ItemDetails() {
           <div className="grid grid-cols-2 gap-3.5 gap-y-1">
             <div className="flex flex-col gap-1">
               <label htmlFor="editPrice" className="label-small">
-                Price <span className="font-normal text-text-500">(EGP)</span>
+                Price <span className="text-text-600 font-normal">(EGP)</span>
               </label>
               <Input
                 type="number"
@@ -172,7 +172,7 @@ export default function ItemDetails() {
             <div className="flex flex-col gap-1">
               <label htmlFor="editDiscount" className="label-small">
                 Discount{" "}
-                <span className="font-normal text-text-500">(EGP)</span>
+                <span className="text-text-600 font-normal">(EGP)</span>
               </label>
               <Input
                 type="number"

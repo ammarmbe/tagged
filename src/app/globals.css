@@ -10,6 +10,87 @@ body {
   font-feature-settings: "case", "ss01", "cv01", "cv05", "cv10";
 }
 
+/* COLORS */
+
+html {
+  --color-text-950: #0e121b;
+  --color-text-600: #525866;
+  --color-text-400: #99a0ad;
+  --color-text-300: #cacfd8;
+  --color-text-0: #ffffff;
+
+  --color-bg-950: #0e121b;
+  --color-bg-800: #222530;
+  --color-bg-300: #cacfd8;
+  --color-bg-300: #e1e4e9;
+  --color-bg-50: #f5f7fa;
+  --color-bg-0: #ffffff;
+
+  --color-border-950: #0e121b;
+  --color-border-300: #cacfd8;
+  --color-border-200: #e1e4e9;
+  --color-border-0: #ffffff;
+
+  --color-main-dark: #351a75;
+  --color-main-base: #7d52f4;
+  --color-main-light: #cac0ff;
+  --color-main-lighter: #efebff;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    --color-text-950: #ffffff;
+    --color-text-600: #99a0ad;
+    --color-text-400: #717784;
+    --color-text-300: #525866;
+    --color-text-0: #0e121b;
+
+    --color-bg-950: #ffffff;
+    --color-bg-800: #e1e4e9;
+    --color-bg-300: #525866;
+    --color-bg-300: #2b303b;
+    --color-bg-50: #181b25;
+    --color-bg-0: #0e121b;
+
+    --color-border-950: #ffffff;
+    --color-border-300: #525866;
+    --color-border-200: #2b303b;
+    --color-border-0: #0e121b;
+
+    --color-main-dark: #8c71f6;
+    --color-main-base: #7d52f4;
+    --color-main-light: #dfd4fb;
+    --color-main-lighter: #e9e2fc;
+  }
+}
+
+/* DARK MODE */
+html.dark {
+  color-scheme: dark;
+  --color-text-950: #ffffff;
+  --color-text-600: #99a0ad;
+  --color-text-400: #717784;
+  --color-text-300: #525866;
+  --color-text-0: #0e121b;
+
+  --color-bg-950: #ffffff;
+  --color-bg-800: #e1e4e9;
+  --color-bg-300: #525866;
+  --color-bg-300: #2b303b;
+  --color-bg-50: #181b25;
+  --color-bg-0: #0e121b;
+
+  --color-border-950: #ffffff;
+  --color-border-300: #525866;
+  --color-border-200: #2b303b;
+  --color-border-0: #0e121b;
+
+  --color-main-dark: #8c71f6;
+  --color-main-base: #7d52f4;
+  --color-main-light: #dfd4fb;
+  --color-main-lighter: #e9e2fc;
+}
+
 @layer utilities {
   .title-h1 {
     @apply text-[3.5rem] font-medium leading-[4rem] tracking-[-0.01em];
@@ -98,17 +179,17 @@ body {
   /* CARD */
 
   .card {
-    @apply flex flex-col gap-4 overflow-hidden rounded-2xl border bg-white p-4 shadow-xs;
+    @apply flex flex-col gap-4 overflow-hidden rounded-2xl border bg-bg-0 p-4 shadow-xs;
   }
 
   /* CHECKBOX */
 
   .checkbox {
-    @apply relative size-4 appearance-none rounded-[4px] border border-border-300 transition-all after:absolute after:inset-px after:rounded-[2.5px] after:shadow-[0px_2px_2px_0px_#1B1C1D1F] hover:bg-bg-100 active:border-main-base active:bg-main-lighter active:after:shadow-none disabled:border-border-300 disabled:bg-bg-200 disabled:after:shadow-[0px_2px_2px_0px_#0F0F1014_inset];
+    @apply relative size-4 appearance-none rounded-[4px] border border-border-300 transition-all after:absolute after:inset-px after:rounded-[2.5px] after:shadow-[0px_2px_2px_0px_#1B1C1D1F] hover:bg-bg-300 active:border-main-base active:bg-main-lighter active:after:shadow-none disabled:border-border-300 disabled:bg-bg-300 disabled:after:shadow-[0px_2px_2px_0px_#0F0F1014_inset];
   }
 
   .checkbox:checked {
-    @apply border-t border-none border-main-dark bg-main-base shadow-[0px_2px_2px_0px_#16266452_inset] after:shadow-none hover:bg-main-dark active:border-main-darker active:bg-main-darker;
+    @apply border-t border-none border-main-dark bg-main-base shadow-[0px_2px_2px_0px_#16266452_inset] after:shadow-none hover:bg-main-dark active:border-main-dark active:bg-main-dark;
   }
 
   .checkbox:checked:after {
@@ -118,12 +199,12 @@ body {
   /* RADIO */
 
   .radio {
-    @apply relative size-4 appearance-none rounded-full bg-bg-200 transition-all checked:border-main-dark checked:bg-main-base checked:shadow-[0px_2px_2px_0px_#16266452_inset] hover:bg-[#CDD0D5] checked:hover:border-main-darker checked:hover:bg-main-dark checked:hover:shadow-none checked:active:!bg-main-darker enabled:active:bg-main-base disabled:border-border-300 disabled:shadow-[0px_2px_2px_0px_#0F0F1014_inset];
+    @apply relative size-4 appearance-none rounded-full bg-bg-300 transition-all checked:border-main-dark checked:bg-main-base checked:shadow-[0px_2px_2px_0px_#16266452_inset] hover:bg-[#CDD0D5] checked:hover:border-main-dark checked:hover:bg-main-dark checked:hover:shadow-none checked:active:!bg-main-dark enabled:active:bg-main-base disabled:border-border-300 disabled:shadow-[0px_2px_2px_0px_#0F0F1014_inset];
   }
 
   .radio:after {
     content: "";
-    @apply absolute inset-[2px] rounded-full bg-white shadow-[0px_2px_2px_0px_#1B1C1D1F] transition-colors;
+    @apply absolute inset-[2px] rounded-full bg-bg-0 shadow-[0px_2px_2px_0px_#1B1C1D1F] transition-colors;
   }
 
   .radio:checked:after {
@@ -135,7 +216,7 @@ body {
   }
 
   .radio:checked:active:after {
-    @apply bg-white;
+    @apply bg-bg-0;
   }
 
   .radio:disabled:after {

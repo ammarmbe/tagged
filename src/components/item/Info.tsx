@@ -29,7 +29,7 @@ export default function Info({
     <div className="card !gap-0 !p-0">
       <div className="flex flex-wrap items-center justify-between gap-x-5 gap-y-3 p-4">
         <div className="flex gap-2">
-          <RiInformationLine size={24} className="text-icon-500" />
+          <RiInformationLine size={24} className="text-text-600" />
           <p className="label-medium">Information</p>
         </div>
         <Edit data={data} />
@@ -60,7 +60,7 @@ export default function Info({
                   {c}
                 </Link>
                 {i < data?.category.length - 1 ? (
-                  <RiArrowRightSLine size={20} className="text-icon-400" />
+                  <RiArrowRightSLine size={20} className="text-text-400" />
                 ) : null}
               </React.Fragment>
             ))}

@@ -73,15 +73,15 @@ export default function Images() {
     <>
       <div className="hidden flex-col items-center pt-12 sm:flex">
         <div className="relative w-fit rounded-full bg-[linear-gradient(180deg,#E4E5E7_0%,rgba(228,229,231,0)76.56%)] p-px">
-          <div className="absolute inset-px rounded-full bg-white" />
+          <div className="bg-bg-0 absolute inset-px rounded-full" />
           <div className="relative z-10 w-fit rounded-full bg-[linear-gradient(180deg,rgba(228,229,231,0.48)0%,rgba(247,248,248,0)100%,rgba(228,229,231,0)100%)] p-4">
-            <div className="w-fit rounded-full border bg-white p-4 shadow-[0px_2px_4px_0px_#1B1C1D0A]">
-              <RiImageLine size={32} className="text-icon-500" />
+            <div className="bg-bg-0 w-fit rounded-full border p-4 shadow-[0px_2px_4px_0px_#1B1C1D0A]">
+              <RiImageLine size={32} className="text-text-600" />
             </div>
           </div>
         </div>
         <div className="title-h5 mt-2">Images</div>
-        <p className="paragraph-medium mt-1 text-text-500">
+        <p className="paragraph-medium text-text-600 mt-1">
           Add images for your new item.
         </p>
       </div>
@@ -103,7 +103,7 @@ export default function Images() {
         <div className="flex flex-col gap-3 p-4">
           <div className="flex min-h-0 flex-grow flex-col gap-6 sm:flex-grow-0">
             <label
-              className="drag flex cursor-pointer flex-col items-center gap-5 rounded-xl border border-dashed border-border-300 p-8 transition-all hover:bg-bg-100 active:border-solid"
+              className="drag hover:bg-bg-50 flex cursor-pointer flex-col items-center gap-5 rounded-xl border border-dashed border-border-300 p-8 transition-all active:border-solid"
               htmlFor="image"
             >
               <input
@@ -135,12 +135,12 @@ export default function Images() {
                   e.target.value = "";
                 }}
               />
-              <RiUploadCloud2Line size={24} className="text-icon-500" />
+              <RiUploadCloud2Line size={24} className="text-text-600" />
               <div className="space-y-1">
                 <p className="label-small">
                   Choose a file or drag and drop it here.
                 </p>
-                <p className="paragraph-xsmall text-text-400">
+                <p className="paragraph-xsmall text-text-600">
                   JPEG, PNG, and WEBP formats, up to 5 MB.
                 </p>
               </div>
@@ -152,13 +152,11 @@ export default function Images() {
                 className="w-fit"
                 onMouseEnter={(e) =>
                   e.currentTarget.parentElement?.classList.remove(
-                    "hover:bg-bg-100",
+                    "hover:bg-bg-50",
                   )
                 }
                 onMouseLeave={(e) =>
-                  e.currentTarget.parentElement?.classList.add(
-                    "hover:bg-bg-100",
-                  )
+                  e.currentTarget.parentElement?.classList.add("hover:bg-bg-50")
                 }
                 onClick={(e) =>
                   (

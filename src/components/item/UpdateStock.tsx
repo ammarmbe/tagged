@@ -84,7 +84,7 @@ export default function UpdateStock({
       onOpenChange={setQuantitiesOpen}
     >
       <div className="flex gap-4 p-4">
-        <div className="h-fit rounded-full border p-2.5 text-icon-500">
+        <div className="text-text-600 h-fit rounded-full border p-2.5">
           <RiBox3Line size={24} />
         </div>
         <div className="flex-grow">
@@ -98,7 +98,7 @@ export default function UpdateStock({
               />
             </Dialog.Close>
           </div>
-          <p className="paragraph-small mt-1 text-text-500">
+          <p className="paragraph-small text-text-600 mt-1">
             Update stock for different sizes and colors
           </p>
         </div>

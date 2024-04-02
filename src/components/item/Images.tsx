@@ -117,7 +117,7 @@ export default function Images({ nano_id }: { nano_id: string }) {
     <div className="card !gap-0 !p-0 sm:min-w-[350px]">
       <div className="flex flex-wrap items-center justify-between gap-3 p-4">
         <div className="flex gap-2">
-          <RiImageLine size={24} className="text-icon-500" />
+          <RiImageLine size={24} className="text-text-600" />
           <p className="label-medium">Images</p>
         </div>
         <DialogComponent
@@ -145,7 +145,7 @@ export default function Images({ nano_id }: { nano_id: string }) {
           <div className="flex flex-col gap-3 p-4">
             <div className="flex min-h-0 flex-grow flex-col gap-6 sm:flex-grow-0">
               <label
-                className="drag flex cursor-pointer flex-col items-center gap-5 rounded-xl border border-dashed border-border-300 p-8 transition-all hover:bg-bg-100 active:border-solid"
+                className="drag hover:bg-bg-50 flex cursor-pointer flex-col items-center gap-5 rounded-xl border border-dashed border-border-300 p-8 transition-all active:border-solid"
                 htmlFor="image"
               >
                 <input
@@ -178,7 +178,7 @@ export default function Images({ nano_id }: { nano_id: string }) {
                     e.target.value = "";
                   }}
                 />
-                <RiUploadCloud2Line size={24} className="text-icon-500" />
+                <RiUploadCloud2Line size={24} className="text-text-600" />
                 <div className="space-y-1">
                   <p className="label-small">
                     Choose a file or drag and drop it here.
@@ -195,12 +195,12 @@ export default function Images({ nano_id }: { nano_id: string }) {
                   className="w-fit"
                   onMouseEnter={(e) =>
                     e.currentTarget.parentElement?.classList.remove(
-                      "hover:bg-bg-100",
+                      "hover:bg-bg-50",
                     )
                   }
                   onMouseLeave={(e) =>
                     e.currentTarget.parentElement?.classList.add(
-                      "hover:bg-bg-100",
+                      "hover:bg-bg-50",
                     )
                   }
                   onClick={(e) =>
@@ -230,7 +230,7 @@ export default function Images({ nano_id }: { nano_id: string }) {
         {data?.map((image, i) => (
           <Dialog.Root key={i}>
             <Dialog.Trigger asChild>
-              <div className="group flex cursor-pointer items-center justify-between gap-4 p-3 px-4 transition-all hover:bg-bg-100">
+              <div className="hover:bg-bg-50 group flex cursor-pointer items-center justify-between gap-4 p-3 px-4 transition-all">
                 <div className="flex items-center gap-3">
                   <div className="flex items-center justify-center rounded-full border p-2 transition-all group-hover:border-border-300">
                     <RiImage2Line size={20} className="text-main-base" />
@@ -257,7 +257,7 @@ export default function Images({ nano_id }: { nano_id: string }) {
                   quality={50}
                 />
               </div>
-              <Dialog.Close className="pointer-events-auto absolute right-10 top-10 z-[60] cursor-pointer rounded-md bg-white/30 p-2 transition-all hover:bg-white/60">
+              <Dialog.Close className="bg-bg-0/30 hover:bg-bg-0/60 pointer-events-auto absolute right-10 top-10 z-[60] cursor-pointer rounded-md p-2 transition-all">
                 <RiCloseLine size={24} />
               </Dialog.Close>
             </Dialog.Content>

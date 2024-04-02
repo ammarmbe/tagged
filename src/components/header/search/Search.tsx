@@ -23,7 +23,7 @@ export default function Search() {
 
   return (
     <Dialog.Root open={searchOpen} onOpenChange={setSearchOpen}>
-      <Dialog.Trigger className="h-fit rounded-[10px] border border-transparent p-2 text-icon-500 transition-all hover:bg-bg-100 hover:text-text-900 active:bg-white active:shadow-[0_0_0_2px_#FFFFFF,0_0_0_4px_#E4E5E7] disabled:text-text-300 disabled:shadow-none sm:p-2.5">
+      <Dialog.Trigger className="h-fit rounded-[10px] border border-transparent p-2 text-text-600 transition-all hover:bg-bg-50 hover:text-text-950 active:bg-bg-0 active:shadow-[0_0_0_2px_var(--color-bg-0),0_0_0_4px_#E4E5E7] disabled:text-text-300 disabled:shadow-none sm:p-2.5">
         <RiSearch2Line size={20} />
       </Dialog.Trigger>
       <Dialog.Overlay className="fixed inset-0 z-50 bg-[hsla(209,84%,5%,0.19)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
@@ -31,12 +31,12 @@ export default function Search() {
         autoFocus
         className="!pointer-events-none fixed inset-0 z-50 flex items-start justify-center rounded-2xl pt-10 shadow-[0px_16px_32px_-12px_#585C5F1A] transition duration-200 ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-top-[2%] data-[state=open]:slide-in-from-top-[2%]"
       >
-        <div className="pointer-events-auto h-fit min-w-[350px] max-w-2xl rounded-2xl bg-white sm:min-w-[500px] sm:max-w-md">
+        <div className="pointer-events-auto h-fit min-w-[350px] max-w-2xl rounded-2xl bg-bg-0 sm:min-w-[500px] sm:max-w-md">
           <div className="relative">
             <div className="absolute left-4 top-3 p-0.5 text-main-base">
               <RiSearch2Line size={20} />
             </div>
-            <Dialog.Close className="absolute right-4 top-3 p-0.5 text-icon-500">
+            <Dialog.Close className="absolute right-4 top-3 p-0.5 text-text-600">
               <RiCloseLine size={20} />
             </Dialog.Close>
             <input
@@ -57,8 +57,8 @@ export default function Search() {
                 <div
                   className={`label-xsmall cursor-pointer rounded-lg px-2.5 py-1.5 transition-all ${
                     selected === "analytics"
-                      ? "bg-bg-700 text-white"
-                      : "bg-bg-100 text-text-500 hover:bg-bg-200"
+                      ? "bg-bg-800 text-white"
+                      : "bg-bg-200 text-text-600 hover:bg-bg-300"
                   }`}
                   onClick={() => {
                     if (selected === "analytics") {
@@ -73,8 +73,8 @@ export default function Search() {
                 <div
                   className={`label-xsmall cursor-pointer rounded-lg px-2.5 py-1.5 transition-all ${
                     selected === "items"
-                      ? "bg-bg-700 text-white"
-                      : "bg-bg-100 text-text-500 hover:bg-bg-200"
+                      ? "bg-bg-800 text-white"
+                      : "bg-bg-200 text-text-600 hover:bg-bg-300"
                   }`}
                   onClick={() => {
                     if (selected === "items") {
@@ -89,8 +89,8 @@ export default function Search() {
                 <div
                   className={`label-xsmall cursor-pointer rounded-lg px-2.5 py-1.5 transition-all ${
                     selected === "orders"
-                      ? "bg-bg-700 text-white"
-                      : "bg-bg-100 text-text-500 hover:bg-bg-200"
+                      ? "bg-bg-800 text-white"
+                      : "bg-bg-200 text-text-600 hover:bg-bg-300"
                   }`}
                   onClick={() => {
                     if (selected === "orders") {
@@ -105,8 +105,8 @@ export default function Search() {
                 <div
                   className={`label-xsmall cursor-pointer rounded-lg px-2.5 py-1.5 transition-all ${
                     selected === "settings"
-                      ? "bg-bg-700 text-white"
-                      : "bg-bg-100 text-text-500 hover:bg-bg-200"
+                      ? "bg-bg-800 text-white"
+                      : "bg-bg-200 text-text-600 hover:bg-bg-300"
                   }`}
                   onClick={() => {
                     if (selected === "settings") {

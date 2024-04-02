@@ -26,11 +26,11 @@ export default function Header({
   return (
     <header className="flex w-full items-center gap-3 px-5 py-3 sm:px-8 sm:py-5">
       <div className="grid flex-grow gap-x-3.5 gap-y-1 sm:grid-cols-[auto,1fr]">
-        <div className="row-span-2 hidden rounded-full border bg-white p-3 shadow-xs sm:block">
+        <div className="bg-bg-0 row-span-2 hidden rounded-full border p-3 shadow-xs sm:block">
           {icon}
         </div>
         <p className="label-large truncate">{title}</p>
-        <p className="paragraph-small hidden text-text-500 sm:block">
+        <p className="paragraph-small text-text-600 hidden sm:block">
           {description}
         </p>
       </div>

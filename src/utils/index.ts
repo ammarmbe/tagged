@@ -99,7 +99,10 @@ export const selectStyles = ({
   return {
     control: (styles, state) => ({
       ...styles,
-      backgroundColor: error || state.isFocused ? "white !important" : "white",
+      backgroundColor:
+        error || state.isFocused
+          ? "var(--color-bg-0) !important"
+          : "var(--color-bg-0)",
       padding: size === "md" ? "10px" : size === "sm" ? "8px" : "6px",
       paddingLeft: iconSide === "left" ? "40px" : "10px",
       paddingRight: iconSide === "right" ? "40px" : "10px",
@@ -111,15 +114,15 @@ export const selectStyles = ({
       borderColor: error
         ? "#DF1C41 !important"
         : state.isFocused
-          ? "#0A0D14 !important"
+          ? "var(--color-text-950) !important"
           : "#CDD0D5",
       borderRadius: "8px",
       boxShadow: state.isFocused
         ? error
-          ? "0px 0px 0px 2px #FFFFFF, 0px 0px 0px 4px #F8C9D2"
-          : "0px 0px 0px 2px #FFFFFF, 0px 0px 0px 4px #E4E5E7"
+          ? "0px 0px 0px 2px var(--color-bg-0), 0px 0px 0px 4px #F8C9D2"
+          : "0px 0px 0px 2px var(--color-bg-0), 0px 0px 0px 4px #E4E5E7"
         : "0px 1px 2px 0px #E4E5E73D",
-      color: "#0A0D14",
+      color: "var(--color-text-950)",
       transitionProperty: "all",
       transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
       transitionDuration: "150ms",
@@ -150,7 +153,10 @@ export const selectStyles = ({
       cursor: "auto",
       padding: "0",
       margin: "0",
-      color: error || state.isFocused ? "#0A0D14 !important" : "#868C98",
+      color:
+        error || state.isFocused
+          ? "var(--color-text-950) !important"
+          : "#868C98",
       "&:disabled": {
         color: "#CDD0D5 !important",
       },

@@ -18,11 +18,11 @@ export async function GET(req: Request) {
   }
 
   const data = await sql(
-    `SELECT items.name AS name, items.nano_id as nano_id, order_items.quantity AS quantity, SUM((COALESCE(order_items.price, 0) - COALESCE(order_items.discount, 0)) * COALESCE(order_items.quantity, 1)) AS revenue, SUM(order_items.quantity) AS units FROM orders JOIN order_items ON order_items.order_id = orders.id LEFT JOIN items ON items.id = order_items.item_id WHERE orders.store_id = $1 AND orders.status = 'completed' AND ${timeConstraint(
+    `SELECT (CASE WHEN items.name IS NOT NULL THEN items.name ELSE order_items.name END) AS name, items.nano_id as nano_id, order_items.quantity AS quantity, SUM((COALESCE(order_items.price, 0) - COALESCE(order_items.discount, 0)) * COALESCE(order_items.quantity, 1)) AS revenue, SUM(order_items.quantity) AS units FROM orders JOIN order_items ON order_items.order_id = orders.id LEFT JOIN items ON items.id = order_items.item_id WHERE orders.store_id = $1 AND orders.status = 'completed' AND ${timeConstraint(
       range,
       "orders",
       "completed_at",
-    )} GROUP BY items.name, order_items.quantity, items.nano_id ORDER BY revenue DESC LIMIT 5`,
+    )} GROUP BY (CASE WHEN items.name IS NOT NULL THEN items.name ELSE order_items.name END), order_items.quantity, items.nano_id ORDER BY revenue DESC LIMIT 5`,
     [user.id],
   );
 

@@ -21,6 +21,8 @@ export default function Statistics() {
         prev_conversion_rate: number;
         prev_average_order_value: number;
         prev_return_rate: number;
+        average_time_to_completed: number;
+        prev_average_time_to_completed: number;
       }>;
     },
     initialData: {
@@ -30,6 +32,8 @@ export default function Statistics() {
       prev_conversion_rate: 0,
       prev_average_order_value: 0,
       prev_return_rate: 0,
+      average_time_to_completed: 0,
+      prev_average_time_to_completed: 0,
     },
   });
 
@@ -39,7 +43,7 @@ export default function Statistics() {
         <Loading isFetching={isFetching} />
         <div className="flex flex-grow flex-col justify-between !p-5">
           <div className="flex w-full justify-between">
-            <div className="h-fit rounded-full border p-2 text-icon-500 shadow-xs">
+            <div className="h-fit rounded-full border p-2 text-text-600 shadow-xs">
               {data.conversion_rate > data.prev_conversion_rate ? (
                 <RiArrowRightUpLine size={24} />
               ) : data.conversion_rate === data.prev_conversion_rate ? (
@@ -51,7 +55,7 @@ export default function Statistics() {
             <Image src="/chart.svg" height={40} width={120} alt="Chart" />
           </div>
           <div>
-            <p className="paragraph-small mb-1 text-text-500">
+            <p className="paragraph-small mb-1 text-text-600">
               Conversion Rate
             </p>
             <div className="flex items-end justify-between">
@@ -67,10 +71,15 @@ export default function Statistics() {
                   }`}
                 >
                   {data.conversion_rate > data.prev_conversion_rate ? "+" : ""}
-                  {(
-                    (data.conversion_rate - data.prev_conversion_rate) *
-                    100
-                  ).toFixed(1)}
+                  {Math.min(
+                    Number(
+                      (
+                        (data.conversion_rate - data.prev_conversion_rate) *
+                        100
+                      ).toFixed(0),
+                    ),
+                    100,
+                  )}
                   %
                 </span>
               </p>
@@ -82,7 +91,7 @@ export default function Statistics() {
         <Loading isFetching={isFetching} />
         <div className="flex flex-grow flex-col justify-between !p-5">
           <div className="flex w-full justify-between">
-            <div className="h-fit rounded-full border p-2 text-icon-500 shadow-xs">
+            <div className="h-fit rounded-full border p-2 text-text-600 shadow-xs">
               {data.average_order_value > data.prev_average_order_value ? (
                 <RiArrowRightUpLine size={24} />
               ) : data.average_order_value === data.prev_average_order_value ? (
@@ -94,7 +103,7 @@ export default function Statistics() {
             <Image src="/chart.svg" height={40} width={120} alt="Chart" />
           </div>
           <div>
-            <p className="paragraph-small mb-1 text-text-500">
+            <p className="paragraph-small mb-1 text-text-600">
               Average Order Value
             </p>
             <p className="title-h4 flex items-center gap-2">
@@ -111,10 +120,11 @@ export default function Statistics() {
                 {data.average_order_value > data.prev_average_order_value
                   ? "+"
                   : ""}
-                {(
+                {Math.min(
                   (data.average_order_value - data.prev_average_order_value) *
-                  100
-                ).toFixed(1)}
+                    100,
+                  100,
+                )}
                 %
               </span>
             </p>
@@ -125,7 +135,7 @@ export default function Statistics() {
         <Loading isFetching={isFetching} />
         <div className="flex flex-grow flex-col justify-between !p-5">
           <div className="flex w-full justify-between">
-            <div className="h-fit rounded-full border p-2 text-icon-500 shadow-xs">
+            <div className="h-fit rounded-full border p-2 text-text-600 shadow-xs">
               {data.return_rate > data.prev_return_rate ? (
                 <RiArrowRightUpLine size={24} />
               ) : data.return_rate === data.prev_return_rate ? (
@@ -137,7 +147,7 @@ export default function Statistics() {
             <Image src="/chart.svg" height={40} width={120} alt="Chart" />
           </div>
           <div>
-            <p className="paragraph-small mb-1 text-text-500">Return Rate</p>
+            <p className="paragraph-small mb-1 text-text-600">Return Rate</p>
             <p className="title-h4 flex items-center gap-2">
               {data.return_rate * 100 + "%"}
               <span
@@ -150,7 +160,15 @@ export default function Statistics() {
                 }`}
               >
                 {data.return_rate > data.prev_return_rate ? "+" : ""}
-                {((data.return_rate - data.prev_return_rate) * 100).toFixed(1)}%
+                {Math.min(
+                  Number(
+                    ((data.return_rate - data.prev_return_rate) * 100).toFixed(
+                      0,
+                    ),
+                  ),
+                  100,
+                )}
+                %
               </span>
             </p>
           </div>
@@ -160,31 +178,51 @@ export default function Statistics() {
         <Loading isFetching={isFetching} />
         <div className="flex flex-grow flex-col justify-between !p-5">
           <div className="flex w-full justify-between">
-            <div className="h-fit rounded-full border p-2 text-icon-500 shadow-xs">
-              {0 > 1 ? (
-                <RiArrowLeftDownLine size={24} />
-              ) : (
+            <div className="h-fit rounded-full border p-2 text-text-600 shadow-xs">
+              {data.average_time_to_completed >
+              data.prev_average_time_to_completed ? (
                 <RiArrowRightUpLine size={24} />
+              ) : data.average_time_to_completed ===
+                data.prev_average_time_to_completed ? (
+                <RiSubtractLine size={24} />
+              ) : (
+                <RiArrowLeftDownLine size={24} />
               )}
             </div>
             <Image src="/chart.svg" height={40} width={120} alt="Chart" />
           </div>
           <div>
-            <p className="paragraph-small mb-1 text-text-500">
-              Conversion Rate
+            <p className="paragraph-small mb-1 text-text-600">
+              Average Time to Completed
             </p>
             <p className="title-h4 flex items-center gap-2">
-              54.2%
+              {(data.average_time_to_completed / 86400).toFixed(2)} days
               <span
                 className={`subheading-2xsmall rounded-full px-1.5 py-0.5 ${
-                  0 > 100
+                  data.average_time_to_completed >
+                  data.prev_average_time_to_completed
                     ? "bg-[#CBF5E4] text-[#176448]"
-                    : 0 < 100
+                    : data.average_time_to_completed <
+                        data.prev_average_time_to_completed
                       ? "bg-[#F8C9D2] text-[#710E21]"
                       : "bg-[#F6F8FA] text-[#525866]"
                 }`}
               >
-                {(0 > 100 ? "+" : "") + 40}%
+                {data.average_time_to_completed >
+                data.prev_average_time_to_completed
+                  ? "+"
+                  : ""}
+                {Math.min(
+                  Number(
+                    (
+                      (data.average_time_to_completed -
+                        data.prev_average_time_to_completed) *
+                      100
+                    ).toFixed(0),
+                  ),
+                  100,
+                )}
+                %
               </span>
             </p>
           </div>

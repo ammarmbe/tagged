@@ -119,15 +119,15 @@ export default function ColorsSizes() {
     <>
       <div className="hidden flex-col items-center pt-12 sm:flex">
         <div className="relative w-fit rounded-full bg-[linear-gradient(180deg,#E4E5E7_0%,rgba(228,229,231,0)76.56%)] p-px">
-          <div className="absolute inset-px rounded-full bg-white" />
+          <div className="absolute inset-px rounded-full bg-bg-0" />
           <div className="relative z-10 w-fit rounded-full bg-[linear-gradient(180deg,rgba(228,229,231,0.48)0%,rgba(247,248,248,0)100%,rgba(228,229,231,0)100%)] p-4">
-            <div className="w-fit rounded-full border bg-white p-4 shadow-[0px_2px_4px_0px_#1B1C1D0A]">
-              <RiPantoneLine size={32} className="text-icon-500" />
+            <div className="w-fit rounded-full border bg-bg-0 p-4 shadow-[0px_2px_4px_0px_#1B1C1D0A]">
+              <RiPantoneLine size={32} className="text-text-600" />
             </div>
           </div>
         </div>
         <div className="title-h5 mt-2">Colors & Sizes</div>
-        <p className="paragraph-medium mt-1 text-text-500">
+        <p className="paragraph-medium mt-1 text-text-600">
           Add different colors and sizes for your new item.
         </p>
       </div>
@@ -166,7 +166,7 @@ export default function ColorsSizes() {
                 if (!value?.length) return "Please add at least one color.";
               },
             })}
-            className={`subheading-xsmall hidden bg-bg-100 px-2 py-1.5 pl-4 sm:block ${
+            className={`subheading-xsmall hidden bg-bg-50 px-2 py-1.5 pl-4 sm:block ${
               errors.colors?.message ? "text-error" : "text-text-400"
             }`}
           >
@@ -178,7 +178,7 @@ export default function ColorsSizes() {
                 if (!value?.length) return "Please add at least one size.";
               },
             })}
-            className={`subheading-xsmall hidden bg-bg-100 px-2 py-1.5 pl-2 sm:block ${
+            className={`subheading-xsmall hidden bg-bg-50 px-2 py-1.5 pl-2 sm:block ${
               errors.sizes?.message ? "text-error" : "text-text-400"
             }`}
           >
@@ -186,7 +186,7 @@ export default function ColorsSizes() {
           </div>
           <div className="col-span-2 grid-cols-2 overflow-auto sm:grid sm:max-h-[300px]">
             <div
-              className={`subheading-xsmall h-fit bg-bg-100 px-2 py-1.5 pl-4 sm:hidden ${
+              className={`subheading-xsmall h-fit bg-bg-200 px-2 py-1.5 pl-4 sm:hidden ${
                 errors.colors?.message ? "text-error" : "text-text-400"
               }`}
             >
@@ -201,10 +201,10 @@ export default function ColorsSizes() {
                     style={{
                       background: `linear-gradient(${
                         customColors[color.color.toLowerCase()]?.light ??
-                        "#FFFFFF"
+                        "var(--color-bg-0)"
                       }, ${
                         customColors[color.color.toLowerCase()]?.lighter ??
-                        "#FFFFFF"
+                        "var(--color-bg-0)"
                       })`,
                       border: customColors[color.color.toLowerCase()]?.text
                         ? "none"
@@ -292,7 +292,7 @@ export default function ColorsSizes() {
               )}
             </div>
             <div
-              className={`subheading-xsmall h-fit bg-bg-100 px-2 py-1.5 pl-2 sm:hidden ${
+              className={`subheading-xsmall h-fit bg-bg-200 px-2 py-1.5 pl-2 sm:hidden ${
                 errors.sizes?.message ? "text-error" : "text-text-400"
               }`}
             >
@@ -303,7 +303,7 @@ export default function ColorsSizes() {
                 watch("sizes").map((_, i) => (
                   <div
                     key={i}
-                    className="h-fit space-y-1 rounded-xl border bg-white p-3"
+                    className="h-fit space-y-1 rounded-xl border bg-bg-0 p-3"
                   >
                     <div className="flex items-center justify-between">
                       <label htmlFor={"sizeName" + i} className="label-small">

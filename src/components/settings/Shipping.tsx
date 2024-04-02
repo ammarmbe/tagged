@@ -287,7 +287,7 @@ export default function Page() {
   return (
     <div className="flex flex-grow flex-col">
       <Header
-        icon={<RiShip2Line size={24} className="text-icon-500" />}
+        icon={<RiShip2Line size={24} className="text-text-600" />}
         title="Shipping"
         description="Set shipping price and return policy"
       />
@@ -330,7 +330,7 @@ export default function Page() {
           <>
             <div>
               <p className="label-small">Shipping Price</p>
-              <div className="paragraph-small mt-1 text-text-500">
+              <div className="paragraph-small text-text-600 mt-1">
                 This will be added to the total price of the order.
               </div>
             </div>
@@ -391,7 +391,7 @@ export default function Page() {
           <>
             <div>
               <p className="label-small">Return Policy</p>
-              <div className="paragraph-small mt-1 text-text-500">
+              <div className="paragraph-small text-text-600 mt-1">
                 This will be displayed on the product page.
               </div>
             </div>
@@ -455,7 +455,7 @@ export default function Page() {
           <>
             <div>
               <p className="label-small">Exchange Policy</p>
-              <div className="paragraph-small mt-1 text-text-500">
+              <div className="paragraph-small text-text-600 mt-1">
                 This will be displayed on the product page.
               </div>
             </div>

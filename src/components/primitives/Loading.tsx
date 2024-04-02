@@ -8,7 +8,7 @@ export default function Loading({
   size?: number;
 }) {
   return isFetching ? (
-    <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/40 backdrop-blur-[2px]">
+    <div className="absolute inset-0 z-10 flex items-center justify-center bg-bg-0/40 backdrop-blur-[2px]">
       <Spinner size={size} fill="fill-main-base" />
     </div>
   ) : null;

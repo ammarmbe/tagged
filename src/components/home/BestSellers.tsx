@@ -39,7 +39,7 @@ export default function BestSellers() {
     <div className="card flex-grow !p-0 sm:min-w-[350px]">
       <div className="flex items-center justify-between gap-4 p-4 pb-0 sm:gap-10">
         <div className="flex gap-2">
-          <RiSparklingLine size={24} className="text-icon-500" />
+          <RiSparklingLine size={24} className="text-text-600" />
           <p className="label-medium">Best Sellers</p>
         </div>
         <ReactSelect
@@ -81,7 +81,7 @@ export default function BestSellers() {
         {data?.map((item, i) => (
           <div
             key={i}
-            className="group flex items-center justify-between gap-4 p-4 px-6 transition-all hover:bg-bg-100"
+            className="group flex items-center justify-between gap-4 p-4 px-6 transition-all hover:bg-bg-50"
             role="button"
             tabIndex={0}
             onClick={() => {
@@ -99,7 +99,7 @@ export default function BestSellers() {
               </div>
               <div className="flex flex-col">
                 <p className="label-medium truncate">{item.name}</p>
-                <p className="label-small truncate text-text-400 transition-all group-hover:text-text-500">
+                <p className="label-small truncate text-text-400 transition-all group-hover:text-text-600">
                   {item.units} unit{item.units == 1 ? "" : "s"} sold
                 </p>
               </div>
