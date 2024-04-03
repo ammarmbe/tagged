@@ -1,9 +1,7 @@
 "use client";
-
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Item } from "./page";
-import { useState } from "react";
-import { User } from "lucia";
+import { Dispatch, SetStateAction } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "@/utils/toast/use-toast";
 import {
@@ -12,21 +10,22 @@ import {
   ToastClose,
 } from "@radix-ui/react-toast";
 import Image from "next/image";
+import { User } from "lucia";
 
 export default function Configuration({
   item,
   user,
+  selected,
+  setSelected,
 }: {
   item: Item;
   user: User | null;
-}) {
-  const [selected, setSelected] = useState<{
+  selected: {
     color_id: number;
     size_id: number;
-  }>({
-    color_id: 0,
-    size_id: 0,
-  });
+  };
+  setSelected: Dispatch<SetStateAction<{ color_id: number; size_id: number }>>;
+}) {
   const queryClient = useQueryClient();
   const router = useRouter();
 
@@ -72,8 +71,10 @@ export default function Configuration({
               />
               <div className="flex flex-col gap-2">
                 <div className="space-y-1">
-                  <ToastTitle>Added to cart</ToastTitle>
-                  <ToastDescription>
+                  <ToastTitle className="font-medium text-gray-900">
+                    Added to cart
+                  </ToastTitle>
+                  <ToastDescription className="text-sm text-gray-700">
                     {item.item_name} has been added to your cart
                   </ToastDescription>
                 </div>
@@ -131,7 +132,7 @@ export default function Configuration({
           ))}
         </div>
       </div>
-      <div className="mt-6">
+      <div className="mt-6 flex-grow">
         <p className="text-secondary mb-1.5 text-sm font-medium">Sizes</p>
         <div className="flex items-center gap-2.5">
           {item.sizes.map((size, i) => (
@@ -160,6 +161,8 @@ export default function Configuration({
             )?.quantity || 0) == 0 || cartMutation.isPending
           }
           onClick={() => {
+            if (!user) router.push("/sign-up");
+
             if (
               item.configurations.find(
                 (config) =>
@@ -192,8 +195,10 @@ export default function Configuration({
                 config.size === item.sizes[selected.size_id],
             )?.quantity || 0) == 0
           }
-          className="sm:lg md hover:bg-primary active:bg-primary inline-flex items-center justify-center gap-2 rounded-lg border border-main-500 bg-main-500 px-3 py-2 font-medium text-white shadow-sm transition-all hover:text-main-500 active:border-main-600 active:text-main-600 active:!shadow-[0_0_0_4px_#9e77ed3d,0_1px_2px_0_#1018280d] disabled:cursor-not-allowed disabled:border-main-400 disabled:bg-main-400 disabled:text-white"
+          className="sm:lg md button main justify-center disabled:!cursor-not-allowed disabled:!border-main-400 disabled:!bg-main-400 disabled:!text-white"
           onClick={() => {
+            if (!user) router.push("/sign-up");
+
             if (
               item.configurations.find(
                 (config) =>

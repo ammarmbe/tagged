@@ -4,11 +4,9 @@ import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Link from "@/utils/Link";
-import { useRouter } from "next/navigation";
 
 export default function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
-  const router = useRouter();
 
   const {
     register,
@@ -44,7 +42,7 @@ export default function SignIn() {
       }
     }
 
-    router.push("/");
+    window.location.href = "/";
   };
 
   return (

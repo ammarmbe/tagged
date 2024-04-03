@@ -101,8 +101,6 @@ export default function ShopStore({
     },
   });
 
-  console.log(settings);
-
   useEffect(() => {
     refetch();
   }, [filters, refetch]);

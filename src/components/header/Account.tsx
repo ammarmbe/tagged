@@ -4,6 +4,7 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import * as Dialog from "@radix-ui/react-dialog";
 import {
   LogOut,
+  Mail,
   MapPinned,
   Menu,
   ReceiptTextIcon,
@@ -104,6 +105,13 @@ export default function AccountButton({ user }: { user: User }) {
                   <MapPinned size={20} className="text-quaternary" /> Address
                 </DropdownMenu.Item>
               </Link>
+              {!user.emailVerified ? (
+                <Link href="/verify-email">
+                  <DropdownMenu.Item className="text-secondary flex w-full items-center gap-2 p-2.5 hover:bg-gray-100">
+                    <Mail size={20} className="text-quaternary" /> Verify Email
+                  </DropdownMenu.Item>
+                </Link>
+              ) : null}
               <div className="border-primary my-1 border-t" />
               <form action={signout}>
                 <DropdownMenu.Item>

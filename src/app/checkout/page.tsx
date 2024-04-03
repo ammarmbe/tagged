@@ -17,6 +17,7 @@ export default function Page() {
         item_name: string;
         store_name: string;
         price: number;
+        image_url: string;
         quantity: number;
         discount: number;
         color: string;

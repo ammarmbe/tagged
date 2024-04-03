@@ -1,8 +1,11 @@
+"use client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Minus, Plus, X } from "lucide-react";
 import Link from "@/utils/Link";
 import { Dispatch, SetStateAction } from "react";
 import { useDebouncedCallback } from "use-debounce";
+import Image from "next/image";
+import * as AspectRatio from "@radix-ui/react-aspect-ratio";
 
 export default function CartItem({
   item,
@@ -15,6 +18,7 @@ export default function CartItem({
     nano_id: string;
     discount: number;
     item_id: string;
+    image_url: string;
     quantity: number;
     color: string;
     size: string;
@@ -32,6 +36,7 @@ export default function CartItem({
         store_nano_id: string;
         nano_id: string;
         item_id: string;
+        image_url: string;
         discount: number;
         quantity: number;
         color: string;
@@ -50,24 +55,16 @@ export default function CartItem({
   const queryClient = useQueryClient();
 
   const removeMutation = useMutation({
+    mutationKey: ["delete-cart", item.id],
     mutationFn: async () => {
       await fetch("/api/cart", {
         method: "DELETE",
         body: JSON.stringify({ id: item.id }),
       });
     },
-    onMutate: () => {
-      queryClient.setQueryData(["cart"], (prev: (typeof item)[]) =>
-        prev.filter(
-          (i) =>
-            i.item_id !== item.item_id ||
-            i.color !== item.color ||
-            i.size !== item.size,
-        ),
-      );
-
-      queryClient.setQueryData(["checkout"], (prev: (typeof item)[]) =>
-        prev.filter(
+    onMutate() {
+      queryClient.setQueryData(["cart"], (prev: (typeof item)[] | undefined) =>
+        prev?.filter(
           (i) =>
             i.item_id !== item.item_id ||
             i.color !== item.color ||
@@ -76,11 +73,21 @@ export default function CartItem({
       );
 
       queryClient.setQueryData(
-        ["cart-count"],
-        (prev: number) => prev - item.quantity,
+        ["checkout"],
+        (prev: (typeof item)[] | undefined) =>
+          prev?.filter(
+            (i) =>
+              i.item_id !== item.item_id ||
+              i.color !== item.color ||
+              i.size !== item.size,
+          ),
+      );
+
+      queryClient.setQueryData(["cart-count"], (prev: number | undefined) =>
+        prev ? prev - item.quantity : prev,
       );
     },
-    onError: async () => {
+    async onError() {
       await queryClient.invalidateQueries({ queryKey: ["cart"] });
       await queryClient.invalidateQueries({ queryKey: ["cart-count"] });
       await queryClient.invalidateQueries({ queryKey: ["checkout"] });
@@ -102,7 +109,17 @@ export default function CartItem({
 
   return (
     <div className="grid grid-cols-[auto,1fr] items-start gap-4 rounded-lg border p-3">
-      <div className="size-[53px] flex-shrink-0 rounded-md bg-gray-200 sm:size-[106px]" />
+      <div className="relative size-28">
+        <AspectRatio.Root ratio={1}>
+          <Image
+            src={item.image_url}
+            alt={item.item_name}
+            fill
+            objectFit="cover"
+            className="rounded-md"
+          />
+        </AspectRatio.Root>
+      </div>
       <div>
         <div className="flex items-baseline justify-between gap-3">
           <Link

@@ -222,4 +222,64 @@
   input[type="search"]::-webkit-search-results-decoration {
     display: none;
   }
+
+  .scrollbar-hidden {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scroll-y {
+    mask: linear-gradient(
+      transparent 2%,
+      white 20%,
+      white 80%,
+      transparent 98%
+    );
+  }
+
+  .scroll-y.scroll-y-start {
+    mask: linear-gradient(white 0%, white 80%, transparent 98%);
+  }
+
+  .scroll-y.scroll-y-end {
+    mask: linear-gradient(transparent 2%, white 20%, white 0%);
+  }
+
+  .scroll-y.scroll-y-start {
+    mask: linear-gradient(white 0%, white 80%, transparent 98%);
+  }
+
+  .scroll-y.scroll-y-end {
+    mask: linear-gradient(transparent 2%, white 20%, white 0%);
+  }
+
+  .scroll-x {
+    mask: linear-gradient(
+      90deg,
+      transparent 2%,
+      white 20%,
+      white 80%,
+      transparent 98%
+    );
+  }
+
+  .scroll-x.scroll-x-start {
+    mask: linear-gradient(90deg, white 0%, white 80%, transparent 98%);
+  }
+
+  .scroll-x.scroll-x-end {
+    mask: linear-gradient(90deg, transparent 2%, white 20%, white 0%);
+  }
+
+  .scroll-x.scroll-x-start {
+    mask: linear-gradient(90deg, white 0%, white 80%, transparent 98%);
+  }
+
+  .scroll-x.scroll-x-end {
+    mask: linear-gradient(90deg, transparent 2%, white 20%, white 0%);
+  }
 }

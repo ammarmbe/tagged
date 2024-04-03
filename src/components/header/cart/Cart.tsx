@@ -18,6 +18,7 @@ export default function Cart() {
       item_id: string;
       nano_id: string;
       discount: number;
+      image_url: string;
       item_name: string;
       store_name: string;
       price: number;
@@ -50,6 +51,7 @@ export default function Cart() {
         nano_id: string;
         item_name: string;
         store_name: string;
+        image_url: string;
         discount: number;
         price: number;
         quantity: number;

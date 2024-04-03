@@ -11,6 +11,7 @@ CREATE TABLE users (
   "name" VARCHAR(64) NOT NULL,
   hashed_password TEXT NOT NULL,
   email VARCHAR(254) NOT NULL UNIQUE,
+  email_verified BOOLEAN NOT NULL DEFAULT FALSE,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   feature_flags JSONB NOT NULL DEFAULT '{
     "description": "",
@@ -32,6 +33,14 @@ CREATE TABLE users (
 );
 
 CREATE INDEX user_store_idx ON users(store);
+
+CREATE TABLE email_verification_codes (
+  id SERIAL PRIMARY KEY,
+  code TEXT NOT NULL,
+  user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  expires_at TIMESTAMPTZ NOT NULL DEFAULT NOW() + INTERVAL '1 day',
+  email VARCHAR(254) NOT NULL
+);
 
 CREATE TABLE sessions (
   id TEXT PRIMARY KEY,

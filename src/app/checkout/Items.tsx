@@ -13,6 +13,7 @@ export default function Items({
     store_nano_id: string;
     nano_id: string;
     store_id: string;
+    image_url: string;
     item_name: string;
     store_name: string;
     price: number;

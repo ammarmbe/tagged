@@ -60,12 +60,12 @@ export default function Item({
         <AspectRatio.Root ratio={1} className="flex flex-col justify-between">
           <div className="flex flex-wrap justify-end gap-1">
             {item.out_of_stock ? (
-              <div className="rounded-full border border-[#fedf89] bg-[#fffaeb] px-2 py-0.5 text-xs font-medium text-[#b54708]">
+              <div className="rounded-full border bg-[#fffaeb] px-2 py-0.5 text-xs font-medium text-[#b54708]">
                 Out of stock
               </div>
             ) : null}
             {item.discount ? (
-              <div className="rounded-full border border-[#fecdc9] bg-[#fef3f2] px-2 py-0.5 text-xs font-medium text-[#b32318]">
+              <div className="rounded-full border bg-[#fef3f2] px-2 py-0.5 text-xs font-medium text-[#b32318]">
                 Sale
               </div>
             ) : null}

@@ -3,7 +3,7 @@ import { User } from "lucia";
 import { ChevronRight } from "lucide-react";
 import Link from "@/utils/Link";
 import { notFound } from "next/navigation";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import Configuration from "./Configuration";
 import { Item } from "./page";
 import { useQuery } from "@tanstack/react-query";
@@ -17,6 +17,14 @@ export default function Page({
   nano_id: string;
   user: User | null;
 }) {
+  const [selected, setSelected] = useState<{
+    color_id: number;
+    size_id: number;
+  }>({
+    color_id: 0,
+    size_id: 0,
+  });
+
   const { data: item, isLoading } = useQuery({
     queryKey: ["item", nano_id],
     queryFn: async () => {
@@ -42,9 +50,12 @@ export default function Page({
   if (item)
     return (
       <div className="mx-auto w-full max-w-[min(100%,80rem)] px-4">
-        <div className="grid flex-grow gap-3 overflow-hidden rounded-xl border lg:grid-cols-2">
-          <Images id={item.item_id} />
-          <div className="m-7 mt-0 sm:mt-7 lg:ml-3.5">
+        <div className="grid flex-grow overflow-hidden rounded-xl border md:grid-cols-2">
+          <Images
+            id={item.item_id}
+            color={item.colors.find((_, i) => i === selected.color_id)?.name}
+          />
+          <div className="m-4 mt-3 flex flex-col sm:m-7 sm:mt-7 md:ml-4">
             <div className="flex justify-between gap-3">
               <div className="flex-grow">
                 {item.category ? (
@@ -120,7 +131,12 @@ export default function Page({
               </p>
             </div>
             <p className="mt-4">{item.description}</p>
-            <Configuration item={item} user={user} />
+            <Configuration
+              item={item}
+              selected={selected}
+              user={user}
+              setSelected={setSelected}
+            />
           </div>
         </div>
       </div>
