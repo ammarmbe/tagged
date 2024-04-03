@@ -26,6 +26,7 @@ export default function Images({ nano_id }: { nano_id: string }) {
         {
           id: string;
           url: string;
+          thumbnail: boolean;
           item_id: string;
           color: string;
         }[]
@@ -38,6 +39,7 @@ export default function Images({ nano_id }: { nano_id: string }) {
       id: string;
       url?: string;
       file?: File;
+      thumbnail?: boolean;
       size?: number;
       error?: boolean;
       color?: string;
@@ -145,7 +147,7 @@ export default function Images({ nano_id }: { nano_id: string }) {
           <div className="flex flex-col gap-3 p-4">
             <div className="flex min-h-0 flex-grow flex-col gap-6 sm:flex-grow-0">
               <label
-                className="drag hover:bg-bg-50 flex cursor-pointer flex-col items-center gap-5 rounded-xl border border-dashed border-border-300 p-8 transition-all active:border-solid"
+                className="drag flex cursor-pointer flex-col items-center gap-5 rounded-xl border border-dashed border-border-300 p-8 transition-all hover:bg-bg-50 active:border-solid"
                 htmlFor="image"
               >
                 <input
@@ -230,7 +232,7 @@ export default function Images({ nano_id }: { nano_id: string }) {
         {data?.map((image, i) => (
           <Dialog.Root key={i}>
             <Dialog.Trigger asChild>
-              <div className="hover:bg-bg-50 group flex cursor-pointer items-center justify-between gap-4 p-3 px-4 transition-all">
+              <div className="group flex cursor-pointer items-center justify-between gap-4 p-3 px-4 transition-all hover:bg-bg-50">
                 <div className="flex items-center gap-3">
                   <div className="flex items-center justify-center rounded-full border p-2 transition-all group-hover:border-border-300">
                     <RiImage2Line size={20} className="text-main-base" />
@@ -239,11 +241,18 @@ export default function Images({ nano_id }: { nano_id: string }) {
                     {image.id.substring(0, image.id.length - 22)}
                   </p>
                 </div>
-                {image.color ? (
-                  <p className="label-xsmall rounded-full bg-[#C2EFFF] px-2 py-0.5 text-[#164564]">
-                    {image.color}
-                  </p>
-                ) : null}
+                <div className="flex items-center gap-2">
+                  {image.color ? (
+                    <p className="label-xsmall rounded-full bg-[#C2EFFF] px-2 py-0.5 text-[#164564]">
+                      {image.color}
+                    </p>
+                  ) : null}
+                  {image.thumbnail ? (
+                    <p className="label-xsmall rounded-full bg-[#C2EFFF] px-2 py-0.5 text-[#164564]">
+                      Thumbnail
+                    </p>
+                  ) : null}
+                </div>
               </div>
             </Dialog.Trigger>
             <Dialog.Overlay className="fixed inset-0 z-50 bg-[hsla(209,84%,5%,0.19)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />

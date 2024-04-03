@@ -8,7 +8,6 @@ import {
 } from "react-icons/ri";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../primitives/Loading";
-import { Fragment } from "react";
 
 export default function StatusHistory({ nano_id }: { nano_id: string }) {
   const { data, isFetching } = useQuery({
