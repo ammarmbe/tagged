@@ -41,11 +41,11 @@ export default function StatusHistory({ nano_id }: { nano_id: string }) {
       <div className="mx-4 border-t" />
       <div className="relative flex-grow">
         <Loading isFetching={isFetching} />
-        <div className="grid items-center gap-2 p-4 sm:grid-cols-[1fr,auto] sm:gap-x-16">
+        <div className="flex flex-col gap-3 p-4 sm:gap-2">
           {data?.[0]?.created_at ? (
-            <>
+            <div className="flex flex-col justify-between gap-x-8 gap-y-1 sm:flex-row sm:items-center">
               <p className="label-small flex items-center gap-1.5 capitalize">
-                <RiAddLine size={16} className="text-text-600 inline" />
+                <RiAddLine size={16} className="inline text-text-600" />
                 Order created
               </p>
               <p className="paragraph-small text-text-600 sm:text-end">
@@ -54,7 +54,7 @@ export default function StatusHistory({ nano_id }: { nano_id: string }) {
                   timeStyle: "short",
                 }).format(new Date(data?.[0].created_at))}
               </p>
-            </>
+            </div>
           ) : null}
           {data
             ?.filter((status) => status.status)
@@ -62,18 +62,21 @@ export default function StatusHistory({ nano_id }: { nano_id: string }) {
               (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
             )
             .map((status) => (
-              <Fragment key={status.date}>
+              <div
+                className="flex flex-col justify-between gap-x-8 gap-y-1 sm:flex-row sm:items-center"
+                key={status.date}
+              >
                 <p className="label-small flex items-center gap-1.5 capitalize">
                   {status.status.endsWith("cancelled") ? (
-                    <RiForbidLine size={16} className="text-text-600 inline" />
+                    <RiForbidLine size={16} className="inline text-text-600" />
                   ) : status.status === "shipped" ? (
-                    <RiShip2Line size={16} className="text-text-600 inline" />
+                    <RiShip2Line size={16} className="inline text-text-600" />
                   ) : status.status === "confirmed" ? (
-                    <RiCheckLine size={16} className="text-text-600 inline" />
+                    <RiCheckLine size={16} className="inline text-text-600" />
                   ) : status.status === "completed" ? (
                     <RiCheckDoubleLine
                       size={16}
-                      className="text-text-600 inline"
+                      className="inline text-text-600"
                     />
                   ) : null}
                   {status.status === "store_cancelled"
@@ -88,7 +91,7 @@ export default function StatusHistory({ nano_id }: { nano_id: string }) {
                     timeStyle: "short",
                   }).format(new Date(status.date))}
                 </p>
-              </Fragment>
+              </div>
             ))}
         </div>
       </div>

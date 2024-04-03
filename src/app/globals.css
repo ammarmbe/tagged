@@ -31,7 +31,8 @@ html {
   --color-border-200: #e1e4e9;
   --color-border-0: #ffffff;
 
-  --color-main-dark: #351a75;
+  --color-main-darker: #351a75;
+  --color-main-dark: #5b2cc9;
   --color-main-base: #7d52f4;
   --color-main-light: #cac0ff;
   --color-main-lighter: #efebff;

@@ -165,10 +165,10 @@ export default function UpdateStatus({
     >
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-grow flex-col rounded-none"
+        className="flex max-h-full flex-grow flex-col rounded-none"
       >
         <div className="flex gap-4 p-4">
-          <div className="text-text-600 h-fit rounded-full border p-2.5">
+          <div className="h-fit rounded-full border p-2.5 text-text-600">
             <RiMindMap size={24} />
           </div>
           <div className="flex-grow">
@@ -182,16 +182,16 @@ export default function UpdateStatus({
                 />
               </Dialog.Close>
             </div>
-            <p className="paragraph-small text-text-600 mt-1">
+            <p className="paragraph-small mt-1 text-text-600">
               Updating the status of an order will notify the customer.{" "}
-              <span className="text-text-950 font-medium">
+              <span className="font-medium text-text-950">
                 This action is irreversible.
               </span>
             </p>
           </div>
         </div>
         <div className="border-t" />
-        <div className="w-full flex-grow overflow-hidden">
+        <div className="w-full flex-grow overflow-y-auto overflow-x-hidden">
           <div
             className={`relative grid w-fit grid-cols-[100vw,100vw] transition-all sm:grid-cols-[28rem,28rem] ${
               cancelReasonOpen
@@ -207,15 +207,15 @@ export default function UpdateStatus({
                   aria-disabled={
                     statuses.findIndex((st) => st.name === current_status) >= i
                   }
-                  className={`aria-disabled:hover:bg-bg-0 hover:bg-bg-50 group flex cursor-pointer gap-4 rounded-xl border p-4 transition-all hover:border-border-300 disabled:!border-border-200 aria-disabled:cursor-not-allowed aria-disabled:hover:border-border-300 ${
+                  className={`group flex cursor-pointer gap-4 rounded-xl border p-4 transition-all hover:border-border-300 hover:bg-bg-50 disabled:!border-border-200 aria-disabled:cursor-not-allowed aria-disabled:hover:border-border-300 aria-disabled:hover:bg-bg-0 ${
                     status !== s.name
                       ? "shadow-xs"
-                      : "!bg-bg-0 !border-main-base"
+                      : "!border-main-base !bg-bg-0"
                   }`}
                 >
                   <div className="flex-grow">
                     <p
-                      className={`label-small group-aria-disabled:text-text-600 flex items-center gap-1.5 ${
+                      className={`label-small flex items-center gap-1.5 group-aria-disabled:text-text-600 ${
                         s.name === "store_cancelled" ? "text-error" : ""
                       }`}
                     >
@@ -295,7 +295,7 @@ export default function UpdateStatus({
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-3 p-4">
+        <div className="grid grid-cols-2 gap-3 border-t p-4">
           <Button
             text={
               status === "store_cancelled" && cancelReasonOpen
