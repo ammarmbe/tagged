@@ -65,7 +65,7 @@ export default function Page({
                         <span>
                           <Link
                             href={`/shop?category=${category.toLocaleLowerCase()}`}
-                            className={`rounded-md font-medium transition-all ${i === item.category.length - 1 ? "text-main-500 hover:text-main-600 active:text-main-700" : "hover:text-secondary text-tertiary active:text-secondary"}`}
+                            className={`rounded-md font-medium capitalize transition-all ${i === item.category.length - 1 ? "text-main-500 hover:text-main-600 active:text-main-700" : "hover:text-secondary text-tertiary active:text-secondary"}`}
                           >
                             {category}
                           </Link>
