@@ -5,7 +5,7 @@ export async function POST(req: Request) {
 
   await sql(
     "INSERT INTO views (item_id, store_id, ip) VALUES ((SELECT id FROM items WHERE nano_id = $1), $2, $3)",
-    [item_id, store_id, ip || 0 + new Date(Date.now()).toDateString()],
+    [item_id, store_id, ip ?? null],
   );
 
   return new Response("OK");
