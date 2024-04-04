@@ -28,7 +28,7 @@ type Order = {
   status:
     | "pending"
     | "shipped"
-    | "delivered"
+    | "completed"
     | "cancelled"
     | "returned"
     | "customer_cancelled";
@@ -113,7 +113,7 @@ export default function CustomerOrders() {
         status:
           | "pending"
           | "shipped"
-          | "delivered"
+          | "completed"
           | "cancelled"
           | "returned"
           | "customer_cancelled";

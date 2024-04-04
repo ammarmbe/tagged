@@ -166,7 +166,7 @@
   }
 
   .button.gray {
-    @apply border-primary disabled:bg-disabled disabled:border-disabled disabled:text-disabled text-gray-700 shadow-sm hover:bg-gray-50 hover:text-gray-800 active:bg-white active:text-gray-700 active:shadow-[0_1px_2px_0_#1018280D,0_0_0_4px_#98A2B324] disabled:cursor-not-allowed;
+    @apply border-primary disabled:bg-disabled disabled:border-disabled disabled:text-disabled bg-white text-gray-700 shadow-sm hover:bg-gray-50 hover:text-gray-800 active:bg-white active:text-gray-700 active:shadow-[0_1px_2px_0_#1018280D,0_0_0_4px_#98A2B324] disabled:cursor-not-allowed;
   }
 
   .button.secondary {

@@ -22,7 +22,7 @@ export default function CustomerOrder({
         created_at: string;
         shipping_price: number;
         cancel_reason: string;
-        status: "pending" | "shipped" | "delivered" | "cancelled" | "returned";
+        status: "pending" | "shipped" | "completed" | "cancelled" | "returned";
         store_name: string;
         store_id: number;
         street: string;

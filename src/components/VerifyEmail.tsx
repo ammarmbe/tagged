@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Img } from "@react-email/components";
 
 interface EmailTemplateProps {
   verificationToken: string;
@@ -11,51 +12,97 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
 }) => (
   <div
     style={{
-      padding: "2rem",
+      padding: "1.5rem",
       background: "white",
     }}
   >
     <div
       style={{
-        padding: "1.5rem",
+        display: "flex",
+        alignItems: "center",
       }}
     >
-      <div className="flex items-center gap-2.5">
-        <img src="/logo.svg" height={28} width={28} alt="Atlas Logo" />
-        <h1
-          style={{
-            fontSize: "1.5rem",
-            fontWeight: 600,
-            lineHeight: "1.125",
-            color: "#101828",
-          }}
-        >
-          <a href="/">Atlas</a>
-        </h1>
-      </div>
-      <div
+      <Img
+        src="https://atlascustomer.vercel.app/logo.png"
+        height={28}
+        width={28}
+        alt="Atlas Logo"
+      />
+      <h1
         style={{
-          padding: "2rem 1.5rem",
+          fontSize: "1.5rem",
+          fontWeight: 600,
+          lineHeight: "26px",
+          height: "26px",
+          color: "#101828",
+          marginTop: "2px !important",
+          marginLeft: "0.625rem !important",
+          margin: 0,
         }}
       >
-        <p
+        <a
+          href="/"
           style={{
-            color: "#475467",
+            color: "#101828",
+            lineHeight: "26px",
+            marginTop: "2px",
+            height: "26px",
+            textDecoration: "none",
           }}
         >
-          Hi {name},
-          <br />
-          <br />
-          This is your verification code:
-        </p>
-        <div
-          style={{
-            padding: "1.5rem 0",
-          }}
-        >
-          {verificationToken}
-        </div>
-      </div>
+          Atlas
+        </a>
+      </h1>
+    </div>
+    <div
+      style={{
+        padding: "1.5rem 0",
+        fontSize: "1rem",
+        lineHeight: "1.5",
+      }}
+    >
+      <p
+        style={{
+          color: "#475467",
+        }}
+      >
+        Hi {name},
+        <br />
+        <br />
+        Here is your verification code:
+      </p>
+      <div
+        style={{
+          padding: "0.5rem 0",
+          fontSize: "2.5rem",
+          lineHeight: "1.25",
+          letterSpacing: "0.1em",
+          color: "#101828",
+          fontWeight: 600,
+        }}
+      >
+        {verificationToken}
+      </div>{" "}
+      <p
+        style={{
+          color: "#475467",
+          paddingBottom: "1rem",
+          maxWidth: "28rem",
+        }}
+      >
+        This code will expire in 15 minutes. If you did not request this
+        verification code, please ignore this email.
+      </p>
+      <p
+        style={{
+          color: "#475467",
+          paddingBottom: "1rem",
+        }}
+      >
+        Thanks,
+        <br />
+        The Atlas Team
+      </p>
     </div>
   </div>
 );

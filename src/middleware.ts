@@ -6,7 +6,13 @@ import { lucia } from "./utils/auth";
 
 export async function middleware(request: NextRequest): Promise<NextResponse> {
   if (request.method === "GET") {
-    const prodectedRoutes = ["/address", "/cart", "/checkout", "/order"];
+    const prodectedRoutes = [
+      "/address",
+      "/cart",
+      "/checkout",
+      "/order",
+      "/verify-email",
+    ];
     const prodected = prodectedRoutes.find((r) =>
       request.nextUrl.pathname.startsWith(r),
     );
@@ -18,7 +24,7 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
       if (!sessionId)
         return NextResponse.redirect(process.env.NEXT_PUBLIC_URL + "/");
 
-      const { session } = await lucia.validateSession(sessionId);
+      const { session, user } = await lucia.validateSession(sessionId);
 
       try {
         if (session?.fresh) {
@@ -34,7 +40,7 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
         // Next.js throws error when attempting to set cookies when rendering page
       }
 
-      if (!session)
+      if (!session || (user.emailVerified && prodected === "/verify-email"))
         return NextResponse.redirect(process.env.NEXT_PUBLIC_URL + "/");
 
       return NextResponse.next();

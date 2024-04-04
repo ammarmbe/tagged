@@ -81,7 +81,7 @@ export default function Filters({
               options={[
                 { value: "pending", label: "Pending" },
                 { value: "shipped", label: "Shipped" },
-                { value: "delivered", label: "Delivered" },
+                { value: "completed", label: "completed" },
                 { value: "cancelled", label: "Cancelled" },
                 { value: "returned", label: "Returned" },
                 { value: "confirmed", label: "Confirmed" },

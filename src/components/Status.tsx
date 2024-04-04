@@ -8,7 +8,7 @@ export default function Status({
   status:
     | "pending"
     | "shipped"
-    | "delivered"
+    | "completed"
     | "cancelled"
     | "returned"
     | "confirmed"
@@ -46,14 +46,14 @@ export default function Status({
           : "Your order has been shipped.",
       };
       break;
-    case "delivered":
+    case "completed":
       statusColors = {
         border: "#aaefc6",
         text: "#067647",
         background: "#ecfdf3",
         tooltip_content: store
-          ? "You have delivered this order."
-          : "Your order has been delivered.",
+          ? "You have completed this order."
+          : "Your order has been completed.",
       };
       break;
     case "cancelled":

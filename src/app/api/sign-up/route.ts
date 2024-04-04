@@ -54,8 +54,6 @@ export async function POST(req: Request) {
     react: EmailTemplate({ verificationToken, name }),
   });
 
-  console.log(data);
-
   const session = await lucia.createSession(userId, {});
   const sessionCookie = lucia.createSessionCookie(session.id);
   cookies().set(

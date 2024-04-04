@@ -14,7 +14,7 @@ export default function Page({
     status:
       | "pending"
       | "shipped"
-      | "delivered"
+      | "completed"
       | "cancelled"
       | "returned"
       | "customer_cancelled";
