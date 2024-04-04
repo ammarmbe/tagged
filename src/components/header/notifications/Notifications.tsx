@@ -169,7 +169,7 @@ export default function Notifications() {
               />
             </button>
           </div>
-          <div>
+          <div className="max-h-[400px] overflow-auto">
             {notifications?.filter((n) => {
               if (selected === "unread") {
                 return !n.read;
