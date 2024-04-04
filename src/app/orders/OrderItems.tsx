@@ -67,22 +67,20 @@ export default function OrderItems({ orderId }: { orderId: number }) {
                 {item.color} / {item.size}
               </p>
               <p className="text-tertiary flex flex-wrap gap-x-2 font-medium">
-                {item.discount ? (
-                  <span className="line-through">
-                    {new Intl.NumberFormat("en-US", {
-                      style: "currency",
-                      currency: "EGP",
-                      currencyDisplay: "symbol",
-                    }).format(item.price)}
-                  </span>
-                ) : null}
-                <span className="text-secondary">
+                <span className="text-primary">
                   {new Intl.NumberFormat("en-US", {
                     style: "currency",
                     currency: "EGP",
                     currencyDisplay: "symbol",
                   }).format(item.price - (item.discount || 0))}
-                </span>
+                </span>{" "}
+                ({item.quantity} x{" "}
+                {new Intl.NumberFormat("en-US", {
+                  style: "currency",
+                  currency: "EGP",
+                  currencyDisplay: "symbol",
+                }).format(item.price - (item.discount || 0))}
+                )
               </p>
             </div>
           </div>
