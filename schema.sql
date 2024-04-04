@@ -168,3 +168,12 @@ CREATE TABLE password_reset_codes (
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   expires_at TIMESTAMPTZ NOT NULL DEFAULT NOW() + INTERVAL '1 hour'
 );
+
+CREATE TABLE item_images (
+  id TEXT PRIMARY KEY,
+  item_id INT NOT NULL REFERENCES items(id) ON DELETE CASCADE,
+  url TEXT NOT NULL,
+  color TEXT,
+  thumbnail BOOLEAN NOT NULL DEFAULT FALSE,
+  size INT NOT NULL,
+);
