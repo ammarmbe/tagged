@@ -44,8 +44,5 @@ export async function GET(req: Request) {
       ),
       sizes: Array.from(new Set(data.map((item) => item.size))),
     }),
-    {
-      headers: { "Content-Type": "application/json" },
-    },
   );
 }

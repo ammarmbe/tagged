@@ -15,7 +15,5 @@ export async function GET() {
     [user.id],
   );
 
-  return new Response(data[0].count ?? 0, {
-    status: 200,
-  });
+  return new Response(data[0].count ?? 0);
 }

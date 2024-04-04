@@ -39,9 +39,6 @@ export default function Configuration({
     }) => {
       await fetch("/api/cart", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify({ ...data, quantity: 1, type: "add" }),
       });
 

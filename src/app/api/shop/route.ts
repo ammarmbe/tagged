@@ -66,7 +66,5 @@ export async function POST(req: Request) {
 
   const data = await sql(query, params);
 
-  return new Response(JSON.stringify(data), {
-    status: 200,
-  });
+  return new Response(JSON.stringify(data));
 }

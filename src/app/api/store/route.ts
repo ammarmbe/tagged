@@ -9,10 +9,5 @@ export async function GET(req: Request) {
     [nano_id],
   );
 
-  return new Response(JSON.stringify(data[0]), {
-    status: 200,
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  return new Response(JSON.stringify(data[0]));
 }

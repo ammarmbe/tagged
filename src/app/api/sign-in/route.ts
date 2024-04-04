@@ -2,8 +2,9 @@ import { lucia } from "@/utils/auth";
 import sql from "@/utils/db";
 import { Scrypt } from "lucia";
 import { cookies } from "next/headers";
+import { NextRequest } from "next/server";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   const {
     email,
     password,
@@ -11,6 +12,17 @@ export async function POST(req: Request) {
     email: string;
     password: string;
   } = await req.json();
+
+  const data = await sql(
+    "SELECT COUNT(*) AS count FROM incorrect_attempts WHERE ip = $1 AND created_at > NOW() - INTERVAL '5 minutes'",
+    [req.ip],
+  );
+
+  if (data[0].count > 5) {
+    return new Response("Too many requests", {
+      status: 429,
+    });
+  }
 
   const user = await sql(
     "SELECT id, hashed_password FROM users WHERE email = $1",
@@ -22,11 +34,12 @@ export async function POST(req: Request) {
     password,
   );
 
+  if (!validPassword) {
+    await sql("INSERT INTO incorrect_attempts (ip) VALUES ($1)", [req.ip]);
+  }
+
   if (user.length === 0 || !validPassword) {
     return new Response(JSON.stringify("Email or password are incorrect."), {
-      headers: {
-        "Content-Type": "application/json",
-      },
       status: 400,
     });
   }
@@ -45,4 +58,19 @@ export async function POST(req: Request) {
       "Set-Cookie": sessionCookie.serialize(),
     },
   });
+}
+
+export async function GET(req: NextRequest) {
+  const data = await sql(
+    "SELECT COUNT(*) AS count FROM incorrect_attempts WHERE ip = $1 AND created_at > NOW() - INTERVAL '5 minutes'",
+    [req.ip],
+  );
+
+  if (data[0].count > 5) {
+    return new Response("Too many requests", {
+      status: 429,
+    });
+  }
+
+  return new Response("OK");
 }

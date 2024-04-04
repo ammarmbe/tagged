@@ -102,7 +102,5 @@ export async function GET(req: Request) {
     [user.id, id, nano_id],
   );
 
-  return new Response(JSON.stringify(data[0]), {
-    headers: { "content-type": "application/json" },
-  });
+  return new Response(JSON.stringify(data[0]));
 }

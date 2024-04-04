@@ -13,7 +13,5 @@ export async function GET() {
     [user.id],
   );
 
-  return new Response(JSON.stringify(data), {
-    headers: { "content-type": "application/json" },
-  });
+  return new Response(JSON.stringify(data));
 }

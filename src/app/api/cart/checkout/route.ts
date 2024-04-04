@@ -15,7 +15,5 @@ export async function GET() {
     [user.id],
   );
 
-  return new Response(JSON.stringify(data), {
-    status: 200,
-  });
+  return new Response(JSON.stringify(data));
 }

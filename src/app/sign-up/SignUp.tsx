@@ -37,9 +37,6 @@ export default function SignUp() {
     const count: number = await fetch("/api/email-exists", {
       method: "POST",
       body: JSON.stringify({ email }),
-      headers: {
-        "Content-Type": "application/json",
-      },
     }).then((res) => res.json() as Promise<number>);
 
     if (count > 0) {
@@ -57,9 +54,6 @@ export default function SignUp() {
       await fetch("/api/sign-up", {
         method: "POST",
         body: JSON.stringify({ email, hashedPassword, userId, name }),
-        headers: {
-          "Content-Type": "application/json",
-        },
       });
     }
 
@@ -99,7 +93,17 @@ export default function SignUp() {
             </label>
             <input
               className="input"
-              {...register("email", { required: "Email is required." })}
+              {...register("email", {
+                required: "Email is required.",
+                maxLength: {
+                  value: 100,
+                  message: "Email must be at most 255 characters.",
+                },
+                pattern: {
+                  value: /^[^@]+@[^@]+\.[^@]+$/i,
+                  message: "Invalid email.",
+                },
+              })}
               type="email"
               name="email"
               data-invalid={Boolean(errors.email)}

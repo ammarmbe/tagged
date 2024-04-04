@@ -43,6 +43,11 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
       if (!session || (user.emailVerified && prodected === "/verify-email"))
         return NextResponse.redirect(process.env.NEXT_PUBLIC_URL + "/");
 
+      if (!user.emailVerified && prodected === "/checkout")
+        return NextResponse.redirect(
+          process.env.NEXT_PUBLIC_URL + "/verify-email",
+        );
+
       return NextResponse.next();
     }
 

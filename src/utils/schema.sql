@@ -152,3 +152,19 @@ CREATE TABLE cart_items (
 );
 
 CREATE INDEX cart_item_user_id_idx ON cart_items(user_id);
+
+CREATE TABLE incorrect_attempts (
+  id SERIAL PRIMARY KEY,
+  ip TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX ip_idx ON incorrect_attempts (id);
+
+CREATE TABLE password_reset_codes (
+  id SERIAL PRIMARY KEY,
+  code TEXT NOT NULL,
+  user_id INT NOT NULL REFERENCES users (id) ON DELETE CASCADE,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  expires_at TIMESTAMPTZ NOT NULL DEFAULT NOW() + INTERVAL '1 hour'
+);

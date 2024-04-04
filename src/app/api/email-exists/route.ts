@@ -7,9 +7,5 @@ export async function POST(req: Request) {
     0: { count },
   } = await sql("SELECT count(*) FROM users WHERE email = $1", [email]);
 
-  return new Response(JSON.stringify(count), {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  return new Response(JSON.stringify(count));
 }

@@ -87,8 +87,10 @@ export default function Address({
             />
             <div className="flex flex-col gap-2">
               <div className="space-y-1">
-                <ToastTitle>Address updated</ToastTitle>
-                <ToastDescription>
+                <ToastTitle className="font-medium text-gray-900">
+                  Address updated
+                </ToastTitle>
+                <ToastDescription className="text-sm text-gray-700">
                   Your address has been updated successfully.
                 </ToastDescription>
               </div>

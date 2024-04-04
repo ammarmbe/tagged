@@ -10,7 +10,5 @@ export async function GET(req: Request) {
     [category, limit],
   );
 
-  return new Response(JSON.stringify(data), {
-    status: 200,
-  });
+  return new Response(JSON.stringify(data));
 }

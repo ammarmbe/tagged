@@ -8,7 +8,5 @@ export async function POST(req: Request) {
     [item_id, store_id, ip || 0 + new Date(Date.now()).toDateString()],
   );
 
-  return new Response("OK", {
-    status: 200,
-  });
+  return new Response("OK");
 }

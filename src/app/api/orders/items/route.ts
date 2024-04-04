@@ -16,7 +16,5 @@ export async function GET(req: Request) {
     [orderId],
   );
 
-  return new Response(JSON.stringify(data), {
-    headers: { "content-type": "application/json" },
-  });
+  return new Response(JSON.stringify(data));
 }

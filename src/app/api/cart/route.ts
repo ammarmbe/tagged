@@ -15,9 +15,7 @@ export async function GET() {
     [user.id],
   );
 
-  return new Response(JSON.stringify(data), {
-    status: 200,
-  });
+  return new Response(JSON.stringify(data));
 }
 
 export async function POST(req: Request) {
@@ -46,9 +44,7 @@ export async function POST(req: Request) {
     [user?.id, id, color, size, cartQuantity],
   );
 
-  return new Response("OK", {
-    status: 200,
-  });
+  return new Response("OK");
 }
 
 export async function DELETE(req: Request) {
@@ -63,7 +59,5 @@ export async function DELETE(req: Request) {
 
   await sql("DELETE FROM cart_items WHERE id = $1", [id]);
 
-  return new Response("OK", {
-    status: 200,
-  });
+  return new Response("OK");
 }

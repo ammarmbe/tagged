@@ -15,9 +15,7 @@ export async function GET() {
     [user.id],
   );
 
-  return new Response(JSON.stringify({ ...data[0], ...data[0].address }), {
-    status: 200,
-  });
+  return new Response(JSON.stringify({ ...data[0], ...data[0].address }));
 }
 
 export async function POST(req: Request) {
@@ -52,7 +50,5 @@ export async function POST(req: Request) {
     ],
   );
 
-  return new Response("OK", {
-    status: 200,
-  });
+  return new Response("OK");
 }

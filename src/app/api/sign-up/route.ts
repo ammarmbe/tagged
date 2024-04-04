@@ -2,7 +2,7 @@ import { lucia } from "@/utils/auth";
 import sql from "@/utils/db";
 import { customAlphabet } from "nanoid";
 import { cookies } from "next/headers";
-import { EmailTemplate } from "@/components/VerifyEmail";
+import { EmailTemplate } from "@/components/email/VerifyEmail";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);

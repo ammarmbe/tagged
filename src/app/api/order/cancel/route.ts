@@ -8,7 +8,5 @@ export async function PATCH(req: Request) {
     orderId,
   ]);
 
-  return new Response("OK", {
-    status: 200,
-  });
+  return new Response("OK");
 }
