@@ -56,8 +56,8 @@ export async function POST(req: NextRequest) {
   );
 
   await resend.emails.send({
-    from: "Atlas <delivered@resend.dev>",
-    to: ["ammarelbehery04@gmail.com"],
+    from: "Atlas <password@atlas.me>",
+    to: [email],
     subject: "Reset your password - Atlas",
     text: "Reset your password",
     react: PasswordTemplate({ code, name: user[0]?.name }),

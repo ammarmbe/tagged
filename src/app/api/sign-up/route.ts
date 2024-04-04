@@ -46,8 +46,8 @@ export async function POST(req: Request) {
   );
 
   const verificationToken = await generateEmailVerificationCode(userId, email);
-  const data = await resend.emails.send({
-    from: "Atlas <verify@ambe.dev>",
+  await resend.emails.send({
+    from: "Atlas <verify@atlas.me>",
     to: [email],
     subject: "Verify your email - Atlas",
     text: `Verify your email to start shopping at Atlas`,

@@ -149,7 +149,7 @@ export default function NewPassword({ code }: { code: string }) {
             type="submit"
             className="button main sm:lg md mt-1 justify-center"
           >
-            {isSubmitting ? <Spinner size="sm" /> : "Send Email"}
+            {isSubmitting ? <Spinner size="sm" /> : "Save Password"}
           </button>
         </form>
         <p className="text-tertiary mt-8 text-center text-sm">

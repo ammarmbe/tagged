@@ -23,14 +23,6 @@ export default function AccountButton({ user }: { user: User }) {
     <Dialog.Root>
       <DropdownMenu.Root modal={false}>
         <div className="flex justify-end gap-1">
-          <button
-            className="button gray md"
-            onClick={async () => {
-              await fetch("/api/email");
-            }}
-          >
-            Send email
-          </button>
           <Cart />
           <Dialog.Portal>
             <Dialog.Content className="bg-background bg-primary fixed inset-y-0 right-0 z-50 h-full w-full transition duration-100 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 sm:max-w-lg">

@@ -1,5 +1,5 @@
 import "server-only";
-import { EmailTemplate } from "@/components/VerifyEmail";
+import { EmailTemplate } from "@/components/email/VerifyEmail";
 import sql from "./db";
 import { customAlphabet } from "nanoid";
 import { Resend } from "resend";
