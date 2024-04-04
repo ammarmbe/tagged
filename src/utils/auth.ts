@@ -42,6 +42,7 @@ interface DatabaseUserAttributes {
     tiktok?: string;
     facebook?: string;
     instagram?: string;
+    allowed_gov?: string[];
   };
   nano_id: string;
 }

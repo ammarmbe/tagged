@@ -77,11 +77,46 @@ const return_durations = [
   },
 ] as const;
 
+const gov = [
+  "Cairo",
+  "Giza",
+  "Alexandria",
+  "Aswan",
+  "Assiut",
+  "Beheira",
+  "Beni Suef",
+  "Dakahlia",
+  "Damietta",
+  "Fayoum",
+  "Gharbia",
+  "Ismailia",
+  "Kafr el-Sheikh",
+  "Matrouh",
+  "Minya",
+  "Menofia",
+  "New Valley",
+  "North Sinai",
+  "Port Said",
+  "Qualyubia",
+  "Qena",
+  "Red Sea",
+  "Al-Sharqia",
+  "Soha",
+  "South Sinai",
+  "Suez",
+  "Luxor",
+];
+
 export default function Page() {
   const queryClient = useQueryClient();
   const [editingPrice, setEditingPrice] = useState(false);
   const [editingExchangePolicy, setEditingExchangePolicy] = useState(false);
   const [editingReturnPolicy, setEditingReturnPolicy] = useState(false);
+  const [allowedGov, setAllowedGov] = useState<string[]>([
+    "Cairo",
+    "Giza",
+    "Alexandria",
+  ]);
 
   const { user, isFetching } = useUser();
 
@@ -192,6 +227,39 @@ export default function Page() {
     },
   });
 
+  const allowedGovMutation = useMutation({
+    mutationKey: ["updateAllowedGov"],
+    mutationFn: async (allowed_gov: string[]) => {
+      const res = await fetch("/api/current-user/shipping/allowed-gov", {
+        method: "PATCH",
+        body: JSON.stringify({ allowed_gov }),
+      });
+
+      return res.ok;
+    },
+    async onSuccess(ok) {
+      await queryClient.invalidateQueries({
+        predicate: (query) => query.queryKey[0] === "current-user",
+      });
+
+      ok
+        ? toast({
+            title: "Allowed governorates updated successfully.",
+            color: "green",
+            saturation: "high",
+            size: "sm",
+            position: "center",
+          })
+        : toast({
+            title: "An error occured, please try again.",
+            color: "red",
+            saturation: "high",
+            size: "sm",
+            position: "center",
+          });
+    },
+  });
+
   const {
     register: priceRegister,
     handleSubmit: handlePriceSubmit,
@@ -292,7 +360,7 @@ export default function Page() {
         description="Set shipping price and return policy"
       />
       <div className="mx-8 border-t" />
-      <div className="relative grid gap-x-10 gap-y-5 px-8 py-5 sm:grid-cols-2 sm:gap-x-20">
+      <div className="relative grid gap-x-10 gap-y-5 px-8 py-5 lg:grid-cols-2 lg:gap-x-20">
         <Loading isFetching={isFetching} />
         {editingPrice ? (
           <>
@@ -330,7 +398,7 @@ export default function Page() {
           <>
             <div>
               <p className="label-small">Shipping Price</p>
-              <div className="paragraph-small text-text-600 mt-1">
+              <div className="paragraph-small mt-1 text-text-600">
                 This will be added to the total price of the order.
               </div>
             </div>
@@ -391,7 +459,7 @@ export default function Page() {
           <>
             <div>
               <p className="label-small">Return Policy</p>
-              <div className="paragraph-small text-text-600 mt-1">
+              <div className="paragraph-small mt-1 text-text-600">
                 This will be displayed on the product page.
               </div>
             </div>
@@ -455,7 +523,7 @@ export default function Page() {
           <>
             <div>
               <p className="label-small">Exchange Policy</p>
-              <div className="paragraph-small text-text-600 mt-1">
+              <div className="paragraph-small mt-1 text-text-600">
                 This will be displayed on the product page.
               </div>
             </div>
@@ -475,6 +543,43 @@ export default function Page() {
             </div>
           </>
         )}
+        <div className="border-t sm:col-span-2" />
+        <div>
+          <div>
+            <p className="label-small">Allowed Governorates</p>
+            <div className="paragraph-small mt-1 text-text-600">
+              Select governorates that you can ship to.
+            </div>
+          </div>
+
+          <Button
+            size="sm"
+            text="Save"
+            className="mt-3 w-fit"
+            disabled={allowedGovMutation.isPending}
+            onClick={() => allowedGovMutation.mutate(allowedGov)}
+            type="submit"
+          />
+        </div>
+        <div className="grid grid-cols-2 gap-1">
+          {gov.map((gov) => (
+            <div key={gov} className="flex items-center gap-1.5">
+              <input
+                type="checkbox"
+                checked={allowedGov.includes(gov)}
+                onChange={() => {
+                  if (allowedGov.includes(gov)) {
+                    setAllowedGov(allowedGov.filter((g) => g !== gov));
+                  } else {
+                    setAllowedGov([...allowedGov, gov]);
+                  }
+                }}
+                className="checkbox"
+              />
+              <p className="paragraph-small">{gov}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
