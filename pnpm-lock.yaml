@@ -83,6 +83,9 @@ dependencies:
   react-top-loading-bar:
     specifier: ^2.3.1
     version: 2.3.1(react@18.2.0)
+  request-ip:
+    specifier: ^3.3.0
+    version: 3.3.0
   resend:
     specifier: ^3.2.0
     version: 3.2.0
@@ -106,6 +109,9 @@ devDependencies:
   '@types/react-dom':
     specifier: ^18.2.22
     version: 18.2.22
+  '@types/request-ip':
+    specifier: ^0.0.41
+    version: 0.0.41
   autoprefixer:
     specifier: ^10.4.18
     version: 10.4.18(postcss@8.4.35)
@@ -2007,6 +2013,12 @@ packages:
       '@types/prop-types': 15.7.11
       '@types/scheduler': 0.16.8
       csstype: 3.1.3
+
+  /@types/request-ip@0.0.41:
+    resolution: {integrity: sha512-Qzz0PM2nSZej4lsLzzNfADIORZhhxO7PED0fXpg4FjXiHuJ/lMyUg+YFF5q8x9HPZH3Gl6N+NOM8QZjItNgGKg==}
+    dependencies:
+      '@types/node': 20.11.27
+    dev: true
 
   /@types/scheduler@0.16.8:
     resolution: {integrity: sha512-WZLiwShhwLRmeV6zH+GkbOFT6Z6VklCItrDioxUnv+u4Ll+8vKeFySoFyK/0ctcRpOmwAicELfmys1sDc/Rw+A==}
@@ -4547,6 +4559,10 @@ packages:
       es-errors: 1.3.0
       set-function-name: 2.0.2
     dev: true
+
+  /request-ip@3.3.0:
+    resolution: {integrity: sha512-cA6Xh6e0fDBBBwH77SLJaJPBmD3nWVAcF9/XAcsrIHdjhFzFiB5aNQFytdjCGPezU3ROwrR11IddKAM08vohxA==}
+    dev: false
 
   /resend@3.2.0:
     resolution: {integrity: sha512-lDHhexiFYPoLXy7zRlJ8D5eKxoXy6Tr9/elN3+Vv7PkUoYuSSD1fpiIfa/JYXEWyiyN2UczkCTLpkT8dDPJ4Pg==}

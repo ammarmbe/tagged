@@ -3,6 +3,7 @@ import sql from "@/utils/db";
 import { Scrypt } from "lucia";
 import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
+import requestIp from "request-ip";
 
 export async function POST(req: NextRequest) {
   const {
@@ -15,7 +16,7 @@ export async function POST(req: NextRequest) {
 
   const data = await sql(
     "SELECT COUNT(*) AS count FROM incorrect_attempts WHERE ip = $1 AND created_at > NOW() - INTERVAL '5 minutes'",
-    [req.ip],
+    [requestIp.getClientIp(req as unknown as requestIp.Request) ?? req.ip],
   );
 
   if (data[0].count > 5) {
@@ -35,7 +36,9 @@ export async function POST(req: NextRequest) {
   );
 
   if (!validPassword) {
-    await sql("INSERT INTO incorrect_attempts (ip) VALUES ($1)", [req.ip]);
+    await sql("INSERT INTO incorrect_attempts (ip) VALUES ($1)", [
+      requestIp.getClientIp(req as unknown as requestIp.Request) ?? req.ip,
+    ]);
   }
 
   if (user.length === 0 || !validPassword) {
@@ -63,7 +66,7 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   const data = await sql(
     "SELECT COUNT(*) AS count FROM incorrect_attempts WHERE ip = $1 AND created_at > NOW() - INTERVAL '5 minutes'",
-    [req.ip],
+    [requestIp.getClientIp(req as unknown as requestIp.Request) ?? req.ip],
   );
 
   if (data[0].count > 5) {

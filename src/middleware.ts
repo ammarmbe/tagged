@@ -3,6 +3,7 @@ import { verifyRequestOrigin } from "lucia";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { lucia } from "./utils/auth";
+import requestIp from "request-ip";
 
 export async function middleware(request: NextRequest): Promise<NextResponse> {
   if (request.method === "GET") {
@@ -56,7 +57,9 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
         method: "POST",
         body: JSON.stringify({
           item_id: request.nextUrl.pathname.split("/item/")[1],
-          ip: request.ip,
+          ip:
+            requestIp.getClientIp(request as unknown as requestIp.Request) ??
+            request.ip,
         }),
       });
     }
@@ -66,7 +69,9 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
         method: "POST",
         body: JSON.stringify({
           store_id: request.nextUrl.pathname.split("/shop/store/")[1],
-          ip: request.ip,
+          ip:
+            requestIp.getClientIp(request as unknown as requestIp.Request) ??
+            request.ip,
         }),
       });
     }

@@ -3,6 +3,7 @@ import { nanoid } from "nanoid";
 import { NextRequest } from "next/server";
 import { Resend } from "resend";
 import { PasswordTemplate } from "@/components/email/ResetPassword";
+import requestIp from "request-ip";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -10,7 +11,11 @@ export async function GET(req: NextRequest) {
   const data = (
     await sql(
       "SELECT created_at + INTERVAL '5 minutes' < NOW() as old FROM password_reset_codes WHERE ip = $1",
-      [req.ip ?? null],
+      [
+        requestIp.getClientIp(req as unknown as requestIp.Request) ??
+          req.ip ??
+          null,
+      ],
     )
   )[0];
 
@@ -30,7 +35,11 @@ export async function POST(req: NextRequest) {
   const data = (
     await sql(
       "SELECT created_at + INTERVAL '5 minutes' < NOW() as old FROM password_reset_codes WHERE ip = $1",
-      [req.ip ?? null],
+      [
+        requestIp.getClientIp(req as unknown as requestIp.Request) ??
+          req.ip ??
+          null,
+      ],
     )
   )[0];
 
@@ -52,7 +61,11 @@ export async function POST(req: NextRequest) {
 
   await sql(
     "INSERT INTO password_reset_codes (code, user_id, ip) VALUES ($1, $2, $3)",
-    [code, user[0]?.id, req.ip],
+    [
+      code,
+      user[0]?.id,
+      requestIp.getClientIp(req as unknown as requestIp.Request) ?? req.ip,
+    ],
   );
 
   await resend.emails.send({
