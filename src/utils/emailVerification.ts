@@ -50,8 +50,14 @@ export async function generateCode(
   );
 
   await resend.emails.send({
-    from: "Atlas <verify@atlas.me>",
-    to: [email],
+    from:
+      process.env.NODE_ENV === "development"
+        ? "Atlas <delivered@resend.dev>"
+        : "Atlas <verify@atlas.me>",
+    to:
+      process.env.NODE_ENV === "development"
+        ? [process.env.TEST_EMAIL as string]
+        : [email],
     subject: "Verify your email - Atlas",
     text: "Verify your email to start shopping at Atlas",
     react: EmailVerification({ verificationToken: code, name }),

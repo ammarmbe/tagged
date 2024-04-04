@@ -8,7 +8,6 @@ import {
   MapPinned,
   Menu,
   ReceiptTextIcon,
-  Settings2,
   User2,
   X,
 } from "lucide-react";
@@ -64,11 +63,6 @@ export default function AccountButton({ user }: { user: User }) {
                     <MapPinned size={20} className="text-quaternary" /> Address
                   </Dialog.Close>
                 </Link>
-                <button>
-                  <Dialog.Close className="flex w-full items-center gap-2 px-4 py-2.5 hover:bg-gray-100">
-                    <Settings2 size={20} className="text-quaternary" /> Settings
-                  </Dialog.Close>
-                </button>
                 <form action={signout}>
                   <Dialog.Close
                     type="submit"

@@ -69,8 +69,14 @@ export async function POST(req: NextRequest) {
   );
 
   await resend.emails.send({
-    from: "Atlas <password@atlas.me>",
-    to: [email],
+    from:
+      process.env.NODE_ENV === "development"
+        ? "Atlas <delivered@resend.dev>"
+        : "Atlas <password@atlas.me>",
+    to:
+      process.env.NODE_ENV === "development"
+        ? [process.env.TEST_EMAIL as string]
+        : [email],
     subject: "Reset your password - Atlas",
     text: "Reset your password",
     react: ResetPassword({ code, name: user[0]?.name }),

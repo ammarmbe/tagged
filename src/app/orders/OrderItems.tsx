@@ -1,6 +1,7 @@
 import Spinner from "@/components/Spinner";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function OrderItems({ orderId }: { orderId: number }) {
   const router = useRouter();
@@ -14,6 +15,7 @@ export default function OrderItems({ orderId }: { orderId: number }) {
         description: string;
         discount: number;
         id: number;
+        image_url: string;
         nano_id?: string;
         item_id: string;
         name: string;
@@ -46,7 +48,17 @@ export default function OrderItems({ orderId }: { orderId: number }) {
             }}
             tabIndex={0}
           >
-            <div className="h-[80px] w-[80px] flex-shrink-0 rounded-md bg-gray-200" />
+            {item.image_url ? (
+              <Image
+                width={80}
+                height={80}
+                alt={item.name}
+                src={item.image_url}
+                className="h-[80px] w-[80px] rounded-md object-cover"
+              />
+            ) : (
+              <div className="h-[80px] w-[80px] flex-shrink-0 rounded-md bg-gray-200" />
+            )}
             <div>
               <p className="text-secondary truncate font-semibold">
                 {item.name}

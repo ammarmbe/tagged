@@ -1,3 +1,5 @@
+import { sendNewOrderEmail } from "@/utils/sendNewOrderEmail";
+import { sendNewOrderEmailToStore } from "@/utils/sendNewOrderEmailToStore";
 import sql from "@/utils/db";
 import getUser from "@/utils/getUser";
 import { customAlphabet } from "nanoid";
@@ -79,6 +81,12 @@ export async function POST(req: Request) {
       "INSERT INTO notifications (order_id, store_id, type) VALUES ($1, $2, 'new-order')",
       [order_id[0].id, store_id],
     );
+
+    await sendNewOrderEmail(order_id[0].id.toString(), user.email);
+    await sendNewOrderEmailToStore(
+      order_id[0].id.toString(),
+      (await sql("SELECT email FROM users WHERE id = $1", [store_id]))[0].email,
+    );
   }
 
   await sql("DELETE FROM cart_items WHERE user_id = $1", [user.id]);
@@ -98,7 +106,7 @@ export async function GET(req: Request) {
   }
 
   const data = await sql(
-    "SELECT orders.created_at, orders.nano_id, orders.cancel_reason, orders.shipping_price, orders.status, orders.governorate, orders.id as id, orders.first_name || ' ' || (orders.address).last_name as customer_name, (orders.address).street, (orders.address).apartment, (orders.address).city, (orders.address).phone_number, orders.id as id, users.name as store_name, (SELECT SUM((order_items.price - order_items.discount) * order_items.quantity) FROM order_items WHERE order_items.order_id = orders.id) as total FROM orders JOIN order_items ON order_items.order_id = orders.id JOIN users ON users.id = orders.user_id WHERE user_id = $1 AND (orders.id = $2 OR orders.nano_id = $3) GROUP BY orders.id, users.name",
+    "SELECT orders.created_at, orders.nano_id, orders.cancel_reason, orders.shipping_price, orders.status, orders.governorate, orders.first_name || ' ' || (orders.address).last_name as customer_name, (orders.address).street, (orders.address).apartment, (orders.address).city, (orders.address).phone_number, orders.id as id, users.name as store_name, (SELECT SUM((order_items.price - order_items.discount) * order_items.quantity) FROM order_items WHERE order_items.order_id = orders.id) as total FROM orders JOIN order_items ON order_items.order_id = orders.id JOIN users ON users.id = orders.store_id WHERE user_id = $1 AND (orders.id = $2 OR orders.nano_id = $3) GROUP BY orders.id, users.name",
     [user.id, id, nano_id],
   );
 

@@ -12,7 +12,7 @@ export async function GET(req: Request) {
   }
 
   const data = await sql(
-    "SELECT order_items.*, items.nano_id FROM order_items LEFT JOIN items ON items.id = order_items.item_id WHERE order_id = $1",
+    "SELECT order_items.*, (SELECT url FROM item_images WHERE item_id = items.id ORDER BY thumbnail DESC NULLS LAST LIMIT 1) AS image_url, items.nano_id FROM order_items LEFT JOIN items ON items.id = order_items.item_id WHERE order_id = $1",
     [orderId],
   );
 
