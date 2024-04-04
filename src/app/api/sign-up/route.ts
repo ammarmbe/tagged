@@ -2,30 +2,9 @@ import { lucia } from "@/utils/auth";
 import sql from "@/utils/db";
 import { customAlphabet } from "nanoid";
 import { cookies } from "next/headers";
-import { EmailTemplate } from "@/components/email/VerifyEmail";
+import { EmailVerification } from "@/components/email/EmailVerification";
 import { Resend } from "resend";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
-
-const nanoId = customAlphabet("1234567890", 6);
-
-async function generateEmailVerificationCode(
-  userId: string,
-  email: string,
-): Promise<string> {
-  await sql("DELETE FROM email_verification_codes WHERE user_id = $1", [
-    userId,
-  ]);
-
-  const code = nanoId();
-
-  await sql(
-    "INSERT INTO email_verification_codes (user_id, email, code) VALUES ($1, $2, $3)",
-    [userId, email, code],
-  );
-
-  return code;
-}
+import { generateCode } from "@/utils/emailVerification";
 
 export async function POST(req: Request) {
   const {
@@ -45,14 +24,7 @@ export async function POST(req: Request) {
     [userId, email, hashedPassword, name],
   );
 
-  const verificationToken = await generateEmailVerificationCode(userId, email);
-  await resend.emails.send({
-    from: "Atlas <verify@atlas.me>",
-    to: [email],
-    subject: "Verify your email - Atlas",
-    text: `Verify your email to start shopping at Atlas`,
-    react: EmailTemplate({ verificationToken, name }),
-  });
+  await generateCode(userId, name, email);
 
   const session = await lucia.createSession(userId, {});
   const sessionCookie = lucia.createSessionCookie(session.id);

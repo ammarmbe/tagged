@@ -1,5 +1,5 @@
 import "server-only";
-import { EmailTemplate } from "@/components/email/VerifyEmail";
+import { EmailVerification } from "@/components/email/EmailVerification";
 import sql from "./db";
 import { customAlphabet } from "nanoid";
 import { Resend } from "resend";
@@ -54,7 +54,7 @@ export async function generateCode(
     to: [email],
     subject: "Verify your email - Atlas",
     text: "Verify your email to start shopping at Atlas",
-    react: EmailTemplate({ verificationToken: code, name }),
+    react: EmailVerification({ verificationToken: code, name }),
   });
 
   return code;

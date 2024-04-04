@@ -1,10 +1,19 @@
-- [ ] Update homepage.
-- [ ] Backlog
-	- [ ] Redesign UI.
-	- [ ] Make fast.
-	- [ ] Add password reset, login throttling.
-	- [ ] Implement emails.
-	- [x] Add image support.
-	- [ ] Cleanup file structure.
-	- [ ] Add reporting.
-- [ ] Add sorting?
+- [ ] Customer:
+	- [ ] Update homepage.
+	- [ ] Add sorting?
+	- [ ] Backlog.
+		- [ ] Redesign UI.
+		- [ ] Make fast.
+		- [x] Add password reset, login throttling.
+		- [-] Implement emails.
+		- [x] Add image support.
+		- [ ] Cleanup file structure.
+		- [ ] Add reporting.
+
+- [ ] Store:
+	- [ ] Add profile picture, cover photo.
+	- [ ] Decrease size of images before upload.
+	- [ ] Backlog.
+		- [ ] Make fast.
+		- [ ] Add login throttling.
+		- [ ] Implement emails.

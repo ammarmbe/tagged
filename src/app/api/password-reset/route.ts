@@ -2,7 +2,7 @@ import sql from "@/utils/db";
 import { nanoid } from "nanoid";
 import { NextRequest } from "next/server";
 import { Resend } from "resend";
-import { PasswordTemplate } from "@/components/email/ResetPassword";
+import { ResetPassword } from "@/components/email/ResetPassword";
 import requestIp from "request-ip";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -73,7 +73,7 @@ export async function POST(req: NextRequest) {
     to: [email],
     subject: "Reset your password - Atlas",
     text: "Reset your password",
-    react: PasswordTemplate({ code, name: user[0]?.name }),
+    react: ResetPassword({ code, name: user[0]?.name }),
   });
 
   return new Response("OK");
