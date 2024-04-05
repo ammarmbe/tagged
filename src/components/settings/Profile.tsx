@@ -5,7 +5,7 @@ import Button from "@/components/primitives/Button";
 import { RiArrowRightSLine, RiFileCopyLine, RiUserLine } from "react-icons/ri";
 import Image from "next/image";
 import { toast } from "@/components/primitives/toast/use-toast";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Input from "@/components/primitives/Input";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -20,6 +20,8 @@ export default function Page() {
   const [editingInstagram, setEditingInstagram] = useState(false);
   const [editingFacebook, setEditingFacebook] = useState(false);
   const [editingTiktok, setEditingTiktok] = useState(false);
+
+  const pfpRef = useRef<HTMLInputElement>(null);
 
   const nameMutation = useMutation({
     mutationKey: ["updateName"],
@@ -282,6 +284,56 @@ export default function Page() {
     await tiktokMutation.mutateAsync(tiktok);
   };
 
+  const pfpMutation = useMutation({
+    mutationKey: ["uploadPfp"],
+    mutationFn: async (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+
+      if (file.size > 5 * 1024 * 1024) {
+        toast({
+          title: "File size must be less than 5MB.",
+          color: "red",
+          saturation: "high",
+          size: "sm",
+          position: "center",
+        });
+
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await fetch("/api/current-user/pfp", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (res.ok) {
+        await queryClient.invalidateQueries({
+          predicate: (query) => query.queryKey[0] === "current-user",
+        });
+
+        toast({
+          title: "Profile photo updated successfully.",
+          color: "green",
+          saturation: "high",
+          size: "sm",
+          position: "center",
+        });
+      } else {
+        toast({
+          title: "An error occured, please try again.",
+          color: "red",
+          saturation: "high",
+          size: "sm",
+          position: "center",
+        });
+      }
+    },
+  });
+
   useEffect(() => {
     setNameValue("name", user?.name || "");
     setEmailValue("email", user?.email || "");
@@ -312,7 +364,7 @@ export default function Page() {
       <div className="grid gap-x-10 gap-y-5 px-8 py-5 sm:grid-cols-2 sm:gap-x-20">
         <div>
           <p className="label-small">Store ID</p>
-          <div className="paragraph-small text-text-600 mt-1">
+          <div className="paragraph-small mt-1 text-text-600">
             {user?.nano_id}
           </div>
         </div>
@@ -334,22 +386,6 @@ export default function Page() {
           }}
           iconLeft={<RiFileCopyLine size={20} />}
         />
-        <div className="border-t sm:col-span-2" />
-        <div>
-          <p className="label-small">Profile Photo</p>
-          <div className="paragraph-small text-text-600 mt-1">
-            Recommended 400x400px. PNG or JPEG formats only.
-          </div>
-        </div>
-        <div className="flex items-center gap-4 self-center">
-          <Image
-            src="/default_pfp.jpg"
-            width={46}
-            height={46}
-            alt="Default profile photo"
-          />
-          <Button size="xs" className="w-fit self-center" text="Upload" />
-        </div>
         <div className="border-t sm:col-span-2" />
         {editingName ? (
           <>
@@ -384,7 +420,7 @@ export default function Page() {
           <>
             <div>
               <p className="label-small">Store Name</p>
-              <div className="paragraph-small text-text-600 mt-1">
+              <div className="paragraph-small mt-1 text-text-600">
                 This will be displayed on your store page and on your items.
               </div>
             </div>
@@ -399,6 +435,76 @@ export default function Page() {
             </div>
           </>
         )}
+        <div className="border-t sm:col-span-2" />
+        <div>
+          <p className="label-small">Profile Photo</p>
+          <div className="paragraph-small mt-1 text-text-600">
+            Recommended 400x400px. Maximum 5MB.
+          </div>
+        </div>
+        <div className="flex items-center gap-4 self-center">
+          <Image
+            src={user?.pfp_url ?? "/default_pfp.jpg"}
+            width={46}
+            height={46}
+            alt={user?.name ?? "Profile Picture"}
+            className="rounded-full object-cover"
+          />
+          <input
+            type="file"
+            name=""
+            id=""
+            hidden
+            ref={pfpRef}
+            accept="image/png, image/jpeg, image/webp"
+            onChange={(e) => pfpMutation.mutate(e)}
+            disabled={pfpMutation.isPending}
+          />
+          <Button
+            size="xs"
+            className="w-fit self-center"
+            text="Upload"
+            disabled={pfpMutation.isPending}
+            onClick={() => {
+              pfpRef.current?.click();
+            }}
+          />
+        </div>
+        <div className="border-t sm:col-span-2" />
+        <div>
+          <p className="label-small">Cover Photo</p>
+          <div className="paragraph-small mt-1 text-text-600">
+            Recommended 400x400px. Maximum 5MB.
+          </div>
+        </div>
+        <div className="flex items-center gap-4 self-center">
+          <Image
+            src={user?.pfp_url ?? "/default_pfp.jpg"}
+            width={46}
+            height={46}
+            alt={user?.name ?? "Profile Picture"}
+            className="rounded-full object-cover"
+          />
+          <input
+            type="file"
+            name=""
+            id=""
+            hidden
+            ref={pfpRef}
+            accept="image/png, image/jpeg, image/webp"
+            onChange={(e) => pfpMutation.mutate(e)}
+            disabled={pfpMutation.isPending}
+          />
+          <Button
+            size="xs"
+            className="w-fit self-center"
+            text="Upload"
+            disabled={pfpMutation.isPending}
+            onClick={() => {
+              pfpRef.current?.click();
+            }}
+          />
+        </div>
         <div className="border-t sm:col-span-2" />
         {editingEmail ? (
           <>
@@ -434,7 +540,7 @@ export default function Page() {
           <>
             <div>
               <p className="label-small">Email Address</p>
-              <div className="paragraph-small text-text-600 mt-1">
+              <div className="paragraph-small mt-1 text-text-600">
                 This will be used for order-related notifications.
               </div>
             </div>
@@ -481,7 +587,7 @@ export default function Page() {
           <>
             <div>
               <p className="label-small">Instagram</p>
-              <div className="paragraph-small text-text-600 mt-1">
+              <div className="paragraph-small mt-1 text-text-600">
                 Your Instagram username.
               </div>
             </div>
@@ -532,7 +638,7 @@ export default function Page() {
           <>
             <div>
               <p className="label-small">Facebook</p>
-              <div className="paragraph-small text-text-600 mt-1">
+              <div className="paragraph-small mt-1 text-text-600">
                 Your Facebook username.
               </div>
             </div>
@@ -582,7 +688,7 @@ export default function Page() {
           <>
             <div>
               <p className="label-small">Tiktok</p>
-              <div className="paragraph-small text-text-600 mt-1">
+              <div className="paragraph-small mt-1 text-text-600">
                 Your Tiktok username.
               </div>
             </div>

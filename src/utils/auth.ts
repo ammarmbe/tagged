@@ -16,6 +16,7 @@ export const lucia = new Lucia(adapter, {
       store: user.store,
       feature_flags: user.feature_flags,
       nano_id: user.nano_id,
+      pfp_url: user.pfp_url,
     };
   },
 });
@@ -45,4 +46,5 @@ interface DatabaseUserAttributes {
     allowed_gov?: string[];
   };
   nano_id: string;
+  pfp_url: string | undefined;
 }

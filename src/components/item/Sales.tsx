@@ -1,4 +1,4 @@
-import { formatCurrency } from "@/utils";
+import { formatCurrency, useUser } from "@/utils";
 import { useEffect, useState } from "react";
 import {
   createColumnHelper,
@@ -18,6 +18,7 @@ import {
   RiBarcodeLine,
   RiExpandUpDownLine,
 } from "react-icons/ri";
+import { useRouter } from "next/navigation";
 
 type TSale = {
   total_count: number;
@@ -83,6 +84,9 @@ const columns = [
 ];
 
 export default function ItemSales({ nano_id }: { nano_id: string }) {
+  const { user } = useUser();
+  const router = useRouter();
+
   const [data, setData] = useState<TSale[]>([]);
   const [orderBy, setOrderBy] = useState<{
     column: "name" | "price" | "quantity" | "category" | "discount" | "revenue";
@@ -151,14 +155,14 @@ export default function ItemSales({ nano_id }: { nano_id: string }) {
       <div className="border-t" />
       <div className="flex flex-col gap-4">
         <div className="overflow-auto">
-          <table className="w-full min-w-[1000px]">
+          <table className="min-h-[200px] w-full min-w-[1000px]">
             <thead>
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
                     <th
                       key={header.id}
-                      className="paragraph-small bg-bg-50 px-6 py-2 font-normal text-text-600 first:rounded-l-lg last:rounded-r-lg"
+                      className={`paragraph-small bg-bg-50 py-2 font-normal text-text-600 first:rounded-l-lg last:rounded-r-lg ${user?.feature_flags.table_size === "compact" ? "px-4" : "px-6"}`}
                     >
                       <button
                         className="flex items-center gap-1"
@@ -231,11 +235,23 @@ export default function ItemSales({ nano_id }: { nano_id: string }) {
                 </tr>
               ) : null}
               {table.getRowModel().rows.map((row) => (
-                <tr key={row.id} className="border-t first:border-t-0">
+                <tr
+                  key={row.id}
+                  className="peer cursor-pointer border-t first:border-t-0 hover:border-transparent hover:bg-bg-50 [&+tr]:hover:border-transparent"
+                  role="button"
+                  onClick={() => {
+                    router.push("/order/" + row.original.order_id);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter")
+                      router.push("/order/" + row.original.order_id);
+                  }}
+                  tabIndex={0}
+                >
                   {row.getVisibleCells().map((cell) => (
                     <td
                       key={cell.id}
-                      className="paragraph-medium truncate px-6 py-4 text-text-600 first:rounded-l-xl last:rounded-r-xl"
+                      className={`paragraph-medium truncate text-text-600 first:rounded-l-xl last:rounded-r-xl ${user?.feature_flags.table_size === "compact" ? "px-4 py-2" : "px-6 py-4"}`}
                     >
                       {flexRender(
                         cell.column.columnDef.cell,

@@ -37,9 +37,9 @@ export default function Cards({ range }: { range: TRange }) {
   return (
     <div className="relative grid grid-cols-1 gap-5 py-3 lg:grid-cols-[1fr,1px,1fr] lg:gap-3 lg:py-5">
       <Loading size={40} isFetching={isFetching} />
-      <div className="flex items-center lg:justify-center ">
+      <div className="flex items-start lg:justify-center">
         <div className="grid grid-cols-[auto,1fr] gap-x-3 gap-y-1">
-          <div className="row-span-2 rounded-full border p-2.5">
+          <div className="row-span-2 h-fit rounded-full border p-2.5">
             <RiBox2Line size={22} className="text-main-base" />
           </div>
           <p className="subheading-xsmall text-text-400">
@@ -76,9 +76,9 @@ export default function Cards({ range }: { range: TRange }) {
         </div>
       </div>
       <div className="border-t lg:border-l" />
-      <div className="flex items-center lg:justify-center ">
+      <div className="flex items-start lg:justify-center">
         <div className="grid grid-cols-[auto,1fr] gap-x-3 gap-y-1">
-          <div className="row-span-2 rounded-full border p-2.5">
+          <div className="row-span-2 h-fit rounded-full border p-2.5">
             <RiTShirt2Line size={22} className="text-main-base" />
           </div>
           <p className="subheading-xsmall text-text-400">Most Viewed Item</p>

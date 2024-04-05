@@ -59,7 +59,7 @@ export default function ImageComponent({
     formData.append("name", image.id);
 
     const xhr = new XMLHttpRequest();
-    xhr.open("POST", `/api/file?nano_id=${nano_id}`);
+    xhr.open("POST", `/api/image?nano_id=${nano_id}`);
 
     xhr.upload.onprogress = (e) => {
       setImages((prev) =>
@@ -193,7 +193,7 @@ export default function ImageComponent({
                               );
 
                               nano_id &&
-                                (await fetch("/api/file/color", {
+                                (await fetch("/api/image/color", {
                                   method: "POST",
                                   body: JSON.stringify({
                                     id: image.id,
@@ -236,7 +236,7 @@ export default function ImageComponent({
                       );
 
                       nano_id &&
-                        (await fetch("/api/file/thumb", {
+                        (await fetch("/api/image/thumbnail", {
                           method: "POST",
                           body: JSON.stringify({
                             id: image.id,
@@ -265,7 +265,7 @@ export default function ImageComponent({
           onClick={async () => {
             setImages((prev) => prev.filter(({ id }) => id !== image.id));
 
-            await fetch("/api/file", {
+            await fetch("/api/image", {
               method: "DELETE",
               body: JSON.stringify({ id: image.id }),
             });

@@ -62,7 +62,7 @@ export default function Images({ nano_id }: { nano_id: string }) {
     formData.append("name", image.id);
 
     const xhr = new XMLHttpRequest();
-    xhr.open("POST", `/api/file?nano_id=${nano_id}`);
+    xhr.open("POST", `/api/image?nano_id=${nano_id}`);
 
     xhr.upload.onprogress = (e) => {
       setLocalImages((prev) =>

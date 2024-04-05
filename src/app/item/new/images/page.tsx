@@ -35,7 +35,7 @@ export default function Images() {
     formData.append("name", image.id);
 
     const xhr = new XMLHttpRequest();
-    xhr.open("POST", "/api/file");
+    xhr.open("POST", "/api/image");
 
     xhr.upload.onprogress = (e) => {
       setLocalImages((prev) =>
