@@ -9,6 +9,7 @@ CREATE TYPE address AS (
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   "name" VARCHAR(64) NOT NULL,
+  pfp_url TEXT,
   hashed_password TEXT NOT NULL,
   email VARCHAR(254) NOT NULL UNIQUE,
   email_verified BOOLEAN NOT NULL DEFAULT FALSE,
