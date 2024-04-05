@@ -9,20 +9,13 @@ export default function Footer() {
       <footer className="flex flex-col gap-8 rounded-xl bg-main-800 px-8 py-12 text-main-300 sm:px-20">
         <div className="flex flex-col justify-between gap-8 sm:flex-row">
           <div className="flex flex-col gap-6 text-main-200">
-            <div className="flex items-center gap-2.5">
-              <Image
-                src="/logo.svg"
-                height={28.8}
-                width={28.8}
-                alt="Atlas Logo"
-                className="brightness-0 invert"
-              />
-              <h2
-                className={`text-2xl font-semibold leading-[1.125] text-white ${generalSans.className}`}
-              >
-                Atlas
-              </h2>
-            </div>
+            <Image
+              src="/logo.svg"
+              height={30}
+              width={105}
+              alt="Atlas Logo"
+              className="invert"
+            />
             <p className="text-balance">
               Lorem ipsum dolor, sit amet consectetur adipisicing elit.
               Consequuntur, enim rerum.

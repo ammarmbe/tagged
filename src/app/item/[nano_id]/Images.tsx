@@ -151,7 +151,7 @@ export default function Images({
               onClick={() => setCurrentImage(image)}
               className={`relative size-16 flex-none overflow-hidden rounded-lg border border-white transition-all hover:opacity-90 md:size-20 ${
                 currentImage?.id === image.id
-                  ? "shadow-[0_0_0_2px_#ffffff,0_0_0_4px_#9e77ed] active:shadow-[0_0_0_2px_#ffffff,0_0_0_4px_#9e77ed,0_0_0_8px_#9e77ed3D]"
+                  ? "shadow-[0_0_0_2px_white,0_0_0_4px_#9e77ed] active:shadow-[0_0_0_2px_white,0_0_0_4px_#9e77ed,0_0_0_8px_#9e77ed3D]"
                   : ""
               }`}
             >

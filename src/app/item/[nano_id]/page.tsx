@@ -31,7 +31,7 @@ export default async function Page({
 }) {
   const { user } = await getUser();
 
-  await queryClient.prefetchQuery({
+  queryClient.prefetchQuery({
     queryKey: ["item", params.nano_id],
     queryFn: async () => {
       const res = await fetch(

@@ -174,7 +174,7 @@
   }
 
   .button.danger {
-    @apply border-error-500 bg-error-500 text-white hover:border-error-600 hover:bg-error-600 active:border-error-500 active:bg-error-500 active:shadow-[0_0_0_4px_#fbd2cf,_0_1px_2px_0_#1018280d] disabled:cursor-not-allowed disabled:border disabled:border-[#eaecf0] disabled:bg-[#ffffff] disabled:text-[#98a2b3];
+    @apply border-error-500 bg-error-500 text-white hover:border-error-600 hover:bg-error-600 active:border-error-500 active:bg-error-500 active:shadow-[0_0_0_4px_#fbd2cf,_0_1px_2px_0_#1018280d] disabled:cursor-not-allowed disabled:border disabled:border-[#eaecf0] disabled:bg-white disabled:text-[#98a2b3];
   }
 
   .button.secondary.danger {

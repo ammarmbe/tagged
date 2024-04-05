@@ -26,23 +26,14 @@ export default function AccountButton({ user }: { user: User }) {
           <Dialog.Portal>
             <Dialog.Content className="bg-background bg-primary fixed inset-y-0 right-0 z-50 h-full w-full transition duration-100 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 sm:max-w-lg">
               <div className="text-tertiary flex h-fit w-full items-center justify-between p-4 font-medium">
-                <div className="flex items-center gap-8">
-                  <div className="flex items-center gap-2">
-                    <Image
-                      src="/logo.svg"
-                      height={24}
-                      width={24}
-                      alt="Atlas Logo"
-                    />
-                    <h1
-                      className={`select-none text-xl font-semibold leading-[1.125] ${generalSans.className}`}
-                    >
-                      <Dialog.Close>
-                        <Link href="/">Atlas</Link>
-                      </Dialog.Close>
-                    </h1>
-                  </div>
-                </div>
+                <Link href="/">
+                  <Image
+                    src="/logo.svg"
+                    height={30}
+                    width={105}
+                    alt="Atlas Logo"
+                  />
+                </Link>
                 <Dialog.Close className="button secondary !p-2">
                   <X />
                 </Dialog.Close>

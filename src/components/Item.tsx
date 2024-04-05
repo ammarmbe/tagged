@@ -29,8 +29,8 @@ export default function Item({
   return (
     <div
       className="border-primary relative flex cursor-pointer flex-col rounded-[10px] border p-3 shadow-sm transition-all hover:bg-gray-50 hover:!shadow-none"
-      onMouseEnter={async () => {
-        await queryClient.prefetchQuery({
+      onMouseEnter={() => {
+        queryClient.prefetchQuery({
           queryKey: ["item", item.nano_id],
           queryFn: async () => {
             const res = await fetch(`/api/item?nano_id=${item.nano_id}`);

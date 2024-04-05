@@ -120,7 +120,7 @@ export default function Configuration({
               <div
                 className={`h-full w-full rounded-md transition-shadow ${
                   i === selected.color_id
-                    ? "shadow-[0_0_0_2px_#ffffff,0_0_0_4px_#9e77ed] active:shadow-[0_0_0_2px_#ffffff,0_0_0_4px_#9e77ed,0_0_0_8px_#9e77ed3D]"
+                    ? "shadow-[0_0_0_2px_white,0_0_0_4px_#9e77ed] active:shadow-[0_0_0_2px_white,0_0_0_4px_#9e77ed,0_0_0_8px_#9e77ed3D]"
                     : ""
                 }`}
                 style={{ backgroundColor: color.value }}
