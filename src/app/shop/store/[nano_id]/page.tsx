@@ -131,7 +131,7 @@ export default function ShopStore({
             {settings?.cover_url ? (
               <Image
                 fill
-                className="rounded-lg"
+                className="rounded-lg object-cover"
                 alt={settings?.name + " cover"}
                 src={settings?.cover_url}
               />
@@ -143,7 +143,7 @@ export default function ShopStore({
                 {settings?.pfp_url ? (
                   <Image
                     fill
-                    className="rounded-lg"
+                    className="rounded-lg object-cover"
                     alt={settings?.name + " profile picture"}
                     src={settings?.pfp_url}
                   />
