@@ -139,16 +139,17 @@ export default function ShopStore({
           </div>
           <div className="m-4 flex flex-col items-center justify-between gap-x-10 gap-y-5 sm:flex-row sm:items-start">
             <div className="flex flex-col items-center gap-x-4 gap-y-3 text-center sm:flex-row sm:items-start sm:text-start">
-              <div className="bg-primary relative -mt-[4.5rem] flex size-24 overflow-hidden rounded-full p-1.5">
-                {settings?.pfp_url ? (
-                  <Image
-                    fill
-                    className="rounded-lg object-cover"
-                    alt={settings?.name + " profile picture"}
-                    src={settings?.pfp_url}
-                  />
-                ) : null}
-                <div className="flex-grow rounded-full bg-gray-100" />
+              <div className="bg-primary -mt-[4.5rem] flex size-24 overflow-hidden rounded-full p-1.5">
+                <div className="relative flex-grow overflow-auto rounded-full bg-gray-100">
+                  {settings?.pfp_url ? (
+                    <Image
+                      fill
+                      className="rounded-lg object-cover"
+                      alt={settings?.name + " profile picture"}
+                      src={settings?.pfp_url}
+                    />
+                  ) : null}
+                </div>
               </div>
               <div className="flex flex-col gap-2">
                 <h2 className="text-xl font-semibold capitalize">
