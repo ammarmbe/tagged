@@ -14,7 +14,8 @@ export default async function Home() {
   return (
     <main className="min-h-0 min-w-0 flex-grow overflow-auto">
       <Header
-        icon={<div className="row-span-2 size-5 rounded-full bg-bg-200" />}
+        icon={null}
+        user={user}
         title={user?.name}
         description={user?.email}
       />

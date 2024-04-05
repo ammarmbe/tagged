@@ -26,12 +26,12 @@ export async function POST(req: Request) {
   const containerClient = blobServiceClient.getContainerClient(containerName);
 
   const oldBlockBlobClient = containerClient.getBlockBlobClient(
-    user.nano_id + "-pfp",
+    user.nano_id + "-cover",
   );
   await oldBlockBlobClient.deleteIfExists();
 
   const blockBlobClient = containerClient.getBlockBlobClient(
-    user.nano_id + "-pfp",
+    user.nano_id + "-cover",
   );
 
   await blockBlobClient.uploadData(fileBuffer, {
@@ -42,7 +42,7 @@ export async function POST(req: Request) {
 
   const url = blockBlobClient.url;
 
-  await sql("UPDATE users SET pfp_url = $1 WHERE nano_id = $2", [
+  await sql("UPDATE users SET cover_url = $1 WHERE nano_id = $2", [
     url,
     user.nano_id,
   ]);

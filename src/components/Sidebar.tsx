@@ -10,6 +10,7 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLayoutEffect, useState } from "react";
+import Image from "next/image";
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -154,7 +155,15 @@ export default function Sidebar() {
         {pathname.startsWith("/settings") ? (
           <Link href="/settings/profile" className="group flex flex-col">
             <span className="mx-3 block border-t transition-all group-hover:border-transparent" />
-            <span className="block p-4">
+            <span className="relative block p-4">
+              {user?.pfp_url ? (
+                <Image
+                  fill
+                  src={user.pfp_url}
+                  alt={user.name}
+                  className="rounded-full"
+                />
+              ) : null}
               <span className="block size-7 rounded-full bg-gray-100" />
             </span>
           </Link>
@@ -162,7 +171,17 @@ export default function Sidebar() {
           <Link href="/settings/profile" className="group flex flex-col">
             <span className="mx-5 block border-t transition-all group-hover:border-transparent" />
             <span className="flex items-center gap-3 p-6 pt-5 transition-all group-hover:bg-bg-50">
-              <span className="block size-10 rounded-full bg-gray-100" />
+              <div className="relative flex size-10 overflow-hidden rounded-full">
+                {user?.pfp_url ? (
+                  <Image
+                    fill
+                    src={user.pfp_url}
+                    alt={user.name}
+                    className="rounded-full"
+                  />
+                ) : null}
+                <span className="flex-grow rounded-full bg-gray-100" />
+              </div>
               <span className="flex min-w-32 flex-grow flex-col gap-1 text-sm">
                 <span className="label-small block">{user?.name}</span>
                 <span className="paragraph-xsmall block text-text-600">
