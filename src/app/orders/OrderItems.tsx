@@ -50,23 +50,23 @@ export default function OrderItems({ orderId }: { orderId: number }) {
           >
             {item.image_url ? (
               <Image
-                width={80}
-                height={80}
+                width={106}
+                height={106}
                 alt={item.name}
                 src={item.image_url}
-                className="h-[80px] w-[80px] rounded-md object-cover"
+                className="h-[6.625rem] w-[6.625rem] rounded-md object-cover"
               />
             ) : (
-              <div className="h-[80px] w-[80px] flex-shrink-0 rounded-md bg-gray-200" />
+              <div className="h-[6.625rem] w-[6.625rem] flex-shrink-0 rounded-md bg-gray-200" />
             )}
-            <div>
+            <div className="pr-10">
               <p className="text-secondary truncate font-semibold">
                 {item.name}
               </p>
               <p className="text-tertiary my-1">
                 {item.color} / {item.size}
               </p>
-              <p className="text-tertiary flex flex-wrap gap-x-2 font-medium">
+              <p className="text-tertiary mt-2 flex flex-col gap-x-2 font-medium">
                 <span className="text-primary">
                   {new Intl.NumberFormat("en-US", {
                     style: "currency",
@@ -74,13 +74,15 @@ export default function OrderItems({ orderId }: { orderId: number }) {
                     currencyDisplay: "symbol",
                   }).format(item.price - (item.discount || 0))}
                 </span>{" "}
-                ({item.quantity} x{" "}
-                {new Intl.NumberFormat("en-US", {
-                  style: "currency",
-                  currency: "EGP",
-                  currencyDisplay: "symbol",
-                }).format(item.price - (item.discount || 0))}
-                )
+                <span className="mt-0.5 text-sm">
+                  ({item.quantity} x{" "}
+                  {new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "EGP",
+                    currencyDisplay: "symbol",
+                  }).format(item.price - (item.discount || 0))}
+                  )
+                </span>
               </p>
             </div>
           </div>

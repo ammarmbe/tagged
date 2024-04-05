@@ -51,7 +51,7 @@ export default function SearchBar() {
       <div className="relative hidden max-w-[500px] flex-grow sm:block">
         <Dialog.Root open={focus} onOpenChange={setFocus}>
           <Dialog.Overlay
-            className="fixed inset-0 z-20 bg-black/15 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
+            className="fixed inset-0 z-30 bg-black/15 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
             onClick={() => setFocus(false)}
           />
         </Dialog.Root>
@@ -67,14 +67,14 @@ export default function SearchBar() {
             params.delete;
             router.push(`/shop?${params.toString()}`);
           }}
-          className="relative z-[30]"
+          className="relative z-[40]"
           onClick={() => setFocus(true)}
         >
           <input
             type="search"
             autoComplete="off"
             placeholder="Search for an item"
-            className="input !relative z-[30] !rounded-none !border-none bg-transparent font-normal !shadow-none focus:rounded-b-none"
+            className="input !relative z-[40] !rounded-none !border-none bg-transparent font-normal !shadow-none focus:rounded-b-none"
             id="searchItems"
             onFocus={() => setFocus(true)}
             value={value}
@@ -84,12 +84,12 @@ export default function SearchBar() {
           />
           <button
             type="submit"
-            className="text-quaternary absolute right-[4px] top-[4px] z-[30] p-2"
+            className="text-quaternary absolute right-[4px] top-[4px] z-[40] p-2"
           >
             <Search size={18} />
           </button>
           <div
-            className={`bg-primary border-primary absolute top-0 w-full rounded-lg border ${focus ? "!border-main-500 shadow-[0_0_5px_4px_#b59aed71]" : "shadow-sm"}`}
+            className={`bg-primary border-primary absolute top-0 w-full rounded-lg border ${focus ? "!border-main-500 shadow-[0_0_5px_4px_#F3874451]" : "shadow-sm"}`}
           >
             <div className="left-0 h-[40px] w-full"></div>
             <div className={`${focus ? "" : "hidden"}`}>
@@ -215,7 +215,7 @@ export default function SearchBar() {
                     <Search size={18} />
                   </button>
                 </form>
-                <Dialog.Close className="button-secondary h-fit !p-2">
+                <Dialog.Close className="button-secondary h-fit !p-[calc(0.5rem+1px)] text-gray-600">
                   <X />
                 </Dialog.Close>
               </div>

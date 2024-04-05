@@ -120,7 +120,7 @@ export default function CheckOut({
             cart?.length === 0 ||
             cart?.some((item) => !item.allowed_gov?.includes(governorate.value))
           }
-          className={`active:bg-primary inline-flex w-full items-center justify-center gap-2 self-end rounded-lg border border-main-500 bg-main-500 px-3 py-2 font-semibold text-white shadow-sm transition-colors hover:bg-white hover:text-main-500 active:border-main-600 active:text-main-500 active:!shadow-[0_0_0_4px_#9e77ed3d,0_1px_2px_0_#1018280d] disabled:cursor-not-allowed disabled:border disabled:border-[#EAECF0] disabled:bg-[#f2f4f7] disabled:text-[#98a2b3] disabled:hover:bg-gray-200 disabled:hover:text-[#98a2b3] ${
+          className={`active:bg-primary inline-flex w-full items-center justify-center gap-2 self-end rounded-lg border border-main-500 bg-main-500 px-3 py-2 font-semibold text-white shadow-sm transition-colors hover:bg-white hover:text-main-500 active:border-main-600 active:text-main-500 active:!shadow-[0_0_0_4px_#EF68203d,0_1px_2px_0_#1018280d] disabled:cursor-not-allowed disabled:border disabled:border-[#EAECF0] disabled:bg-[#f2f4f7] disabled:text-[#98a2b3] disabled:hover:bg-gray-200 disabled:hover:text-[#98a2b3] ${
             isSubmitting ? "!px-[27px]" : "!px-5"
           }`}
         >

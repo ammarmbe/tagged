@@ -9,5 +9,18 @@ export async function GET(req: Request) {
     [nano_id],
   );
 
-  return new Response(JSON.stringify(data[0]));
+  const data2 = await sql(
+    "SELECT 'return_rate' AS name, (SELECT COUNT(*) FROM orders WHERE store_id = (SELECT id FROM users WHERE nano_id = $1) AND status = 'returned' OR status = 'return_requested') / NULLIF((SELECT COUNT(*) FROM orders WHERE store_id = (SELECT id FROM users WHERE nano_id = $1) AND status = 'completed') , 0) AS value UNION ALL SELECT 'average_time_to_completed' AS name, (SELECT EXTRACT(epoch FROM AVG(completed_at - created_at)) FROM orders WHERE store_id = (SELECT id FROM users WHERE nano_id = $1)) AS value UNION ALL SELECT 'cancel_rate' AS name, (SELECT COUNT(*) FROM orders WHERE store_id = (SELECT id FROM users WHERE nano_id = $1) AND status = 'cancelled') / NULLIF((SELECT COUNT(*) FROM orders WHERE store_id = (SELECT id FROM users WHERE nano_id = $1) AND status = 'completed') , 0) AS value",
+    [nano_id],
+  );
+
+  return new Response(
+    JSON.stringify({
+      ...data[0],
+      deliver_in: data2.find((d) => d.name === "average_time_to_completed")
+        ?.value,
+      return_rate: data2.find((d) => d.name === "return_rate")?.value,
+      cancel_rate: data2.find((d) => d.name === "cancel_rate")?.value,
+    }),
+  );
 }

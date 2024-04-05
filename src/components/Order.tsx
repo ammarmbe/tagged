@@ -48,10 +48,10 @@ export default function Page({
   ];
 
   return (
-    <div className="bg-primary grid w-full grid-cols-1 gap-7 p-6 md:grid-cols-[auto,auto,auto]">
+    <div className="bg-primary grid w-full grid-cols-1 gap-7 p-6 md:grid-cols-[auto,auto,1fr]">
       <div className="flex-grow">
         <h2 className="font-medium">Address</h2>
-        <div className="ml-3 mt-3">
+        <div className="mt-3 md:ml-3">
           <p>{order.customer_name}</p>
           <p>{order.street}</p>
           <p>{order.apartment}</p>
@@ -60,15 +60,15 @@ export default function Page({
           <p>{order.phone_number}</p>
         </div>
       </div>
-      <div className="flex-grow">
+      <div>
         <h2 className="font-medium">Order items</h2>
-        <div className="ml-3 mt-3 max-h-[400px] space-y-3 overflow-auto">
+        <div className="mt-3 max-h-[400px] space-y-3 overflow-auto md:ml-3 md:w-fit">
           <OrderItems orderId={order.id} />
         </div>
       </div>
       <div className="flex-grow">
         <h2 className="font-medium">Order details</h2>
-        <div className="ml-3 mt-3 grid grid-cols-[auto,auto] gap-4">
+        <div className="mt-3 grid grid-cols-[auto,auto] gap-4 md:ml-3">
           <div>
             <p className="text-tertiary mb-1 font-medium">Order ID</p>
             <p>{order.nano_id}</p>

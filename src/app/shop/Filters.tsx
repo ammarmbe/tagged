@@ -178,8 +178,8 @@ export default function Filters({
                 <Slider.Track className="relative h-2 flex-grow rounded-full bg-gray-200">
                   <Slider.Range className="absolute h-full rounded-full bg-main-500" />
                 </Slider.Track>
-                <Slider.Thumb className="transition-allactive:shadow-[0_0_0_4px_#9E77ED3D,0_1px_2px_0_#1018280F,0_1px_3px_0_#1018281A] bg-primary relative block size-6 rounded-full border-2 border-main-500 font-medium shadow-[0_2px_4px_-2px_#1018280F,0_4px_8px_-2px_#1018281A]" />
-                <Slider.Thumb className="bg-primary relative block size-6 rounded-full border-2 border-main-500 font-medium shadow-[0_2px_4px_-2px_#1018280F,0_4px_8px_-2px_#1018281A] transition-all active:shadow-[0_0_0_4px_#9E77ED3D,0_1px_2px_0_#1018280F,0_1px_3px_0_#1018281A]" />
+                <Slider.Thumb className="transition-allactive:shadow-[0_0_0_4px_#EF68203D,0_1px_2px_0_#1018280F,0_1px_3px_0_#1018281A] bg-primary relative block size-6 rounded-full border-2 border-main-500 font-medium shadow-[0_2px_4px_-2px_#1018280F,0_4px_8px_-2px_#1018281A]" />
+                <Slider.Thumb className="bg-primary relative block size-6 rounded-full border-2 border-main-500 font-medium shadow-[0_2px_4px_-2px_#1018280F,0_4px_8px_-2px_#1018281A] transition-all active:shadow-[0_0_0_4px_#EF68203D,0_1px_2px_0_#1018280F,0_1px_3px_0_#1018281A]" />
               </Slider.Root>
               <div className="text-tertiary mt-2 flex w-full items-baseline justify-between text-sm font-medium">
                 <p>

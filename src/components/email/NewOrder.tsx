@@ -46,7 +46,7 @@ export const NewOrder: React.FC<Readonly<NewOrderProps>> = ({
       the details, you can always check the status of your order by visiting{" "}
       <a
         style={{
-          color: "#7F56D9",
+          color: "#E04F16",
           textDecoration: "none",
         }}
         href={`https://atlascustomer.vercel.app/order/${order.nano_id}`}

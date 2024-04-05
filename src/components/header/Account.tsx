@@ -24,22 +24,23 @@ export default function AccountButton({ user }: { user: User }) {
         <div className="flex justify-end gap-1">
           <Cart />
           <Dialog.Portal>
-            <Dialog.Content className="bg-background bg-primary fixed inset-y-0 right-0 z-50 h-full w-full transition duration-100 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 sm:max-w-lg">
-              <div className="text-tertiary flex h-fit w-full items-center justify-between p-4 font-medium">
+            <Dialog.Content className="bg-background bg-primary fixed inset-y-0 right-0 z-50 h-full w-full p-4 transition duration-100 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 sm:max-w-lg">
+              <div className="text-tertiary flex h-fit w-full items-center justify-between border border-transparent p-4 font-medium">
                 <Link href="/">
                   <Image
                     src="/logo.svg"
                     height={30}
                     width={105}
                     alt="Atlas Logo"
+                    className="mt-1"
                   />
                 </Link>
-                <Dialog.Close className="button secondary !p-2">
-                  <X />
+                <Dialog.Close className="button secondary !border-none !p-2">
+                  <X size={20} />
                 </Dialog.Close>
               </div>
               <div className="flex flex-col">
-                <div className="text-secondary px-4 pb-4">
+                <div className="text-secondary px-4 pb-4 pt-3">
                   <p className="font-semibold">{user.name}</p>
                   <p>{user.email}</p>
                 </div>
@@ -110,10 +111,10 @@ export default function AccountButton({ user }: { user: User }) {
               </form>
             </DropdownMenu.Content>
           </DropdownMenu.Portal>
-          <Dialog.Trigger className="button secondary !p-2 sm:hidden">
-            <Menu />
+          <Dialog.Trigger className="button secondary !border-none !p-2 sm:hidden">
+            <Menu size={20} />
           </Dialog.Trigger>
-          <DropdownMenu.Trigger className="button secondary !hidden !p-2 sm:!inline-flex">
+          <DropdownMenu.Trigger className="button secondary !hidden !border-none !p-2 sm:!inline-flex">
             <User2 size={20} />
           </DropdownMenu.Trigger>
         </div>

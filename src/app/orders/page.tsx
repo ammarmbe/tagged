@@ -230,7 +230,7 @@ export default function CustomerOrders() {
                                           onClick={() => {
                                             cell.getValue() &&
                                               router.push(
-                                                `/order/${row.original.id}`,
+                                                `/order/${row.original.nano_id}`,
                                               );
                                           }}
                                           tabIndex={
@@ -247,7 +247,7 @@ export default function CustomerOrders() {
                                               cell.getValue()
                                             ) {
                                               router.push(
-                                                `/order/${row.original.id}`,
+                                                `/order/${row.original.nano_id}`,
                                               );
                                             }
                                           }}

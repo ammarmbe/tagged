@@ -39,7 +39,7 @@ export const NewOrderStore: React.FC<Readonly<NewOrderStoreProps>> = ({
       order details by clicking{" "}
       <a
         style={{
-          color: "#7F56D9",
+          color: "#E04F16",
           textDecoration: "none",
         }}
         href={`https://atlasstore.vercel.app/order/${order.nano_id}`}

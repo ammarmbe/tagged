@@ -74,10 +74,15 @@ export default function Cart() {
   return (
     <Dialog.Root open={dialogOpen} onOpenChange={setDialogOpen}>
       <Dialog.Trigger asChild>
-        <button className="button secondary relative !p-2" type="button">
+        <button
+          className="button secondary relative !border-none !p-2"
+          type="button"
+        >
           <ShoppingBag size={20} />
           {count && count > 0 ? (
-            <span className="absolute right-0.5 top-0.5 h-4 w-4 rounded-full bg-gray-700 text-xs font-semibold text-white">
+            <span
+              className={`absolute flex items-center justify-center rounded-full bg-main-600 text-xs font-bold text-white ${count > 9 ? "right-0 top-0 size-5" : "right-0.5 top-0.5 size-4"}`}
+            >
               {count}
             </span>
           ) : null}
@@ -85,9 +90,9 @@ export default function Cart() {
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-50 hidden bg-black/30 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 sm:block" />
-        <Dialog.Content className="bg-background bg-primary fixed inset-y-0 right-0 z-50 flex h-full w-full flex-col justify-between gap-4 shadow-lg transition duration-100 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 sm:w-3/4 sm:max-w-md sm:border-l sm:ease-in-out sm:data-[state=closed]:duration-300 sm:data-[state=open]:duration-500 sm:data-[state=closed]:fade-out-100 sm:data-[state=open]:fade-in-100 sm:data-[state=closed]:slide-out-to-right sm:data-[state=open]:slide-in-from-right">
-          <Dialog.Close className="button secondary !absolute right-4 top-4 !p-2">
-            <X />
+        <Dialog.Content className="bg-background bg-primary fixed inset-y-0 right-0 z-50 flex h-full w-full flex-col justify-between gap-4 p-4 shadow-lg transition duration-100 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 sm:w-3/4 sm:max-w-md sm:border-l sm:ease-in-out sm:data-[state=closed]:duration-300 sm:data-[state=open]:duration-500 sm:data-[state=closed]:fade-out-100 sm:data-[state=open]:fade-in-100 sm:data-[state=closed]:slide-out-to-right sm:data-[state=open]:slide-in-from-right">
+          <Dialog.Close className="button secondary !absolute right-8 top-8 !border-none !p-2">
+            <X size={20} />
           </Dialog.Close>
           <h2 className="text-secondary p-6 pb-0 text-xl font-semibold">
             Your Cart

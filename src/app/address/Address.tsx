@@ -313,7 +313,7 @@ export default function Address({
               </p>
               <input
                 type="text"
-                className='input relative z-10 resize-none !rounded-l-none !shadow-none focus:!shadow-[0_0_0_4px_#9e77ed3D,0_1px_2px_0_#1018280D] data-[invalid="true"]:focus:!shadow-[0_0_0_4px_#F044383D,0_1px_2px_0_#1018280D]'
+                className='input relative z-10 resize-none !rounded-l-none !shadow-none focus:!shadow-[0_0_0_4px_#EF68203D,0_1px_2px_0_#1018280D] data-[invalid="true"]:focus:!shadow-[0_0_0_4px_#F044383D,0_1px_2px_0_#1018280D]'
                 id="number"
                 data-invalid={Boolean(errors.number)}
                 {...register("number", {

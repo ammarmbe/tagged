@@ -10,15 +10,15 @@ export default async function Header() {
   return (
     <header className="text-tertiary mx-auto w-full max-w-7xl p-4 font-medium">
       <div className="rounded-xl border">
-        <div className="flex items-center justify-between gap-4 p-4 md:gap-6">
-          <div className="flex flex-grow items-center gap-4 md:gap-6">
+        <div className="flex items-center justify-between gap-1 p-4 md:gap-6">
+          <div className="flex flex-grow items-center justify-between gap-4 md:justify-start md:gap-6">
             <Link href="/">
               <Image
                 src="/logo.svg"
                 height={30}
                 width={105}
                 alt="Atlas Logo"
-                className="ml-1 mt-1"
+                className="mt-1 md:ml-1"
               />
             </Link>
             <SearchBar />

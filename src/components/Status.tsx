@@ -88,9 +88,9 @@ export default function Status({
       break;
     case "confirmed":
       statusColors = {
-        border: "#e9d7fe",
-        text: "#6941c6",
-        background: "#f9f5ff",
+        border: "#F9DBAF",
+        text: "#B93815",
+        background: "#FEF6EE",
         tooltip_content: store
           ? "You have confirmed this order."
           : "Your order has been confirmed by the store.",

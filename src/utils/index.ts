@@ -17,12 +17,12 @@ export const selectStyles: StylesConfig<
     ...styles,
     backgroundColor: "white",
     padding: "2px 2px 2px 0.75rem",
-    borderColor: state.isFocused ? "#9e77ed !important" : "#d0d5dd",
+    borderColor: state.isFocused ? "#EF6820 !important" : "#d0d5dd",
     borderRadius: "0.5rem",
     cursor: "text",
 
     boxShadow: state.isFocused
-      ? "0 0 0 4px #9e77ed3D, 0 1px 2px 0 #1018280D"
+      ? "0 0 0 4px #EF68203D, 0 1px 2px 0 #1018280D"
       : "0 1px 2px 0 #1018280d",
     color: "#101828",
     transitionProperty: "all",

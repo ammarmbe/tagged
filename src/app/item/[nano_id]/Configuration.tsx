@@ -120,7 +120,7 @@ export default function Configuration({
               <div
                 className={`h-full w-full rounded-md transition-shadow ${
                   i === selected.color_id
-                    ? "shadow-[0_0_0_2px_white,0_0_0_4px_#9e77ed] active:shadow-[0_0_0_2px_white,0_0_0_4px_#9e77ed,0_0_0_8px_#9e77ed3D]"
+                    ? "shadow-[0_0_0_2px_white,0_0_0_4px_#EF6820] active:shadow-[0_0_0_2px_white,0_0_0_4px_#EF6820,0_0_0_8px_#EF68203D]"
                     : ""
                 }`}
                 style={{ backgroundColor: color.value }}
@@ -139,7 +139,7 @@ export default function Configuration({
               onClick={() => setSelected({ ...selected, size_id: i })}
               className={`button gray sm:lg md !text-secondary !border-2 !px-3.5 !py-1.5 hover:!bg-white ${
                 selected.size_id === i
-                  ? "active:!bg-primary !border-main-500 active:!shadow-[0_0_0_4px_#9e77ed3D,0_1px_2px_0_#1018280D]"
+                  ? "active:!bg-primary !border-main-500 active:!shadow-[0_0_0_4px_#EF68203D,0_1px_2px_0_#1018280D]"
                   : "!border-primary active:!shadow-[0_0_0_4px_#98a2b324,_0_1px_2px_0_#1018280d]"
               }`}
             >

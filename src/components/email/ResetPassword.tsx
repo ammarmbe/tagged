@@ -30,7 +30,7 @@ export const ResetPassword: React.FC<Readonly<ResetPasswordProps>> = ({
         fontSize: "1rem",
         lineHeight: "1.5",
         color: "white",
-        backgroundColor: "#7F56D9",
+        backgroundColor: "#E04F16",
         fontWeight: 600,
         textDecoration: "none",
         borderRadius: "0.25rem",

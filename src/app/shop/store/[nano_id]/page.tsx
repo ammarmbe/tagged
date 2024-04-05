@@ -97,6 +97,9 @@ export default function ShopStore({
         instagram: string;
         facebook: string;
         tiktok: string;
+        cancel_rate: number;
+        return_rate: number;
+        deliver_in: number;
       }>;
     },
   });
@@ -121,8 +124,8 @@ export default function ShopStore({
       <div className="mx-auto w-full max-w-[min(100%,80rem)] px-4">
         <div className="flex-grow overflow-visible rounded-xl border">
           <div className="m-1.5 h-24 rounded-lg bg-gray-100"></div>
-          <div className="m-6 flex flex-col items-center justify-between gap-x-10 gap-y-5 sm:flex-row sm:items-start">
-            <div className="flex flex-col items-center gap-x-6 gap-y-3 text-center sm:flex-row sm:items-start sm:text-start">
+          <div className="m-4 flex flex-col items-center justify-between gap-x-10 gap-y-5 sm:flex-row sm:items-start">
+            <div className="flex flex-col items-center gap-x-4 gap-y-3 text-center sm:flex-row sm:items-start sm:text-start">
               <div className="bg-primary -mt-[4.5rem] flex size-24 rounded-full p-1.5">
                 <div className="flex-grow rounded-full bg-gray-100"></div>
               </div>
@@ -130,46 +133,102 @@ export default function ShopStore({
                 <h2 className="text-xl font-semibold capitalize">
                   {settings?.name}
                 </h2>
-                {settings?.description ? (
-                  <p className="">{settings.description}</p>
-                ) : null}
+                {settings?.description ? <p>{settings.description}</p> : null}
+                <div className="flex gap-2">
+                  {true ? (
+                    <a
+                      href={new URL(
+                        `https://www.instagram.com/${settings?.instagram}`,
+                      ).toString()}
+                      target="_blank"
+                      className="button gray !p-2"
+                    >
+                      <FaInstagram size={16} />
+                    </a>
+                  ) : null}
+                  {true ? (
+                    <a
+                      href={new URL(
+                        `https://www.facebook.com/${settings?.facebook}`,
+                      ).toString()}
+                      target="_blank"
+                      className="button gray !p-2"
+                    >
+                      <FaFacebook size={16} />
+                    </a>
+                  ) : null}
+                  {true ? (
+                    <a
+                      href={new URL(
+                        `https://www.x.com/${settings?.tiktok}`,
+                      ).toString()}
+                      target="_blank"
+                      className="button gray !p-2"
+                    >
+                      <FaTiktok size={16} />
+                    </a>
+                  ) : null}
+                </div>
               </div>
             </div>
-            <div className="flex gap-2">
-              {settings?.instagram ? (
-                <a
-                  href={new URL(
-                    `https://www.instagram.com/${settings.instagram}`,
-                  ).toString()}
-                  target="_blank"
-                  className="button gray !p-2"
-                >
-                  <FaInstagram size={16} />
-                </a>
-              ) : null}
-              {settings?.facebook ? (
-                <a
-                  href={new URL(
-                    `https://www.facebook.com/${settings.facebook}`,
-                  ).toString()}
-                  target="_blank"
-                  className="button gray !p-2"
-                >
-                  <FaFacebook size={16} />
-                </a>
-              ) : null}
-              {settings?.tiktok ? (
-                <a
-                  href={new URL(
-                    `https://www.x.com/${settings.tiktok}`,
-                  ).toString()}
-                  target="_blank"
-                  className="button gray !p-2"
-                >
-                  <FaTiktok size={16} />
-                </a>
-              ) : null}
-            </div>
+            {settings ? (
+              <div className="mr-1 mt-1 flex w-full items-center justify-evenly gap-4 md:w-auto md:justify-end">
+                <div className="flex flex-col items-center gap-1.5">
+                  <p
+                    className={`flex size-9 items-center justify-center rounded-full border text-sm font-medium ${
+                      settings.cancel_rate <= 5
+                        ? "border-success-500 bg-success-100 text-success-800"
+                        : settings.cancel_rate <= 10
+                          ? "border-success-300 bg-success-50 text-success-700"
+                          : settings.cancel_rate <= 20
+                            ? "border-warning-300 bg-warning-50 text-warning-700"
+                            : "border-error-300 bg-error-50 text-error-700"
+                    }`}
+                  >
+                    {settings.cancel_rate}%
+                  </p>
+                  <p className="text-secondary text-sm font-medium">
+                    Cancel rate
+                  </p>
+                </div>
+                <div className="flex flex-col items-center gap-1.5">
+                  <p
+                    className={`flex size-9 items-center justify-center rounded-full border text-sm font-medium ${
+                      settings.return_rate <= 5
+                        ? "border-success-500 bg-success-100 text-success-800"
+                        : settings.return_rate <= 10
+                          ? "border-success-300 bg-success-50 text-success-700"
+                          : settings.return_rate <= 20
+                            ? "border-warning-300 bg-warning-50 text-warning-700"
+                            : "border-error-300 bg-error-50 text-error-700"
+                    }`}
+                  >
+                    {settings.return_rate}%
+                  </p>
+                  <p className="text-secondary text-sm font-medium">
+                    Return rate
+                  </p>
+                </div>
+                <div className="flex flex-col items-center gap-1.5">
+                  <p
+                    className={`flex size-9 items-center justify-center rounded-full border text-sm font-medium ${
+                      Math.round(settings.deliver_in / 86400) <= 3
+                        ? "border-success-500 bg-success-100 text-success-800"
+                        : Math.round(settings.deliver_in / 86400) <= 7
+                          ? "border-success-300 bg-success-50 text-success-700"
+                          : Math.round(settings.deliver_in / 86400) <= 12
+                            ? "border-warning-300 bg-warning-50 text-warning-700"
+                            : "border-error-300 bg-error-50 text-error-700"
+                    }`}
+                  >
+                    {Math.round(settings.deliver_in / 86400)}d
+                  </p>
+                  <p className="text-secondary text-center text-sm font-medium">
+                    Deliver in
+                  </p>
+                </div>
+              </div>
+            ) : null}
           </div>
           <div className="border-t" />
           <div
