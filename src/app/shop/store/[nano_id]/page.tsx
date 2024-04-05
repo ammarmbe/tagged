@@ -126,7 +126,7 @@ export default function ShopStore({
     return (
       <div className="mx-auto w-full max-w-[min(100%,80rem)] px-4">
         <div className="flex-grow overflow-visible rounded-xl border">
-          <div className="m-1.5">
+          <div className="relative m-1.5">
             <div className="h-24 rounded-lg bg-gray-100" />
             {settings?.cover_url ? (
               <Image
@@ -139,7 +139,7 @@ export default function ShopStore({
           </div>
           <div className="m-4 flex flex-col items-center justify-between gap-x-10 gap-y-5 sm:flex-row sm:items-start">
             <div className="flex flex-col items-center gap-x-4 gap-y-3 text-center sm:flex-row sm:items-start sm:text-start">
-              <div className="bg-primary -mt-[4.5rem] flex size-24 rounded-full p-1.5">
+              <div className="bg-primary relative -mt-[4.5rem] flex size-24 rounded-full p-1.5">
                 {settings?.pfp_url ? (
                   <Image
                     fill

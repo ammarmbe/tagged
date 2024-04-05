@@ -132,7 +132,7 @@ export default function SearchBar() {
                           src={item.image_url ?? ""}
                           alt={item.item_name}
                           fill
-                          objectFit="cover"
+                          className="object-cover"
                         />
                       </div>
                       <div>

@@ -115,8 +115,7 @@ export default function CartItem({
             src={item.image_url}
             alt={item.item_name}
             fill
-            objectFit="cover"
-            className="rounded-md"
+            className="rounded-md object-cover"
           />
         </AspectRatio.Root>
       </div>
