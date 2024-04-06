@@ -19,5 +19,10 @@ export async function PATCH(req: Request) {
     [orderId, user?.id],
   );
 
+  await sql(
+    "INSERT INTO order_status_history (order_id, status) VALUES ((SELECT id FROM orders WHERE nano_id = $1), 'customer_cancelled')",
+    [orderId],
+  );
+
   return new Response("OK");
 }
