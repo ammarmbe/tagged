@@ -49,7 +49,7 @@ export default function CancelOrder({ orderId }: { orderId: number }) {
       <Dialog.Portal>
         <Dialog.Overlay
           onClick={(e) => e.stopPropagation()}
-          className="absolute left-0 top-0 z-40 h-screen w-screen cursor-default bg-black opacity-30 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
+          className="fixed inset-0 z-40 cursor-default bg-black opacity-30 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
         />
         <Dialog.Content
           onClick={(e) => e.stopPropagation()}
