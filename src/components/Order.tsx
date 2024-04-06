@@ -1,4 +1,4 @@
-import OrderItems from "@/app/orders/OrderItems";
+import OrderItems from "@/app/order/[nano_id]/[[...page]]/OrderItems";
 import Status from "@/components/Status";
 
 export default function Page({
@@ -11,13 +11,18 @@ export default function Page({
     created_at: string;
     shipping_price: number;
     cancel_reason: string;
+    return_reason: string;
     status:
       | "pending"
+      | "confirmed"
       | "shipped"
       | "completed"
-      | "cancelled"
-      | "returned"
-      | "customer_cancelled";
+      | "store_cancelled"
+      | "customer_cancelled"
+      | "return_requested"
+      | "return_declined"
+      | "return_accepted"
+      | "returned";
     store_name: string;
     store_id: number;
     street: string;
@@ -48,7 +53,7 @@ export default function Page({
   ];
 
   return (
-    <div className="bg-primary grid w-full grid-cols-1 gap-7 p-6 md:grid-cols-[auto,auto,1fr]">
+    <div className="grid w-full grid-cols-1 gap-7 p-6 md:grid-cols-[auto,auto,1fr]">
       <div className="flex-grow">
         <h2 className="font-medium">Address</h2>
         <div className="mt-3 md:ml-3">
@@ -62,7 +67,7 @@ export default function Page({
       </div>
       <div>
         <h2 className="font-medium">Order items</h2>
-        <div className="mt-3 max-h-[400px] space-y-3 overflow-auto md:ml-3 md:w-fit">
+        <div className="mt-3 max-h-[400px] min-w-[300px] space-y-3 overflow-auto md:ml-3 md:w-fit">
           <OrderItems orderId={order.id} />
         </div>
       </div>
@@ -105,15 +110,24 @@ export default function Page({
           <div>
             <p className="text-tertiary mb-1 font-medium">Status</p>
             <p>
-              <Status status={order.status} inline store={false} />
+              <Status status={order.status} inline />
             </p>
           </div>
-          {order.status === "cancelled" && order.cancel_reason ? (
+          {order.status === "store_cancelled" && order.cancel_reason ? (
             <div>
               <p className="text-tertiary mb-1 font-medium">Reason</p>
               <p>
                 {reasons.find((r) => r.value === order.cancel_reason)?.label ??
                   order.cancel_reason}
+              </p>
+            </div>
+          ) : null}
+          {order.return_reason ? (
+            <div>
+              <p className="text-tertiary mb-1 font-medium">Reason</p>
+              <p>
+                {reasons.find((r) => r.value === order.return_reason)?.label ??
+                  order.return_reason}
               </p>
             </div>
           ) : null}

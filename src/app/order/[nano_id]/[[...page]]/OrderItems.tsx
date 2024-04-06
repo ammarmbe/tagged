@@ -1,15 +1,16 @@
 import Spinner from "@/components/Spinner";
 import { useQuery } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 
 export default function OrderItems({ orderId }: { orderId: number }) {
   const router = useRouter();
+  const pathname = usePathname();
 
   const { data: items, isLoading } = useQuery({
     queryKey: ["orderItems", orderId],
     queryFn: async () => {
-      const response = await fetch(`/api/orders/items?orderId=${orderId}`);
+      const response = await fetch(`/api/order/items?orderId=${orderId}`);
       return (await response.json()) as {
         color: string;
         description: string;
@@ -37,7 +38,7 @@ export default function OrderItems({ orderId }: { orderId: number }) {
         items?.map((item) => (
           <div
             key={item.id}
-            className="bg-primary border-primary grid min-w-[250px] cursor-pointer grid-cols-[auto,1fr] items-center gap-4 rounded-lg border p-3 hover:bg-gray-50"
+            className={`bg-primary border-primary grid min-w-[250px] cursor-pointer grid-cols-[auto,1fr] items-center gap-4 rounded-lg border p-3 ${item.nano_id ? "cursor-pointer hover:bg-gray-50" : "cursor-auto"}`}
             onClick={(e) => {
               e.stopPropagation();
               item.nano_id && router.push(`/item/${item.nano_id}`);
@@ -46,7 +47,22 @@ export default function OrderItems({ orderId }: { orderId: number }) {
               if (e.key === "Enter" && item.nano_id)
                 router.push(`/item/${item.nano_id}`);
             }}
-            tabIndex={0}
+            onMouseEnter={(e) => {
+              pathname === "/orders" &&
+                item.nano_id &&
+                e.currentTarget.parentElement?.parentElement?.parentElement?.parentElement?.parentElement?.classList.remove(
+                  "hover:bg-gray-50",
+                );
+            }}
+            onMouseLeave={(e) => {
+              pathname === "/orders" &&
+                item.nano_id &&
+                e.currentTarget.parentElement?.parentElement?.parentElement?.parentElement?.parentElement?.classList.add(
+                  "hover:bg-gray-50",
+                );
+            }}
+            tabIndex={item.nano_id ? 0 : undefined}
+            role={item.nano_id ? "button" : undefined}
           >
             {item.image_url ? (
               <Image

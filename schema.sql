@@ -100,6 +100,7 @@ CREATE TABLE orders (
   "status" TEXT NOT NULL,
   governorate TEXT NOT NULL,
   cancel_reason TEXT,
+  return_reason TEXT,
   nano_id VARCHAR(10) NOT NULL UNIQUE,
   completed_at TIMESTAMPTZ,
   shipping_price INT NOT NULL,

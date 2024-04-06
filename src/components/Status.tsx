@@ -3,26 +3,26 @@ import * as Tooltip from "@radix-ui/react-tooltip";
 export default function Status({
   status,
   inline,
-  store,
 }: {
   status:
     | "pending"
+    | "confirmed"
     | "shipped"
     | "completed"
-    | "cancelled"
-    | "returned"
-    | "confirmed"
-    | "customer_cancelled";
+    | "store_cancelled"
+    | "customer_cancelled"
+    | "return_requested"
+    | "return_declined"
+    | "return_accepted"
+    | "returned";
   inline?: boolean;
-  store: boolean;
 }) {
   let statusColors = {
     border: "border-primary",
     text: "text-secondary",
     background: "bg-primary",
-    tooltip_content: store
-      ? "You have not confirmed this order yet."
-      : "The store has not confirmed your order yet.",
+    status_text: "Pending",
+    tooltip_content: "The store has not confirmed your order yet.",
   };
 
   switch (status) {
@@ -31,9 +31,8 @@ export default function Status({
         border: "#d5d9eb",
         text: "#363f72",
         background: "#f8f9fc",
-        tooltip_content: store
-          ? "You have not confirmed this order yet"
-          : "The store has not confirmed your order yet.",
+        status_text: "Pending",
+        tooltip_content: "The store has not confirmed your order yet.",
       };
       break;
     case "shipped":
@@ -41,9 +40,8 @@ export default function Status({
         border: "#b9e6fe",
         text: "#026aa2",
         background: "#f0f9ff",
-        tooltip_content: store
-          ? "You have shipped this order."
-          : "Your order has been shipped.",
+        status_text: "Shipped",
+        tooltip_content: "Your order has been shipped.",
       };
       break;
     case "completed":
@@ -51,19 +49,17 @@ export default function Status({
         border: "#aaefc6",
         text: "#067647",
         background: "#ecfdf3",
-        tooltip_content: store
-          ? "You have completed this order."
-          : "Your order has been completed.",
+        status_text: "Completed",
+        tooltip_content: "Your order has been completed.",
       };
       break;
-    case "cancelled":
+    case "store_cancelled":
       statusColors = {
         border: "#fecdc9",
         text: "#b32318",
         background: "#fef3f2",
-        tooltip_content: store
-          ? "You have cancelled this order."
-          : "Your order has been cancelled by the store.",
+        status_text: "Cancelled by store",
+        tooltip_content: "Your order has been cancelled by the store.",
       };
       break;
     case "customer_cancelled":
@@ -71,9 +67,8 @@ export default function Status({
         border: "#fecdc9",
         text: "#b32318",
         background: "#fef3f2",
-        tooltip_content: store
-          ? "This order has been cancelled by the customer."
-          : "You have cancelled this order.",
+        status_text: "Cancelled by you",
+        tooltip_content: "You have cancelled this order.",
       };
       break;
     case "returned":
@@ -81,9 +76,8 @@ export default function Status({
         border: "#fedf89",
         text: "#b54708",
         background: "#fffaeb",
-        tooltip_content: store
-          ? "This order has been returned by the customer."
-          : "Your order has been returned.",
+        status_text: "Returned",
+        tooltip_content: "Your order has been returned.",
       };
       break;
     case "confirmed":
@@ -91,9 +85,62 @@ export default function Status({
         border: "#F9DBAF",
         text: "#B93815",
         background: "#FEF6EE",
-        tooltip_content: store
-          ? "You have confirmed this order."
-          : "Your order has been confirmed by the store.",
+        status_text: "Confirmed",
+        tooltip_content: "Your order has been confirmed by the store.",
+      };
+      break;
+    case "return_requested":
+      statusColors = {
+        border: "#F9DBAF",
+        text: "#B93815",
+        background: "#FEF6EE",
+        status_text: "Return requested",
+        tooltip_content: "You have requested a return.",
+      };
+      break;
+    case "return_declined":
+      statusColors = {
+        border: "#F9DBAF",
+        text: "#B93815",
+        background: "#FEF6EE",
+        status_text: "Return declined",
+        tooltip_content: "Your return request has been declined.",
+      };
+      break;
+    case "return_accepted":
+      statusColors = {
+        border: "#F9DBAF",
+        text: "#B93815",
+        background: "#FEF6EE",
+        status_text: "Return accepted",
+        tooltip_content: "Your return request has been accepted.",
+      };
+      break;
+    case "return_requested":
+      statusColors = {
+        border: "#F9DBAF",
+        text: "#B93815",
+        background: "#FEF6EE",
+        status_text: "Return requested",
+        tooltip_content: "You have requested a return.",
+      };
+      break;
+    case "return_declined":
+      statusColors = {
+        border: "#F9DBAF",
+        text: "#B93815",
+        background: "#FEF6EE",
+        status_text: "Return declined",
+        tooltip_content: "Your return request has been declined.",
+      };
+      break;
+    case "return_accepted":
+      statusColors = {
+        border: "#F9DBAF",
+        text: "#B93815",
+        background: "#FEF6EE",
+        status_text: "Return accepted",
+        tooltip_content: "Your return request has been accepted.",
       };
       break;
     default:
@@ -115,13 +162,7 @@ export default function Status({
             }}
             className={`text-medium w-fit text-nowrap rounded-full border p-2 py-0.5 text-xs ${inline ? "inline" : "block"}`}
           >
-            {status === "customer_cancelled" ? (
-              "Cancelled by customer"
-            ) : status === "cancelled" ? (
-              "Cancelled by store"
-            ) : (
-              <span className="capitalize">{status}</span>
-            )}
+            {statusColors.status_text}
           </span>
         </Tooltip.Trigger>
         <Tooltip.Portal>

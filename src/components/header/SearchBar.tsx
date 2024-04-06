@@ -215,8 +215,9 @@ export default function SearchBar() {
                     <Search size={18} />
                   </button>
                 </form>
-                <Dialog.Close className="button-secondary h-fit !p-[calc(0.5rem+1px)] text-gray-600">
-                  <X />
+
+                <Dialog.Close className="button secondary !border-none !p-[calc(0.625rem+1px)]">
+                  <X size={20} />
                 </Dialog.Close>
               </div>
               {isFetching ? (

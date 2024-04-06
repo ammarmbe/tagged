@@ -4,6 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import Status from "@/components/Status";
 import Order from "@/components/Order";
 import { CheckCircle } from "lucide-react";
+import CancelOrder from "@/app/orders/CancelOrder";
+import ReturnOrder from "@/app/orders/ReturnOrder";
 
 export default function CustomerOrder({
   params,
@@ -22,7 +24,18 @@ export default function CustomerOrder({
         created_at: string;
         shipping_price: number;
         cancel_reason: string;
-        status: "pending" | "shipped" | "completed" | "cancelled" | "returned";
+        return_reason: string;
+        status:
+          | "pending"
+          | "confirmed"
+          | "shipped"
+          | "completed"
+          | "store_cancelled"
+          | "customer_cancelled"
+          | "return_requested"
+          | "return_declined"
+          | "return_accepted"
+          | "returned";
         store_name: string;
         store_id: number;
         street: string;
@@ -39,7 +52,7 @@ export default function CustomerOrder({
       <div className="mx-auto w-full max-w-[min(100%,80rem)] px-4">
         <div className="overflow-hidden rounded-xl border">
           <h2 className="mx-6 my-7 flex items-center gap-1.5 text-xl font-semibold">
-            Order #{params.nano_id}
+            Order {params.nano_id}
           </h2>
           <div className="border-t" />
           <div className="flex items-center justify-center p-10">
@@ -64,10 +77,19 @@ export default function CustomerOrder({
             <div
               className={`flex flex-wrap items-center gap-1.5 ${params.page?.[0] === "success" ? "font-semibold sm:font-medium sm:text-gray-700" : "font-semibold"}`}
             >
-              <p>Order #{params.nano_id}</p>
-              <span className="ml-1 w-fit font-medium">
-                <Status status={order.status} store={false} />
-              </span>
+              <p className="flex w-full flex-wrap items-center justify-between gap-3">
+                <span className="flex items-center gap-3">
+                  Order {params.nano_id}{" "}
+                  <span className="w-fit font-medium">
+                    <Status status={order.status} />
+                  </span>
+                </span>
+                {order.status === "completed" ? (
+                  <ReturnOrder orderId={order.id} />
+                ) : order.status === "pending" ? (
+                  <CancelOrder orderId={order.id} />
+                ) : null}
+              </p>
             </div>
           </h2>
           <div className="border-t" />
