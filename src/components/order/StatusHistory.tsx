@@ -1,5 +1,6 @@
 import {
   RiAddLine,
+  RiArrowGoBackLine,
   RiCheckDoubleLine,
   RiCheckLine,
   RiForbidLine,
@@ -8,6 +9,19 @@ import {
 } from "react-icons/ri";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../primitives/Loading";
+
+const text = {
+  pending: "Pending",
+  confirmed: "Confirmed",
+  shipped: "Shipped",
+  completed: "Completed",
+  store_cancelled: "Cancelled by you",
+  customer_cancelled: "Cancelled by customer",
+  return_requested: "Return requested",
+  return_declined: "Return declined",
+  return_accepted: "Return accepted",
+  returned: "Returned",
+} as const;
 
 export default function StatusHistory({ nano_id }: { nano_id: string }) {
   const { data, isFetching } = useQuery({
@@ -19,11 +33,16 @@ export default function StatusHistory({ nano_id }: { nano_id: string }) {
           created_at: string;
           date: string;
           status:
+            | "pending"
             | "confirmed"
             | "shipped"
             | "completed"
             | "store_cancelled"
-            | "customer_cancelled";
+            | "customer_cancelled"
+            | "return_requested"
+            | "return_declined"
+            | "return_accepted"
+            | "returned";
         }[]
       >;
     },
@@ -77,12 +96,15 @@ export default function StatusHistory({ nano_id }: { nano_id: string }) {
                       size={16}
                       className="inline text-text-600"
                     />
-                  ) : null}
-                  {status.status === "store_cancelled"
-                    ? "Cancelled by store"
-                    : status.status === "customer_cancelled"
-                      ? "Cancelled by customer"
-                      : status.status}
+                  ) : status.status === "return_declined" ? (
+                    <RiForbidLine size={16} className="inline text-text-600" />
+                  ) : (
+                    <RiArrowGoBackLine
+                      size={16}
+                      className="inline text-text-600"
+                    />
+                  )}
+                  {text[status.status as keyof typeof text]}
                 </p>
                 <p className="paragraph-small text-text-600 sm:text-end">
                   {new Intl.DateTimeFormat("en-US", {

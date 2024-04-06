@@ -152,9 +152,9 @@ export default function Statistics() {
               {data.return_rate * 100 + "%"}
               <span
                 className={`subheading-2xsmall rounded-full px-1.5 py-0.5 ${
-                  data.return_rate > data.prev_return_rate
+                  data.return_rate < data.prev_return_rate
                     ? "bg-[#CBF5E4] text-[#176448]"
-                    : data.return_rate < data.prev_return_rate
+                    : data.return_rate > data.prev_return_rate
                       ? "bg-[#F8C9D2] text-[#710E21]"
                       : "bg-[#F6F8FA] text-[#525866]"
                 }`}

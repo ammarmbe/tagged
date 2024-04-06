@@ -8,12 +8,8 @@ const settings = [
   { name: "Change store email address", link: "/settings/profile#email" },
   { name: "Change shipping price", link: "/settings/shipping#price" },
   {
-    name: "Change exchange policy",
-    link: "/settings/shipping#exchange_policy",
-  },
-  {
-    name: "Change return policy",
-    link: "/settings/shipping#return_policy",
+    name: "Change return period",
+    link: "/settings/shipping#return_period",
   },
   { name: "Change password", link: "/settings/privacy#password" },
 ];
@@ -42,10 +38,10 @@ export default function Settings({ searchTerm }: { searchTerm: string }) {
             <Link
               key={index}
               href={result.link}
-              className="border-bg-300 hover:bg-bg-50 group flex items-center rounded-lg p-2 pl-3"
+              className="group flex items-center rounded-lg border-bg-300 p-2 pl-3 hover:bg-bg-50"
             >
               <p className="paragraph-small flex-grow">{result.name}</p>
-              <span className="bg-bg-0 text-text-600 rounded-full opacity-0 shadow-sm group-hover:opacity-100">
+              <span className="rounded-full bg-bg-0 text-text-600 opacity-0 shadow-sm group-hover:opacity-100">
                 <RiArrowRightSLine size={20} />
               </span>
             </Link>
@@ -63,10 +59,10 @@ export default function Settings({ searchTerm }: { searchTerm: string }) {
           <Link
             key={index}
             href={result.item.link}
-            className="border-bg-300 hover:bg-bg-50 group flex items-center rounded-lg p-2 pl-3"
+            className="group flex items-center rounded-lg border-bg-300 p-2 pl-3 hover:bg-bg-50"
           >
             <p className="paragraph-small flex-grow">{result.item.name}</p>
-            <span className="bg-bg-0 text-text-600 rounded-full opacity-0 shadow-sm group-hover:opacity-100">
+            <span className="rounded-full bg-bg-0 text-text-600 opacity-0 shadow-sm group-hover:opacity-100">
               <RiArrowRightSLine size={20} />
             </span>
           </Link>

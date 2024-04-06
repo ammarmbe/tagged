@@ -19,36 +19,8 @@ type TDuration = {
     | "7 days"
     | "14 days"
     | "30 days"
-    | "No exchanges allowed"
     | "No returns allowed";
 };
-
-const exchange_durations = [
-  {
-    value: "",
-    label: "No exchanges allowed",
-  },
-  {
-    value: "1d",
-    label: "1 day",
-  },
-  {
-    value: "3d",
-    label: "3 days",
-  },
-  {
-    value: "7d",
-    label: "7 days",
-  },
-  {
-    value: "14d",
-    label: "14 days",
-  },
-  {
-    value: "30d",
-    label: "30 days",
-  },
-] as const;
 
 const return_durations = [
   {
@@ -110,7 +82,6 @@ const gov = [
 export default function Page() {
   const queryClient = useQueryClient();
   const [editingPrice, setEditingPrice] = useState(false);
-  const [editingExchangePolicy, setEditingExchangePolicy] = useState(false);
   const [editingReturnPolicy, setEditingReturnPolicy] = useState(false);
   const [allowedGov, setAllowedGov] = useState<string[]>([
     "Cairo",
@@ -157,45 +128,10 @@ export default function Page() {
     },
   });
 
-  const exchangePolicyMutation = useMutation({
-    mutationKey: ["updateExchangePolicy"],
-    mutationFn: async ({ exchange_period }: { exchange_period: TDuration }) => {
-      const res = await fetch("/api/current-user/shipping/exchange-policy", {
-        method: "PATCH",
-        body: JSON.stringify({ exchange_period: exchange_period.value }),
-      });
-
-      return res.ok;
-    },
-    async onSuccess(ok) {
-      await queryClient.invalidateQueries({
-        predicate: (query) => query.queryKey[0] === "current-user",
-      });
-
-      ok
-        ? toast({
-            title: "Exchange policy updated successfully.",
-            color: "green",
-            saturation: "high",
-            size: "sm",
-            position: "center",
-          })
-        : toast({
-            title: "An error occured, please try again.",
-            color: "red",
-            saturation: "high",
-            size: "sm",
-            position: "center",
-          });
-
-      setEditingExchangePolicy(false);
-    },
-  });
-
   const returnPolicyMutation = useMutation({
     mutationKey: ["updateReturnPolicy"],
     mutationFn: async ({ return_period }: { return_period: TDuration }) => {
-      const res = await fetch("/api/current-user/shipping/return-policy", {
+      const res = await fetch("/api/current-user/shipping/return-period", {
         method: "PATCH",
         body: JSON.stringify({ return_period: return_period.value }),
       });
@@ -274,25 +210,6 @@ export default function Page() {
   });
 
   const {
-    handleSubmit: handleExchangePolicySubmit,
-    setValue: setExchangePolicyValue,
-    control: exchangePolicyControl,
-  } = useForm<{
-    exchange_period: TDuration;
-  }>({
-    defaultValues: {
-      exchange_period: {
-        value: user?.feature_flags?.exchange_period || "",
-        label:
-          exchange_durations.find(
-            (duration) =>
-              duration.value === user?.feature_flags?.exchange_period,
-          )?.label || "No exchanges allowed",
-      },
-    },
-  });
-
-  const {
     handleSubmit: handleReturnPolicySubmit,
     setValue: setReturnPolicyValue,
     control: returnPolicyControl,
@@ -314,12 +231,6 @@ export default function Page() {
     await priceMutation.mutateAsync(Number(price));
   };
 
-  const onExchangePolicySubmit: SubmitHandler<{
-    exchange_period: TDuration;
-  }> = async ({ exchange_period }) => {
-    await exchangePolicyMutation.mutateAsync({ exchange_period });
-  };
-
   const onReturnPolicySubmit: SubmitHandler<{
     return_period: TDuration;
   }> = async ({ return_period }) => {
@@ -331,26 +242,14 @@ export default function Page() {
       "price",
       user?.feature_flags?.shipping_price?.toString() || "0",
     );
-    setExchangePolicyValue("exchange_period", {
-      value: user?.feature_flags?.exchange_period || "",
-      label:
-        exchange_durations.find(
-          (duration) => duration.value === user?.feature_flags?.exchange_period,
-        )?.label || "No exchanges allowed",
-    });
     setReturnPolicyValue("return_period", {
       value: user?.feature_flags?.return_period || "",
       label:
-        exchange_durations.find(
+        return_durations.find(
           (duration) => duration.value === user?.feature_flags?.return_period,
         )?.label || "No returns allowed",
     });
-  }, [
-    setPriceValue,
-    setExchangePolicyValue,
-    setReturnPolicyValue,
-    user?.feature_flags,
-  ]);
+  }, [setPriceValue, setReturnPolicyValue, user?.feature_flags]);
 
   return (
     <div className="flex flex-grow flex-col">
@@ -472,70 +371,6 @@ export default function Page() {
               </p>
               <button
                 onClick={() => setEditingReturnPolicy(true)}
-                className="label-small flex w-fit items-center gap-0.5 text-main-base"
-              >
-                Edit <RiArrowRightSLine size={20} />
-              </button>
-            </div>
-          </>
-        )}
-        <div className="border-t sm:col-span-2" />
-        {editingExchangePolicy ? (
-          <>
-            <form
-              onSubmit={handleExchangePolicySubmit(onExchangePolicySubmit)}
-              className="cols-span-2"
-            >
-              <div className="w-full">
-                <p className="label-small mb-1">Exchange Period</p>
-                <div className="flex gap-3">
-                  <Controller
-                    control={exchangePolicyControl}
-                    name="exchange_period"
-                    render={({
-                      field: { onChange, value, name, ref, onBlur, disabled },
-                    }) => (
-                      <Select
-                        size="sm"
-                        className="w-screen !max-w-[200px]"
-                        value={value}
-                        width="1000px"
-                        onChange={onChange}
-                        options={exchange_durations}
-                        name={name}
-                        ref={ref}
-                        onBlur={onBlur}
-                        isDisabled={disabled}
-                      />
-                    )}
-                  />
-                  <Button
-                    size="sm"
-                    text="Save"
-                    disabled={exchangePolicyMutation.isPending}
-                    type="submit"
-                  />
-                </div>
-              </div>
-            </form>
-          </>
-        ) : (
-          <>
-            <div>
-              <p className="label-small">Exchange Policy</p>
-              <div className="paragraph-small mt-1 text-text-600">
-                This will be displayed on the product page.
-              </div>
-            </div>
-            <div className="flex flex-col gap-2 self-center">
-              <p className="paragraph-small">
-                {exchange_durations.find(
-                  (duration) =>
-                    duration.value === user?.feature_flags?.exchange_period,
-                )?.label || "No exchanges allowed"}
-              </p>
-              <button
-                onClick={() => setEditingExchangePolicy(true)}
                 className="label-small flex w-fit items-center gap-0.5 text-main-base"
               >
                 Edit <RiArrowRightSLine size={20} />

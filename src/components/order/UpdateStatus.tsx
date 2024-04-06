@@ -38,6 +38,24 @@ const statuses = [
   },
 ];
 
+const return_statuses = [
+  {
+    name: "return_declined",
+    title: "Return Declined",
+    description: "Store has declined the return request.",
+  },
+  {
+    name: "return_accepted",
+    title: "Return Accepted",
+    description: "Store has accepted the return request.",
+  },
+  {
+    name: "returned",
+    title: "Returned",
+    description: "Order has been returned to the store.",
+  },
+];
+
 export default function UpdateStatus({
   nano_id,
   trigger,
@@ -52,6 +70,10 @@ export default function UpdateStatus({
     | "completed"
     | "store_cancelled"
     | "customer_cancelled"
+    | "return_requested"
+    | "return_declined"
+    | "return_accepted"
+    | "returned"
     | null
     | undefined;
 }) {
@@ -65,6 +87,10 @@ export default function UpdateStatus({
     | "completed"
     | "store_cancelled"
     | "customer_cancelled"
+    | "return_requested"
+    | "return_declined"
+    | "return_accepted"
+    | "returned"
     | null
   >(null);
   const [cancelReason, setCancelReason] = useState("");
@@ -83,6 +109,10 @@ export default function UpdateStatus({
         | "completed"
         | "store_cancelled"
         | "customer_cancelled"
+        | "return_requested"
+        | "return_declined"
+        | "return_accepted"
+        | "returned"
         | null;
       cancel_reason?: string | null;
     }) => {
@@ -139,6 +169,10 @@ export default function UpdateStatus({
       | "completed"
       | "store_cancelled"
       | "customer_cancelled"
+      | "return_requested"
+      | "return_declined"
+      | "return_accepted"
+      | "returned"
       | null;
     cancel_reason: string | null;
   }>();
@@ -151,6 +185,10 @@ export default function UpdateStatus({
       | "completed"
       | "store_cancelled"
       | "customer_cancelled"
+      | "return_requested"
+      | "return_declined"
+      | "return_accepted"
+      | "returned"
       | null;
     cancel_reason: string | null;
   }> = (data) => {
@@ -200,12 +238,20 @@ export default function UpdateStatus({
             }`}
           >
             <div className="flex flex-col gap-4 p-4">
-              {statuses.map((s, i) => (
+              {(current_status === "return_requested" ||
+              current_status === "return_accepted"
+                ? return_statuses
+                : statuses
+              ).map((s, i) => (
                 <label
                   htmlFor={s.name}
                   key={i}
                   aria-disabled={
-                    statuses.findIndex((st) => st.name === current_status) >= i
+                    (current_status === "return_requested" ||
+                    current_status === "return_accepted"
+                      ? return_statuses
+                      : statuses
+                    ).findIndex((st) => st.name === current_status) >= i
                   }
                   className={`group flex cursor-pointer gap-4 rounded-xl border p-4 transition-all hover:border-border-300 hover:bg-bg-50 disabled:!border-border-200 aria-disabled:cursor-not-allowed aria-disabled:hover:border-border-300 aria-disabled:hover:bg-bg-0 ${
                     status !== s.name
@@ -243,9 +289,11 @@ export default function UpdateStatus({
                       onChange={(e) => {
                         if (
                           !(
-                            statuses.findIndex(
-                              (st) => st.name === current_status,
-                            ) >= i
+                            (current_status === "return_requested" ||
+                            current_status === "return_accepted"
+                              ? return_statuses
+                              : statuses
+                            ).findIndex((st) => st.name === current_status) >= i
                           ) &&
                           e.target.checked
                         )
@@ -257,13 +305,19 @@ export default function UpdateStatus({
                               | "completed"
                               | "store_cancelled"
                               | "customer_cancelled"
+                              | "return_requested"
+                              | "return_declined"
+                              | "return_accepted"
+                              | "returned"
                               | null,
                           );
                       }}
                       disabled={
-                        statuses.findIndex(
-                          (st) => st.name === current_status,
-                        ) >= i
+                        (current_status === "return_requested" ||
+                        current_status === "return_accepted"
+                          ? return_statuses
+                          : statuses
+                        ).findIndex((st) => st.name === current_status) >= i
                       }
                       id={s.name}
                     />

@@ -37,12 +37,12 @@ export default function Header({
             {icon}
           </div>
         ) : user?.pfp_url ? (
-          <div className="relative row-span-2 flex size-12 overflow-hidden rounded-full border border-transparent">
+          <div className="relative row-span-2 hidden size-12 overflow-hidden rounded-full border border-transparent sm:flex">
             <Image fill src={user.pfp_url} alt={user.name} />
             <div className="flex-grow bg-bg-300" />
           </div>
         ) : (
-          <div className="row-span-2" />
+          <div className="row-span-2 hidden sm:block" />
         )}
         <p className="label-large truncate">{title}</p>
         <p className="paragraph-small hidden text-text-600 sm:block">

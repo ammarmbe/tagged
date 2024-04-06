@@ -155,22 +155,23 @@ export default function Sidebar() {
         {pathname.startsWith("/settings") ? (
           <Link href="/settings/profile" className="group flex flex-col">
             <span className="mx-3 block border-t transition-all group-hover:border-transparent" />
-            <span className="relative block p-4">
-              {user?.pfp_url ? (
-                <Image
-                  fill
-                  src={user.pfp_url}
-                  alt={user.name}
-                  className="rounded-full"
-                />
-              ) : null}
-              <span className="block size-7 rounded-full bg-gray-100" />
+            <span className="block p-4">
+              <span className="relative block size-7 rounded-full bg-gray-100">
+                {user?.pfp_url ? (
+                  <Image
+                    fill
+                    src={user.pfp_url}
+                    alt={user.name}
+                    className="rounded-full"
+                  />
+                ) : null}
+              </span>
             </span>
           </Link>
         ) : (
           <Link href="/settings/profile" className="group flex flex-col">
             <span className="mx-5 block border-t transition-all group-hover:border-transparent" />
-            <span className="flex items-center gap-3 p-6 pt-5 transition-all group-hover:bg-bg-50">
+            <span className="flex items-center gap-3 p-6 pt-5 transition-all group-hover:bg-bg-200">
               <div className="relative flex size-10 overflow-hidden rounded-full">
                 {user?.pfp_url ? (
                   <Image

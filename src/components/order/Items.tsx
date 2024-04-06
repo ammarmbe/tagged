@@ -35,7 +35,7 @@ export default function Items({ nano_id }: { nano_id: string }) {
         <p className="label-medium flex items-center gap-1.5">Order Items </p>
       </div>
       <div className="mx-4 border-t" />
-      <div className="relative flex-grow">
+      <div className="relative min-w-[300px] flex-grow">
         <Loading isFetching={isFetching} />
         <div className="flex max-h-[400px] flex-grow flex-col gap-3 overflow-auto">
           {data?.map((item) => (

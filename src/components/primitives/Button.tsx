@@ -56,7 +56,7 @@ const Button = React.forwardRef<
           ref={ref as any}
           href={href}
           {...(props as any)}
-          className={`flex h-fit items-center gap-0.5 rounded-[10px] border transition-all disabled:border-border-200 disabled:bg-bg-200 disabled:text-text-300 disabled:!shadow-none ${styles.size[size]} ${styles.color[color]} ${className}`}
+          className={`flex h-fit items-center gap-0.5 rounded-[10px] border transition-all disabled:border-border-200 disabled:bg-bg-50 disabled:text-text-300 disabled:!shadow-none ${styles.size[size]} ${styles.color[color]} ${className}`}
         >
           {iconLeft}
           {text ? <span className="label-small px-1">{text}</span> : null}
@@ -69,7 +69,7 @@ const Button = React.forwardRef<
       <button
         ref={ref as any}
         {...(props as any)}
-        className={`flex h-fit items-center gap-0.5 rounded-[10px] border transition-all disabled:border-border-200 disabled:bg-bg-200 disabled:text-text-300 disabled:!shadow-none ${styles.size[size]} ${styles.color[color]} ${className}`}
+        className={`flex h-fit items-center gap-0.5 rounded-[10px] border transition-all disabled:border-border-200 disabled:bg-bg-50 disabled:text-text-300 disabled:!shadow-none ${styles.size[size]} ${styles.color[color]} ${className}`}
       >
         {iconLeft}
         {text ? <span className="label-small px-1">{text}</span> : null}

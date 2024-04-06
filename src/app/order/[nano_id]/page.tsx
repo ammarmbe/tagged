@@ -9,6 +9,7 @@ import { LuDot } from "react-icons/lu";
 import Status from "@/components/Status";
 import UpdateStatus from "@/components/order/UpdateStatus";
 import Button from "@/components/primitives/Button";
+import Info from "@/components/order/Info";
 
 export default function Page({ params }: { params: { nano_id: string } }) {
   const { data, isFetching } = useQuery({
@@ -24,6 +25,10 @@ export default function Page({ params }: { params: { nano_id: string } }) {
           | "completed"
           | "store_cancelled"
           | "customer_cancelled"
+          | "return_requested"
+          | "return_declined"
+          | "return_accepted"
+          | "returned"
           | null;
         governorate: string;
         first_name: string;
@@ -33,6 +38,9 @@ export default function Page({ params }: { params: { nano_id: string } }) {
         apartment?: string;
         last_name?: string;
         phone_number?: string;
+        created_at: string;
+        shipping_price: number;
+        cancel_reason: string;
       }>;
     },
   });
@@ -50,21 +58,29 @@ export default function Page({ params }: { params: { nano_id: string } }) {
           </span>
         }
         buttonNode={
-          <UpdateStatus
-            trigger={
-              <Button
-                text="Update Status"
-                className="flex-none"
-                iconLeft={<RiMindMap size={20} />}
-                color="main"
-              />
-            }
-            current_status={data?.status}
-            nano_id={params.nano_id}
-          />
+          ![
+            "completed",
+            "store_cancelled",
+            "customer_cancelled",
+            "returned",
+          ].includes(data?.status ?? "completed") ? (
+            <UpdateStatus
+              trigger={
+                <Button
+                  text="Update Status"
+                  className="flex-none"
+                  iconLeft={<RiMindMap size={20} />}
+                  color="main"
+                />
+              }
+              current_status={data?.status}
+              nano_id={params.nano_id}
+            />
+          ) : null
         }
       />
       <div className="grid flex-wrap gap-4 px-5 pb-6 pt-1 sm:flex sm:gap-6 sm:px-8">
+        <Info data={data} isFetching={isFetching} />
         <Address
           address={{
             address_hidden: data?.address_hidden,

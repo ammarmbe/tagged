@@ -19,7 +19,7 @@ export default function TooltipComponent({
   return (
     <Tooltip.Provider delayDuration={100}>
       <Tooltip.Root>
-        <Tooltip.Trigger asChild className="cursor-help">
+        <Tooltip.Trigger asChild className="flex cursor-help">
           {trigger}
         </Tooltip.Trigger>
         <Tooltip.Portal>

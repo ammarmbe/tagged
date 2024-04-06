@@ -40,7 +40,6 @@ interface DatabaseUserAttributes {
     table_size?: "comfortable" | "compact";
     shipping_price?: number;
     return_period?: "1d" | "3d" | "7d" | "14d" | "30d" | "";
-    exchange_period?: "1d" | "3d" | "7d" | "14d" | "30d" | "";
     tiktok?: string;
     facebook?: string;
     instagram?: string;

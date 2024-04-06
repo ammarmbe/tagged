@@ -23,7 +23,11 @@ export async function POST(req: Request) {
       | "shipped"
       | "completed"
       | "store_cancelled"
-      | "customer_cancelled";
+      | "customer_cancelled"
+      | "return_requested"
+      | "return_declined"
+      | "return_accepted"
+      | "returned";
     total_price_min: number;
     total_price_max: number;
     total_items_min: number;

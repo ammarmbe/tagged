@@ -36,7 +36,11 @@ type TSale = {
     | "shipped"
     | "completed"
     | "store_cancelled"
-    | "customer_cancelled";
+    | "customer_cancelled"
+    | "return_requested"
+    | "return_declined"
+    | "return_accepted"
+    | "returned";
 };
 
 const columnHelper = createColumnHelper<TSale>();
