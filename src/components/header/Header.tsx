@@ -1,4 +1,4 @@
-import Link from "@/utils/Link";
+import Link from "@/components/primitives/Link";
 import getUser from "@/utils/getUser";
 import Image from "next/image";
 import Account from "./Account";

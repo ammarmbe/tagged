@@ -2,7 +2,7 @@
 import Spinner from "@/components/Spinner";
 import { Scrypt } from "lucia";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-import Link from "@/utils/Link";
+import Link from "@/components/primitives/Link";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { customAlphabet } from "nanoid";

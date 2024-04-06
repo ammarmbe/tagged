@@ -1,6 +1,6 @@
 import { Facebook, Instagram } from "lucide-react";
 import Image from "next/image";
-import Link from "@/utils/Link";
+import Link from "@/components/primitives/Link";
 import { FaTiktok } from "react-icons/fa";
 
 export default function Footer() {

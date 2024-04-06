@@ -5,7 +5,7 @@ import { ShoppingBag, X } from "lucide-react";
 import Spinner from "../../Spinner";
 import { useEffect, useState } from "react";
 import CartItem from "./CartItem";
-import Link from "@/utils/Link";
+import Link from "@/components/primitives/Link";
 
 export default function Cart() {
   const [dialogOpen, setDialogOpen] = useState(false);

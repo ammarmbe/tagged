@@ -1,7 +1,7 @@
 "use client";
 import { User } from "lucia";
 import { ChevronRight } from "lucide-react";
-import Link from "@/utils/Link";
+import Link from "@/components/primitives/Link";
 import { notFound } from "next/navigation";
 import { Fragment, useState } from "react";
 import Configuration from "./Configuration";

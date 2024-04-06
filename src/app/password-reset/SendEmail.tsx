@@ -6,7 +6,7 @@ import {
   ToastClose,
 } from "@radix-ui/react-toast";
 import { useQuery } from "@tanstack/react-query";
-import Link from "@/utils/Link";
+import Link from "@/components/primitives/Link";
 import { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Image from "next/image";

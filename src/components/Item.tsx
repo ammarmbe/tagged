@@ -1,5 +1,5 @@
 "use client";
-import Link from "@/utils/Link";
+import Link from "@/components/primitives/Link";
 import * as AspectRatio from "@radix-ui/react-aspect-ratio";
 import { useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";

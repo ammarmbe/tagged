@@ -5,7 +5,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import Spinner from "../Spinner";
-import Link from "@/utils/Link";
+import Link from "@/components/primitives/Link";
 import Image from "next/image";
 
 export default function SearchBar() {

@@ -5,18 +5,18 @@ import { X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-export default function ReturnOrder({ orderId }: { orderId: number }) {
+export default function ReturnOrder({ nano_id }: { nano_id: string }) {
   const [dialogOpen, setDialogOpen] = useState(false);
   const pathname = usePathname();
   const queryClient = useQueryClient();
 
   const returnMutation = useMutation({
-    mutationKey: ["return-order", orderId],
+    mutationKey: ["return-order", nano_id],
     mutationFn: async () => {
       await fetch(`/api/order/return`, {
         method: "PATCH",
         body: JSON.stringify({
-          orderId,
+          nano_id,
         }),
       });
     },

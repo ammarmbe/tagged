@@ -3,7 +3,7 @@ import Spinner from "@/components/Spinner";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import Link from "@/utils/Link";
+import Link from "@/components/primitives/Link";
 import { useQuery } from "@tanstack/react-query";
 
 export default function SignIn() {

@@ -14,7 +14,7 @@ import {
 import { generalSans } from "@/utils";
 import signout from "./signout";
 import Image from "next/image";
-import Link from "@/utils/Link";
+import Link from "@/components/primitives/Link";
 import Cart from "./cart/Cart";
 
 export default function AccountButton({ user }: { user: User }) {

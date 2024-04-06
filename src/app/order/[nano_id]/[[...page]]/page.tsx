@@ -84,9 +84,9 @@ export default function CustomerOrder({
                   </span>
                 </span>
                 {order.status === "completed" ? (
-                  <ReturnOrder orderId={order.id} />
+                  <ReturnOrder nano_id={order.nano_id} />
                 ) : order.status === "pending" ? (
-                  <CancelOrder orderId={order.id} />
+                  <CancelOrder nano_id={order.nano_id} />
                 ) : null}
               </p>
             </div>

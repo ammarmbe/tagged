@@ -6,16 +6,19 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-export default function CancelOrder({ orderId }: { orderId: number }) {
+export default function CancelOrder({ nano_id }: { nano_id: string }) {
   const [dialogOpen, setDialogOpen] = useState(false);
   const pathname = usePathname();
   const queryClient = useQueryClient();
 
   const cancelMutation = useMutation({
-    mutationKey: ["cancel-order", orderId],
+    mutationKey: ["cancel-order", nano_id],
     mutationFn: async () => {
-      await fetch(`/api/order/cancel?id=${orderId}`, {
+      await fetch(`/api/order/cancel`, {
         method: "PATCH",
+        body: JSON.stringify({
+          nano_id,
+        }),
       });
     },
     onSuccess: () => {

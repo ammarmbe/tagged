@@ -13,44 +13,24 @@ export default function EmailTemplate({
         background: "white",
       }}
     >
-      <div
+      <a
+        href="/"
         style={{
-          display: "flex",
-          alignItems: "center",
+          color: "#101828",
+          lineHeight: "26px",
+          height: "26px",
+          textDecoration: "none",
+          marginTop: "2px !important",
+          marginLeft: "0.625rem !important",
         }}
       >
         <Img
           src="https://atlascustomer.vercel.app/logo.png"
-          height={28}
-          width={28}
+          height={30}
+          width={105}
           alt="Atlas Logo"
         />
-        <h1
-          style={{
-            fontSize: "1.5rem",
-            fontWeight: 600,
-            lineHeight: "26px",
-            height: "26px",
-            color: "#101828",
-            marginTop: "2px !important",
-            marginLeft: "0.625rem !important",
-            margin: 0,
-          }}
-        >
-          <a
-            href="/"
-            style={{
-              color: "#101828",
-              lineHeight: "26px",
-              marginTop: "2px",
-              height: "26px",
-              textDecoration: "none",
-            }}
-          >
-            Atlas
-          </a>
-        </h1>
-      </div>
+      </a>
       <div
         style={{
           padding: "1.5rem 0",

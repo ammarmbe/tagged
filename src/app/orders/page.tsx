@@ -107,9 +107,9 @@ export default function CustomerOrders() {
                 <div className="flex flex-wrap items-center justify-between gap-3 p-6 pb-0 pt-6 text-lg font-semibold">
                   Order {order.nano_id}
                   {order.status === "completed" ? (
-                    <ReturnOrder orderId={order.id} />
+                    <ReturnOrder nano_id={order.nano_id} />
                   ) : order.status === "pending" ? (
-                    <CancelOrder orderId={order.id} />
+                    <CancelOrder nano_id={order.nano_id} />
                   ) : null}
                 </div>
                 <Order order={order} />
