@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import Input from "@/components/primitives/Input";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
+import imageCompression from "browser-image-compression";
 
 export default function Page() {
   const queryClient = useQueryClient();
@@ -304,7 +305,12 @@ export default function Page() {
       }
 
       const formData = new FormData();
-      formData.append("file", file);
+
+      const f = await imageCompression(file, {
+        maxSizeMB: 3,
+      });
+
+      formData.append("file", f);
 
       const res = await fetch("/api/current-user/pfp", {
         method: "POST",
@@ -354,7 +360,12 @@ export default function Page() {
       }
 
       const formData = new FormData();
-      formData.append("file", file);
+
+      const f = await imageCompression(file, {
+        maxSizeMB: 3,
+      });
+
+      formData.append("file", f);
 
       const res = await fetch("/api/current-user/cover", {
         method: "POST",

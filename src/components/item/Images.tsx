@@ -14,6 +14,7 @@ import DialogComponent from "../primitives/Dialog";
 import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
 import ImageComponent from "../Image";
+import imageCompression from "browser-image-compression";
 
 export default function Images({ nano_id }: { nano_id: string }) {
   const queryClient = useQueryClient();
@@ -58,7 +59,12 @@ export default function Images({ nano_id }: { nano_id: string }) {
 
   const uploadFile = async (image: { file: File; id: string }) => {
     const formData = new FormData();
-    formData.append("file", image.file);
+
+    const f = await imageCompression(image.file, {
+      maxSizeMB: 3,
+    });
+
+    formData.append("file", f);
     formData.append("name", image.id);
 
     const xhr = new XMLHttpRequest();

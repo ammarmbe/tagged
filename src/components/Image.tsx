@@ -10,6 +10,7 @@ import {
   RiCloseLine,
 } from "react-icons/ri";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import imageCompression from "browser-image-compression";
 
 export default function ImageComponent({
   image,
@@ -55,7 +56,12 @@ export default function ImageComponent({
     if (!image.file) return;
 
     const formData = new FormData();
-    formData.append("file", image.file);
+
+    const f = await imageCompression(image.file, {
+      maxSizeMB: 3,
+    });
+
+    formData.append("file", f);
     formData.append("name", image.id);
 
     const xhr = new XMLHttpRequest();

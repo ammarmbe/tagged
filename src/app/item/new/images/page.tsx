@@ -6,6 +6,7 @@ import { RiImageLine, RiUploadCloud2Line } from "react-icons/ri";
 import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
 import ImageComponent from "@/components/Image";
+import imageCompression from "browser-image-compression";
 
 export default function Images() {
   const router = useRouter();
@@ -31,7 +32,12 @@ export default function Images() {
 
   const uploadFile = async (image: { file: File; id: string }) => {
     const formData = new FormData();
-    formData.append("file", image.file);
+
+    const f = await imageCompression(image.file, {
+      maxSizeMB: 3,
+    });
+
+    formData.append("file", f);
     formData.append("name", image.id);
 
     const xhr = new XMLHttpRequest();
