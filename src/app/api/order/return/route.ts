@@ -32,13 +32,13 @@ export async function PATCH(req: Request) {
   await resend.emails.send({
     from:
       process.env.NODE_ENV === "development"
-        ? "Atlas <delivered@resend.dev>"
-        : "Atlas <returns@atlas.me>",
+        ? "Tagged <delivered@resend.dev>"
+        : "Tagged <returns@tagged.me>",
     to:
       process.env.NODE_ENV === "development"
         ? [process.env.TEST_EMAIL as string]
         : [user.email],
-    subject: "Your return request - Atlas",
+    subject: "Your return request - Tagged",
     text: "Your return request",
     react: ReturnRequest({ nano_id: nano_id }),
   });
@@ -46,8 +46,8 @@ export async function PATCH(req: Request) {
   await resend.emails.send({
     from:
       process.env.NODE_ENV === "development"
-        ? "Atlas <delivered@resend.dev>"
-        : "Atlas <returns@atlas.me>",
+        ? "Tagged <delivered@resend.dev>"
+        : "Tagged <returns@tagged.me>",
     to:
       process.env.NODE_ENV === "development"
         ? [process.env.TEST_EMAIL as string]
@@ -59,7 +59,7 @@ export async function PATCH(req: Request) {
               )
             )[0]?.email,
           ],
-    subject: "Return requested - Atlas",
+    subject: "Return requested - Tagged",
     text: "Return requested",
     react: ReturnRequestStore({ nano_id: nano_id }),
   });

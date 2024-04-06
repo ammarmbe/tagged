@@ -44,14 +44,14 @@ export async function sendNewOrderEmail(order_id: string, email: string) {
   await resend.emails.send({
     from:
       process.env.NODE_ENV === "development"
-        ? "Atlas <delivered@resend.dev>"
-        : "Atlas <order@atlas.me>",
+        ? "Tagged <delivered@resend.dev>"
+        : "Tagged <order@tagged.me>",
     to:
       process.env.NODE_ENV === "development"
         ? [process.env.TEST_EMAIL as string]
         : [email],
-    subject: `Your order from ${order.store_name} - Atlas`,
-    text: `Your order from ${order.store_name} - Atlas`,
+    subject: `Your order from ${order.store_name} - Tagged`,
+    text: `Your order from ${order.store_name} - Tagged`,
     react: NewOrder({
       order,
       items,

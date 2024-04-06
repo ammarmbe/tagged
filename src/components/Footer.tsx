@@ -13,7 +13,7 @@ export default function Footer() {
               src="/logo.svg"
               height={30}
               width={105}
-              alt="Atlas Logo"
+              alt="Tagged Logo"
               className="invert"
             />
             <p className="text-balance">
@@ -52,7 +52,9 @@ export default function Footer() {
               <Facebook size={20} />
               <FaTiktok size={20} />
             </div>
-            <p>&copy; {new Date().getFullYear()} Atlas. All rights reserved.</p>
+            <p>
+              &copy; {new Date().getFullYear()} Tagged. All rights reserved.
+            </p>
           </div>
         </div>
       </footer>

@@ -28,7 +28,7 @@ export default function EmailTemplate({
           src="https://atlascustomer.vercel.app/logo.png"
           height={30}
           width={105}
-          alt="Atlas Logo"
+          alt="Tagged Logo"
         />
       </a>
       <div
@@ -47,7 +47,7 @@ export default function EmailTemplate({
         >
           Thanks,
           <br />
-          The Atlas Team
+          The Tagged Team
         </p>
       </div>
     </div>

@@ -17,7 +17,7 @@ export default async function Header() {
                 src="/logo.svg"
                 height={30}
                 width={105}
-                alt="Atlas Logo"
+                alt="Tagged Logo"
                 className="mt-1 md:ml-1"
               />
             </Link>

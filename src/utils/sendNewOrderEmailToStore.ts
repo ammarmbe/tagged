@@ -43,14 +43,14 @@ export async function sendNewOrderEmailToStore(
   await resend.emails.send({
     from:
       process.env.NODE_ENV === "development"
-        ? "Atlas <delivered@resend.dev>"
-        : "Atlas <order@atlas.me>",
+        ? "Tagged <delivered@resend.dev>"
+        : "Tagged <order@tagged.me>",
     to:
       process.env.NODE_ENV === "development"
         ? [process.env.TEST_EMAIL as string]
         : [email],
-    subject: `New order from ${order.customer_name} - Atlas`,
-    text: `New order from ${order.customer_name} - Atlas`,
+    subject: `New order from ${order.customer_name} - Tagged`,
+    text: `New order from ${order.customer_name} - Tagged`,
     react: NewOrderStore({
       order,
       items,

@@ -31,7 +31,7 @@ export default function AccountButton({ user }: { user: User }) {
                     src="/logo.svg"
                     height={30}
                     width={105}
-                    alt="Atlas Logo"
+                    alt="Tagged Logo"
                     className="mt-1"
                   />
                 </Link>

@@ -37,13 +37,13 @@ export async function PATCH(req: Request) {
   await resend.emails.send({
     from:
       process.env.NODE_ENV === "development"
-        ? "Atlas <delivered@resend.dev>"
-        : "Atlas <orders@atlas.me>",
+        ? "Tagged <delivered@resend.dev>"
+        : "Tagged <orders@tagged.me>",
     to:
       process.env.NODE_ENV === "development"
         ? [process.env.TEST_EMAIL as string]
         : [user.email],
-    subject: "Your order has been cancelled - Atlas",
+    subject: "Your order has been cancelled - Tagged",
     text: "Your order has been cancelled",
     react: OrderCancelled({ nano_id: nano_id }),
   });
@@ -51,8 +51,8 @@ export async function PATCH(req: Request) {
   await resend.emails.send({
     from:
       process.env.NODE_ENV === "development"
-        ? "Atlas <delivered@resend.dev>"
-        : "Atlas <orders@atlas.me>",
+        ? "Tagged <delivered@resend.dev>"
+        : "Tagged <orders@tagged.me>",
     to:
       process.env.NODE_ENV === "development"
         ? [process.env.TEST_EMAIL as string]
@@ -64,7 +64,7 @@ export async function PATCH(req: Request) {
               )
             )[0]?.email,
           ],
-    subject: "An order has been cancelled - Atlas",
+    subject: "An order has been cancelled - Tagged",
     text: "An order has been cancelled",
     react: OrderCancelledStore({ nano_id: nano_id }),
   });
