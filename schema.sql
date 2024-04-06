@@ -24,7 +24,6 @@ CREATE TABLE users (
     "notifications": true,
     "return_period": "",
     "shipping_price": 0,
-    "exchange_period": "3d",
     "allowed_gov": []
   }',
   nano_id VARCHAR(10) NOT NULL UNIQUE,
@@ -100,7 +99,6 @@ CREATE TABLE orders (
   "status" TEXT NOT NULL,
   governorate TEXT NOT NULL,
   cancel_reason TEXT,
-  return_reason TEXT,
   nano_id VARCHAR(10) NOT NULL UNIQUE,
   completed_at TIMESTAMPTZ,
   shipping_price INT NOT NULL,

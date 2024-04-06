@@ -47,7 +47,6 @@ export default function CustomerOrders() {
       return (await response.json()) as {
         customer_name: string;
         cancel_reason: string;
-        return_reason: string;
         apartment: string;
         city: string;
         governorate: string;

@@ -20,6 +20,11 @@ export async function PATCH(req: Request) {
   );
 
   await sql(
+    "UPDATE item_configs SET quantity = item_configs.quantity + 1 FROM order_items WHERE order_items.order_id = $1 AND item_configs.color = order_items.color AND item_configs.size = order_items.size AND item_configs.item_id = order_items.item_id",
+    [orderId],
+  );
+
+  await sql(
     "INSERT INTO order_status_history (order_id, status) VALUES ((SELECT id FROM orders WHERE nano_id = $1), 'customer_cancelled')",
     [orderId],
   );

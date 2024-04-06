@@ -24,7 +24,6 @@ export default function CustomerOrder({
         created_at: string;
         shipping_price: number;
         cancel_reason: string;
-        return_reason: string;
         status:
           | "pending"
           | "confirmed"

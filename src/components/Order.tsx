@@ -11,7 +11,6 @@ export default function Page({
     created_at: string;
     shipping_price: number;
     cancel_reason: string;
-    return_reason: string;
     status:
       | "pending"
       | "confirmed"
@@ -119,15 +118,6 @@ export default function Page({
               <p>
                 {reasons.find((r) => r.value === order.cancel_reason)?.label ??
                   order.cancel_reason}
-              </p>
-            </div>
-          ) : null}
-          {order.return_reason ? (
-            <div>
-              <p className="text-tertiary mb-1 font-medium">Reason</p>
-              <p>
-                {reasons.find((r) => r.value === order.return_reason)?.label ??
-                  order.return_reason}
               </p>
             </div>
           ) : null}
