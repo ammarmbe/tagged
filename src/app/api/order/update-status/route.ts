@@ -34,7 +34,6 @@ export async function POST(req: Request) {
     statuses.findIndex((s) => s === current_status[0]?.status) >=
       statuses.findIndex((s) => s === status)
   ) {
-    console.log(status);
     return new Response(JSON.stringify(null), { status: 400 });
   }
 

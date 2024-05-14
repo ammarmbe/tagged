@@ -191,8 +191,11 @@ export default function UpdateStatus({
       | "returned"
       | null;
     cancel_reason: string | null;
-  }> = (data) => {
-    updateStatusMutation.mutate(data);
+  }> = () => {
+    updateStatusMutation.mutate({
+      status,
+      cancel_reason: cancelReason,
+    });
   };
 
   return (
