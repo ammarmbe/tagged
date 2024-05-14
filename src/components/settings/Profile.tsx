@@ -435,7 +435,7 @@ export default function Page() {
           className="w-fit self-center"
           text="Copy ID"
           onClick={async () => {
-            navigator.clipboard.writeText(user?.id || "");
+            navigator.clipboard.writeText(user?.nano_id || "");
 
             toast({
               title: "Copied to clipboard",

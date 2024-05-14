@@ -11,7 +11,6 @@ body {
 }
 
 /* COLORS */
-
 html {
   --color-text-950: #0e121b;
   --color-text-600: #525866;
@@ -38,7 +37,7 @@ html {
   --color-main-lighter: #efebff;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   html {
     --color-text-950: #ffffff;
     --color-text-600: #99a0ad;
@@ -63,10 +62,10 @@ html {
     --color-main-light: #dfd4fb;
     --color-main-lighter: #e9e2fc;
   }
-}
+} */
 
 /* DARK MODE */
-html.dark {
+/* html.dark {
   color-scheme: dark;
   --color-text-950: #ffffff;
   --color-text-600: #99a0ad;
@@ -90,7 +89,7 @@ html.dark {
   --color-main-base: #7d52f4;
   --color-main-light: #dfd4fb;
   --color-main-lighter: #e9e2fc;
-}
+} */
 
 @layer utilities {
   .title-h1 {
