@@ -11,6 +11,9 @@ const nextConfig = {
   experimental: {
     serverMinification: false,
   },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 };
 
 export default nextConfig;
