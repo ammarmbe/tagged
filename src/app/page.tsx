@@ -2,29 +2,6 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Strip from "@/components/home/Strip";
 
 export default async function Home() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_URL}/api/home?category=${["sweatpants", "hoodies", "jeans"].join(",")}&limit=10`,
-    {
-      cache: "reload",
-    },
-  );
-
-  const items = (await res.json()) as {
-    category: string[];
-    item_name: string;
-    item_id: string;
-    store_nano_id: string;
-    image_url: string;
-    nano_id: string;
-    store_name: string;
-    store_id: string;
-    description: string;
-    price: number;
-    discount: number;
-    out_of_stock: boolean;
-    colors: string[];
-  }[];
-
   return (
     <main className="mx-auto max-w-[min(80rem,100%)] px-4">
       <div className="overflow-hidden rounded-xl border">

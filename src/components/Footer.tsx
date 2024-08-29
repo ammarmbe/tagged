@@ -18,7 +18,7 @@ export default function Footer() {
             />
             <p className="text-balance">Elevate Your Style, Tag Your Trend</p>
             <nav className="grid w-full grid-cols-2 flex-wrap gap-x-6 gap-y-3 font-medium sm:flex">
-              <Link href="/shop?category=hoodies">Hoodies</Link>
+              <Link href="/shop?category=dresses">Dresses</Link>
               <Link href="/shop?category=jeans">Jeans</Link>
               <Link href="/shop?category=sweatpants">Sweatpants</Link>
               <Link href="/shop">All Items</Link>

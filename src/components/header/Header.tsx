@@ -41,11 +41,8 @@ export default async function Header() {
         </div>
         <div className="border-t" />
         <nav className="text-tertiary space-x-5 p-4 py-2.5 text-sm">
-          <Link className="hover:text-gray-800" href="/shop?category=hoodies">
-            Hoodies
-          </Link>
-          <Link className="hover:text-gray-800" href="/shop?category=jeans">
-            Jeans
+          <Link className="hover:text-gray-800" href="/shop?category=dresses">
+            Dresses
           </Link>
           <Link className="hover:text-gray-800" href="/shop">
             All Items
