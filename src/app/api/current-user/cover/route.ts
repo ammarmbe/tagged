@@ -3,6 +3,8 @@ import getUser from "@/utils/getUser";
 import { BlobServiceClient } from "@azure/storage-blob";
 
 export async function POST(req: Request) {
+  return new Response("DEMO");
+
   const { user } = await getUser();
 
   if (!user?.id) {
@@ -14,16 +16,16 @@ export async function POST(req: Request) {
 
   const fileBuffer = await file.arrayBuffer();
 
-  const accountName = "atlasimg";
+  const accountName = process.env.ACCOUNT_NAME;
   const sasToken = process.env.SAS_TOKEN;
-  const containerName = "container";
+  const containerName = process.env.CONTAINER_NAME;
 
   if (!file) return new Response(JSON.stringify(null), { status: 400 });
 
   const blobServiceClient = new BlobServiceClient(
     `https://${accountName}.blob.core.windows.net/?${sasToken}`,
   );
-  const containerClient = blobServiceClient.getContainerClient(containerName);
+  const containerClient = blobServiceClient.getContainerClient(containerName!);
 
   const oldBlockBlobClient = containerClient.getBlockBlobClient(
     user.nano_id + "-cover",

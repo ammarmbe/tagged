@@ -89,7 +89,7 @@ export default function Sidebar() {
           </nav>
         </div>
       </aside>
-      <aside className="sticky top-0 hidden h-screen flex-none flex-col gap-3 border-r sm:flex">
+      <aside className="sticky top-0 hidden h-[calc(100vh-32px)] flex-none flex-col gap-3 border-r sm:flex">
         <div
           className={`flex-grow ${pathname.startsWith("/settings") ? "p-3" : "p-5"}`}
         >

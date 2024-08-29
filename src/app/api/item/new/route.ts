@@ -5,6 +5,8 @@ import { customAlphabet } from "nanoid";
 const nanoId = customAlphabet("1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ", 10);
 
 export async function POST(req: Request) {
+  return new Response("DEMO");
+
   const {
     itemDetails,
     quantities,

@@ -4,6 +4,8 @@ import { Scrypt } from "lucia";
 import { cookies } from "next/headers";
 
 export async function POST(req: Request) {
+  return new Response("DEMO");
+
   const {
     email,
     password,

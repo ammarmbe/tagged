@@ -1,6 +1,30 @@
 import sql from "@/utils/db";
 import getUser from "@/utils/getUser";
 
+function compareArrays(
+  arr1: string[] | undefined,
+  arr2: string[] | undefined,
+): boolean {
+  if (!arr1 || !arr2) {
+    return false;
+  }
+
+  if (arr1.length !== arr2.length) {
+    return false;
+  }
+
+  const sortedArr1 = arr1.sort();
+  const sortedArr2 = arr2.sort();
+
+  for (let i = 0; i < sortedArr1.length; i++) {
+    if (sortedArr1[i] !== sortedArr2[i]) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const nano_id = searchParams.get("nano_id");
@@ -20,6 +44,8 @@ export async function GET(req: Request) {
 }
 
 export async function PATCH(req: Request) {
+  return new Response("DEMO");
+
   const { user } = await getUser();
   const {
     id,
@@ -57,7 +83,7 @@ export async function PATCH(req: Request) {
     return new Response(JSON.stringify(null), { status: 401 });
   }
 
-  if (!colors || !sizes) {
+  if (!compareArrays(colors, old_colors) || !compareArrays(sizes, old_sizes)) {
     await sql(
       "DELETE FROM item_configs WHERE color = ANY($1) OR size = ANY($2) AND item_id = $3",
       [
@@ -76,15 +102,24 @@ export async function PATCH(req: Request) {
   colors
     .filter((c) => !old_colors?.includes(c))
     .forEach(async (color) => {
-      sizes
-        .filter((s) => !old_sizes?.includes(s))
-        .forEach(async (size) => {
-          await sql(
-            "INSERT INTO item_configs (item_id, color, size, quantity) VALUES ($1, $2, $3, 0) ON CONFLICT (item_id, color, size) DO NOTHING",
-            [id, color, size],
-          );
-        });
+      sizes.forEach(async (size) => {
+        await sql(
+          "INSERT INTO item_configs (item_id, color, size, quantity) VALUES ($1, $2, $3, 0) ON CONFLICT (item_id, color, size) DO NOTHING",
+          [id, color, size],
+        );
+      });
     });
+
+  colors.forEach(async (color) => {
+    sizes
+      .filter((s) => !old_sizes?.includes(s))
+      .forEach(async (size) => {
+        await sql(
+          "INSERT INTO item_configs (item_id, color, size, quantity) VALUES ($1, $2, $3, 0) ON CONFLICT (item_id, color, size) DO NOTHING",
+          [id, color, size],
+        );
+      });
+  });
 
   return new Response("OK");
 }

@@ -1,5 +1,4 @@
 "use client";
-import { LuDot } from "react-icons/lu";
 import { useEffect } from "react";
 import { TRange } from "../../home/RevenueOverview/RevenueOverview";
 import { useQuery } from "@tanstack/react-query";
@@ -99,8 +98,9 @@ export default function Colors({
             className="h-fit space-y-1 rounded-xl p-4"
             style={{
               background: `linear-gradient(${
-                colors[color.name.toLowerCase()]?.light ?? "#C2D6FF"
-              }, ${colors[color.name.toLowerCase()]?.lighter ?? "#EBF1FF"})`,
+                colors[color.name.toLowerCase()]?.light ?? "#ffffff"
+              }, ${colors[color.name.toLowerCase()]?.lighter ?? "#ffffff"})`,
+              border: `1px solid ${colors[color.name.toLowerCase()] ? "transparent" : "#e1e4e9"}`,
             }}
           >
             <div className="flex w-full items-center justify-between">
@@ -115,31 +115,26 @@ export default function Colors({
               <Tooltip
                 content="Revenue in the selected range."
                 trigger={
-                  <p className="label-xsmall bg-bg-0 text-text-600 rounded-full px-2 py-0.5">
+                  <p
+                    className={`label-xsmall rounded-full px-2 py-0.5 text-text-600 ${
+                      colors[color.name.toLowerCase()] ? "bg-bg-0" : "bg-bg-200"
+                    }`}
+                  >
                     {formatCurrency(color.revenue)}
                   </p>
                 }
               />
             </div>
-            <div
-              className="label-small flex items-center gap-0.5 !font-normal"
+            <p
+              className="label-small !font-normal"
               style={{
                 color: colors[color.name.toLowerCase()]?.text
                   ? colors[color.name.toLowerCase()]?.text + "B8"
                   : "#162664B8",
               }}
             >
-              <Tooltip
-                trigger={
-                  <p className="underline-offset-2 hover:underline">
-                    {color.sizes.length} sizes
-                  </p>
-                }
-                content={color.sizes.join(", ")}
-              />
-              <LuDot size={16} className="text-[#162664B8]" />
-              <p>{color.quantity} in stock</p>
-            </div>
+              {color.quantity} in stock
+            </p>
           </div>
         ))}
       </div>

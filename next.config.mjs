@@ -4,7 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "atlasimg.blob.core.windows.net",
+        hostname: `${process.env.ACCOUNT_NAME}.blob.core.windows.net`,
       },
     ],
   },

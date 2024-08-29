@@ -2,6 +2,8 @@ import sql from "@/utils/db";
 import getUser from "@/utils/getUser";
 
 export async function PATCH(req: Request) {
+  return new Response("DEMO");
+
   let { facebook } = await req.json();
   const { user } = await getUser();
 

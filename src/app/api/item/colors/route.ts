@@ -19,11 +19,11 @@ export async function GET(req: Request) {
   }
 
   const data = await sql(
-    `SELECT DISTINCT item_configs.color_hex AS hex, DISTINCT item_configs.color AS name, array_agg(item_configs.size) AS sizes, SUM(item_configs.quantity) AS quantity, (SELECT SUM((order_items.price - order_items.discount) * order_items.quantity) FROM order_items JOIN orders ON orders.id = order_items.order_id WHERE order_items.color = item_configs.color AND order_items.item_id = items.id AND ${timeConstraint(
+    `SELECT item_configs.color_hex AS hex, item_configs.color AS name, array_agg(item_configs.size) AS sizes, SUM(item_configs.quantity) AS quantity, (SELECT SUM((order_items.price - order_items.discount) * order_items.quantity) FROM order_items JOIN orders ON orders.id = order_items.order_id WHERE order_items.color = item_configs.color AND order_items.item_id = items.id AND ${timeConstraint(
       range,
       "orders",
       "completed_at",
-    )}) AS revenue FROM item_configs JOIN items ON items.id = item_configs.item_id WHERE items.store_id = $1 AND items.nano_id = $2 GROUP BY item_configs.color, item_configs.hex, items.id`,
+    )}) AS revenue FROM item_configs JOIN items ON items.id = item_configs.item_id WHERE items.store_id = $1 AND items.nano_id = $2 GROUP BY item_configs.color, item_configs.color_hex, items.id`,
     [user.id, nano_id],
   );
 

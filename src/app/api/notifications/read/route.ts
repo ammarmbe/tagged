@@ -2,6 +2,8 @@ import sql from "@/utils/db";
 import getUser from "@/utils/getUser";
 
 export async function PATCH(req: Request) {
+  return new Response("DEMO");
+
   const { searchParams } = new URL(req.url);
   let id = searchParams.get("id") ? searchParams.get("id") : null;
 

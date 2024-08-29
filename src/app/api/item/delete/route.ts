@@ -2,6 +2,8 @@ import sql from "@/utils/db";
 import getUser from "@/utils/getUser";
 
 export async function DELETE(req: Request) {
+  return new Response("DEMO");
+
   const { id } = await req.json();
 
   const { user } = await getUser();

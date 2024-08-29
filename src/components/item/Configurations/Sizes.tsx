@@ -1,5 +1,4 @@
 "use client";
-import { LuDot } from "react-icons/lu";
 import { useEffect } from "react";
 import { TRange } from "../../home/RevenueOverview/RevenueOverview";
 import { useQuery } from "@tanstack/react-query";
@@ -53,25 +52,13 @@ export default function Sizes({
               <Tooltip
                 content="Revenue in the selected range."
                 trigger={
-                  <p className="label-xsmall text-text-600 rounded-full bg-bg-200 px-2 py-0.5">
+                  <p className="label-xsmall rounded-full bg-bg-200 px-2 py-0.5 text-text-600">
                     {formatCurrency(size.revenue)}
                   </p>
                 }
               />
             </div>
-            <div className="label-small flex items-center gap-0.5 !font-normal">
-              <Tooltip
-                trigger={
-                  <p className="underline-offset-2 hover:underline">
-                    {size.colors.length} color
-                    {size.colors.length === 1 ? "" : "s"}
-                  </p>
-                }
-                content={size.colors.join(", ")}
-              />
-              <LuDot size={16} className="text-[#162664B8]" />
-              <p>{size.quantity} in stock</p>
-            </div>
+            <p className="label-small !font-normal">{size.quantity} in stock</p>
           </div>
         ))}
       </div>
