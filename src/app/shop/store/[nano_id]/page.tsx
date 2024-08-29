@@ -157,7 +157,7 @@ export default function ShopStore({
                 </h2>
                 {settings?.description ? <p>{settings.description}</p> : null}
                 <div className="flex gap-2">
-                  {true ? (
+                  {settings?.instagram ? (
                     <a
                       href={new URL(
                         `https://www.instagram.com/${settings?.instagram}`,
@@ -168,7 +168,7 @@ export default function ShopStore({
                       <FaInstagram size={16} />
                     </a>
                   ) : null}
-                  {true ? (
+                  {settings?.facebook ? (
                     <a
                       href={new URL(
                         `https://www.facebook.com/${settings?.facebook}`,
@@ -179,7 +179,7 @@ export default function ShopStore({
                       <FaFacebook size={16} />
                     </a>
                   ) : null}
-                  {true ? (
+                  {settings?.tiktok ? (
                     <a
                       href={new URL(
                         `https://www.x.com/${settings?.tiktok}`,
@@ -195,60 +195,66 @@ export default function ShopStore({
             </div>
             {settings ? (
               <div className="mr-1 mt-1 flex w-full items-center justify-evenly gap-4 md:w-auto md:justify-end">
-                <div className="flex flex-col items-center gap-1.5">
-                  <p
-                    className={`flex size-9 items-center justify-center rounded-full border text-sm font-medium ${
-                      settings.cancel_rate <= 5
-                        ? "border-success-500 bg-success-100 text-success-800"
-                        : settings.cancel_rate <= 10
-                          ? "border-success-300 bg-success-50 text-success-700"
-                          : settings.cancel_rate <= 20
-                            ? "border-warning-300 bg-warning-50 text-warning-700"
-                            : "border-error-300 bg-error-50 text-error-700"
-                    }`}
-                  >
-                    {settings.cancel_rate}%
-                  </p>
-                  <p className="text-secondary text-sm font-medium">
-                    Cancel rate
-                  </p>
-                </div>
-                <div className="flex flex-col items-center gap-1.5">
-                  <p
-                    className={`flex size-9 items-center justify-center rounded-full border text-sm font-medium ${
-                      settings.return_rate <= 5
-                        ? "border-success-500 bg-success-100 text-success-800"
-                        : settings.return_rate <= 10
-                          ? "border-success-300 bg-success-50 text-success-700"
-                          : settings.return_rate <= 20
-                            ? "border-warning-300 bg-warning-50 text-warning-700"
-                            : "border-error-300 bg-error-50 text-error-700"
-                    }`}
-                  >
-                    {settings.return_rate}%
-                  </p>
-                  <p className="text-secondary text-sm font-medium">
-                    Return rate
-                  </p>
-                </div>
-                <div className="flex flex-col items-center gap-1.5">
-                  <p
-                    className={`flex size-9 items-center justify-center rounded-full border text-sm font-medium ${
-                      Math.round(settings.deliver_in / 86400) <= 3
-                        ? "border-success-500 bg-success-100 text-success-800"
-                        : Math.round(settings.deliver_in / 86400) <= 7
-                          ? "border-success-300 bg-success-50 text-success-700"
-                          : Math.round(settings.deliver_in / 86400) <= 12
-                            ? "border-warning-300 bg-warning-50 text-warning-700"
-                            : "border-error-300 bg-error-50 text-error-700"
-                    }`}
-                  >
-                    {Math.round(settings.deliver_in / 86400)}d
-                  </p>
-                  <p className="text-secondary text-center text-sm font-medium">
-                    Deliver in
-                  </p>
-                </div>
+                {settings.cancel_rate ? (
+                  <div className="flex flex-col items-center gap-1.5">
+                    <p
+                      className={`flex size-9 items-center justify-center rounded-full border text-sm font-medium ${
+                        settings.cancel_rate <= 5
+                          ? "border-success-500 bg-success-100 text-success-800"
+                          : settings.cancel_rate <= 10
+                            ? "border-success-300 bg-success-50 text-success-700"
+                            : settings.cancel_rate <= 20
+                              ? "border-warning-300 bg-warning-50 text-warning-700"
+                              : "border-error-300 bg-error-50 text-error-700"
+                      }`}
+                    >
+                      {settings.cancel_rate}%
+                    </p>
+                    <p className="text-secondary text-sm font-medium">
+                      Cancel rate
+                    </p>
+                  </div>
+                ) : null}
+                {settings.return_rate ? (
+                  <div className="flex flex-col items-center gap-1.5">
+                    <p
+                      className={`flex size-9 items-center justify-center rounded-full border text-sm font-medium ${
+                        settings.return_rate <= 5
+                          ? "border-success-500 bg-success-100 text-success-800"
+                          : settings.return_rate <= 10
+                            ? "border-success-300 bg-success-50 text-success-700"
+                            : settings.return_rate <= 20
+                              ? "border-warning-300 bg-warning-50 text-warning-700"
+                              : "border-error-300 bg-error-50 text-error-700"
+                      }`}
+                    >
+                      {settings.return_rate}%
+                    </p>
+                    <p className="text-secondary text-sm font-medium">
+                      Return rate
+                    </p>
+                  </div>
+                ) : null}
+                {settings.deliver_in ? (
+                  <div className="flex flex-col items-center gap-1.5">
+                    <p
+                      className={`flex size-9 items-center justify-center rounded-full border text-sm font-medium ${
+                        Math.round(settings.deliver_in / 86400) <= 3
+                          ? "border-success-500 bg-success-100 text-success-800"
+                          : Math.round(settings.deliver_in / 86400) <= 7
+                            ? "border-success-300 bg-success-50 text-success-700"
+                            : Math.round(settings.deliver_in / 86400) <= 12
+                              ? "border-warning-300 bg-warning-50 text-warning-700"
+                              : "border-error-300 bg-error-50 text-error-700"
+                      }`}
+                    >
+                      {Math.round(settings.deliver_in / 86400)}d
+                    </p>
+                    <p className="text-secondary text-center text-sm font-medium">
+                      Deliver in
+                    </p>
+                  </div>
+                ) : null}
               </div>
             ) : null}
           </div>
