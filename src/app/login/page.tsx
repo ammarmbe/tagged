@@ -22,7 +22,12 @@ export default function Login() {
   } = useForm<{
     email: string;
     password: string;
-  }>();
+  }>({
+    values: {
+      email: "apex@gmail.com",
+      password: "123",
+    },
+  });
 
   const onSubmit: SubmitHandler<{
     email: string;
@@ -88,6 +93,7 @@ export default function Login() {
             error={Boolean(errors.email)}
             className="w-full"
             errorMessage="Email is required."
+            disabled
           />
         </div>
         <div className="flex flex-col gap-0.5">
@@ -115,6 +121,7 @@ export default function Login() {
               )
             }
             errorMessage="Password is required."
+            disabled
           />
         </div>
       </form>
