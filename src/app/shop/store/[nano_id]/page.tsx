@@ -251,7 +251,7 @@ export default function ShopStore({
                       {Math.round(settings.deliver_in / 86400)}d
                     </p>
                     <p className="text-secondary text-center text-sm font-medium">
-                      Deliver in
+                      Delivers in
                     </p>
                   </div>
                 ) : null}
