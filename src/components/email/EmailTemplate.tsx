@@ -25,7 +25,7 @@ export default function EmailTemplate({
         }}
       >
         <Img
-          src="https://atlascustomer.vercel.app/logo.png"
+          src="https://tagged.ambe.dev/logo.png"
           height={30}
           width={105}
           alt="Tagged Logo"

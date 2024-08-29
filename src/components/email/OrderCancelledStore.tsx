@@ -21,7 +21,7 @@ export const OrderCancelledStore: React.FC<
           color: "#E04F16",
           textDecoration: "none",
         }}
-        href={`https://atlasstore.vercel.app/order/${nano_id}`}
+        href={`https://tagged.ambe.dev/order/${nano_id}`}
       >
         Order {nano_id}
       </a>{" "}

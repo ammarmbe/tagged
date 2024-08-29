@@ -36,7 +36,7 @@ export const ResetPassword: React.FC<Readonly<ResetPasswordProps>> = ({
         borderRadius: "0.25rem",
         padding: "0.5rem 1rem",
       }}
-      href={`https://atlascustomer.vercel.app/password-reset?code=${code}`}
+      href={`https://tagged.ambe.dev/password-reset?code=${code}`}
     >
       Reset your password
     </a>

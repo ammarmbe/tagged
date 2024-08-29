@@ -3,7 +3,7 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        hostname: "atlasimg.blob.core.windows.net",
+        hostname: "taggedimg.blob.core.windows.net",
         protocol: "https",
       },
     ],

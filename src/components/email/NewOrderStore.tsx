@@ -42,7 +42,7 @@ export const NewOrderStore: React.FC<Readonly<NewOrderStoreProps>> = ({
           color: "#E04F16",
           textDecoration: "none",
         }}
-        href={`https://atlasstore.vercel.app/order/${order.nano_id}`}
+        href={`https://tagged.ambe.dev/order/${order.nano_id}`}
       >
         this link
       </a>
