@@ -4,6 +4,7 @@ import "./globals.css";
 import QueryClientProvider from "@/utils/QueryClientProvider";
 import { Toaster } from "@/components/primitives/toast/Toaster";
 import Sidebar from "@/components/Sidebar";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = localFont({
   src: [
@@ -31,6 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <QueryClientProvider>
+        <Analytics />
         <body className={`${inter.className} flex h-screen flex-col`}>
           <div className="label-small flex h-[32px] items-center justify-center bg-white">
             This is a demo version of the app, data-altering actions will not
