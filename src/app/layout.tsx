@@ -6,6 +6,7 @@ import Header from "@/components/header/Header";
 import LoadingBar from "@/utils/LoadingBar";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/utils/toast/toaster";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,6 +27,7 @@ export default function RootLayout({
           inter.className + " flex min-h-screen flex-col justify-between"
         }
       >
+        <Analytics />
         <QueryClientProvider>
           <LoadingBar />
           <Toaster />
