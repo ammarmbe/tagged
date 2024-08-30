@@ -8,13 +8,13 @@ Tagged is an e-commerce platform created using Next.js 14 and React. <br> Deploy
 
 - **User registration and login:** users can create an account and login to the website.
 - **Item search and filteration:** users can search for specific items or use the robust filtering system.
-- **Different brands, one shopping cart:** users can add items from different brands to their shopping cart, and checkout once.
+- **Different stores, one shopping cart:** users can add items from different stores to their shopping cart, and checkout once.
 - **Order status tracking:** users can track their orders' status, from pending to delivered.
-- **View brand information:** users can view brands' social media information and relavant numbers (avg delivery time, return rate, etc.).
-- **Customer privacy:** brands can see customers' adresses only when they need them, otherwise they are hidden.
-- **Email notifications:** users and brands get notified through email when a new order is made, cancelled, or when it's status changes.
-- **Colors, sizes, images**: brands can add different color and size combos with their stock levels, and link images to colors.
-- **Detailed analytics**: brands get a detailed analytics dashboard showcasing different numbers and graphs.
+- **View store information:** users can view stores' social media information and relavant numbers (avg delivery time, return rate, etc.).
+- **Customer privacy:** stores can see customers' adresses only when they need them, otherwise they are hidden.
+- **Email notifications:** users and stores get notified through email when a new order is made, cancelled, or when it's status changes.
+- **Colors, sizes, images**: stores can add different color and size combos with their stock levels, and link images to colors.
+- **Detailed analytics**: stores get a detailed analytics dashboard showcasing different numbers and graphs.
 
 ## Tech Stack
 
