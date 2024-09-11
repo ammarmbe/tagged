@@ -34,11 +34,11 @@ export default function RootLayout({
       <QueryClientProvider>
         <Analytics />
         <body className={`${inter.className} flex h-screen flex-col`}>
-          <div className="label-small flex h-[32px] items-center justify-center bg-white">
+          <div className="label-small flex h-[40px] items-center justify-center bg-white text-center">
             This is a demo version of the app, data-altering actions will not
             work.
           </div>
-          <div className="flex h-[calc(100vh-32px)] flex-col-reverse bg-bg-0 text-text-950 sm:flex-row">
+          <div className="flex h-[calc(100vh-40px)] flex-col-reverse bg-bg-0 text-text-950 sm:flex-row">
             <Toaster />
             <Sidebar />
             {children}

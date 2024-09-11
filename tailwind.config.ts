@@ -48,7 +48,7 @@ const config: Config = {
       none: "none",
       xs: "0px 1px 2px 0px #E4E5E73D",
       sm: "0px 2px 4px 0px #1B1C1D0A",
-      md: "0px 16px 32px -12px #585C5F1A",
+      md: "0px 16px 40px -12px #585C5F1A",
       lg: "0px 16px 40px -8px #585C5F29",
       xl: "0px 24px 56px -4px #585C5F29",
       xxl: "0px 40px 96px -8px #585C5F33",

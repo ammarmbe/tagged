@@ -29,7 +29,7 @@ export default function Search() {
       <Dialog.Overlay className="fixed inset-0 z-50 bg-[hsla(209,84%,5%,0.19)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
       <Dialog.Content
         autoFocus
-        className="!pointer-events-none fixed inset-0 z-50 flex items-start justify-center rounded-2xl pt-10 shadow-[0px_16px_32px_-12px_#585C5F1A] transition duration-200 ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-top-[2%] data-[state=open]:slide-in-from-top-[2%]"
+        className="!pointer-events-none fixed inset-0 z-50 flex items-start justify-center rounded-2xl pt-10 shadow-[0px_16px_40px_-12px_#585C5F1A] transition duration-200 ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-top-[2%] data-[state=open]:slide-in-from-top-[2%]"
       >
         <div className="pointer-events-auto h-fit min-w-[350px] max-w-2xl rounded-2xl bg-bg-0 sm:min-w-[500px] sm:max-w-md">
           <div className="relative">

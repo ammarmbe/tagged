@@ -8,7 +8,7 @@ import {
 
 export default function Sidebar({ page }: { page: string }) {
   return (
-    <aside className="flex flex-none flex-col gap-5 border-t bg-bg-50 p-3 sm:h-[calc(100vh-32px)] sm:w-fit sm:border-r sm:border-t-0 sm:bg-bg-0 sm:p-5">
+    <aside className="flex flex-none flex-col gap-5 border-t bg-bg-50 p-3 sm:h-[calc(100vh-40px)] sm:w-fit sm:border-r sm:border-t-0 sm:bg-bg-0 sm:p-5">
       <div className="hidden sm:block">
         <p className="label-large">Settings</p>
         <p className="paragraph-small mt-1 text-text-600">
