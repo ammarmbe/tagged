@@ -15,7 +15,7 @@ export async function GET() {
     [user.id],
   );
 
-  return new Response(JSON.stringify({ ...data[0], ...data[0].address }));
+  return new Response(JSON.stringify({ ...data[0], ...data[0]?.address }));
 }
 
 export async function POST(req: Request) {
@@ -46,7 +46,7 @@ export async function POST(req: Request) {
       city,
       number.startsWith("1") ? "0" + number : number,
       last_name,
-      user.id,
+      user?.id,
     ],
   );
 
