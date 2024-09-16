@@ -1,8 +1,14 @@
 {
+  "root": true,
   "extends": [
     "next/core-web-vitals",
-    "prettier"
+    "prettier",
+    "@repo/eslint-config/next.js"
   ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": true
+  },
   "rules": {
     "react/jsx-no-undef": 0
   }

@@ -1,5 +1,5 @@
 {
-  "name": "tagged-customer",
+  "name": "customer",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@repo/eslint-config": "*",
+    "@repo/typescript-config": "*",
     "@azure/storage-blob": "12.17.0",
     "@lucia-auth/adapter-postgresql": "^3.1.2",
     "@neondatabase/serverless": "^0.9.4",
