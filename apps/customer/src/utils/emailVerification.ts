@@ -53,7 +53,7 @@ export async function generateCode(
     from:
       process.env.NODE_ENV === "development"
         ? "Tagged <delivered@resend.dev>"
-        : "Tagged <verify@tagged.me>",
+        : "Tagged <verify@tagged.ambe.dev>",
     to:
       process.env.NODE_ENV === "development"
         ? [process.env.TEST_EMAIL as string]

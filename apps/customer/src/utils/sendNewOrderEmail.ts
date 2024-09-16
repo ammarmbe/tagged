@@ -24,6 +24,8 @@ export async function sendNewOrderEmail(order_id: string, email: string) {
     total: number;
   }[];
 
+  if (!order) return;
+
   const items = (await sql(
     "SELECT order_items.*, (SELECT url FROM item_images WHERE item_id = order_items.item_id ORDER BY thumbnail DESC NULLS LAST LIMIT 1) AS image_url FROM order_items WHERE order_id = $1",
     [order_id],
@@ -45,13 +47,13 @@ export async function sendNewOrderEmail(order_id: string, email: string) {
     from:
       process.env.NODE_ENV === "development"
         ? "Tagged <delivered@resend.dev>"
-        : "Tagged <order@tagged.me>",
+        : "Tagged <order@tagged.ambe.dev>",
     to:
       process.env.NODE_ENV === "development"
         ? [process.env.TEST_EMAIL as string]
         : [email],
-    subject: `Your order from ${order.store_name} - Tagged`,
-    text: `Your order from ${order.store_name} - Tagged`,
+    subject: `Your order from ${order?.store_name} - Tagged`,
+    text: `Your order from ${order?.store_name} - Tagged`,
     react: NewOrder({
       order,
       items,

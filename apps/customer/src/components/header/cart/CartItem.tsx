@@ -1,4 +1,3 @@
-"use client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Minus, Plus, X } from "lucide-react";
 import Link from "@/components/primitives/Link";

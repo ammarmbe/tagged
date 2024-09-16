@@ -23,6 +23,8 @@ export async function sendNewOrderEmailToStore(
     total: number;
   }[];
 
+  if (!order) return;
+
   const items = (await sql(
     "SELECT order_items.*, (SELECT url FROM item_images WHERE item_id = order_items.item_id ORDER BY thumbnail DESC NULLS LAST LIMIT 1) AS image_url FROM order_items WHERE order_id = $1",
     [order_id],
@@ -44,7 +46,7 @@ export async function sendNewOrderEmailToStore(
     from:
       process.env.NODE_ENV === "development"
         ? "Tagged <delivered@resend.dev>"
-        : "Tagged <order@tagged.me>",
+        : "Tagged <order@tagged.ambe.dev>",
     to:
       process.env.NODE_ENV === "development"
         ? [process.env.TEST_EMAIL as string]

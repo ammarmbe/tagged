@@ -22,12 +22,14 @@ export async function POST(req: Request) {
   const { id, color, size, quantity: cartQuantity, type } = await req.json();
   const { user } = await getUser();
 
-  const { quantity } = (
+  const data = (
     await sql(
       "SELECT quantity FROM item_configs WHERE item_id = $1 AND color = $2 AND size = $3",
       [id, color, size],
     )
   )[0];
+
+  const quantity = data?.quantity;
 
   if (!quantity) {
     return new Response("Out of stock", {});

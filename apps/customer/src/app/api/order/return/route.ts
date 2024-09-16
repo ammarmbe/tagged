@@ -33,7 +33,7 @@ export async function PATCH(req: Request) {
     from:
       process.env.NODE_ENV === "development"
         ? "Tagged <delivered@resend.dev>"
-        : "Tagged <returns@tagged.me>",
+        : "Tagged <returns@tagged.ambe.dev>",
     to:
       process.env.NODE_ENV === "development"
         ? [process.env.TEST_EMAIL as string]
@@ -47,7 +47,7 @@ export async function PATCH(req: Request) {
     from:
       process.env.NODE_ENV === "development"
         ? "Tagged <delivered@resend.dev>"
-        : "Tagged <returns@tagged.me>",
+        : "Tagged <returns@tagged.ambe.dev>",
     to:
       process.env.NODE_ENV === "development"
         ? [process.env.TEST_EMAIL as string]

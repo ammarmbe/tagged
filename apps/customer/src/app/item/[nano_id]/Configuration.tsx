@@ -1,4 +1,3 @@
-"use client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Item } from "./page";
 import { Dispatch, SetStateAction } from "react";
@@ -93,7 +92,7 @@ export default function Configuration({
             item_name: item?.item_name,
             price: item?.price,
             quantity: 1,
-            color: item?.colors[selected.color_id].name,
+            color: item?.colors[selected.color_id]!.name,
             size: item?.sizes[selected.size_id],
           },
         ];
@@ -153,7 +152,7 @@ export default function Configuration({
           disabled={
             (item.configurations.find(
               (config) =>
-                config.color === item.colors[selected.color_id].name &&
+                config.color === item.colors[selected.color_id]!.name &&
                 config.size === item.sizes[selected.size_id],
             )?.quantity || 0) == 0 || cartMutation.isPending
           }
@@ -163,14 +162,14 @@ export default function Configuration({
             if (
               item.configurations.find(
                 (config) =>
-                  config.color === item.colors[selected.color_id].name &&
+                  config.color === item.colors[selected.color_id]!.name &&
                   config.size === item.sizes[selected.size_id],
               )?.quantity != 0
             ) {
               cartMutation.mutate({
                 id: item.item_id,
-                color: item.colors[selected.color_id].name,
-                size: item.sizes[selected.size_id],
+                color: item.colors[selected.color_id]!.name,
+                size: item.sizes[selected.size_id]!,
               });
             }
           }}
@@ -178,7 +177,7 @@ export default function Configuration({
         >
           {item.configurations.find(
             (config) =>
-              config.color === item.colors[selected.color_id].name &&
+              config.color === item.colors[selected.color_id]!.name &&
               config.size === item.sizes[selected.size_id],
           )?.quantity == 0
             ? "Out of Stock"
@@ -188,7 +187,7 @@ export default function Configuration({
           disabled={
             (item.configurations.find(
               (config) =>
-                config.color === item.colors[selected.color_id].name &&
+                config.color === item.colors[selected.color_id]!.name &&
                 config.size === item.sizes[selected.size_id],
             )?.quantity || 0) == 0
           }
@@ -199,14 +198,14 @@ export default function Configuration({
             if (
               item.configurations.find(
                 (config) =>
-                  config.color === item.colors[selected.color_id].name &&
+                  config.color === item.colors[selected.color_id]!.name &&
                   config.size === item.sizes[selected.size_id],
               )?.quantity != 0
             ) {
               cartMutation.mutate({
                 id: item.item_id,
-                color: item.colors[selected.color_id].name,
-                size: item.sizes[selected.size_id],
+                color: item.colors[selected.color_id]!.name,
+                size: item.sizes[selected.size_id]!,
                 buy_now: true,
               });
             }
@@ -214,7 +213,7 @@ export default function Configuration({
         >
           {item.configurations.find(
             (config) =>
-              config.color === item.colors[selected.color_id].name &&
+              config.color === item.colors[selected.color_id]!.name &&
               config.size === item.sizes[selected.size_id],
           )?.quantity == 0
             ? "Out of Stock"

@@ -72,7 +72,7 @@ export async function POST(req: NextRequest) {
     from:
       process.env.NODE_ENV === "development"
         ? "Tagged <delivered@resend.dev>"
-        : "Tagged <password@tagged.me>",
+        : "Tagged <password@tagged.ambe.dev>",
     to:
       process.env.NODE_ENV === "development"
         ? [process.env.TEST_EMAIL as string]
