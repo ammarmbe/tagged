@@ -44,8 +44,6 @@ export async function GET(req: Request) {
 }
 
 export async function PATCH(req: Request) {
-  return new Response("DEMO");
-
   const { user } = await getUser();
   const {
     id,

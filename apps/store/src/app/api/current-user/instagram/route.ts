@@ -2,8 +2,6 @@ import sql from "@/utils/db";
 import getUser from "@/utils/getUser";
 
 export async function PATCH(req: Request) {
-  return new Response("DEMO");
-
   let { instagram } = await req.json();
   const { user } = await getUser();
 

@@ -3,8 +3,6 @@ import getUser from "@/utils/getUser";
 import { BlobServiceClient } from "@azure/storage-blob";
 
 export async function POST(req: Request) {
-  return new Response("DEMO");
-
   const { user } = await getUser();
 
   if (!user?.id) {

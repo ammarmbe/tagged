@@ -55,7 +55,7 @@ export default function Login() {
   };
 
   return (
-    <main className="flex h-[calc(100vh-40px)] w-screen items-center justify-center">
+    <main className="flex h-screen w-screen items-center justify-center">
       <form className="card" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-wrap items-center justify-between gap-x-5 gap-y-3">
           <div className="flex gap-2">

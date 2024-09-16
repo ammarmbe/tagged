@@ -2,8 +2,6 @@ import sql from "@/utils/db";
 import { BlobServiceClient } from "@azure/storage-blob";
 
 export async function POST(req: Request) {
-  return new Response("DEMO");
-
   const formData = await req.formData();
   const file = formData.get("file") as File;
   const name = formData.get("name") as string;
@@ -44,8 +42,6 @@ export async function POST(req: Request) {
 }
 
 export async function DELETE(req: Request) {
-  return new Response("DEMO");
-
   const body = (await req.json()) as {
     id: string;
   };

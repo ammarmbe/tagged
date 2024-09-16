@@ -2,8 +2,6 @@ import sql from "@/utils/db";
 import getUser from "@/utils/getUser";
 
 export async function POST(req: Request) {
-  return new Response("DEMO");
-
   const { user } = await getUser();
   const { nano_id, orderBy, pageParam } = await req.json();
 
