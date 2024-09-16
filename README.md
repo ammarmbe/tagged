@@ -2,7 +2,7 @@
 
 Tagged is an e-commerce platform created using Next.js 14 and React. <br> Deployed at: [tagged.ambe.dev](https://tagged.ambe.dev/).
 
-![tagged](https://github.com/user-attachments/assets/f056dbb9-3c39-441a-a2f8-c168b787a9da)
+![memo](https://github.com/user-attachments/assets/f74cdc44-9cea-413f-a64e-33fa18d596cb)
 
 ## Features
 
