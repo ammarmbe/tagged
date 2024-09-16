@@ -2,7 +2,6 @@ import { selectStyles } from "@/utils";
 import { Dispatch, SetStateAction } from "react";
 import {
   FieldErrors,
-  UseFormHandleSubmit,
   UseFormRegister,
 } from "react-hook-form";
 import ReactSelect from "react-select";

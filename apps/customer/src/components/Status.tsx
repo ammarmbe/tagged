@@ -116,33 +116,6 @@ export default function Status({
         tooltip_content: "Your return request has been accepted.",
       };
       break;
-    case "return_requested":
-      statusColors = {
-        border: "#F9DBAF",
-        text: "#B93815",
-        background: "#FEF6EE",
-        status_text: "Return requested",
-        tooltip_content: "You have requested a return.",
-      };
-      break;
-    case "return_declined":
-      statusColors = {
-        border: "#F9DBAF",
-        text: "#B93815",
-        background: "#FEF6EE",
-        status_text: "Return declined",
-        tooltip_content: "Your return request has been declined.",
-      };
-      break;
-    case "return_accepted":
-      statusColors = {
-        border: "#F9DBAF",
-        text: "#B93815",
-        background: "#FEF6EE",
-        status_text: "Return accepted",
-        tooltip_content: "Your return request has been accepted.",
-      };
-      break;
     default:
       break;
   }

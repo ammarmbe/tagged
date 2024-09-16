@@ -7,36 +7,6 @@ import { useRouter } from "next/navigation";
 import CancelOrder from "./CancelOrder";
 import ReturnOrder from "./ReturnOrder";
 
-type Order = {
-  customer_name: string;
-  cancel_reason: string;
-  apartment: string;
-  city: string;
-  governorate: string;
-  id: number;
-  created_at: string;
-  phone_number: string;
-  shipping_price: number;
-  status:
-    | "pending"
-    | "confirmed"
-    | "shipped"
-    | "completed"
-    | "store_cancelled"
-    | "customer_cancelled"
-    | "return_requested"
-    | "return_declined"
-    | "return_accepted"
-    | "returned";
-  store_name: string;
-  store_id: number;
-  street: string;
-  first_name: string;
-  last_name: string;
-  total: number;
-  nano_id: string;
-};
-
 export default function CustomerOrders() {
   const router = useRouter();
 

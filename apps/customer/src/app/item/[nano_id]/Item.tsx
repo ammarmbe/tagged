@@ -5,7 +5,7 @@ import Link from "@/components/primitives/Link";
 import { notFound } from "next/navigation";
 import { Fragment, useState } from "react";
 import Configuration from "./Configuration";
-import { Item } from "./page";
+import { TItem } from "./page";
 import { useQuery } from "@tanstack/react-query";
 import Spinner from "@/components/Spinner";
 import Images from "./Images";
@@ -31,7 +31,7 @@ export default function Page({
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_URL}/api/item?nano_id=${nano_id}`,
       );
-      return (await res.json()) as Item;
+      return (await res.json()) as TItem;
     },
   });
 

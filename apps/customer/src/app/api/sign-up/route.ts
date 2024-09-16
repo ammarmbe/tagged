@@ -1,9 +1,6 @@
 import { lucia } from "@/utils/auth";
 import sql from "@/utils/db";
-import { customAlphabet } from "nanoid";
 import { cookies } from "next/headers";
-import { EmailVerification } from "@/components/email/EmailVerification";
-import { Resend } from "resend";
 import { generateCode } from "@/utils/emailVerification";
 
 export async function POST(req: Request) {

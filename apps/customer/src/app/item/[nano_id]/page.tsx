@@ -2,7 +2,7 @@ import Item from "./Item";
 import getUser from "@/utils/getUser";
 import { QueryClient } from "@tanstack/react-query";
 
-export type Item = {
+export type TItem = {
   category: string[];
   item_id: string;
   item_name: string;
@@ -37,7 +37,7 @@ export default async function Page({
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_URL}/api/item?nano_id=${params.nano_id}`,
       );
-      return (await res.json()) as Item;
+      return (await res.json()) as TItem;
     },
   });
 

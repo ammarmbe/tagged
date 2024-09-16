@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Item } from "./page";
+import { TItem } from "./page";
 import { Dispatch, SetStateAction } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "@/utils/toast/use-toast";
@@ -17,7 +17,7 @@ export default function Configuration({
   selected,
   setSelected,
 }: {
-  item: Item;
+  item: TItem;
   user: User | null;
   selected: {
     color_id: number;

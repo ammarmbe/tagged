@@ -1,13 +1,24 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
-  "globalEnv": ["NEXT_PUBLIC_URL", "RESEND_API_KEY", "NODE_ENV", "TEST_EMAIL"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
       "env": ["NEXT_PUBLIC_URL", "RESEND_API_KEY", "NODE_ENV", "TEST_EMAIL"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [".next/**", "!.next/cache/**"]
+    },
+    "customer#build": {
+      "env": ["RESEND_API_KEY", "NEXT_PUBLIC_URL", "DATABASE_URL", "TEST_EMAIL"]
+    },
+    "store#build": {
+      "env": [
+        "CONTAINER_NAME",
+        "ACCOUNT_NAME",
+        "SAS_TOKEN",
+        "DATABASE_URL",
+        "NEXT_PUBLIC_URL"
+      ]
     },
     "lint": {
       "dependsOn": ["^lint"]

@@ -11,7 +11,6 @@ import {
   User2,
   X,
 } from "lucide-react";
-import { generalSans } from "@/utils";
 import signout from "./signout";
 import Image from "next/image";
 import Link from "@/components/primitives/Link";
