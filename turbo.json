@@ -9,7 +9,13 @@
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "customer#build": {
-      "env": ["RESEND_API_KEY", "NEXT_PUBLIC_URL", "DATABASE_URL", "TEST_EMAIL"]
+      "env": [
+        "RESEND_API_KEY",
+        "NEXT_PUBLIC_URL",
+        "DATABASE_URL",
+        "TEST_EMAIL",
+        "NODE_ENV"
+      ]
     },
     "store#build": {
       "env": [
@@ -17,7 +23,8 @@
         "ACCOUNT_NAME",
         "SAS_TOKEN",
         "DATABASE_URL",
-        "NEXT_PUBLIC_URL"
+        "NEXT_PUBLIC_URL",
+        "NODE_ENV"
       ]
     },
     "lint": {
