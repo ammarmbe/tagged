@@ -15,5 +15,5 @@ export async function GET() {
     [user.id],
   );
 
-  return new Response(data[0].count ?? 0);
+  return new Response(data[0]?.count ?? 0);
 }

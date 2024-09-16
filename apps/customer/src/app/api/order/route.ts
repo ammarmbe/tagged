@@ -73,7 +73,7 @@ export async function POST(req: Request) {
     for (const item of items) {
       await sql(
         "INSERT INTO order_items (order_id, item_id, quantity, size, color, name, price, discount) VALUES ($1, $2, $3, $4, $5, (SELECT name FROM items WHERE id = $2), (SELECT price FROM items WHERE id = $2), (SELECT COALESCE(discount, 0) FROM items WHERE id = $2))",
-        [order_id[0].id, item.item_id, item.quantity, item.size, item.color],
+        [order_id[0]?.id, item.item_id, item.quantity, item.size, item.color],
       );
 
       await sql(
@@ -84,13 +84,13 @@ export async function POST(req: Request) {
 
     await sql(
       "INSERT INTO notifications (order_id, store_id, type) VALUES ($1, $2, 'new-order')",
-      [order_id[0].id, store_id],
+      [order_id[0]?.id, store_id],
     );
 
-    await sendNewOrderEmail(order_id[0].id.toString(), user.email);
+    await sendNewOrderEmail(order_id[0]?.id.toString(), user.email);
     await sendNewOrderEmailToStore(
-      order_id[0].id.toString(),
-      (await sql("SELECT email FROM users WHERE id = $1", [store_id]))[0].email,
+      order_id[0]?.id.toString(),
+      (await sql("SELECT email FROM users WHERE id = $1", [store_id]))[0]?.email,
     );
   }
 

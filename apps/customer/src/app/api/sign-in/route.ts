@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
     [requestIp.getClientIp(req as unknown as requestIp.Request) ?? req.ip],
   );
 
-  if (data[0].count > 5) {
+  if (data[0]?.count > 5) {
     return new Response("Too many requests", {
       status: 429,
     });
@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  const session = await lucia.createSession(user[0].id, {});
+  const session = await lucia.createSession(user[0]?.id, {});
   const sessionCookie = lucia.createSessionCookie(session.id);
   cookies().set(
     sessionCookie.name,
@@ -69,7 +69,7 @@ export async function GET(req: NextRequest) {
     [requestIp.getClientIp(req as unknown as requestIp.Request) ?? req.ip],
   );
 
-  if (data[0].count > 5) {
+  if (data[0]?.count > 5) {
     return new Response("Too many requests", {
       status: 429,
     });

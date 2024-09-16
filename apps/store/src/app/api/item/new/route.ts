@@ -63,14 +63,14 @@ export async function POST(req: Request) {
   quantities.forEach(async ({ color, size, quantity, hex }) => {
     await sql(
       "INSERT INTO item_configs (item_id, color, size, quantity, color_hex) VALUES ($1, $2, $3, $4, $5)",
-      [id[0].id, color, size, quantity || 0, hex],
+      [id[0]?.id, color, size, quantity || 0, hex],
     );
   });
 
   images.forEach(async ({ color, url, id: i }) => {
     await sql(
       "INSERT INTO item_images (item_id, color, url, id) VALUES ($1, $2, $3, $4)",
-      [id[0].id, color, url, i],
+      [id[0]?.id, color, url, i],
     );
   });
 
