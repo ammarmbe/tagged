@@ -1,0 +1,25 @@
+.scroller {
+  @apply max-w-[min(78rem,calc(100vw-2rem-2px))] overflow-hidden;
+  mask: linear-gradient(
+    90deg,
+    transparent 2%,
+    white 20%,
+    white 80%,
+    transparent 98%
+  );
+}
+
+.scroller_inner {
+  @apply flex w-max gap-3;
+  animation: scroll 20s linear infinite;
+}
+
+.scroller_inner div {
+  @apply flex-none rounded-full border px-4 py-2;
+}
+
+@keyframes scroll {
+  to {
+    transform: translate(calc(-50% - 0.375rem));
+  }
+}
