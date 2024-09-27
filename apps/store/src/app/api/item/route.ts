@@ -73,11 +73,11 @@ export async function PATCH(req: Request) {
     return new Response(JSON.stringify(null), { status: 401 });
   }
 
-  const { store_id } = (
+  const store = (
     await sql("SELECT store_id FROM items WHERE id = $1", [id])
   )[0];
 
-  if (user.id !== store_id) {
+  if (user.id !== store?.store_id) {
     return new Response(JSON.stringify(null), { status: 401 });
   }
 

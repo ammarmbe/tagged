@@ -285,7 +285,7 @@ export default function ItemSales({ nano_id }: { nano_id: string }) {
                 <RiArrowLeftSLine size={18} />
               </button>
               {Array.from({
-                length: Math.ceil(data[0]?.total_count / 5),
+                length: Math.ceil((data[0]?.total_count || 5) / 5),
               }).map((_, i) => (
                 <span
                   key={i}

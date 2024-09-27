@@ -169,7 +169,7 @@ export default function Edit({
         <div className="grid grid-cols-2 gap-3.5 gap-y-1">
           <div className="space-y-1">
             <label htmlFor="editPrice" className="label-small">
-              Price <span className="text-text-600 font-normal">(EGP)</span>
+              Price <span className="font-normal text-text-600">(EGP)</span>
             </label>
             <Input
               type="number"
@@ -182,7 +182,7 @@ export default function Edit({
           </div>
           <div className="space-y-1">
             <label htmlFor="editDiscount" className="label-small">
-              Discount <span className="text-text-600 font-normal">(EGP)</span>
+              Discount <span className="font-normal text-text-600">(EGP)</span>
             </label>
             <Input
               type="number"

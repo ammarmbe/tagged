@@ -423,9 +423,9 @@ export default function Table() {
                 <RiArrowLeftSLine size={18} />
               </button>
               {Array.from({
-                length: Math.ceil(data[0]?.total_count / limit) || 1,
+                length: Math.ceil((data[0]?.total_count || 0) / limit) || 1,
               }).map((_, i) => {
-                const total = Math.ceil(data[0]?.total_count / limit);
+                const total = Math.ceil((data[0]?.total_count || 0) / limit);
                 const current = table.getState().pagination.pageIndex + 1;
                 const number = i + 1;
 
@@ -530,7 +530,7 @@ export default function Table() {
                 }}
                 disabled={
                   table.getState().pagination.pageIndex + 1 ===
-                  (Math.ceil(data[0]?.total_count / limit) || 1)
+                  (Math.ceil((data[0]?.total_count || 0) / limit) || 1)
                 }
               >
                 <RiArrowRightSLine size={18} />

@@ -20,8 +20,11 @@ export default function UpdateStock({
   const [quantitiesOpen, setQuantitiesOpen] = useState(false);
   const [quantities, setQuantities] = useState(
     data?.quantities?.map((q) => {
-      const [colorSize, quantity] = q.split(": ");
-      const [color, size] = colorSize.split(" / ");
+      const [colorSize, quantity] = q.split(": ") as [string, string];
+      const [color, size] = (colorSize?.split(" / ") || ["", ""]) as [
+        string,
+        string,
+      ];
       return { color, size, quantity };
     }) ?? [],
   );
@@ -30,8 +33,11 @@ export default function UpdateStock({
   useEffect(() => {
     setQuantities(
       data?.quantities?.map((q) => {
-        const [colorSize, quantity] = q.split(": ");
-        const [color, size] = colorSize.split(" / ");
+        const [colorSize, quantity] = q.split(": ") as [string, string];
+        const [color, size] = (colorSize?.split(" / ") || ["", ""]) as [
+          string,
+          string,
+        ];
         return { color, size, quantity };
       }) ?? [],
     );
@@ -84,7 +90,7 @@ export default function UpdateStock({
       onOpenChange={setQuantitiesOpen}
     >
       <div className="flex gap-4 p-4">
-        <div className="text-text-600 h-fit rounded-full border p-2.5">
+        <div className="h-fit rounded-full border p-2.5 text-text-600">
           <RiBox3Line size={24} />
         </div>
         <div className="flex-grow">
@@ -98,7 +104,7 @@ export default function UpdateStock({
               />
             </Dialog.Close>
           </div>
-          <p className="paragraph-small text-text-600 mt-1">
+          <p className="paragraph-small mt-1 text-text-600">
             Update stock for different sizes and colors
           </p>
         </div>

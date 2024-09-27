@@ -69,7 +69,7 @@ const Select = React.forwardRef<
           />
         )}
         <div
-          className={`peer-focus:text-text-950 peer-hover:text-text-600 absolute top-[calc(0.5rem+1px)] text-text-400 transition-all ${
+          className={`absolute top-[calc(0.5rem+1px)] text-text-400 transition-all peer-hover:text-text-600 peer-focus:text-text-950 ${
             size === "md" ? "p-[2px]" : ""
           } ${
             iconSide === "right"
@@ -88,4 +88,5 @@ const Select = React.forwardRef<
 );
 
 Select.displayName = "Select";
+
 export default Select;
