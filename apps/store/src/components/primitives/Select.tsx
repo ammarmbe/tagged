@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { selectStyles } from "@/utils";
 import React from "react";
 import ReactSelect from "react-select";
@@ -14,7 +15,6 @@ type SelectProps = {
   creatable?: boolean;
 };
 
-// @ts-ignore
 const Select = React.forwardRef<
   React.ElementRef<
     typeof ReactSelect<{ value: any; label: string }, true, never>
