@@ -14,6 +14,7 @@ type SelectProps = {
   creatable?: boolean;
 };
 
+// @ts-ignore
 const Select = React.forwardRef<
   React.ElementRef<
     typeof ReactSelect<{ value: any; label: string }, true, never>

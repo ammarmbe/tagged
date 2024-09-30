@@ -1,22 +1,13 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import QueryClientProvider from "@/utils/QueryClientProvider";
 import { Toaster } from "@/components/primitives/toast/Toaster";
 import Sidebar from "@/components/Sidebar";
 import { Analytics } from "@vercel/analytics/react";
 
-const inter = localFont({
-  src: [
-    {
-      path: "/../../public/InterVariable.ttf",
-      style: "normal",
-    },
-    {
-      path: "/../../public/InterVariable-Italic.ttf",
-      style: "italic",
-    },
-  ],
+const inter = Inter({
+  subsets: ["latin-ext"],
 });
 
 export const metadata: Metadata = {
