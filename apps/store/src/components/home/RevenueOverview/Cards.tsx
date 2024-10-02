@@ -18,7 +18,7 @@ export default function Cards({ range }: { range: TRange }) {
     units: 0,
   });
 
-  const { data, refetch, isFetching } = useQuery({
+  const { data, refetch, isLoading } = useQuery({
     queryKey: ["revenue-overview", "cards"],
     queryFn: async () => {
       const res = await fetch(
@@ -73,7 +73,7 @@ export default function Cards({ range }: { range: TRange }) {
 
   return (
     <div className="relative grid grid-cols-1 gap-5 py-3 lg:grid-cols-[1fr,1px,1fr,1px,1fr] lg:gap-3 lg:py-5">
-      <Loading size={40} isFetching={isFetching} />
+      <Loading size={40} isLoading={isLoading} />
       <div className="flex items-start lg:justify-center">
         <div className="grid grid-cols-[auto,1fr] gap-x-3 gap-y-1">
           <div className="row-span-2 h-fit rounded-full border p-2.5">

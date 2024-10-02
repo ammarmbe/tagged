@@ -10,7 +10,7 @@ import Image from "next/image";
 import Loading from "../primitives/Loading";
 
 export default function Statistics() {
-  const { data, isFetching } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["statistics"],
     queryFn: async () => {
       const response = await fetch("/api/home/statistics");
@@ -40,7 +40,7 @@ export default function Statistics() {
   return (
     <div className="grid gap-4 sm:grid-cols-2 sm:grid-rows-2 sm:gap-6">
       <div className="card relative !p-0">
-        <Loading isFetching={isFetching} />
+        <Loading isLoading={isLoading} />
         <div className="flex flex-grow flex-col justify-between !p-5">
           <div className="flex w-full justify-between">
             <div className="h-fit rounded-full border p-2 text-text-600 shadow-xs">
@@ -88,7 +88,7 @@ export default function Statistics() {
         </div>
       </div>
       <div className="card relative !p-0">
-        <Loading isFetching={isFetching} />
+        <Loading isLoading={isLoading} />
         <div className="flex flex-grow flex-col justify-between !p-5">
           <div className="flex w-full justify-between">
             <div className="h-fit rounded-full border p-2 text-text-600 shadow-xs">
@@ -132,7 +132,7 @@ export default function Statistics() {
         </div>
       </div>
       <div className="card relative !p-0">
-        <Loading isFetching={isFetching} />
+        <Loading isLoading={isLoading} />
         <div className="flex flex-grow flex-col justify-between !p-5">
           <div className="flex w-full justify-between">
             <div className="h-fit rounded-full border p-2 text-text-600 shadow-xs">
@@ -175,7 +175,7 @@ export default function Statistics() {
         </div>
       </div>
       <div className="card relative !p-0">
-        <Loading isFetching={isFetching} />
+        <Loading isLoading={isLoading} />
         <div className="flex flex-grow flex-col justify-between !p-5">
           <div className="flex w-full justify-between">
             <div className="h-fit rounded-full border p-2 text-text-600 shadow-xs">

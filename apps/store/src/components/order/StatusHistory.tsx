@@ -24,7 +24,7 @@ const text = {
 } as const;
 
 export default function StatusHistory({ nano_id }: { nano_id: string }) {
-  const { data, isFetching } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["order-history", nano_id],
     queryFn: async () => {
       const res = await fetch(`/api/order/status-history?nano_id=${nano_id}`);
@@ -58,7 +58,7 @@ export default function StatusHistory({ nano_id }: { nano_id: string }) {
       </div>
       <div className="mx-4 border-t" />
       <div className="relative flex-grow">
-        <Loading isFetching={isFetching} />
+        <Loading isLoading={isLoading} />
         <div className="flex flex-col gap-3 p-4 sm:gap-2">
           {data?.[0]?.created_at ? (
             <div className="flex flex-col justify-between gap-x-8 gap-y-1 sm:flex-row sm:items-center">

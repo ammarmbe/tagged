@@ -8,7 +8,7 @@ import { useUser } from "@/utils";
 export default function Page() {
   const [table, setTable] = useState<"comfortable" | "compact">();
 
-  const { user, isFetching } = useUser();
+  const { user, isLoading } = useUser();
 
   useEffect(() => {
     setTable(user?.feature_flags?.table_size);
@@ -23,7 +23,7 @@ export default function Page() {
       />
       <div className="mx-8 border-t" />
       <div className="relative grid gap-x-10 gap-y-5 px-8 py-5 sm:grid-cols-2 sm:gap-x-20">
-        <Loading isFetching={isFetching} />
+        <Loading isLoading={isLoading} />
         <div>
           <p className="label-small">Table Size</p>
           <div className="paragraph-small mt-1 text-text-600">

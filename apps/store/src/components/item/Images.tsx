@@ -19,7 +19,7 @@ import imageCompression from "browser-image-compression";
 export default function Images({ nano_id }: { nano_id: string }) {
   const queryClient = useQueryClient();
 
-  const { data, isFetching } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["images", nano_id],
     queryFn: async () => {
       const res = await fetch(`/api/item/images?nano_id=${nano_id}`);
@@ -234,7 +234,7 @@ export default function Images({ nano_id }: { nano_id: string }) {
       </div>
       <div className="mx-4 border-t" />
       <div className="relative min-h-[200px] flex-grow overflow-auto rounded-b-2xl">
-        <Loading isFetching={isFetching} />
+        <Loading isLoading={isLoading} />
         {data?.map((image, i) => (
           <Dialog.Root key={i}>
             <Dialog.Trigger asChild>

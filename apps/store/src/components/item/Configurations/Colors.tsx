@@ -64,7 +64,7 @@ export default function Colors({
 }) {
   const {
     data: item_colors,
-    isFetching,
+    isLoading,
     refetch,
   } = useQuery({
     queryKey: ["item-colors", nano_id],
@@ -90,7 +90,7 @@ export default function Colors({
 
   return (
     <div className="relative flex-grow overflow-hidden rounded-b-2xl">
-      <Loading size={40} isFetching={isFetching} />
+      <Loading size={40} isLoading={isLoading} />
       <div className="grid min-h-[100px] grid-cols-1 gap-2 p-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-1">
         {item_colors?.map((color) => (
           <div

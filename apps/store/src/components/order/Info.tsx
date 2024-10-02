@@ -6,7 +6,7 @@ import Status from "../Status";
 
 export default function Info({
   data,
-  isFetching,
+  isLoading,
 }: {
   data?: {
     nano_id: string;
@@ -26,7 +26,7 @@ export default function Info({
       | null;
     cancel_reason: string;
   };
-  isFetching: boolean;
+  isLoading: boolean;
 }) {
   return (
     <div className="card !gap-0 !p-0">
@@ -36,7 +36,7 @@ export default function Info({
       </div>
       <div className="mx-4 border-t" />
       <div className="relative flex min-w-[300px] flex-col gap-3 overflow-hidden rounded-b-2xl p-4">
-        <Loading size={40} isFetching={isFetching} />
+        <Loading size={40} isLoading={isLoading} />
         <div className="grid grid-cols-[auto,auto] gap-3">
           <div>
             <p className="subheading-xsmall mb-1 text-text-400">ID</p>

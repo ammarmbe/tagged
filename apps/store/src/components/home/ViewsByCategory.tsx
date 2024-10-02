@@ -27,7 +27,7 @@ export default function ViewsByCategory() {
   const {
     data: raw,
     refetch,
-    isFetching,
+    isLoading,
   } = useQuery({
     queryKey: ["views-by-category"],
     queryFn: async () => {
@@ -107,7 +107,7 @@ export default function ViewsByCategory() {
       </div>
       <div className="border-t" />
       <div className="relative p-4 pt-1">
-        <Loading size={40} isFetching={isFetching} />
+        <Loading size={40} isLoading={isLoading} />
         <div className="flex h-72 w-full">
           <Bar
             data={data}

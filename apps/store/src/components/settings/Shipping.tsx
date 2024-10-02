@@ -89,7 +89,7 @@ export default function Page() {
     "Alexandria",
   ]);
 
-  const { user, isFetching } = useUser();
+  const { user, isLoading } = useUser();
 
   const priceMutation = useMutation({
     mutationKey: ["updatePrice"],
@@ -260,7 +260,7 @@ export default function Page() {
       />
       <div className="mx-8 border-t" />
       <div className="relative grid gap-x-10 gap-y-5 px-8 py-5 lg:grid-cols-2 lg:gap-x-20">
-        <Loading isFetching={isFetching} />
+        <Loading isLoading={isLoading} />
         {editingPrice ? (
           <>
             <form onSubmit={handlePriceSubmit(onPriceSubmit)}>

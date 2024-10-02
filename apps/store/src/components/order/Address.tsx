@@ -4,7 +4,7 @@ import Loading from "../primitives/Loading";
 
 export default function Address({
   address,
-  isFetching,
+  isLoading,
 }: {
   address: {
     address_hidden: boolean | undefined;
@@ -16,7 +16,7 @@ export default function Address({
     last_name: string | undefined;
     phone_number: string | undefined;
   };
-  isFetching: boolean;
+  isLoading: boolean;
 }) {
   return (
     <div className="card min-w-[200px] !gap-0 !p-0">
@@ -42,7 +42,7 @@ export default function Address({
       </div>
       <div className="mx-4 border-t" />
       <div className="relative flex-grow">
-        <Loading isFetching={isFetching} />
+        <Loading isLoading={isLoading} />
         <div className="flex flex-col gap-3 p-4 sm:gap-2">
           <div className="flex flex-col justify-between gap-x-8 gap-y-1 sm:flex-row sm:items-center">
             <p className="paragraph-small text-text-600">Name</p>

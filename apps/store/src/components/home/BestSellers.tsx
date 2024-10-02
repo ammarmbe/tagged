@@ -16,7 +16,7 @@ export default function BestSellers() {
     label: "Today",
   });
 
-  const { data, refetch, isFetching } = useQuery({
+  const { data, refetch, isLoading } = useQuery({
     queryKey: ["best-sellers"],
     queryFn: async () => {
       const res = await fetch(`/api/home/best-sellers?range=${range.value}`);
@@ -77,7 +77,7 @@ export default function BestSellers() {
       </div>
       <div className="mx-4 border-t" />
       <div className="relative min-h-[200px] flex-grow overflow-auto rounded-b-2xl">
-        <Loading size={40} isFetching={isFetching} />
+        <Loading size={40} isLoading={isLoading} />
         {data?.map((item, i) => (
           <div
             key={i}

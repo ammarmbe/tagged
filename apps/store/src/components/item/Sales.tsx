@@ -100,7 +100,7 @@ export default function ItemSales({ nano_id }: { nano_id: string }) {
   const {
     data: raw,
     refetch,
-    isFetching,
+    isLoading,
     fetchNextPage,
   } = useInfiniteQuery({
     queryKey: ["items"],
@@ -231,7 +231,7 @@ export default function ItemSales({ nano_id }: { nano_id: string }) {
               ))}
             </thead>
             <tbody className="relative">
-              {isFetching ? (
+              {isLoading ? (
                 <tr className="bg-bg-0/40 absolute inset-0 z-10 backdrop-blur-[2px]">
                   <td className="absolute inset-0 flex items-center justify-center">
                     <Spinner size={44} fill="fill-main-base" />

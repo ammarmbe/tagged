@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function Info({
   data,
-  isFetching,
+  isLoading,
   nano_id,
 }: {
   data?: {
@@ -22,7 +22,7 @@ export default function Info({
     quantity: number;
     quantities: string[];
   };
-  isFetching: boolean;
+  isLoading: boolean;
   nano_id: string;
 }) {
   return (
@@ -36,7 +36,7 @@ export default function Info({
       </div>
       <div className="mx-4 border-t" />
       <div className="relative flex flex-col gap-3 overflow-hidden rounded-b-2xl p-4">
-        <Loading size={40} isFetching={isFetching} />
+        <Loading size={40} isLoading={isLoading} />
         <div className="grid grid-cols-[1fr,2fr] gap-3">
           <div>
             <p className="subheading-xsmall mb-1 text-text-400">ID</p>

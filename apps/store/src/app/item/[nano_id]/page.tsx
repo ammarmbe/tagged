@@ -15,7 +15,7 @@ import { RiBox3Line, RiTShirt2Line } from "react-icons/ri";
 import Images from "@/components/item/Images";
 
 export default function Page({ params }: { params: { nano_id: string } }) {
-  const { data, isFetching } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["item", params.nano_id],
     queryFn: async () => {
       const res = await fetch(`/api/item?nano_id=${params.nano_id}`);
@@ -115,7 +115,7 @@ export default function Page({ params }: { params: { nano_id: string } }) {
       />
       <div className="grid grid-cols-1 gap-4 px-5 pb-6 pt-1 sm:gap-6 sm:px-8 2xl:grid-cols-[auto,1fr]">
         <div className="flex flex-col gap-4 sm:gap-6">
-          <Info data={data} isFetching={isFetching} nano_id={params.nano_id} />
+          <Info data={data} isLoading={isLoading} nano_id={params.nano_id} />
           <Configurations nano_id={params.nano_id} />
           <Images nano_id={params.nano_id} />
         </div>

@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 export default function Items({ nano_id }: { nano_id: string }) {
   const router = useRouter();
 
-  const { data, isFetching } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["order-items", nano_id],
     queryFn: async () => {
       const res = await fetch(`/api/order/items?nano_id=${nano_id}`);
@@ -36,7 +36,7 @@ export default function Items({ nano_id }: { nano_id: string }) {
       </div>
       <div className="mx-4 border-t" />
       <div className="relative min-w-[300px] flex-grow">
-        <Loading isFetching={isFetching} />
+        <Loading isLoading={isLoading} />
         <div className="flex max-h-[400px] flex-grow flex-col gap-3 overflow-auto">
           {data?.map((item) => (
             <div

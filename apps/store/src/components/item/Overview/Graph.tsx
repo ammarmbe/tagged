@@ -34,7 +34,7 @@ export default function Graph({
   const {
     data: raw,
     refetch,
-    isFetching,
+    isLoading,
   } = useQuery({
     queryKey: ["item-overview", "graphs", nano_id],
     queryFn: async () => {
@@ -78,7 +78,7 @@ export default function Graph({
 
   return (
     <div className="relative p-4 pt-1">
-      <Loading size={40} isFetching={isFetching} />
+      <Loading size={40} isLoading={isLoading} />
       <div className="flex h-96 w-full">
         <Line
           data={data}

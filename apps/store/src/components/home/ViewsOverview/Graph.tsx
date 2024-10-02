@@ -27,7 +27,7 @@ export default function Graph({ range }: { range: TRange }) {
   const {
     data: raw,
     refetch,
-    isFetching,
+    isLoading,
   } = useQuery({
     queryKey: ["views-overview", "graphs"],
     queryFn: async () => {
@@ -71,7 +71,7 @@ export default function Graph({ range }: { range: TRange }) {
 
   return (
     <div className="relative p-4 pt-1">
-      <Loading size={40} isFetching={isFetching} />
+      <Loading size={40} isLoading={isLoading} />
       <div className="flex h-72 w-full">
         <Line
           data={data}

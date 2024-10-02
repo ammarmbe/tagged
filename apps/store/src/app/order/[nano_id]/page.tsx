@@ -12,7 +12,7 @@ import Button from "@/components/primitives/Button";
 import Info from "@/components/order/Info";
 
 export default function Page({ params }: { params: { nano_id: string } }) {
-  const { data, isFetching } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["order", params.nano_id],
     queryFn: async () => {
       const res = await fetch(`/api/order?nano_id=${params.nano_id}`);
@@ -80,7 +80,7 @@ export default function Page({ params }: { params: { nano_id: string } }) {
         }
       />
       <div className="grid flex-wrap gap-4 px-5 pb-6 pt-1 sm:flex sm:gap-6 sm:px-8">
-        <Info data={data} isFetching={isFetching} />
+        <Info data={data} isLoading={isLoading} />
         <Address
           address={{
             address_hidden: data?.address_hidden,
@@ -92,7 +92,7 @@ export default function Page({ params }: { params: { nano_id: string } }) {
             last_name: data?.last_name,
             phone_number: data?.phone_number,
           }}
-          isFetching={isFetching}
+          isLoading={isLoading}
         />
         <Items nano_id={params.nano_id} />
         <StatusHistory nano_id={params.nano_id} />

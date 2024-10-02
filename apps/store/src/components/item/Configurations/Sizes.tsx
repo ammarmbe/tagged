@@ -15,7 +15,7 @@ export default function Sizes({
 }) {
   const {
     data: item_sizes,
-    isFetching,
+    isLoading,
     refetch,
   } = useQuery({
     queryKey: ["item-sizes", nano_id],
@@ -40,7 +40,7 @@ export default function Sizes({
 
   return (
     <div className="relative flex-grow overflow-hidden rounded-b-2xl">
-      <Loading size={40} isFetching={isFetching} />
+      <Loading size={40} isLoading={isLoading} />
       <div className="grid min-h-[100px] grid-cols-1 gap-2 p-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-1">
         {item_sizes?.map((size) => (
           <div

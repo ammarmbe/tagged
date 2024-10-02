@@ -319,7 +319,7 @@ export default function Table() {
   const {
     data: raw,
     refetch,
-    isFetching,
+    isLoading,
     fetchNextPage,
   } = useInfiniteQuery({
     queryKey: ["items"],
@@ -553,11 +553,11 @@ export default function Table() {
         <div className="relative flex flex-grow">
           <div
             className={`absolute inset-0 flex flex-col ${
-              isFetching ? "" : "pointer-events-none"
+              isLoading ? "" : "pointer-events-none"
             }`}
           >
             <div className="h-[2.25rem] w-full" />
-            {isFetching ? (
+            {isLoading ? (
               <div className="bg-bg-0/40 z-10 flex flex-grow items-center justify-center backdrop-blur-[2px]">
                 <Spinner size={44} fill="fill-main-base" />
               </div>
