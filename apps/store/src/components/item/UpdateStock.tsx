@@ -131,7 +131,7 @@ export default function UpdateStock({
                   defaultValue={quantity.split(": ")[1]}
                 />
               </div>
-              <div className="border-t" />
+              <div className="hidden border-t last:block" />
             </Fragment>
           );
         }) ?? (

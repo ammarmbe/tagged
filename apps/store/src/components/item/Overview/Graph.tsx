@@ -65,11 +65,11 @@ export default function Graph({
             y: d.revenue,
           })) || [],
         fill: "origin",
-        backgroundColor: "#6E3FF3" + "33", // 33 is 20% opacity
+        backgroundColor: "#ef6820" + "33", // 33 is 20% opacity
         pointHoverRadius: 4,
         pointRadius: 0,
-        pointBackgroundColor: "#6E3FF3",
-        borderColor: "#6E3FF3",
+        pointBackgroundColor: "#ef6820",
+        borderColor: "#ef6820",
         borderWidth: 2,
         tension: 0.3,
       },

@@ -70,7 +70,7 @@ export default function Item({
               </div>
             ) : null}
           </div>
-          <div className="flex w-fit gap-1.5 self-end rounded-full bg-gray-100/70 p-1 backdrop-blur-md">
+          <div className="flex w-fit gap-1.5 self-end rounded-full bg-gray-100/40 p-1 backdrop-blur-md">
             {item.colors.map((color, index) => (
               <div
                 key={index}

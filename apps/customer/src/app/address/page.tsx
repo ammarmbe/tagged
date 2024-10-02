@@ -23,7 +23,7 @@ export default function Page() {
 
   if (isLoading) {
     return (
-      <div className="mx-auto w-full max-w-[min(100%,80rem)] flex-grow px-4">
+      <div className="mx-auto flex w-full max-w-[min(100%,80rem)] flex-grow px-4">
         <div className="flex flex-grow items-center justify-center rounded-xl border p-10">
           <Spinner size="lg" />
         </div>

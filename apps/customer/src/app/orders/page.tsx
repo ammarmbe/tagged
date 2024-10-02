@@ -47,13 +47,13 @@ export default function CustomerOrders() {
   });
 
   return (
-    <div className="mx-auto w-full max-w-[min(100%,80rem)] px-4">
-      <div className="flex-grow overflow-hidden rounded-xl border">
+    <div className="mx-auto flex w-full max-w-[min(100%,80rem)] flex-grow px-4">
+      <div className="flex flex-grow flex-col overflow-hidden rounded-xl border">
         <div className="mx-6 my-7 flex items-center justify-between">
           <h2 className="text-xl font-semibold">Your Orders</h2>
         </div>
         <div className="border-t" />
-        <div className="flex w-full flex-wrap md:gap-5 md:p-6">
+        <div className=" flex w-full flex-grow flex-wrap md:gap-5 md:p-6">
           {isLoading ? (
             <div className="flex flex-grow items-center justify-center p-4">
               <Spinner />
@@ -87,7 +87,7 @@ export default function CustomerOrders() {
             ))
           ) : (
             <div className="h-full flex-grow items-center justify-center overflow-hidden p-6">
-              <div className="relative -my-52 mx-auto w-fit">
+              <div className="relative -my-44 mx-auto w-fit">
                 <svg
                   width="566"
                   height="566"

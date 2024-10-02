@@ -30,11 +30,11 @@ html {
   --color-border-200: #e1e4e9;
   --color-border-0: #ffffff;
 
-  --color-main-darker: #ad4e1f;
-  --color-main-dark: #d05e25;
-  --color-main-base: #ff8447;
-  --color-main-light: #ffede1;
-  --color-main-lighter: #fff4ed;
+  --color-main-darker: #932f19;
+  --color-main-dark: #e04f16;
+  --color-main-base: #ef6820;
+  --color-main-light: #ffd5c0;
+  --color-main-lighter: #fff1eb;
 }
 
 @layer utilities {
@@ -135,7 +135,7 @@ html {
   }
 
   .checkbox:checked {
-    @apply border-t border-none border-main-dark bg-main-base shadow-[0px_2px_2px_0px_#16266452_inset] after:shadow-none hover:bg-main-dark active:border-main-dark active:bg-main-dark;
+    @apply border-t border-none border-main-dark bg-main-base shadow-[0px_1px_1px_0px_#16266452_inset] after:shadow-none hover:bg-main-dark active:border-main-dark active:bg-main-dark;
   }
 
   .checkbox:checked:after {

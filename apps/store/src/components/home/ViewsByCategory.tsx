@@ -57,7 +57,7 @@ export default function ViewsByCategory() {
             x: d.category?.at(-1),
             y: d.views,
           })) || [],
-        backgroundColor: "#6E3FF3",
+        backgroundColor: "#ef6820",
         borderWidth: 0,
       },
     ],

@@ -148,77 +148,50 @@ export default function Configuration({
         </div>
       </div>
       <div className="mt-10 grid grid-cols-2 gap-3">
-        <button
-          disabled={
-            (item.configurations.find(
-              (config) =>
-                config.color === item.colors[selected.color_id]!.name &&
-                config.size === item.sizes[selected.size_id],
-            )?.quantity || 0) == 0 || cartMutation.isPending
-          }
-          onClick={() => {
-            if (!user) router.push("/sign-up");
+        {item.configurations.find(
+          (config) =>
+            config.color === item.colors[selected.color_id]!.name &&
+            config.size === item.sizes[selected.size_id],
+        )?.quantity == 0 ? (
+          <button
+            disabled
+            className="button gray sm:lg md col-span-2 justify-center"
+          >
+            Out of Stock
+          </button>
+        ) : (
+          <>
+            <button
+              onClick={() => {
+                if (!user) router.push("/sign-up");
 
-            if (
-              item.configurations.find(
-                (config) =>
-                  config.color === item.colors[selected.color_id]!.name &&
-                  config.size === item.sizes[selected.size_id],
-              )?.quantity != 0
-            ) {
-              cartMutation.mutate({
-                id: item.item_id,
-                color: item.colors[selected.color_id]!.name,
-                size: item.sizes[selected.size_id]!,
-              });
-            }
-          }}
-          className="button gray sm:lg md justify-center"
-        >
-          {item.configurations.find(
-            (config) =>
-              config.color === item.colors[selected.color_id]!.name &&
-              config.size === item.sizes[selected.size_id],
-          )?.quantity == 0
-            ? "Out of Stock"
-            : "Add to Cart"}
-        </button>
-        <button
-          disabled={
-            (item.configurations.find(
-              (config) =>
-                config.color === item.colors[selected.color_id]!.name &&
-                config.size === item.sizes[selected.size_id],
-            )?.quantity || 0) == 0
-          }
-          className="sm:lg md button main justify-center disabled:!cursor-not-allowed disabled:!border-main-400 disabled:!bg-main-400 disabled:!text-white"
-          onClick={() => {
-            if (!user) router.push("/sign-up");
+                cartMutation.mutate({
+                  id: item.item_id,
+                  color: item.colors[selected.color_id]!.name,
+                  size: item.sizes[selected.size_id]!,
+                });
+              }}
+              className="button gray sm:lg md justify-center"
+            >
+              Add to Cart
+            </button>
+            <button
+              className="sm:lg md button main justify-center disabled:!cursor-not-allowed disabled:!border-main-400 disabled:!bg-main-400 disabled:!text-white"
+              onClick={() => {
+                if (!user) router.push("/sign-up");
 
-            if (
-              item.configurations.find(
-                (config) =>
-                  config.color === item.colors[selected.color_id]!.name &&
-                  config.size === item.sizes[selected.size_id],
-              )?.quantity != 0
-            ) {
-              cartMutation.mutate({
-                id: item.item_id,
-                color: item.colors[selected.color_id]!.name,
-                size: item.sizes[selected.size_id]!,
-                buy_now: true,
-              });
-            }
-          }}
-        >
-          {item.configurations.find(
-            (config) =>
-              config.color === item.colors[selected.color_id]!.name &&
-              config.size === item.sizes[selected.size_id],
-          )?.quantity == 0
-            ? "Out of Stock"
-            : "Buy Now"}
-        </button>
+                cartMutation.mutate({
+                  id: item.item_id,
+                  color: item.colors[selected.color_id]!.name,
+                  size: item.sizes[selected.size_id]!,
+                  buy_now: true,
+                });
+              }}
+            >
+              Buy Now
+            </button>
+          </>
+        )}
       </div>
     </>
   );

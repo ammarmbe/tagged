@@ -65,7 +65,7 @@ export default function Login() {
           <Button
             className={`w-fit justify-center self-end ${
               isSubmitting
-                ? "pointer-events-none cursor-not-allowed !border-main-light !bg-main-light"
+                ? "pointer-events-none cursor-not-allowed opacity-60"
                 : ""
             }`}
             text="Log in"

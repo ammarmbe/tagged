@@ -12,7 +12,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Tagged Dashboard",
-  description: "Tagged Dashboard",
+  description: "Tagged is an e-commerce platform for clothing and accessories.",
 };
 
 export default function RootLayout({

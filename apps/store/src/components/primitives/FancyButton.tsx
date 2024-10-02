@@ -32,7 +32,7 @@ const Button: React.FC<
   iconLeft?: React.ReactNode;
   iconRight?: React.ReactNode;
 }) => {
-  const class_name = `flex h-full flex-grow items-center gap-0.5 rounded-[8px] bg-[linear-gradient(180deg,rgba(255,255,255,0.12)0%,rgba(255,255,255,0)100%),linear-gradient(0deg,#6E3FF3,#6E3FF3)] text-white transition-all hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.24)0%,rgba(255,255,255,0)100%),linear-gradient(0deg,#6E3FF3,#6E3FF3)] active:bg-[linear-gradient(180deg,rgba(255,255,255,0)0%,rgba(255,255,255,0.16)100%),linear-gradient(0deg,#6E3FF3,#6E3FF3)] disabled:border-border-200 disabled:!bg-bg-200 !h-fit min-h-0 disabled:text-text-300 disabled:!shadow-none ${
+  const class_name = `flex h-full flex-grow items-center gap-0.5 rounded-[8px] bg-[linear-gradient(180deg,rgba(255,255,255,0.12)0%,rgba(255,255,255,0)100%),linear-gradient(0deg,#ef6820,#ef6820)] text-white transition-all hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.24)0%,rgba(255,255,255,0)100%),linear-gradient(0deg,#ef6820,#ef6820)] active:bg-[linear-gradient(180deg,rgba(255,255,255,0)0%,rgba(255,255,255,0.16)100%),linear-gradient(0deg,#ef6820,#ef6820)] disabled:border-border-200 disabled:!bg-bg-200 !h-fit min-h-0 disabled:text-text-300 disabled:!shadow-none ${
     size === "xs"
       ? "p-[calc(0.375rem-1px)]"
       : size === "sm"
@@ -44,8 +44,8 @@ const Button: React.FC<
     <div
       style={{
         backgroundImage:
-          "linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 100%), linear-gradient(0deg, #6E3FF3, #6E3FF3)",
-        boxShadow: "0px 0px 0px 1px #6E3FF3, 0px 1px 2px 0px #5A36BF7A",
+          "linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 100%), linear-gradient(0deg, #ef6820, #ef6820)",
+        boxShadow: "0px 0px 0px 1px #ef6820, 0px 1px 2px 0px #5A36BF7A",
       }}
       className={`flex !h-fit min-h-0 overflow-hidden rounded-[10px] ${
         //@ts-ignore

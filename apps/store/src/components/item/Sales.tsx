@@ -159,7 +159,7 @@ export default function ItemSales({ nano_id }: { nano_id: string }) {
       <div className="border-t" />
       <div className="flex flex-col gap-4">
         <div className="overflow-auto">
-          <table className="min-h-[200px] w-full min-w-[1000px]">
+          <table className="w-full min-w-[1000px]">
             <thead>
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id}>

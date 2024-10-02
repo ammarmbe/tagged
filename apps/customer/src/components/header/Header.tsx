@@ -44,6 +44,15 @@ export default async function Header() {
           <Link className="hover:text-gray-800" href="/shop?category=dresses">
             Dresses
           </Link>
+          <Link className="hover:text-gray-800" href="/shop?category=jeans">
+            Jeans
+          </Link>
+          <Link
+            className="hover:text-gray-800"
+            href="/shop?category=sweatpants"
+          >
+            Sweatpants
+          </Link>
           <Link className="hover:text-gray-800" href="/shop">
             All Items
           </Link>

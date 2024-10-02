@@ -194,11 +194,11 @@ export default function ShopStore({
               </div>
             </div>
             {settings ? (
-              <div className="mr-1 mt-1 flex w-full items-center justify-evenly gap-4 md:w-auto md:justify-end">
+              <div className="mr-1 mt-1 flex w-full items-center justify-evenly gap-8 md:w-auto md:justify-end">
                 {settings.cancel_rate ? (
                   <div className="flex flex-col items-center gap-1.5">
                     <p
-                      className={`flex size-9 items-center justify-center rounded-full border text-sm font-medium ${
+                      className={`flex size-12 items-center justify-center rounded-full border font-semibold ${
                         settings.cancel_rate <= 5
                           ? "border-success-500 bg-success-100 text-success-800"
                           : settings.cancel_rate <= 10
@@ -210,7 +210,7 @@ export default function ShopStore({
                     >
                       {settings.cancel_rate}%
                     </p>
-                    <p className="text-secondary text-sm font-medium">
+                    <p className="text-secondary text-center text-sm font-medium">
                       Cancel rate
                     </p>
                   </div>
@@ -218,7 +218,7 @@ export default function ShopStore({
                 {settings.return_rate ? (
                   <div className="flex flex-col items-center gap-1.5">
                     <p
-                      className={`flex size-9 items-center justify-center rounded-full border text-sm font-medium ${
+                      className={`flex size-12 items-center justify-center rounded-full border font-semibold ${
                         settings.return_rate <= 5
                           ? "border-success-500 bg-success-100 text-success-800"
                           : settings.return_rate <= 10
@@ -230,7 +230,7 @@ export default function ShopStore({
                     >
                       {settings.return_rate}%
                     </p>
-                    <p className="text-secondary text-sm font-medium">
+                    <p className="text-secondary text-center text-sm font-medium">
                       Return rate
                     </p>
                   </div>
@@ -238,7 +238,7 @@ export default function ShopStore({
                 {settings.deliver_in ? (
                   <div className="flex flex-col items-center gap-1.5">
                     <p
-                      className={`flex size-9 items-center justify-center rounded-full border text-sm font-medium ${
+                      className={`flex size-12 items-center justify-center rounded-full border font-semibold ${
                         Math.round(settings.deliver_in / 86400) <= 3
                           ? "border-success-500 bg-success-100 text-success-800"
                           : Math.round(settings.deliver_in / 86400) <= 7

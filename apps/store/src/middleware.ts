@@ -5,6 +5,10 @@ import type { NextRequest } from "next/server";
 import { lucia } from "./utils/auth";
 
 export async function middleware(request: NextRequest): Promise<NextResponse> {
+  if (request.nextUrl.pathname.startsWith("/_next")) {
+    return NextResponse.next();
+  }
+
   if (request.method === "GET") {
     if (/\.(css|js|png|jpg|jpeg|svg|gif|ttf)$/.test(request.nextUrl.pathname)) {
       return NextResponse.next();

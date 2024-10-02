@@ -57,7 +57,7 @@ export default function RevenueByCategory() {
             x: d.category?.at(-1),
             y: d.revenue,
           })) || [],
-        backgroundColor: "#6E3FF3",
+        backgroundColor: "#ef6820",
         borderWidth: 0,
       },
     ],

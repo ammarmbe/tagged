@@ -70,7 +70,6 @@ export default function Table() {
   const [limit, setLimit] = useState(10);
   const router = useRouter();
   const [selected, setSelected] = useState<number[]>([]);
-  const [allSelected, setAllSelected] = useState(false);
   const [deleteText, setDeleteText] = useState("");
   const { user } = useUser();
 
@@ -81,33 +80,34 @@ export default function Table() {
         header: () => (
           <input
             type="checkbox"
-            checked={allSelected}
-            onChange={(e) => {
-              if (e.target.checked) {
-                setAllSelected(e.target.checked);
-              } else {
-                setAllSelected(e.target.checked);
+            checked={selected.length === data.length}
+            onChange={() => {
+              if (selected.length === data.length) {
                 setSelected([]);
+              } else {
+                setSelected(data.map((item) => item.id));
               }
             }}
             className="checkbox"
           />
         ),
         cell: (info) => (
-          <input
-            type="checkbox"
-            checked={selected.includes(info.row.original.id) || allSelected}
-            onChange={(e) => {
-              if (e.target.checked) {
-                setSelected([...selected, info.row.original.id]);
-              } else {
-                setSelected(
-                  selected.filter((id) => id !== info.row.original.id),
-                );
-              }
-            }}
-            className="checkbox"
-          />
+          <div className="flex h-full w-full items-center justify-center">
+            <input
+              type="checkbox"
+              checked={selected.includes(info.row.original.id)}
+              onChange={() => {
+                if (selected.includes(info.row.original.id)) {
+                  setSelected(
+                    selected.filter((id) => id !== info.row.original.id),
+                  );
+                } else {
+                  setSelected([...selected, info.row.original.id]);
+                }
+              }}
+              className="checkbox"
+            />
+          </div>
         ),
       }),
       columnHelper.accessor("nano_id", {
@@ -175,7 +175,7 @@ export default function Table() {
         size: 12.5,
       }),
     ],
-    [allSelected, selected],
+    [selected, data],
   );
 
   const itemFilters = useMemo(() => {
@@ -243,7 +243,7 @@ export default function Table() {
   }, 500);
 
   const stockMutation = useMutation({
-    mutationKey: ["stock-mutation", allSelected, selected],
+    mutationKey: ["stock-mutation", selected],
     mutationFn: async ({ selected }: { selected: true | number[] }) => {
       const res = await fetch("/api/items/out-of-stock", {
         method: "POST",
@@ -273,7 +273,6 @@ export default function Table() {
       refetch();
 
       setSelected([]);
-      setAllSelected(false);
     },
   });
 
@@ -314,7 +313,6 @@ export default function Table() {
       refetch();
 
       setSelected([]);
-      setAllSelected(false);
     },
   });
 
@@ -412,11 +410,10 @@ export default function Table() {
           </button>
         </div>
         <div className="flex max-w-full items-center gap-3">
-          {selected.length > 0 || allSelected ? (
+          {selected.length > 0 ? (
             <>
               <p className="label-small text-text-400">
-                {allSelected ? data[0]?.total_count : selected.length} /{" "}
-                {data[0]?.total_count} selected
+                {selected.length} / {data.length} selected
               </p>
               <DialogComponent trigger={<Button text="Set out of stock" />}>
                 <div className="flex gap-4 p-4">
@@ -437,23 +434,12 @@ export default function Table() {
                     <p className="paragraph-small mt-1 text-text-600">
                       You are about to{" "}
                       <span className="font-medium text-text-950">
-                        set{" "}
-                        {allSelected ? data[0]?.total_count : selected.length}{" "}
-                        item
-                        {(allSelected
-                          ? data[0]?.total_count
-                          : selected.length) !== 1
-                          ? "s"
-                          : ""}{" "}
-                        to out of stock.
+                        set {selected.length} item
+                        {selected.length !== 1 ? "s" : ""} to out of stock.
                       </span>{" "}
                       You&apos;ll have to change{" "}
-                      {(allSelected
-                        ? data[0]?.total_count
-                        : selected.length) !== 1
-                        ? "them"
-                        : "it"}{" "}
-                      back manually if you want to undo this change.
+                      {selected.length !== 1 ? "them" : "it"} back manually if
+                      you want to undo this change.
                     </p>
                   </div>
                 </div>
@@ -474,7 +460,7 @@ export default function Table() {
                     disabled={stockMutation.isPending}
                     onClick={() => {
                       stockMutation.mutate({
-                        selected: allSelected || selected,
+                        selected,
                       });
                     }}
                   />
@@ -502,14 +488,8 @@ export default function Table() {
                       <p className="paragraph-small mt-1 text-text-600">
                         You are about to{" "}
                         <span className="font-medium text-text-950">
-                          delete{" "}
-                          {allSelected ? data[0]?.total_count : selected.length}{" "}
-                          item
-                          {(allSelected
-                            ? data[0]?.total_count
-                            : selected.length) !== 1
-                            ? "s"
-                            : ""}
+                          delete {selected.length} item
+                          {selected.length !== 1 ? "s" : ""}
                         </span>
                         , this action cannot be undone.
                       </p>
@@ -549,7 +529,7 @@ export default function Table() {
                       onClick={() => {
                         deleteMutation.mutate({
                           text: deleteText,
-                          selected: allSelected || selected,
+                          selected,
                         });
                       }}
                     />
