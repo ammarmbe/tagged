@@ -15,7 +15,8 @@ export const metadata: Metadata = {
   openGraph: {
     images: [{ url: "https://tagged.ambe.dev/og-image.png", alt: "Tagged" }],
   },
-  description: "Tagged is an e-commerce platform for clothing and accessories.",
+  description:
+    "Store dashboard for Tagged, an e-commerce platform for clothing and accessories.",
 };
 
 export default function RootLayout({
