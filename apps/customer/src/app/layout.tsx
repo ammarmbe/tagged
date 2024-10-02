@@ -12,6 +12,9 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Tagged",
+  openGraph: {
+    images: [{ url: "https://tagged.ambe.dev/og-image.png", alt: "Tagged" }],
+  },
   description: "Tagged is an e-commerce platform for clothing and accessories.",
 };
 

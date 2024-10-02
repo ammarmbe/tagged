@@ -12,6 +12,9 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Tagged Dashboard",
+  openGraph: {
+    images: [{ url: "https://tagged.ambe.dev/og-image.png", alt: "Tagged" }],
+  },
   description: "Tagged is an e-commerce platform for clothing and accessories.",
 };
 
