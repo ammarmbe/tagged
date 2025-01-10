@@ -11,8 +11,8 @@ export async function POST(req: Request) {
   const fileBuffer = await file.arrayBuffer();
 
   const accountName = "taggedimg";
-  const sasToken = process.env.SAS_TOKEN;
   const containerName = "tagged";
+  const sasToken = process.env.SAS_TOKEN;
 
   if (!file) return new Response(JSON.stringify(null), { status: 400 });
 

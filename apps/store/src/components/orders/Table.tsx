@@ -17,7 +17,8 @@ import {
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import ReactSelect from "react-select";
-import { formatCurrency, selectStyles, useFilters, useUser } from "@/utils";
+import { formatCurrency, selectStyles, useUser } from "@/utils";
+import { useFilters } from "@/utils/useFilters";
 import Spinner from "../primitives/Spinner";
 import Filters from "./Filters";
 import Status from "../Status";

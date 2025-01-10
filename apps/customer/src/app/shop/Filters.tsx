@@ -1,6 +1,6 @@
 import { selectStyles } from "@/utils";
 import { DialogClose } from "@radix-ui/react-dialog";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import Creatable from "react-select/creatable";
 import * as Slider from "@radix-ui/react-slider";
 import * as Dialog from "@radix-ui/react-dialog";
@@ -14,24 +14,24 @@ export default function Filters({
   searchParams,
 }: {
   noStore?: boolean;
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
+  const sP = use(searchParams);
+
   const [localFilters, setLocalFilters] = useState(
     (() => {
       const f: TFilter = {};
 
-      if (searchParams.name) f.name = searchParams.name as string;
-      if (searchParams.category) f.category = searchParams.category as string;
-      if (searchParams.store_ids && !noStore)
-        f.store_ids = [searchParams.store_ids as string].flat();
-      if (searchParams.price_min) f.price_min = Number(searchParams.price_min);
-      if (searchParams.price_max) f.price_max = Number(searchParams.price_max);
-      if (searchParams.sale) f.sale = searchParams.sale === "true";
-      if (searchParams.colors)
-        f.colors = [searchParams.colors as string].flat();
-      if (searchParams.in_stock) f.in_stock = searchParams.in_stock === "true";
-      if (searchParams.out_of_stock)
-        f.out_of_stock = searchParams.out_of_stock === "true";
+      if (sP.name) f.name = sP.name as string;
+      if (sP.category) f.category = sP.category as string;
+      if (sP.store_ids && !noStore)
+        f.store_ids = [sP.store_ids as string].flat();
+      if (sP.price_min) f.price_min = Number(sP.price_min);
+      if (sP.price_max) f.price_max = Number(sP.price_max);
+      if (sP.sale) f.sale = sP.sale === "true";
+      if (sP.colors) f.colors = [sP.colors as string].flat();
+      if (sP.in_stock) f.in_stock = sP.in_stock === "true";
+      if (sP.out_of_stock) f.out_of_stock = sP.out_of_stock === "true";
 
       return f;
     })(),
@@ -68,27 +68,21 @@ export default function Filters({
       ...(() => {
         const f: TFilter = {};
 
-        if (searchParams.name) f.name = searchParams.name as string;
-        if (searchParams.category) f.category = searchParams.category as string;
-        if (searchParams.store_ids)
-          f.store_ids = [searchParams.store_ids as string].flat();
-        if (searchParams.price_min)
-          f.price_min = Number(searchParams.price_min);
-        if (searchParams.price_max)
-          f.price_max = Number(searchParams.price_max);
-        if (searchParams.sale) f.sale = searchParams.sale === "true";
-        if (searchParams.colors)
-          f.colors = [searchParams.colors as string].flat();
-        if (searchParams.in_stock)
-          f.in_stock = searchParams.in_stock === "true";
-        if (searchParams.out_of_stock)
-          f.out_of_stock = searchParams.out_of_stock === "true";
+        if (sP.name) f.name = sP.name as string;
+        if (sP.category) f.category = sP.category as string;
+        if (sP.store_ids) f.store_ids = [sP.store_ids as string].flat();
+        if (sP.price_min) f.price_min = Number(sP.price_min);
+        if (sP.price_max) f.price_max = Number(sP.price_max);
+        if (sP.sale) f.sale = sP.sale === "true";
+        if (sP.colors) f.colors = [sP.colors as string].flat();
+        if (sP.in_stock) f.in_stock = sP.in_stock === "true";
+        if (sP.out_of_stock) f.out_of_stock = sP.out_of_stock === "true";
 
         return f;
       })(),
       price_max:
-        typeof searchParams.price_max === "string"
-          ? parseInt(searchParams.price_max)
+        typeof sP.price_max === "string"
+          ? parseInt(sP.price_max)
           : values?.maxPrice,
     });
   }, [searchParams, values?.maxPrice]);
@@ -269,28 +263,28 @@ export default function Filters({
             <div>
               <p className="label">Categories</p>
               <div className="space-y-1 font-medium text-main-500">
-                {searchParams.category !== "jackets" ? (
+                {sP.category !== "jackets" ? (
                   <Link className="block w-fit" href="/shop?category=jackets">
                     Jackets
                   </Link>
                 ) : (
                   <p className="text-primary">Jackets</p>
                 )}
-                {searchParams.category !== "dresses" ? (
+                {sP.category !== "dresses" ? (
                   <Link className="block w-fit" href="/shop?category=dresses">
                     Dresses
                   </Link>
                 ) : (
                   <p className="text-primary">Dresses</p>
                 )}
-                {searchParams.category !== "shoes" ? (
+                {sP.category !== "shoes" ? (
                   <Link className="block w-fit" href="/shop?category=shoes">
                     Shoes
                   </Link>
                 ) : (
                   <p className="text-primary">Shoes</p>
                 )}
-                {searchParams.category !== "accessories" ? (
+                {sP.category !== "accessories" ? (
                   <Link
                     className="block w-fit"
                     href="/shop?category=accessories"
@@ -300,7 +294,7 @@ export default function Filters({
                 ) : (
                   <p className="text-primary">Accessories</p>
                 )}
-                {searchParams.category !== "tops" ? (
+                {sP.category !== "tops" ? (
                   <Link className="block w-fit" href="/shop?category=tops">
                     Tops
                   </Link>
@@ -308,28 +302,28 @@ export default function Filters({
                   <p className="text-primary">Tops</p>
                 )}
                 <div className="ml-5">
-                  {searchParams.category !== "tshirts" ? (
+                  {sP.category !== "tshirts" ? (
                     <Link className="block w-fit" href="/shop?category=tshirts">
                       Tshirts
                     </Link>
                   ) : (
                     <p className="text-primary">Tshirts</p>
                   )}
-                  {searchParams.category !== "shirts" ? (
+                  {sP.category !== "shirts" ? (
                     <Link className="block w-fit" href="/shop?category=shirts">
                       Shirts
                     </Link>
                   ) : (
                     <p className="text-primary">Shirts</p>
                   )}
-                  {searchParams.category !== "hoodies" ? (
+                  {sP.category !== "hoodies" ? (
                     <Link className="block w-fit" href="/shop?category=hoodies">
                       Hoodies
                     </Link>
                   ) : (
                     <p className="text-primary">Hoodies</p>
                   )}
-                  {searchParams.category !== "sweatshirts" ? (
+                  {sP.category !== "sweatshirts" ? (
                     <Link
                       className="block w-fit"
                       href="/shop?category=sweatshirts"
@@ -340,7 +334,7 @@ export default function Filters({
                     <p className="text-primary">Sweatshirts</p>
                   )}
                 </div>
-                {searchParams.category !== "bottoms" ? (
+                {sP.category !== "bottoms" ? (
                   <Link className="block w-fit" href="/shop?category=bottoms">
                     Bottoms
                   </Link>
@@ -348,21 +342,21 @@ export default function Filters({
                   <p className="text-primary">Bottoms</p>
                 )}
                 <div className="ml-5">
-                  {searchParams.category !== "shorts" ? (
+                  {sP.category !== "shorts" ? (
                     <Link className="block w-fit" href="/shop?category=shorts">
                       Shorts
                     </Link>
                   ) : (
                     <p className="text-primary">Shorts</p>
                   )}
-                  {searchParams.category !== "jeans" ? (
+                  {sP.category !== "jeans" ? (
                     <Link className="block w-fit" href="/shop?category=jeans">
                       Jeans
                     </Link>
                   ) : (
                     <p className="text-primary">Jeans</p>
                   )}
-                  {searchParams.category !== "sweatpants" ? (
+                  {sP.category !== "sweatpants" ? (
                     <Link
                       className="block w-fit"
                       href="/shop?category=sweatpants"
@@ -372,14 +366,14 @@ export default function Filters({
                   ) : (
                     <p className="text-primary">Sweatpants</p>
                   )}
-                  {searchParams.category !== "cargo" ? (
+                  {sP.category !== "cargo" ? (
                     <Link className="block w-fit" href="/shop?category=cargo">
                       Cargo
                     </Link>
                   ) : (
                     <p className="text-primary">Cargo</p>
                   )}
-                  {searchParams.category !== "leggings" ? (
+                  {sP.category !== "leggings" ? (
                     <Link
                       className="block w-fit"
                       href="/shop?category=leggings"
@@ -421,7 +415,7 @@ export default function Filters({
                 }
               }
 
-              router.push(pathname + "?" + searchParams.toString());
+              router.push(pathname + "?" + sP.toString());
             }}
           >
             Apply

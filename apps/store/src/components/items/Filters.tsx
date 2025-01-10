@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Input from "../primitives/Input";
 import Select from "../primitives/Select";
 import { useSearchParams } from "next/navigation";
-import { useFilters } from "@/utils";
+import { useFilters } from "@/utils/useFilters";
 import { RiCloseLine, RiFilter3Line } from "react-icons/ri";
 import DialogComponent from "../primitives/Dialog";
 

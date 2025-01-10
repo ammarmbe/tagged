@@ -1,11 +1,12 @@
 "use client";
+
 import Configurations from "@/components/item/Configurations/Configurations";
 import Header from "@/components/header/Header";
 import Info from "@/components/item/Info";
 import Overview from "@/components/item/Overview/Overview";
 import Sales from "@/components/item/Sales";
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { use } from "react";
 import TooltipComponent from "@/components/primitives/Tooltip";
 import { LuDot } from "react-icons/lu";
 import UpdateStock from "@/components/item/UpdateStock";
@@ -14,11 +15,17 @@ import { DialogTrigger } from "@radix-ui/react-dialog";
 import { RiBox3Line, RiTShirt2Line } from "react-icons/ri";
 import Images from "@/components/item/Images";
 
-export default function Page({ params }: { params: { nano_id: string } }) {
+export default function Page({
+  params,
+}: {
+  params: Promise<{ nano_id: string }>;
+}) {
+  const { nano_id } = use(params);
+
   const { data, isLoading } = useQuery({
-    queryKey: ["item", params.nano_id],
+    queryKey: ["item", nano_id],
     queryFn: async () => {
-      const res = await fetch(`/api/item?nano_id=${params.nano_id}`);
+      const res = await fetch(`/api/item?nano_id=${nano_id}`);
       return res.json() as Promise<{
         deleted: boolean;
         id: string;
@@ -74,14 +81,13 @@ export default function Page({ params }: { params: { nano_id: string } }) {
               <TooltipComponent
                 trigger={
                   <span
-                    className={`underline-offset-2 hover:underline 
-                  ${
-                    (data?.quantity ?? 0) == 0
-                      ? "text-error"
-                      : (data?.quantity ?? 0) <= 5
-                        ? "text-warning"
-                        : undefined
-                  }`}
+                    className={`underline-offset-2 hover:underline ${
+                      (data?.quantity ?? 0) == 0
+                        ? "text-error"
+                        : (data?.quantity ?? 0) <= 5
+                          ? "text-warning"
+                          : undefined
+                    }`}
                   >
                     {data?.quantity ?? 0} in stock
                   </span>
@@ -115,13 +121,13 @@ export default function Page({ params }: { params: { nano_id: string } }) {
       />
       <div className="grid grid-cols-1 gap-4 px-5 pb-6 pt-1 sm:gap-6 sm:px-8 2xl:grid-cols-[auto,1fr]">
         <div className="flex flex-col gap-4 sm:gap-6">
-          <Info data={data} isLoading={isLoading} nano_id={params.nano_id} />
-          <Configurations nano_id={params.nano_id} />
-          <Images nano_id={params.nano_id} />
+          <Info data={data} isLoading={isLoading} nano_id={nano_id} />
+          <Configurations nano_id={nano_id} />
+          <Images nano_id={nano_id} />
         </div>
         <div className="flex flex-col gap-4 sm:gap-6">
-          <Overview nano_id={params.nano_id} />
-          <Sales nano_id={params.nano_id} />
+          <Overview nano_id={nano_id} />
+          <Sales nano_id={nano_id} />
         </div>
       </div>
     </main>

@@ -2,7 +2,7 @@
 import Spinner from "@/components/Spinner";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import * as Dialog from "@radix-ui/react-dialog";
-import { useEffect, useMemo, useState } from "react";
+import { use, useEffect, useMemo, useState } from "react";
 import { Filter, Grid, Grid2X2, ShoppingBag, X } from "lucide-react";
 import Filters from "./Filters";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -24,8 +24,10 @@ export interface TFilter {
 export default function ShopAll({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
+  const sP = use(searchParams);
+
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [largeView, setLargeView] = useState(false);
   const router = useRouter();
@@ -34,17 +36,15 @@ export default function ShopAll({
   const filters = useMemo(() => {
     const f: TFilter = {};
 
-    if (searchParams.name) f.name = searchParams.name as string;
-    if (searchParams.category) f.category = searchParams.category as string;
-    if (searchParams.store_ids)
-      f.store_ids = [searchParams.store_ids as string].flat();
-    if (searchParams.price_min) f.price_min = Number(searchParams.price_min);
-    if (searchParams.price_max) f.price_max = Number(searchParams.price_max);
-    if (searchParams.sale) f.sale = searchParams.sale === "true";
-    if (searchParams.colors) f.colors = [searchParams.colors as string].flat();
-    if (searchParams.in_stock) f.in_stock = searchParams.in_stock === "true";
-    if (searchParams.out_of_stock)
-      f.out_of_stock = searchParams.out_of_stock === "true";
+    if (sP.name) f.name = sP.name as string;
+    if (sP.category) f.category = sP.category as string;
+    if (sP.store_ids) f.store_ids = [sP.store_ids as string].flat();
+    if (sP.price_min) f.price_min = Number(sP.price_min);
+    if (sP.price_max) f.price_max = Number(sP.price_max);
+    if (sP.sale) f.sale = sP.sale === "true";
+    if (sP.colors) f.colors = [sP.colors as string].flat();
+    if (sP.in_stock) f.in_stock = sP.in_stock === "true";
+    if (sP.out_of_stock) f.out_of_stock = sP.out_of_stock === "true";
 
     return f;
   }, [searchParams]);

@@ -10,12 +10,19 @@ import Status from "@/components/Status";
 import UpdateStatus from "@/components/order/UpdateStatus";
 import Button from "@/components/primitives/Button";
 import Info from "@/components/order/Info";
+import { use } from "react";
 
-export default function Page({ params }: { params: { nano_id: string } }) {
+export default function Page({
+  params,
+}: {
+  params: Promise<{ nano_id: string }>;
+}) {
+  const { nano_id } = use(params);
+
   const { data, isLoading } = useQuery({
-    queryKey: ["order", params.nano_id],
+    queryKey: ["order", nano_id],
     queryFn: async () => {
-      const res = await fetch(`/api/order?nano_id=${params.nano_id}`);
+      const res = await fetch(`/api/order?nano_id=${nano_id}`);
       return res.json() as Promise<{
         nano_id: string;
         status:
@@ -49,7 +56,7 @@ export default function Page({ params }: { params: { nano_id: string } }) {
     <main className="flex min-h-0 min-w-0 flex-grow flex-col overflow-auto">
       <Header
         icon={<RiInboxUnarchiveLine size={24} className="text-text-600" />}
-        title={`Order ${params.nano_id}`}
+        title={`Order ${nano_id}`}
         description={
           <span className="flex items-center gap-1.5">
             <Status status={data?.status} inline />
@@ -74,7 +81,7 @@ export default function Page({ params }: { params: { nano_id: string } }) {
                 />
               }
               current_status={data?.status}
-              nano_id={params.nano_id}
+              nano_id={nano_id}
             />
           ) : null
         }
@@ -94,8 +101,8 @@ export default function Page({ params }: { params: { nano_id: string } }) {
           }}
           isLoading={isLoading}
         />
-        <Items nano_id={params.nano_id} />
-        <StatusHistory nano_id={params.nano_id} />
+        <Items nano_id={nano_id} />
+        <StatusHistory nano_id={nano_id} />
       </div>
     </main>
   );

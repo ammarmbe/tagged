@@ -27,19 +27,21 @@ const queryClient = new QueryClient();
 export default async function Page({
   params,
 }: {
-  params: { nano_id: string };
+  params: Promise<{ nano_id: string }>;
 }) {
   const { user } = await getUser();
 
+  const { nano_id } = await params;
+
   queryClient.prefetchQuery({
-    queryKey: ["item", params.nano_id],
+    queryKey: ["item", nano_id],
     queryFn: async () => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}/api/item?nano_id=${params.nano_id}`,
+        `${process.env.NEXT_PUBLIC_URL}/api/item?nano_id=${nano_id}`,
       );
       return (await res.json()) as TItem;
     },
   });
 
-  return <Item user={user} nano_id={params.nano_id} />;
+  return <Item user={user} nano_id={nano_id} />;
 }

@@ -5,6 +5,7 @@ import QueryClientProvider from "@/utils/QueryClientProvider";
 import { Toaster } from "@/components/primitives/toast/Toaster";
 import Sidebar from "@/components/Sidebar";
 import { Analytics } from "@vercel/analytics/react";
+import ProgressBar from "@/components/ProgressBar";
 
 const inter = Inter({
   subsets: ["latin-ext"],
@@ -32,6 +33,7 @@ export default function RootLayout({
           <div className="flex h-screen flex-col-reverse bg-bg-0 text-text-950 sm:flex-row">
             <Toaster />
             <Sidebar />
+            <ProgressBar />
             {children}
           </div>
         </body>

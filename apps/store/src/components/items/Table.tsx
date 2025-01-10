@@ -21,7 +21,8 @@ import {
 import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import ReactSelect from "react-select";
-import { formatCurrency, selectStyles, useFilters, useUser } from "@/utils";
+import { formatCurrency, selectStyles, useUser } from "@/utils";
+import { useFilters } from "@/utils/useFilters";
 import Spinner from "../primitives/Spinner";
 import { useDebouncedCallback } from "use-debounce";
 import Filters from "./Filters";
@@ -575,7 +576,7 @@ export default function Table() {
                         style={{
                           width:
                             header.column.id === "checkbox"
-                              ? "3rem"
+                              ? "4rem"
                               : header.column.columnDef.size + "%",
                         }}
                       >
@@ -682,7 +683,7 @@ export default function Table() {
                         style={{
                           width:
                             cell.column.id === "checkbox"
-                              ? "3rem"
+                              ? "4rem"
                               : cell.column.columnDef.size + "%",
                         }}
                         onClick={(e) =>

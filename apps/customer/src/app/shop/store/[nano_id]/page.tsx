@@ -4,7 +4,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import Filters from "../../Filters";
 import { X, Search, ShoppingBag, Grid, Grid2X2, Filter } from "lucide-react";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, use } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Item from "@/components/Item";
@@ -17,9 +17,12 @@ export default function ShopStore({
   searchParams,
   params,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined };
-  params: { nano_id: string };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  params: Promise<{ nano_id: string }>;
 }) {
+  const sP = use(searchParams);
+  const { nano_id } = use(params);
+
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [largeView, setLargeView] = useState(false);
 
@@ -29,21 +32,20 @@ export default function ShopStore({
   const filters = useMemo(() => {
     const f: TFilter = {};
 
-    if (searchParams.name) f.name = searchParams.name as string;
-    if (searchParams.category) f.category = searchParams.category as string;
-    if (searchParams.price_min) f.price_min = Number(searchParams.price_min);
-    if (searchParams.price_max) f.price_max = Number(searchParams.price_max);
-    if (searchParams.sale) f.sale = searchParams.sale === "true";
-    if (searchParams.colors) f.colors = [searchParams.colors as string].flat();
-    if (searchParams.in_stock) f.in_stock = searchParams.in_stock === "true";
-    if (searchParams.out_of_stock)
-      f.out_of_stock = searchParams.out_of_stock === "true";
+    if (sP.name) f.name = sP.name as string;
+    if (sP.category) f.category = sP.category as string;
+    if (sP.price_min) f.price_min = Number(sP.price_min);
+    if (sP.price_max) f.price_max = Number(sP.price_max);
+    if (sP.sale) f.sale = sP.sale === "true";
+    if (sP.colors) f.colors = [sP.colors as string].flat();
+    if (sP.in_stock) f.in_stock = sP.in_stock === "true";
+    if (sP.out_of_stock) f.out_of_stock = sP.out_of_stock === "true";
 
     return f;
   }, [searchParams]);
 
   const debounced = useDebouncedCallback((name) => {
-    const s = new URLSearchParams(searchParams.toString());
+    const s = new URLSearchParams(sP.toString());
     if (name) s.set("name", name);
     else s.delete("name");
     router.push(pathname + "?" + s.toString());
@@ -61,7 +63,7 @@ export default function ShopStore({
       const res = await fetch("/api/shop", {
         method: "POST",
         body: JSON.stringify({
-          store_nano_ids: [params.nano_id],
+          store_nano_ids: [nano_id],
           id: pageParam,
           ...filters,
         }),
@@ -88,9 +90,9 @@ export default function ShopStore({
   });
 
   const { data: settings, isLoading: isSettingsLoading } = useQuery({
-    queryKey: ["description", params.nano_id],
+    queryKey: ["description", nano_id],
     queryFn: async () => {
-      const res = await fetch(`/api/store?nano_id=${params.nano_id}`);
+      const res = await fetch(`/api/store?nano_id=${nano_id}`);
 
       return res.json() as Promise<{
         pfp_url: string;
@@ -348,7 +350,7 @@ export default function ShopStore({
                   }}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
-                      const s = new URLSearchParams(searchParams.toString());
+                      const s = new URLSearchParams(sP.toString());
                       if (e.currentTarget.value)
                         s.set("name", e.currentTarget.value);
                       else s.delete("name");

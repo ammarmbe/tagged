@@ -11,11 +11,7 @@ export async function GET(req: NextRequest) {
   const data = (
     await sql(
       "SELECT created_at + INTERVAL '5 minutes' < NOW() as old FROM password_reset_codes WHERE ip = $1",
-      [
-        requestIp.getClientIp(req as unknown as requestIp.Request) ??
-          req.ip ??
-          null,
-      ],
+      [requestIp.getClientIp(req as unknown as requestIp.Request) ?? null],
     )
   )[0];
 
@@ -35,11 +31,7 @@ export async function POST(req: NextRequest) {
   const data = (
     await sql(
       "SELECT created_at + INTERVAL '5 minutes' < NOW() as old FROM password_reset_codes WHERE ip = $1",
-      [
-        requestIp.getClientIp(req as unknown as requestIp.Request) ??
-          req.ip ??
-          null,
-      ],
+      [requestIp.getClientIp(req as unknown as requestIp.Request) ?? null],
     )
   )[0];
 
@@ -64,7 +56,7 @@ export async function POST(req: NextRequest) {
     [
       code,
       user[0]?.id,
-      requestIp.getClientIp(req as unknown as requestIp.Request) ?? req.ip,
+      requestIp.getClientIp(req as unknown as requestIp.Request),
     ],
   );
 
@@ -79,7 +71,7 @@ export async function POST(req: NextRequest) {
         : [email],
     subject: "Reset your password - Tagged",
     text: "Reset your password",
-    react: ResetPassword({ code, name: user[0]?.name }),
+    react: await ResetPassword({ code, name: user[0]?.name }),
   });
 
   return new Response("OK");

@@ -4,7 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: `${process.env.ACCOUNT_NAME}.blob.core.windows.net`,
+        hostname: "taggedimg.blob.core.windows.net",
       },
     ],
   },

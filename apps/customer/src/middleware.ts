@@ -57,9 +57,7 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
         method: "POST",
         body: JSON.stringify({
           item_id: request.nextUrl.pathname.split("/item/")[1],
-          ip:
-            requestIp.getClientIp(request as unknown as requestIp.Request) ??
-            request.ip,
+          ip: requestIp.getClientIp(request as unknown as requestIp.Request),
         }),
       });
     }
@@ -69,9 +67,7 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
         method: "POST",
         body: JSON.stringify({
           store_id: request.nextUrl.pathname.split("/shop/store/")[1],
-          ip:
-            requestIp.getClientIp(request as unknown as requestIp.Request) ??
-            request.ip,
+          ip: requestIp.getClientIp(request as unknown as requestIp.Request),
         }),
       });
     }

@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
 
   const data = await sql(
     "SELECT COUNT(*) AS count FROM incorrect_attempts WHERE ip = $1 AND created_at > NOW() - INTERVAL '5 minutes'",
-    [requestIp.getClientIp(req as unknown as requestIp.Request) ?? req.ip],
+    [requestIp.getClientIp(req as unknown as requestIp.Request)],
   );
 
   if (data[0]?.count > 5) {
@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
 
   if (!validPassword) {
     await sql("INSERT INTO incorrect_attempts (ip) VALUES ($1)", [
-      requestIp.getClientIp(req as unknown as requestIp.Request) ?? req.ip,
+      requestIp.getClientIp(req as unknown as requestIp.Request),
     ]);
   }
 
@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
 
   const session = await lucia.createSession(user[0]?.id, {});
   const sessionCookie = lucia.createSessionCookie(session.id);
-  cookies().set(
+  (await cookies()).set(
     sessionCookie.name,
     sessionCookie.value,
     sessionCookie.attributes,
@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   const data = await sql(
     "SELECT COUNT(*) AS count FROM incorrect_attempts WHERE ip = $1 AND created_at > NOW() - INTERVAL '5 minutes'",
-    [requestIp.getClientIp(req as unknown as requestIp.Request) ?? req.ip],
+    [requestIp.getClientIp(req as unknown as requestIp.Request)],
   );
 
   if (data[0]?.count > 5) {

@@ -3,7 +3,8 @@ import { cache } from "react";
 import { lucia } from "./auth";
 
 const getUser = cache(async () => {
-  const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null;
+  const sessionId =
+    (await cookies()).get(lucia.sessionCookieName)?.value ?? null;
 
   if (!sessionId)
     return {
@@ -16,7 +17,7 @@ const getUser = cache(async () => {
   try {
     if (session?.fresh) {
       const sessionCookie = lucia.createSessionCookie(session.id);
-      cookies().set(
+      (await cookies()).set(
         sessionCookie.name,
         sessionCookie.value,
         sessionCookie.attributes,
@@ -24,7 +25,7 @@ const getUser = cache(async () => {
     }
     if (!session) {
       const sessionCookie = lucia.createBlankSessionCookie();
-      cookies().set(
+      (await cookies()).set(
         sessionCookie.name,
         sessionCookie.value,
         sessionCookie.attributes,

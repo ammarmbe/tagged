@@ -65,11 +65,7 @@ const Input = React.forwardRef<
             <input ref={ref} {...props} className={classes} />
           )}
           <div
-            className={`absolute flex items-center justify-center text-text-400 transition-all peer-hover:text-text-600 peer-focus:text-text-950 ${
-              size === "md"
-                ? "size-[2.375rem]"
-                : "top-[calc(0.375rem+1px)] sm:top-[calc(0.5rem+1px)]"
-            } ${iconSide === "right" ? "right-[calc(0.375rem+1px)] sm:right-[calc(0.5rem+1px)]" : "left-[calc(0.375rem+1px)] sm:left-[calc(0.5rem+1px)]"}`}
+            className={`absolute top-0 flex size-[2.375rem] items-center justify-center text-text-400 transition-all peer-hover:text-text-600 peer-focus:text-text-950 ${iconSide === "right" ? "right-0" : "left-0"}`}
           >
             {icon}
           </div>

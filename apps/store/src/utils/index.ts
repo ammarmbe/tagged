@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { User } from "lucia";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { StylesConfig } from "react-select";
 
 export const useUser = () => {
@@ -250,39 +249,6 @@ export const selectStyles = ({
     never
   >;
 };
-
-export function useFilters() {
-  const router = useRouter();
-  const pathname = usePathname();
-  const sP = useSearchParams();
-  const searchParams = new URLSearchParams(Object.fromEntries(sP.entries()));
-
-  const get = (filter: string) => {
-    return searchParams.get(filter);
-  };
-
-  const set = (filter: string, value: string) => {
-    searchParams.set(filter, value);
-
-    router.push(pathname + "?" + searchParams.toString());
-  };
-
-  const clear = (filter: string) => {
-    searchParams.delete(filter);
-
-    router.push(pathname + "?" + searchParams.toString());
-  };
-
-  const clearAll = () => {
-    router.push(pathname);
-  };
-
-  const getAll = () => {
-    return Object.fromEntries(searchParams.entries());
-  };
-
-  return { get, set, clear, clearAll, getAll };
-}
 
 export const timeConstraint = (
   range: "day" | "week" | "month" | "year" | "all",
