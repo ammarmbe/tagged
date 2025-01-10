@@ -4,7 +4,7 @@ import Input from "@/components/primitives/Input";
 import { RiCloseLine, RiPantoneLine } from "react-icons/ri";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useDebouncedCallback } from "use-debounce";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import { useQueryClient } from "@tanstack/react-query";
 
 const customColors = {

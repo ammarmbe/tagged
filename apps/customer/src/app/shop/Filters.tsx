@@ -5,7 +5,8 @@ import Creatable from "react-select/creatable";
 import * as Slider from "@radix-ui/react-slider";
 import * as Dialog from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import { TFilter } from "./page";
 import Link from "next/link";
 

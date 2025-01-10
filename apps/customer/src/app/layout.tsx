@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import QueryClientProvider from "@/utils/QueryClientProvider";
 import Header from "@/components/header/Header";
-import LoadingBar from "@/utils/LoadingBar";
+import ProgressBar from "@/utils/ProgressBar";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/utils/toast/toaster";
 import { Analytics } from "@vercel/analytics/react";
@@ -32,7 +32,7 @@ export default function RootLayout({
       >
         <Analytics />
         <QueryClientProvider>
-          <LoadingBar />
+          <ProgressBar />
           <Toaster />
           <Header />
           <div className="flex max-w-full flex-grow flex-col">{children}</div>

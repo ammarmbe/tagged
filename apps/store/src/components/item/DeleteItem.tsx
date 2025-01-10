@@ -4,7 +4,7 @@ import Button from "../primitives/Button";
 import Input from "../primitives/Input";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import DialogComponent from "../primitives/Dialog";
 
 export default function DeleteItem({
@@ -39,9 +39,9 @@ export default function DeleteItem({
       open={deleteOpen}
       onOpenChange={setDeleteOpen}
     >
-      <div className="bg-bg-0 pointer-events-auto h-fit min-w-[350px] max-w-2xl rounded-2xl sm:max-w-md">
+      <div className="pointer-events-auto h-fit min-w-[350px] max-w-2xl rounded-2xl bg-bg-0 sm:max-w-md">
         <div className="flex gap-4 p-4">
-          <div className="text-text-600 h-fit rounded-full border p-2.5">
+          <div className="h-fit rounded-full border p-2.5 text-text-600">
             <RiDeleteBinLine size={24} />
           </div>
           <div className="flex-grow">
@@ -55,14 +55,14 @@ export default function DeleteItem({
                 />
               </Dialog.Close>
             </div>
-            <p className="paragraph-small text-text-600 mt-1">
+            <p className="paragraph-small mt-1 text-text-600">
               This action cannot be undone.
             </p>
           </div>
         </div>
         <div className="border-t" />
         <div className="p-5">
-          <p className="label-small text-text-600 mb-1">
+          <p className="label-small mb-1 text-text-600">
             Please type <span className="text-text-950">DELETE</span> to
             confirm.
           </p>

@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Address from "./Address";
 import Items from "./Items";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import { useForm } from "react-hook-form";
 import Spinner from "@/components/Spinner";
 

@@ -8,7 +8,8 @@ import { useState, useEffect, useMemo, use } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Item from "@/components/Item";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import { TFilter } from "../../page";
 import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
 import Image from "next/image";
@@ -184,7 +185,7 @@ export default function ShopStore({
                   {settings?.tiktok ? (
                     <a
                       href={new URL(
-                        `https://www.x.com/${settings?.tiktok}`,
+                        `https://www.tiktok.com/${settings?.tiktok}`,
                       ).toString()}
                       target="_blank"
                       className="button gray !p-2"

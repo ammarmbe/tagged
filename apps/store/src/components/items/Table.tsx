@@ -19,7 +19,8 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import ReactSelect from "react-select";
 import { formatCurrency, selectStyles, useUser } from "@/utils";
 import { useFilters } from "@/utils/useFilters";

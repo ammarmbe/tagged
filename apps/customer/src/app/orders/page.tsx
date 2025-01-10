@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import Spinner from "@/components/Spinner";
 import { ShoppingBag } from "lucide-react";
 import Order from "@/components/Order";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import CancelOrder from "./CancelOrder";
 import ReturnOrder from "./ReturnOrder";
 

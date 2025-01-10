@@ -6,7 +6,7 @@ import { TRange } from "./RevenueOverview/RevenueOverview";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../primitives/Loading";
 import { RiSparklingLine, RiTShirt2Line } from "react-icons/ri";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 
 export default function BestSellers() {
   const router = useRouter();

@@ -2,7 +2,7 @@ import { formatCurrency } from "@/utils";
 import { RiTShirt2Line } from "react-icons/ri";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../primitives/Loading";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 
 export default function Items({ nano_id }: { nano_id: string }) {
   const router = useRouter();

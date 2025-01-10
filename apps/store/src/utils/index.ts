@@ -252,27 +252,27 @@ export const selectStyles = ({
 
 export const timeConstraint = (
   range: "day" | "week" | "month" | "year" | "all",
-  table?: string,
+  tbl?: string,
   column?: string,
 ) => {
   return range === "day"
-    ? `DATE(${table ? table + "." : ""}${
+    ? `DATE(${tbl ? tbl + "." : ""}${
         column ? column : "created_at"
       }) = CURRENT_DATE`
     : range === "week"
-      ? `EXTRACT(WEEK FROM ${table ? table + "." : ""}${
+      ? `EXTRACT(WEEK FROM ${tbl ? tbl + "." : ""}${
           column ? column : "created_at"
         }) = EXTRACT(WEEK FROM CURRENT_DATE) AND EXTRACT(YEAR FROM ${
-          table ? table + "." : ""
+          tbl ? tbl + "." : ""
         }${column ? column : "created_at"}) = EXTRACT(YEAR FROM CURRENT_DATE)`
       : range === "month"
-        ? `EXTRACT(MONTH FROM ${table ? table + "." : ""}${
+        ? `EXTRACT(MONTH FROM ${tbl ? tbl + "." : ""}${
             column ? column : "created_at"
           }) = EXTRACT(MONTH FROM CURRENT_DATE) AND EXTRACT(YEAR FROM ${
-            table ? table + "." : ""
+            tbl ? tbl + "." : ""
           }${column ? column : "created_at"}) = EXTRACT(YEAR FROM CURRENT_DATE)`
         : range === "year"
-          ? `EXTRACT(YEAR FROM ${table ? table + "." : ""}${
+          ? `EXTRACT(YEAR FROM ${tbl ? tbl + "." : ""}${
               column ? column : "created_at"
             }) = EXTRACT(YEAR FROM CURRENT_DATE)`
           : "1=1";

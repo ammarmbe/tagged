@@ -5,7 +5,7 @@ import Select from "@/components/primitives/Select";
 import { RiFileTextLine } from "react-icons/ri";
 import { useMemo } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import { useQueryClient } from "@tanstack/react-query";
 
 export default function ItemDetails() {

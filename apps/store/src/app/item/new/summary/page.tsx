@@ -4,7 +4,7 @@ import FancyButton from "@/components/primitives/FancyButton";
 import { formatCurrency } from "@/utils";
 import { RiArrowRightSLine, RiFileTextLine } from "react-icons/ri";
 import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import { useQueryClient } from "@tanstack/react-query";
 import React, { useMemo } from "react";
 
@@ -91,15 +91,15 @@ export default function ItemSummary() {
     <>
       <div className="hidden flex-col items-center pt-12 sm:flex">
         <div className="relative w-fit rounded-full bg-[linear-gradient(180deg,#E4E5E7_0%,rgba(228,229,231,0)76.56%)] p-px">
-          <div className="bg-bg-0 absolute inset-px rounded-full" />
+          <div className="absolute inset-px rounded-full bg-bg-0" />
           <div className="relative z-10 w-fit rounded-full bg-[linear-gradient(180deg,rgba(228,229,231,0.48)0%,rgba(247,248,248,0)100%,rgba(228,229,231,0)100%)] p-4">
-            <div className="bg-bg-0 w-fit rounded-full border p-4 shadow-[0px_2px_4px_0px_#1B1C1D0A]">
+            <div className="w-fit rounded-full border bg-bg-0 p-4 shadow-[0px_2px_4px_0px_#1B1C1D0A]">
               <RiFileTextLine size={32} className="text-text-600" />
             </div>
           </div>
         </div>
         <div className="title-h5 mt-2">Item Summary</div>
-        <p className="paragraph-medium text-text-600 mt-1">
+        <p className="paragraph-medium mt-1 text-text-600">
           Double check the details of your item, you can always go back and edit
           them.
         </p>
@@ -107,7 +107,7 @@ export default function ItemSummary() {
       <div className="sm:card flex h-fit w-full flex-grow flex-col !gap-0 !overflow-visible !p-0 sm:max-w-md sm:flex-grow-0">
         <div className="label-medium p-4">Item Summary</div>
         <div className="flex min-h-0 flex-grow flex-col sm:flex-grow-0">
-          <div className="subheading-xsmall bg-bg-50 flex items-center justify-between px-2 py-1.5 pl-4 text-text-400">
+          <div className="subheading-xsmall flex items-center justify-between bg-bg-50 px-2 py-1.5 pl-4 text-text-400">
             Item details
           </div>
           <div className="grid grid-cols-[1fr,auto] gap-2 p-4">
@@ -139,7 +139,7 @@ export default function ItemSummary() {
                 : "-"}
             </p>
           </div>
-          <div className="subheading-xsmall bg-bg-50 flex items-center justify-between px-2 py-1.5 pl-4 text-text-400">
+          <div className="subheading-xsmall flex items-center justify-between bg-bg-50 px-2 py-1.5 pl-4 text-text-400">
             Colors & Sizes
           </div>
           <div className="grid grid-cols-[1fr,auto] gap-2 p-4">
@@ -163,7 +163,7 @@ export default function ItemSummary() {
             <p className="paragraph-small text-text-600">Sizes</p>
             <div className="label-small text-end">{sizes?.join(", ")}</div>
           </div>
-          <div className="subheading-xsmall bg-bg-50 flex items-center justify-between px-2 py-1.5 pl-4 text-text-400">
+          <div className="subheading-xsmall flex items-center justify-between bg-bg-50 px-2 py-1.5 pl-4 text-text-400">
             Quantities
           </div>
           <div className="grid grid-cols-[1fr,auto] gap-2 p-4">
@@ -180,7 +180,7 @@ export default function ItemSummary() {
               );
             })}
           </div>
-          <div className="subheading-xsmall bg-bg-50 flex items-center justify-between px-2 py-1.5 pl-4 text-text-400">
+          <div className="subheading-xsmall flex items-center justify-between bg-bg-50 px-2 py-1.5 pl-4 text-text-400">
             Images
           </div>
           <div className="grid grid-cols-[1fr,auto] gap-2 p-4">

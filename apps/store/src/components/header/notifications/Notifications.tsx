@@ -7,7 +7,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { LuDot } from "react-icons/lu";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { formatCurrency } from "@/utils";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 dayjs.extend(relativeTime);
 
 export default function Notifications() {

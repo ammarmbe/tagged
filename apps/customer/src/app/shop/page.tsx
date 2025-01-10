@@ -7,7 +7,8 @@ import { Filter, Grid, Grid2X2, ShoppingBag, X } from "lucide-react";
 import Filters from "./Filters";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Item from "@/components/Item";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 
 export interface TFilter {
   name?: string;

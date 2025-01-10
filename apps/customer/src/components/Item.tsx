@@ -3,7 +3,7 @@ import Link from "@/components/primitives/Link";
 import * as AspectRatio from "@radix-ui/react-aspect-ratio";
 import { useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 
 export default function Item({
   item,

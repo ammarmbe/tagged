@@ -1,6 +1,7 @@
 import Spinner from "@/components/Spinner";
 import { useQuery } from "@tanstack/react-query";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
 
 export default function OrderItems({ orderId }: { orderId: number }) {

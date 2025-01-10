@@ -1,6 +1,7 @@
 "use client";
 import { useQueryClient } from "@tanstack/react-query";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import { useEffect } from "react";
 import { RiCheckFill, RiArrowRightSLine } from "react-icons/ri";
 
@@ -96,7 +97,7 @@ export default function Sidebar() {
               <div
                 className={
                   level.pathname === pathname
-                    ? "text-text-600 hidden transition-all sm:block"
+                    ? "hidden text-text-600 transition-all sm:block"
                     : "hidden opacity-0 transition-all sm:block"
                 }
               >

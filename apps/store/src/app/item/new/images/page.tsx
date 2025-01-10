@@ -3,7 +3,7 @@ import Button from "@/components/primitives/Button";
 import { nanoid } from "nanoid";
 import { useMemo, useState } from "react";
 import { RiImageLine, RiUploadCloud2Line } from "react-icons/ri";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import { useQueryClient } from "@tanstack/react-query";
 import ImageComponent from "@/components/Image";
 import imageCompression from "browser-image-compression";

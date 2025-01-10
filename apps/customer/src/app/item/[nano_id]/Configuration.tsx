@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { TItem } from "./page";
 import { Dispatch, SetStateAction } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import { toast } from "@/utils/toast/use-toast";
 import {
   ToastTitle,

@@ -18,7 +18,7 @@ import {
   RiBarcodeLine,
   RiExpandUpDownLine,
 } from "react-icons/ri";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 
 type TSale = {
   total_count: number;
