@@ -53,7 +53,7 @@ export async function sendNewOrderEmailToStore(
         : [email],
     subject: `New order from ${order.customer_name} - Tagged`,
     text: `New order from ${order.customer_name} - Tagged`,
-    react: NewOrderStore({
+    react: await NewOrderStore({
       order,
       items,
     }),

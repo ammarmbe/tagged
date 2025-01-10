@@ -60,7 +60,7 @@ export async function generateCode(
         : [email],
     subject: "Verify your email - Tagged",
     text: "Verify your email to start shopping at Tagged",
-    react: EmailVerification({ verificationToken: code, name }),
+    react: await EmailVerification({ verificationToken: code, name }),
   });
 
   return code;

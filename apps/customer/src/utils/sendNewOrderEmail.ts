@@ -54,7 +54,7 @@ export async function sendNewOrderEmail(order_id: string, email: string) {
         : [email],
     subject: `Your order from ${order?.store_name} - Tagged`,
     text: `Your order from ${order?.store_name} - Tagged`,
-    react: NewOrder({
+    react: await NewOrder({
       order,
       items,
     }),

@@ -40,7 +40,7 @@ export async function PATCH(req: Request) {
         : [user.email],
     subject: "Your return request - Tagged",
     text: "Your return request",
-    react: ReturnRequest({ nano_id: nano_id }),
+    react: await ReturnRequest({ nano_id: nano_id }),
   });
 
   await resend.emails.send({
@@ -61,7 +61,7 @@ export async function PATCH(req: Request) {
           ],
     subject: "Return requested - Tagged",
     text: "Return requested",
-    react: ReturnRequestStore({ nano_id: nano_id }),
+    react: await ReturnRequestStore({ nano_id: nano_id }),
   });
 
   return new Response("OK");

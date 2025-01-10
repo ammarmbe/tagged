@@ -45,7 +45,7 @@ export async function PATCH(req: Request) {
         : [user.email],
     subject: "Your order has been cancelled - Tagged",
     text: "Your order has been cancelled",
-    react: OrderCancelled({ nano_id: nano_id }),
+    react: await OrderCancelled({ nano_id: nano_id }),
   });
 
   await resend.emails.send({
@@ -66,7 +66,7 @@ export async function PATCH(req: Request) {
           ],
     subject: "An order has been cancelled - Tagged",
     text: "An order has been cancelled",
-    react: OrderCancelledStore({ nano_id: nano_id }),
+    react: await OrderCancelledStore({ nano_id: nano_id }),
   });
 
   return new Response("OK");
