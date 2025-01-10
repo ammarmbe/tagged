@@ -4,7 +4,7 @@ import "./globals.css";
 import QueryClientProvider from "@/utils/QueryClientProvider";
 import { Toaster } from "@/components/primitives/toast/Toaster";
 import Sidebar from "@/components/Sidebar";
-import { Analytics } from "@vercel/analytics/react";
+import { Analytics } from "@vercel/analytics/next";
 import ProgressBar from "@/components/ProgressBar";
 
 const inter = Inter({
