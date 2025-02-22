@@ -379,9 +379,9 @@ export default function Table() {
   return (
     <>
       <div className="flex flex-wrap justify-between gap-3 pb-4 pt-6">
-        <div className="hidden min-w-[300px] grid-cols-3 gap-4 rounded-[10px] bg-bg-50 p-1 sm:grid">
+        <div className="hidden min-w-[300px] grid-cols-3 gap-4 rounded-[12px] bg-bg-50 p-1 sm:grid">
           <button
-            className={`label-small rounded-[10px] px-4 py-1 transition-all ${
+            className={`label-small rounded-[8px] px-4 py-1 transition-all ${
               !itemFilters.availability
                 ? "bg-bg-0 shadow-[0px_2px_4px_0px_#1B1C1D05,0px_6px_10px_0px_#1B1C1D0F]"
                 : "text-text-400"
@@ -391,7 +391,7 @@ export default function Table() {
             All
           </button>
           <button
-            className={`label-small rounded-[10px] px-4 py-1 transition-all ${
+            className={`label-small rounded-[8px] px-4 py-1 transition-all ${
               itemFilters.availability === "in_stock"
                 ? "bg-bg-0 shadow-[0px_2px_4px_0px_#1B1C1D05,0px_6px_10px_0px_#1B1C1D0F]"
                 : "text-text-400"
@@ -401,7 +401,7 @@ export default function Table() {
             In stock
           </button>
           <button
-            className={`label-small rounded-[10px] px-4 py-1 transition-all ${
+            className={`label-small rounded-[8px] px-4 py-1 transition-all ${
               itemFilters.availability === "out_of_stock"
                 ? "bg-bg-0 shadow-[0px_2px_4px_0px_#1B1C1D05,0px_6px_10px_0px_#1B1C1D0F]"
                 : "text-text-400"

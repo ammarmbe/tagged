@@ -144,7 +144,7 @@ export default function Sidebar() {
                         pathname.startsWith(option.link)) ||
                       pathname === option.link
                         ? "text-text-600"
-                        : "text-text-0")
+                        : "text-transparent")
                     }
                   />
                 )}

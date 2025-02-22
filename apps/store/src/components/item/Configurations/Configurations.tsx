@@ -55,9 +55,9 @@ export default function ItemConfigurations({ nano_id }: { nano_id: string }) {
           }}
         />
       </div>
-      <div className="mx-4 grid grid-cols-2 gap-4 rounded-[10px] bg-bg-50 p-1 sm:min-w-[300px]">
+      <div className="mx-4 grid grid-cols-2 gap-4 rounded-[12px] bg-bg-50 p-1 sm:min-w-[300px]">
         <button
-          className={`label-small rounded-[10px] px-4 py-1 transition-all ${
+          className={`label-small rounded-[8px] px-4 py-1 transition-all ${
             sizesOpen
               ? "bg-bg-0 shadow-[0px_2px_4px_0px_#1B1C1D05,0px_6px_10px_0px_#1B1C1D0F]"
               : "text-text-400"
@@ -67,7 +67,7 @@ export default function ItemConfigurations({ nano_id }: { nano_id: string }) {
           Sizes
         </button>
         <button
-          className={`label-small rounded-[10px] px-4 py-1 transition-all ${
+          className={`label-small rounded-[8px] px-4 py-1 transition-all ${
             !sizesOpen
               ? "bg-bg-0 shadow-[0px_2px_4px_0px_#1B1C1D05,0px_6px_10px_0px_#1B1C1D0F]"
               : "text-text-400"
