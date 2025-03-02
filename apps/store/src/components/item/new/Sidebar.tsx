@@ -70,7 +70,7 @@ export default function Sidebar() {
           {levels.map((level, index) => (
             <div
               key={index}
-              className={`flex cursor-pointer items-center justify-center gap-2.5 rounded-[10px] p-2 transition-all ${
+              className={`flex items-center justify-center gap-2.5 rounded-[10px] p-2 transition-all ${
                 level.pathname === pathname
                   ? "bg-bg-0 shadow-[0px_2px_4px_0px_#1B1C1D0A]"
                   : "text-text-600"

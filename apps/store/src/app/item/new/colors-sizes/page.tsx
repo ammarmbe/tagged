@@ -216,7 +216,7 @@ export default function ColorsSizes() {
                   >
                     <div className="grid grid-cols-[auto,1fr] gap-x-2 gap-y-1">
                       <div />
-                      <div className="flex items-center justify-between">
+                      <div className="-mt-1 flex items-center justify-between">
                         <label
                           htmlFor={"colorName" + i}
                           className="label-small"
@@ -230,7 +230,7 @@ export default function ColorsSizes() {
                         </label>
                         <button
                           color="gray"
-                          className={`!rounded-full border-none !bg-transparent !p-0.5 !text-[${
+                          className={`!rounded-full border-none !p-0.5 !text-[${
                             customColors[color.color.toLowerCase()]?.text
                           }]`}
                           onClick={() => {

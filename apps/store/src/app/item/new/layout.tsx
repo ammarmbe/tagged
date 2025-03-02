@@ -10,7 +10,7 @@ export default function Layout({
   return (
     <div className="flex h-screen flex-grow flex-col sm:flex-row">
       <Sidebar />
-      <div className="relative z-10 flex min-h-0 min-w-0 flex-grow flex-col items-center gap-10 overflow-auto">
+      <div className="relative z-10 flex min-h-0 min-w-0 flex-grow flex-col items-center gap-10 overflow-auto p-5">
         <BackButton />
         {children}
       </div>

@@ -83,7 +83,15 @@ export default function ItemSummary() {
       return res;
     },
     async onSuccess(data) {
-      if (data.ok) router.push(`/item/${await data.text()}`);
+      if (data.ok) {
+        queryClient.setQueryData(["itemDetails"], () => undefined);
+        queryClient.setQueryData(["colors"], () => undefined);
+        queryClient.setQueryData(["sizes"], () => undefined);
+        queryClient.setQueryData(["quantities"], () => undefined);
+        queryClient.setQueryData(["images"], () => undefined);
+
+        router.push(`/item/${await data.text()}`);
+      }
     },
   });
 
@@ -116,7 +124,7 @@ export default function ItemSummary() {
             <p className="paragraph-small text-text-600">Description</p>
             <p className="label-small text-end">{itemDetails?.description}</p>
             <p className="paragraph-small text-text-600">Category</p>
-            <p className="label-small text-end">
+            <p className="label-small flex items-center gap-2 text-end">
               {itemDetails?.category?.value?.map((c, i) => (
                 <React.Fragment key={c + i}>
                   <span className="underline-offset-2 hover:underline">

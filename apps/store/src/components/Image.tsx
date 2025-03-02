@@ -116,7 +116,7 @@ export default function ImageComponent({
           <p className="label-small">
             {image.file?.name || image.id.substring(0, image.id.length - 22)}
           </p>
-          <div className="paragraph-xsmall flex items-center gap-1 text-text-400">
+          <div className="paragraph-xsmall flex flex-wrap items-center gap-1 text-text-400">
             {fileSize ? (
               <span>
                 {fileSize / 1024 / 1024 > 1
